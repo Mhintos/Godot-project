@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://8uyo80ltsffg"]
+
+[ext_resource type="Script" uid="uid://s75h4luqbgf6" path="res://script/documents/document.gd" id="1_x5atu"]
+[ext_resource type="Texture2D" uid="uid://bcyae356cpaok" path="res://assets/documents/campusaccess.png" id="2_a3565"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x5atu"]
+size = Vector2(261, 321)
+
+[node name="document" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+input_pickable = true
+script = ExtResource("1_x5atu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(864, 181.93001)
+scale = Vector2(0.05, 0.046)
+texture = ExtResource("2_a3565")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(862.5, 180.43001)
+shape = SubResource("RectangleShape2D_x5atu")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1kokxbf0kded"]
+
+[ext_resource type="Script" uid="uid://nu45nu38vhx2" path="res://script/documents/document_thumbnail.gd" id="1_8ff0r"]
+[ext_resource type="Texture2D" uid="uid://bcyae356cpaok" path="res://assets/documents/campusaccess.png" id="2_8ff0r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ecfl"]
+size = Vector2(80, 102)
+
+[node name="DocumentThumbnail" type="Area2D"]
+script = ExtResource("1_8ff0r")
+thumbnail_texture = ExtResource("2_8ff0r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.015, 0.015)
+texture = ExtResource("2_8ff0r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7ecfl")

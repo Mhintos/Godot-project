@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://cjkqk8fhkjsme"]
+
+[ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/background.png" id="1_eqw22"]
+[ext_resource type="Texture2D" uid="uid://6fs4qhlnbevr" path="res://assets/ui/organizer.png" id="2_bmk1n"]
+[ext_resource type="Texture2D" uid="uid://bv5npysftqwu6" path="res://assets/ui/minitable.png" id="3_cq3x7"]
+[ext_resource type="Texture2D" uid="uid://cjr4pvrvwlmyk" path="res://assets/ui/blinds.png" id="4_726ts"]
+[ext_resource type="Texture2D" uid="uid://d1c2u7cynl40l" path="res://assets/ui/buttonblinds.png" id="5_k8hxm"]
+[ext_resource type="Texture2D" uid="uid://c3q5v5awvuspm" path="res://assets/ui/buttonstamp.png" id="6_yfmp5"]
+[ext_resource type="Script" uid="uid://coa1faqglk504" path="res://script/documents/document_manager.gd" id="7_726ts"]
+[ext_resource type="PackedScene" uid="uid://b1kokxbf0kded" path="res://scene/documents/Thumb_ID.tscn" id="7_k8hxm"]
+[ext_resource type="PackedScene" uid="uid://cn832dek0oew7" path="res://scene/documents/Thumb_Permit.tscn" id="8_726ts"]
+[ext_resource type="PackedScene" uid="uid://8uyo80ltsffg" path="res://scene/documents/Document.tscn" id="8_k8hxm"]
+
+[node name="Inspection2D" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(578, 325.00003)
+scale = Vector2(0.08968069, 0.090965696)
+texture = ExtResource("1_eqw22")
+metadata/_edit_lock_ = true
+
+[node name="organizer" type="Sprite2D" parent="Background"]
+position = Vector2(-4038.2163, 1023.7373)
+scale = Vector2(3.6011603, 3.3877242)
+texture = ExtResource("2_bmk1n")
+metadata/_edit_lock_ = true
+
+[node name="blinds" type="Sprite2D" parent="Background"]
+position = Vector2(-4061.632, -1739.6672)
+scale = Vector2(4.778063, 5.657247)
+texture = ExtResource("4_726ts")
+metadata/_edit_lock_ = true
+
+[node name="button blinds" type="Sprite2D" parent="Background"]
+position = Vector2(-2051.7236, -2363.5288)
+scale = Vector2(4.072609, 3.7144842)
+texture = ExtResource("5_k8hxm")
+metadata/_edit_lock_ = true
+
+[node name="button stamp" type="Sprite2D" parent="Background"]
+position = Vector2(6266.6787, -2297.5698)
+scale = Vector2(2.5960171, 2.7225235)
+texture = ExtResource("6_yfmp5")
+metadata/_edit_lock_ = true
+
+[node name="mini table" type="Sprite2D" parent="."]
+position = Vector2(216.5, 419)
+scale = Vector2(0.48850572, 0.56363636)
+texture = ExtResource("3_cq3x7")
+
+[node name="MiniTableLayer" type="Node2D" parent="."]
+
+[node name="Thumb_ID" parent="MiniTableLayer" instance=ExtResource("7_k8hxm")]
+position = Vector2(83, 443)
+doc_id = "id_card"
+full_document_scene = ExtResource("8_k8hxm")
+
+[node name="Thumb_Permit" parent="MiniTableLayer" instance=ExtResource("8_726ts")]
+position = Vector2(221, 459)
+
+[node name="DocumentLayer" type="Node2D" parent="."]
+
+[node name="InspectSpawn" type="Marker2D" parent="."]
+
+[node name="DocumentManager" type="Node" parent="."]
+script = ExtResource("7_726ts")
+document_layer_path = NodePath("../DocumentLayer")
+inspect_spawn_path = NodePath("../InspectSpawn")
