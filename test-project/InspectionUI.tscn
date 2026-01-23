@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bok07t7dcobv0"]
+[gd_scene load_steps=11 format=3 uid="uid://bok07t7dcobv0"]
 
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://interface/background.png" id="1_0g7fp"]
 [ext_resource type="Texture2D" uid="uid://6fs4qhlnbevr" path="res://interface/organizer.png" id="2_8bn47"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://c3q5v5awvuspm" path="res://interface/buttonstamp.png" id="6_f77ov"]
 [ext_resource type="PackedScene" uid="uid://qai6786wl7o1" path="res://documents/texture_rect.tscn" id="7_qrrr0"]
 [ext_resource type="Texture2D" uid="uid://bcyae356cpaok" path="res://documents/campusaccess.png" id="8_wsloo"]
+[ext_resource type="PackedScene" uid="uid://b2y885c5f7yub" path="res://2nddocument.tscn" id="9_3vj3l"]
+[ext_resource type="Texture2D" uid="uid://cddqklo8jaske" path="res://documents/identificationcard.png" id="10_1fi0y"]
 
 [node name="Main Interface" type="Control"]
 layout_mode = 3
@@ -128,3 +130,18 @@ offset_left = 544.0
 offset_top = 138.0
 offset_right = 849.0
 offset_bottom = 549.0
+
+[node name="2" parent="." instance=ExtResource("9_3vj3l")]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 450.0
+offset_right = 234.0
+offset_bottom = 510.0
+texture = ExtResource("10_1fi0y")
+
+[node name="3" parent="." instance=ExtResource("9_3vj3l")]
+layout_mode = 0
+offset_left = 615.0
+offset_top = 376.0
+offset_right = 1077.0
+offset_bottom = 583.0
