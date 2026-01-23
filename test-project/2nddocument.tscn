@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2y885c5f7yub"]
+
+[ext_resource type="Script" uid="uid://162ros65wtgf" path="res://2_nddocument.gd" id="2_w74a7"]
+
+[node name="TextureRect" type="TextureRect"]
+offset_right = 128.0
+offset_bottom = 60.0
+expand_mode = 1
+script = ExtResource("2_w74a7")
+
+[node name="Panel" type="Panel" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 60.0
+mouse_filter = 2
