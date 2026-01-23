@@ -1,0 +1,130 @@
+[gd_scene load_steps=9 format=3 uid="uid://bok07t7dcobv0"]
+
+[ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://interface/background.png" id="1_0g7fp"]
+[ext_resource type="Texture2D" uid="uid://6fs4qhlnbevr" path="res://interface/organizer.png" id="2_8bn47"]
+[ext_resource type="Texture2D" uid="uid://bv5npysftqwu6" path="res://interface/minitable.png" id="3_irsss"]
+[ext_resource type="Texture2D" uid="uid://cjr4pvrvwlmyk" path="res://interface/blinds.png" id="4_th1uc"]
+[ext_resource type="Texture2D" uid="uid://d1c2u7cynl40l" path="res://interface/buttonblinds.png" id="5_tenqb"]
+[ext_resource type="Texture2D" uid="uid://c3q5v5awvuspm" path="res://interface/buttonstamp.png" id="6_f77ov"]
+[ext_resource type="PackedScene" uid="uid://qai6786wl7o1" path="res://documents/texture_rect.tscn" id="7_qrrr0"]
+[ext_resource type="Texture2D" uid="uid://bcyae356cpaok" path="res://documents/campusaccess.png" id="8_wsloo"]
+
+[node name="Main Interface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="bg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.026909722
+anchor_top = -0.05092592
+anchor_right = 11.084202
+anchor_bottom = 11.060185
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.09381462, 0.10424526)
+mouse_filter = 2
+texture = ExtResource("1_0g7fp")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="organizer" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 282.0
+offset_right = 410.0
+offset_bottom = 648.0
+texture = ExtResource("2_8bn47")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="minitable" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 322.0
+offset_right = 410.0
+offset_bottom = 540.0
+texture = ExtResource("3_irsss")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="blinds" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -2.0
+offset_right = 408.0
+offset_bottom = 341.0
+texture = ExtResource("4_th1uc")
+expand_mode = 1
+stretch_mode = 6
+metadata/_edit_lock_ = true
+
+[node name="button blinds" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 246.0
+offset_top = -7.0
+offset_right = 507.0
+offset_bottom = 212.0
+texture = ExtResource("5_tenqb")
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_lock_ = true
+
+[node name="button" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1073.0
+offset_top = 36.0
+offset_right = 1215.0
+offset_bottom = 193.0
+texture = ExtResource("6_f77ov")
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_lock_ = true
+
+[node name="TextureRect" parent="." instance=ExtResource("7_qrrr0")]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 415.0
+offset_right = 87.0
+offset_bottom = 525.0
+texture = ExtResource("8_wsloo")
+
+[node name="TextureRect2" parent="." instance=ExtResource("7_qrrr0")]
+layout_mode = 0
+offset_left = 86.0
+offset_top = 415.0
+offset_right = 166.0
+offset_bottom = 525.0
+
+[node name="TextureRect3" parent="." instance=ExtResource("7_qrrr0")]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 415.0
+offset_right = 245.0
+offset_bottom = 525.0
+
+[node name="TextureRect4" parent="." instance=ExtResource("7_qrrr0")]
+layout_mode = 0
+offset_left = 244.0
+offset_top = 415.0
+offset_right = 324.0
+offset_bottom = 525.0
+
+[node name="TextureRect5" parent="." instance=ExtResource("7_qrrr0")]
+layout_mode = 0
+offset_left = 323.0
+offset_top = 415.0
+offset_right = 403.0
+offset_bottom = 525.0
+
+[node name="TextureRect6" parent="." instance=ExtResource("7_qrrr0")]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 138.0
+offset_right = 849.0
+offset_bottom = 549.0
