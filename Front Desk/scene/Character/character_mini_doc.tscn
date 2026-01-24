@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://o6m3sewdird7"]
+
+[ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_glixn"]
+[ext_resource type="Texture2D" uid="uid://bcyae356cpaok" path="res://assets/documents/campusaccess.png" id="1_l43vh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glixn"]
+size = Vector2(16, 21)
+
+[node name="CharacterMiniDoc" type="Area2D"]
+script = ExtResource("1_glixn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.003, 0.003)
+texture = ExtResource("1_l43vh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_glixn")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://y7nfh74ijttf"]
+
+[ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_xl44v"]
+[ext_resource type="PackedScene" uid="uid://mo4msbbrasnm" path="res://scene/documents/Document_Permit.tscn" id="2_mxsbo"]
+[ext_resource type="Texture2D" uid="uid://cddqklo8jaske" path="res://assets/documents/identificationcard.png" id="2_xl44v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glixn"]
+size = Vector2(118, 58)
+
+[node name="CharacterMiniDoc" type="Area2D"]
+script = ExtResource("1_xl44v")
+doc_id = "permit"
+full_document_scene = ExtResource("2_mxsbo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.022, 0.022)
+texture = ExtResource("2_xl44v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_glixn")

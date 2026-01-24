@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dksotdh3jqsjd"]
+
+[ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_bynmn"]
+[ext_resource type="PackedScene" uid="uid://8uyo80ltsffg" path="res://scene/documents/Document.tscn" id="2_8s2fe"]
+[ext_resource type="Texture2D" uid="uid://bcyae356cpaok" path="res://assets/documents/campusaccess.png" id="2_hqnpi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glixn"]
+size = Vector2(80, 106)
+
+[node name="CharacterMiniDoc" type="Area2D"]
+script = ExtResource("1_bynmn")
+doc_id = "id_card"
+full_document_scene = ExtResource("2_8s2fe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.015, 0.015)
+texture = ExtResource("2_hqnpi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_glixn")
