@@ -1,19 +1,30 @@
-[gd_scene load_steps=11 format=3 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=12 format=3 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/background.png" id="1_eqw22"]
+[ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Button/inspection_2d.gd" id="1_yfmp5"]
 [ext_resource type="Texture2D" uid="uid://6fs4qhlnbevr" path="res://assets/ui/organizer.png" id="2_bmk1n"]
 [ext_resource type="Texture2D" uid="uid://bv5npysftqwu6" path="res://assets/ui/minitable.png" id="3_cq3x7"]
+[ext_resource type="PackedScene" uid="uid://lrbticr1ov8o" path="res://scene/Character/Professor_2.tscn" id="3_yfmp5"]
 [ext_resource type="Texture2D" uid="uid://d1c2u7cynl40l" path="res://assets/ui/buttonblinds.png" id="5_k8hxm"]
 [ext_resource type="Texture2D" uid="uid://c3q5v5awvuspm" path="res://assets/ui/buttonstamp.png" id="6_yfmp5"]
 [ext_resource type="Script" uid="uid://coa1faqglk504" path="res://script/documents/document_manager.gd" id="7_726ts"]
-[ext_resource type="Texture2D" uid="uid://dsri5yhiphly4" path="res://assets/Characters/professor1.png" id="10_k8hxm"]
-[ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="10_yfmp5"]
+[ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Professor_1.tscn" id="8_k8hxm"]
 [ext_resource type="PackedScene" uid="uid://dksotdh3jqsjd" path="res://scene/Character/Mini_ID.tscn" id="11_nwdbo"]
 [ext_resource type="PackedScene" uid="uid://y7nfh74ijttf" path="res://scene/Character/Mini_Permit.tscn" id="12_c24fy"]
 
 [node name="Inspection2D" type="Node2D"]
+script = ExtResource("1_yfmp5")
+approve_button_path = NodePath("UILayer/ApproveButton")
+deny_button_path = NodePath("UILayer/DenyButton")
+mini_table_layer_path = NodePath("MiniTableLayer")
+document_layer_path = NodePath("DocumentLayer")
+character_spawn_marker_path = NodePath("CharacterSpawn")
+character_stop_marker_path = NodePath("CharacterStop")
+character_exit_right_marker_path = NodePath("CharacterExitRight")
+character_scenes = Array[PackedScene]([ExtResource("8_k8hxm"), ExtResource("3_yfmp5")])
 
 [node name="Background" type="Sprite2D" parent="."]
+z_index = -10
 position = Vector2(578, 325.00003)
 scale = Vector2(0.08968069, 0.090965696)
 texture = ExtResource("1_eqw22")
@@ -55,38 +66,14 @@ script = ExtResource("7_726ts")
 document_layer_path = NodePath("../DocumentLayer")
 inspect_spawn_path = NodePath("../InspectSpawn")
 
-[node name="Character" type="Node2D" parent="."]
-position = Vector2(-166, 62)
-script = ExtResource("10_yfmp5")
-spawn_marker_path = NodePath("../CharacterSpawn")
-stop_marker_path = NodePath("../CharacterStop")
-enter_time = 2.0
-mini_doc_anchor_path = NodePath("MiniDocAnchor")
-mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
-mini_table_layer_path = NodePath("../MiniTableLayer")
-mini_id_slot_path = NodePath("../MiniSlot_ID")
-mini_permit_slot_path = NodePath("../MiniSlot_Permit")
-mini_id_scene = ExtResource("11_nwdbo")
-mini_permit_scene = ExtResource("12_c24fy")
-
-[node name="Professor1" type="Sprite2D" parent="Character"]
-position = Vector2(1, 145)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("10_k8hxm")
-
-[node name="MiniDocAnchor" type="Node2D" parent="Character"]
-position = Vector2(-69, 221)
-rotation = -0.19192323
-
-[node name="MiniDocAnchor2" type="Node2D" parent="Character"]
-position = Vector2(52, 217)
-rotation = 0.30290103
-
 [node name="CharacterSpawn" type="Marker2D" parent="."]
 position = Vector2(-166, 62)
 
 [node name="CharacterStop" type="Marker2D" parent="."]
-position = Vector2(210, 62)
+position = Vector2(207, 62)
+
+[node name="CharacterExitRight" type="Marker2D" parent="."]
+position = Vector2(1332, 62)
 
 [node name="MiniSlot_ID" type="Marker2D" parent="."]
 position = Vector2(145, 457)
@@ -99,3 +86,17 @@ position = Vector2(-172, 464)
 
 [node name="CharacterMiniDoc2" parent="." instance=ExtResource("12_c24fy")]
 position = Vector2(-171, 563)
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="ApproveButton" type="TextureButton" parent="UILayer"]
+offset_left = 896.0
+offset_top = 189.0
+offset_right = 936.0
+offset_bottom = 229.0
+
+[node name="DenyButton" type="TextureButton" parent="UILayer"]
+offset_left = 971.0
+offset_top = 195.0
+offset_right = 1011.0
+offset_bottom = 235.0

@@ -18,6 +18,8 @@ var _bob_tween: Tween
 
 
 func _ready() -> void:
+	z_index = 100
+	print("MINI DOC READY:", name)
 	_base_y = position.y
 	_start_bob()
 

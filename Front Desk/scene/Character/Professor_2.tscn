@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://lrbticr1ov8o"]
+
+[ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_omfsv"]
+[ext_resource type="PackedScene" uid="uid://dksotdh3jqsjd" path="res://scene/Character/Mini_ID.tscn" id="2_ftywj"]
+[ext_resource type="PackedScene" uid="uid://y7nfh74ijttf" path="res://scene/Character/Mini_Permit.tscn" id="3_yj0b4"]
+[ext_resource type="Texture2D" uid="uid://dfdkkxen2ug4j" path="res://assets/Characters/professor2.png" id="4_omfsv"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_omfsv")
+enter_time = 2.0
+exit_time = 2.0
+mini_doc_anchor_path = NodePath("MiniDocAnchor")
+mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
+mini_table_layer_path = NodePath("../MiniTableLayer")
+mini_id_scene = ExtResource("2_ftywj")
+mini_permit_scene = ExtResource("3_yj0b4")
+
+[node name="Professor1" type="Sprite2D" parent="."]
+position = Vector2(-150, -6)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_omfsv")
+centered = false
+
+[node name="MiniDocAnchor" type="Node2D" parent="."]
+z_index = 50
+position = Vector2(-52, 221)
+rotation = -0.19192323
+
+[node name="MiniDocAnchor2" type="Node2D" parent="."]
+z_index = 50
+position = Vector2(69, 217)
+rotation = 0.30290103
