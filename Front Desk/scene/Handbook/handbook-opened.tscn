@@ -1,0 +1,139 @@
+[gd_scene load_steps=18 format=3 uid="uid://dll78gnht4365"]
+
+[ext_resource type="Script" uid="uid://bpu8xdx5llih1" path="res://scripts/handbook_opened.gd" id="1_5lew5"]
+[ext_resource type="Texture2D" uid="uid://dw12gmkqopmwr" path="res://assets/Handbook-Opened/Hand Book - Opened.png" id="1_qpoi3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lew5"]
+atlas = ExtResource("1_qpoi3")
+region = Rect2(0, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwxy5"]
+atlas = ExtResource("1_qpoi3")
+region = Rect2(1344, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3oddy"]
+atlas = ExtResource("1_qpoi3")
+region = Rect2(1536, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2p5e3"]
+atlas = ExtResource("1_qpoi3")
+region = Rect2(1728, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgau6"]
+atlas = ExtResource("1_qpoi3")
+region = Rect2(1920, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnh6q"]
+atlas = ExtResource("1_qpoi3")
+region = Rect2(2112, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6sbr7"]
+atlas = ExtResource("1_qpoi3")
+region = Rect2(2304, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dgl7"]
+atlas = ExtResource("1_qpoi3")
+region = Rect2(192, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xquq"]
+atlas = ExtResource("1_qpoi3")
+region = Rect2(384, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y380w"]
+atlas = ExtResource("1_qpoi3")
+region = Rect2(576, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhcxt"]
+atlas = ExtResource("1_qpoi3")
+region = Rect2(768, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q47ak"]
+atlas = ExtResource("1_qpoi3")
+region = Rect2(960, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecks6"]
+atlas = ExtResource("1_qpoi3")
+region = Rect2(1152, 0, 192, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5dgl7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lew5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwxy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3oddy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2p5e3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgau6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnh6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6sbr7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dgl7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xquq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y380w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhcxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q47ak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecks6")
+}],
+"loop": false,
+"name": &"flip",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5lew5"]
+size = Vector2(159.89905, 114.27129)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_5lew5")
+
+[node name="HandbookOpen" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0.37500215, -0.74999446)
+scale = Vector2(2.7929688, 2.7929688)
+sprite_frames = SubResource("SpriteFrames_5dgl7")
+animation = &"flip"
+
+[node name="Area2D" type="Area2D" parent="HandbookOpen"]
+
+[node name="FlipRight" type="TextureButton" parent="HandbookOpen/Area2D"]
+unique_name_in_owner = true
+offset_left = 62.881123
+offset_top = 43.949654
+offset_right = 73.87972
+offset_bottom = 53.516083
+
+[node name="FlipLeft" type="TextureButton" parent="HandbookOpen/Area2D"]
+offset_left = -75.68112
+offset_top = 44.30769
+offset_right = -65.2979
+offset_bottom = 54.232166
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HandbookOpen/Area2D"]
+position = Vector2(-2.6226044e-06, 0.20189275)
+shape = SubResource("RectangleShape2D_5lew5")
+
+[connection signal="input_event" from="HandbookOpen/Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="pressed" from="HandbookOpen/Area2D/FlipRight" to="." method="_on_flip_right_pressed"]
+[connection signal="pressed" from="HandbookOpen/Area2D/FlipLeft" to="." method="_on_flip_left_pressed"]
