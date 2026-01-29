@@ -6,4 +6,5 @@
 
 [node name="Handbook" type="Sprite2D" parent="."]
 position = Vector2(-4, -4)
+scale = Vector2(0.9, 0.9)
 texture = ExtResource("1_va5wk")

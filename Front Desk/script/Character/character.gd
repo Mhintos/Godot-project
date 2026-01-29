@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var exit_left_marker_path: NodePath
 @export var spawn_marker_path: NodePath
 @export var stop_marker_path: NodePath
 @export var exit_right_marker_path: NodePath
@@ -43,15 +44,27 @@ func _ready() -> void:
 
 	# Set initial position then enter using the stop marker we already resolved
 	global_position = spawn.global_position
-	enter(stop)
+	enter()
 
 
-func enter(stop: Marker2D) -> void:
+func enter() -> void:
+	var stop: Marker2D = get_node(stop_marker_path)
+
 	var t := create_tween()
 	t.tween_property(self, "global_position", stop.global_position, enter_time)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_OUT)
+
+	# tiny settle bounce (optional polish)
+	t.tween_property(self, "global_position:y", stop.global_position.y + 6, 0.08)\
+		.set_trans(Tween.TRANS_SINE)\
+		.set_ease(Tween.EASE_OUT)
+	t.tween_property(self, "global_position:y", stop.global_position.y, 0.10)\
+		.set_trans(Tween.TRANS_SINE)\
+		.set_ease(Tween.EASE_OUT)
+
 	t.tween_callback(_start_idle)
+
 
 
 func _start_idle() -> void:
@@ -107,6 +120,27 @@ func exit_right(on_done: Callable = Callable()) -> void:
 		.set_ease(Tween.EASE_IN)
 
 	t.set_parallel(false)
+	t.tween_callback(func():
+		if on_done.is_valid():
+			on_done.call()
+		queue_free()
+	)
+
+func exit_left(on_done: Callable = Callable()) -> void:
+	if _exiting:
+		return
+	_exiting = true
+
+	var exit_marker: Marker2D = get_node(exit_left_marker_path)
+
+	# no fade by default for deny (feels snappy)
+	modulate.a = 1.0
+
+	var t := create_tween()
+	t.tween_property(self, "global_position", exit_marker.global_position, exit_time)\
+		.set_trans(Tween.TRANS_SINE)\
+		.set_ease(Tween.EASE_IN)
+
 	t.tween_callback(func():
 		if on_done.is_valid():
 			on_done.call()

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsri5yhiphly4"
-path="res://.godot/imported/professor1.png-31e7f8be657b013144ca41e4a9a04fb7.ctex"
+uid="uid://bou6sdltc8ug5"
+path="res://.godot/imported/professor3.png-9089d2791d2599eae6a1c282cf24f4e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Characters/professor1.png"
-dest_files=["res://.godot/imported/professor1.png-31e7f8be657b013144ca41e4a9a04fb7.ctex"]
+source_file="res://assets/Characters/True Form/professor3.png"
+dest_files=["res://.godot/imported/professor3.png-9089d2791d2599eae6a1c282cf24f4e0.ctex"]
 
 [params]
 

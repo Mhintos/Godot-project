@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dny8jq3otiebo"]
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_1o7pw"]
-[ext_resource type="Texture2D" uid="uid://dsri5yhiphly4" path="res://assets/Characters/professor1.png" id="2_0wqs6"]
+[ext_resource type="Texture2D" uid="uid://dsri5yhiphly4" path="res://assets/Characters/Normal/professor1.png" id="2_0wqs6"]
 [ext_resource type="PackedScene" uid="uid://dksotdh3jqsjd" path="res://scene/Character/Mini_ID.tscn" id="2_5tf5q"]
 [ext_resource type="PackedScene" uid="uid://y7nfh74ijttf" path="res://scene/Character/Mini_Permit.tscn" id="3_mpssr"]
 
