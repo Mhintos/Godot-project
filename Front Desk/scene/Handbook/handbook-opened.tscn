@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dll78gnht4365"]
+[gd_scene load_steps=62 format=3 uid="uid://dll78gnht4365"]
 
 [ext_resource type="Script" uid="uid://bpu8xdx5llih1" path="res://scripts/handbook_opened.gd" id="1_5lew5"]
 [ext_resource type="Texture2D" uid="uid://dw12gmkqopmwr" path="res://assets/Handbook-Opened/Hand Book - Opened.png" id="1_qpoi3"]
@@ -105,7 +105,96 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lew5"]
 size = Vector2(159.89905, 114.27129)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5jgmi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_whf1o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i12co"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i7uqa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s3jpg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cncot"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p0ltf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_deuk5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_humpy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wj3ql"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nkrhf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kehng"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jvijr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_svyw8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lbtt8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h8ncy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i0tod"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3xqhw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4dinw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uxvr7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t7mmc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wjs4l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cy5cl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y1rlr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07pbt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6sius"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_150ls"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o06cv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mwlsg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5fxtm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bq0ky"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d0mpu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vfiiy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_40nlg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dojs7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uw02k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k4t4u"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dh45p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3ksw0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_soubx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_43flw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ackh3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_njejy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kxsxi"]
+
 [node name="Node2D" type="Node2D"]
+position = Vector2(530, 313)
 script = ExtResource("1_5lew5")
 
 [node name="HandbookOpen" type="AnimatedSprite2D" parent="."]
@@ -118,21 +207,150 @@ animation = &"flip"
 [node name="Area2D" type="Area2D" parent="HandbookOpen"]
 
 [node name="FlipRight" type="TextureButton" parent="HandbookOpen/Area2D"]
-unique_name_in_owner = true
+z_index = -290
 offset_left = 62.881123
 offset_top = 43.949654
-offset_right = 73.87972
-offset_bottom = 53.516083
+offset_right = 73.879715
+offset_bottom = 53.51609
+metadata/_edit_use_anchors_ = true
 
 [node name="FlipLeft" type="TextureButton" parent="HandbookOpen/Area2D"]
+z_index = -290
 offset_left = -75.68112
 offset_top = 44.30769
 offset_right = -65.2979
-offset_bottom = 54.232166
+offset_bottom = 54.23216
+metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HandbookOpen/Area2D"]
 position = Vector2(-2.6226044e-06, 0.20189275)
 shape = SubResource("RectangleShape2D_5lew5")
+
+[node name="BasicRules" type="Button" parent="HandbookOpen/Area2D"]
+unique_name_in_owner = true
+offset_left = 17.409801
+offset_top = -31.955246
+offset_right = 61.44897
+offset_bottom = -20.139862
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5jgmi")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_whf1o")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i12co")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_i7uqa")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_s3jpg")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_cncot")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_p0ltf")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_deuk5")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_humpy")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_wj3ql")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nkrhf")
+
+[node name="Employees" type="Button" parent="HandbookOpen/Area2D"]
+unique_name_in_owner = true
+offset_left = 16.693712
+offset_top = -17.991606
+offset_right = 61.44896
+offset_bottom = -6.176222
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kehng")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_jvijr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_svyw8")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_lbtt8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h8ncy")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_i0tod")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_3xqhw")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_4dinw")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_uxvr7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_t7mmc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wjs4l")
+
+[node name="E-1" type="Button" parent="HandbookOpen/Area2D"]
+unique_name_in_owner = true
+offset_left = 73.98042
+offset_top = -48.783222
+offset_right = 81.98042
+offset_bottom = -34.103504
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cy5cl")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_y1rlr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_07pbt")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_6sius")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_150ls")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_o06cv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_mwlsg")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_5fxtm")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_bq0ky")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_d0mpu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vfiiy")
+
+[node name="E-2" type="Button" parent="HandbookOpen/Area2D"]
+unique_name_in_owner = true
+offset_left = 73.980446
+offset_top = -29.806988
+offset_right = 81.980446
+offset_bottom = -15.12727
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cy5cl")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_y1rlr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_07pbt")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_6sius")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_150ls")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_o06cv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_mwlsg")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_5fxtm")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_bq0ky")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_d0mpu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vfiiy")
+
+[node name="E-3" type="Button" parent="HandbookOpen/Area2D"]
+unique_name_in_owner = true
+offset_left = 73.980446
+offset_top = -10.830769
+offset_right = 81.980446
+offset_bottom = 3.8489494
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cy5cl")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_y1rlr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_07pbt")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_6sius")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_150ls")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_o06cv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_mwlsg")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_5fxtm")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_bq0ky")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_d0mpu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vfiiy")
+
+[node name="E-4" type="Button" parent="HandbookOpen/Area2D"]
+unique_name_in_owner = true
+offset_left = 73.980446
+offset_top = 8.145458
+offset_right = 81.980446
+offset_bottom = 22.825176
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cy5cl")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_y1rlr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_07pbt")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_6sius")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_150ls")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_o06cv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_mwlsg")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_5fxtm")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_bq0ky")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_d0mpu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vfiiy")
+
+[node name="Bookmark (Red)" type="Button" parent="HandbookOpen/Area2D"]
+unique_name_in_owner = true
+offset_left = -73.0
+offset_top = -54.0
+offset_right = -62.61679
+offset_bottom = -40.752445
+theme_override_styles/normal = SubResource("StyleBoxEmpty_40nlg")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_dojs7")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_uw02k")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_k4t4u")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_dh45p")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_3ksw0")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_soubx")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_43flw")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ackh3")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_njejy")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kxsxi")
 
 [connection signal="input_event" from="HandbookOpen/Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="pressed" from="HandbookOpen/Area2D/FlipRight" to="." method="_on_flip_right_pressed"]
