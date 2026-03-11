@@ -86,7 +86,18 @@ func _start_idle() -> void:
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_IN_OUT)
 
+func _clear_mini_docs() -> void:
+	var anchor_id := get_node_or_null(mini_doc_anchor_path) as Node2D
+	var anchor_permit := get_node_or_null(mini_doc_anchor2_path) as Node2D
 
+	if anchor_id:
+		for child in anchor_id.get_children():
+			child.queue_free()
+
+	if anchor_permit:
+		for child in anchor_permit.get_children():
+			child.queue_free()
+			
 func exit_right(on_done: Callable = Callable()) -> void:
 	if _exiting:
 		return
@@ -95,6 +106,9 @@ func exit_right(on_done: Callable = Callable()) -> void:
 	# stop idle so it doesn't fight the exit movement
 	if _idle_tween and _idle_tween.is_running():
 		_idle_tween.kill()
+
+	# remove the hovering mini docs before exiting
+	_clear_mini_docs()
 
 	# ---- Exit marker guard ----
 	if exit_right_marker_path.is_empty():
@@ -189,3 +203,4 @@ func _spawn_mini_docs() -> void:
 
 	permit_mini.table_layer_path = table_layer.get_path()
 	permit_mini.table_slot_path = permit_slot.get_path()
+	
