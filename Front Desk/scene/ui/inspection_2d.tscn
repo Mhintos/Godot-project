@@ -1,20 +1,24 @@
-[gd_scene load_steps=16 format=3 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=20 format=3 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/background.png" id="1_eqw22"]
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Button/inspection_2d.gd" id="1_yfmp5"]
-[ext_resource type="Texture2D" uid="uid://6fs4qhlnbevr" path="res://assets/ui/organizer.png" id="2_bmk1n"]
+[ext_resource type="Texture2D" uid="uid://c2tnjiffpeocf" path="res://assets/ui/organizer.png" id="2_bmk1n"]
 [ext_resource type="Texture2D" uid="uid://bv5npysftqwu6" path="res://assets/ui/minitable.png" id="3_cq3x7"]
 [ext_resource type="PackedScene" uid="uid://dhj6mj58265oc" path="res://scene/Character/Trueform_1.tscn" id="3_og0fh"]
 [ext_resource type="PackedScene" uid="uid://lrbticr1ov8o" path="res://scene/Character/Professor_2.tscn" id="3_yfmp5"]
 [ext_resource type="PackedScene" uid="uid://qaeqwprrrdxp" path="res://scene/Character/Trueform_2.tscn" id="5_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1c2u7cynl40l" path="res://assets/ui/buttonblinds.png" id="5_k8hxm"]
-[ext_resource type="Texture2D" uid="uid://c3q5v5awvuspm" path="res://assets/ui/buttonstamp.png" id="6_yfmp5"]
 [ext_resource type="Script" uid="uid://coa1faqglk504" path="res://script/documents/document_manager.gd" id="7_726ts"]
+[ext_resource type="Texture2D" uid="uid://ccjpdkck2exen" path="res://assets/ui/telephone.png" id="8_8y0pi"]
 [ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Professor_1.tscn" id="8_k8hxm"]
 [ext_resource type="PackedScene" uid="uid://dksotdh3jqsjd" path="res://scene/Character/Mini_ID.tscn" id="11_nwdbo"]
 [ext_resource type="PackedScene" uid="uid://y7nfh74ijttf" path="res://scene/Character/Mini_Permit.tscn" id="12_c24fy"]
-[ext_resource type="Texture2D" uid="uid://bakmpo0wb7l1c" path="res://assets/ui/buttonapproved.png" id="12_nwdbo"]
-[ext_resource type="Texture2D" uid="uid://ch7p7xm4ps4gp" path="res://assets/ui/buttondenied.png" id="13_c24fy"]
+[ext_resource type="Texture2D" uid="uid://dbgtdd8kao8bg" path="res://assets/ui/approve_normal.png" id="15_mga6p"]
+[ext_resource type="Texture2D" uid="uid://bn8cfs4mwykji" path="res://assets/ui/big table.png" id="15_og0fh"]
+[ext_resource type="Texture2D" uid="uid://clj6qp3d4e42v" path="res://assets/ui/approve_pressed.png" id="16_50h4t"]
+[ext_resource type="PackedScene" uid="uid://dj8jdfpebwoc5" path="res://scene/Handbook/handbook.tscn" id="17_vjnc3"]
+[ext_resource type="Texture2D" uid="uid://bdrrqhr1rnkgw" path="res://assets/ui/deny_normal.png" id="18_5er1a"]
+[ext_resource type="Texture2D" uid="uid://b4f2futggdswd" path="res://assets/ui/deny_pressed.png" id="19_7su7m"]
 
 [node name="Inspection2D" type="Node2D"]
 script = ExtResource("1_yfmp5")
@@ -34,22 +38,29 @@ scale = Vector2(0.08968069, 0.090965696)
 texture = ExtResource("1_eqw22")
 metadata/_edit_lock_ = true
 
-[node name="organizer" type="Sprite2D" parent="Background"]
-position = Vector2(-4038.2163, 1023.7373)
-scale = Vector2(3.6011603, 3.3877242)
+[node name="BigTable" type="Sprite2D" parent="Background"]
+z_index = 100
+position = Vector2(2430.8467, -54.966797)
+scale = Vector2(1.3529484, 2.2605183)
+texture = ExtResource("15_og0fh")
+metadata/_edit_lock_ = true
+
+[node name="Organizer" type="Sprite2D" parent="Background"]
+position = Vector2(-4047.694, 2797.7578)
+scale = Vector2(3.6155212, 4.194757)
 texture = ExtResource("2_bmk1n")
+metadata/_edit_lock_ = true
+
+[node name="Telephone" type="Sprite2D" parent="Background"]
+position = Vector2(-2545.141, 2753.7852)
+scale = Vector2(3.6770678, 4.1490297)
+texture = ExtResource("8_8y0pi")
 metadata/_edit_lock_ = true
 
 [node name="button blinds" type="Sprite2D" parent="Background"]
 position = Vector2(-2051.7236, -2363.5288)
-scale = Vector2(4.072609, 3.7144842)
+scale = Vector2(4.072609, 3.7144845)
 texture = ExtResource("5_k8hxm")
-metadata/_edit_lock_ = true
-
-[node name="button stamp" type="Sprite2D" parent="Background"]
-position = Vector2(6266.6787, -2297.5698)
-scale = Vector2(2.5960171, 2.7225235)
-texture = ExtResource("6_yfmp5")
 metadata/_edit_lock_ = true
 
 [node name="mini table" type="Sprite2D" parent="Background"]
@@ -62,6 +73,7 @@ metadata/_edit_lock_ = true
 position = Vector2(119, 454)
 
 [node name="DocumentLayer" type="Node2D" parent="."]
+z_index = 100
 
 [node name="InspectSpawn" type="Marker2D" parent="."]
 
@@ -100,15 +112,15 @@ position = Vector2(-171, 563)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1036.0
-offset_top = 32.0
-offset_right = -36.0
-offset_bottom = -536.0
+offset_left = 80.0
+offset_top = 521.0
+offset_right = -1010.0
+offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 2
-texture_normal = ExtResource("12_nwdbo")
-texture_pressed = ExtResource("12_nwdbo")
-texture_hover = ExtResource("12_nwdbo")
+texture_normal = ExtResource("15_mga6p")
+texture_pressed = ExtResource("16_50h4t")
+texture_hover = ExtResource("15_mga6p")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -116,14 +128,18 @@ stretch_mode = 5
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1037.0
-offset_top = 121.0
-offset_right = -35.0
-offset_bottom = -447.0
+offset_left = 79.0
+offset_top = 572.0
+offset_right = -1003.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-texture_normal = ExtResource("13_c24fy")
-texture_pressed = ExtResource("13_c24fy")
-texture_hover = ExtResource("13_c24fy")
+texture_normal = ExtResource("18_5er1a")
+texture_pressed = ExtResource("19_7su7m")
+texture_hover = ExtResource("18_5er1a")
 ignore_texture_size = true
 stretch_mode = 5
+
+[node name="Node2D" parent="." instance=ExtResource("17_vjnc3")]
+position = Vector2(215, 568)
+metadata/_edit_lock_ = true

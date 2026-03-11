@@ -23,6 +23,7 @@ var _idle_tween: Tween = null
 
 func _ready() -> void:
 	modulate.a = 1.0
+	z_index = 1
 
 	# ---- Spawn marker guard ----
 	if spawn_marker_path.is_empty():
@@ -109,17 +110,10 @@ func exit_right(on_done: Callable = Callable()) -> void:
 	modulate.a = 1.0
 
 	var t := create_tween()
-	t.set_parallel(true)
-
 	t.tween_property(self, "global_position", exit_marker.global_position, exit_time)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_IN)
 
-	t.tween_property(self, "modulate:a", 0.0, exit_time)\
-		.set_trans(Tween.TRANS_SINE)\
-		.set_ease(Tween.EASE_IN)
-
-	t.set_parallel(false)
 	t.tween_callback(func():
 		if on_done.is_valid():
 			on_done.call()

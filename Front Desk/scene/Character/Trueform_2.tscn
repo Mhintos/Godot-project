@@ -16,6 +16,7 @@ mini_id_scene = ExtResource("2_eprum")
 mini_permit_scene = ExtResource("3_n6d6x")
 
 [node name="Professor1" type="Sprite2D" parent="."]
+z_index = 2
 position = Vector2(-150, -6)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_yi4ub")

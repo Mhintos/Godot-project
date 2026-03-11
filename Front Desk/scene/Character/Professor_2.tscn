@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dfdkkxen2ug4j" path="res://assets/Characters/Normal/professor2.png" id="4_omfsv"]
 
 [node name="Node2D" type="Node2D"]
+z_index = 2
 script = ExtResource("1_omfsv")
 enter_time = 2.0
 exit_time = 2.0

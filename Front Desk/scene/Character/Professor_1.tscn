@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://y7nfh74ijttf" path="res://scene/Character/Mini_Permit.tscn" id="3_mpssr"]
 
 [node name="Node2D" type="Node2D"]
+z_index = 2
 script = ExtResource("1_1o7pw")
 enter_time = 2.0
 exit_time = 2.0
