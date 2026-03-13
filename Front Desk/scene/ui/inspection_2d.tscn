@@ -1,3 +1,4 @@
+[gd_scene load_steps=13 format=3 uid="uid://cjkqk8fhkjsme"]
 [gd_scene load_steps=20 format=3 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/background.png" id="1_eqw22"]
@@ -13,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Professor_1.tscn" id="8_k8hxm"]
 [ext_resource type="PackedScene" uid="uid://dksotdh3jqsjd" path="res://scene/Character/Mini_ID.tscn" id="11_nwdbo"]
 [ext_resource type="PackedScene" uid="uid://y7nfh74ijttf" path="res://scene/Character/Mini_Permit.tscn" id="12_c24fy"]
+[ext_resource type="PackedScene" uid="uid://1sp74id1xekh" path="res://scene/Handbook/UI.tscn" id="12_jvwup"]
 [ext_resource type="Texture2D" uid="uid://dbgtdd8kao8bg" path="res://assets/ui/approve_normal.png" id="15_mga6p"]
 [ext_resource type="Texture2D" uid="uid://bn8cfs4mwykji" path="res://assets/ui/big table.png" id="15_og0fh"]
 [ext_resource type="Texture2D" uid="uid://clj6qp3d4e42v" path="res://assets/ui/approve_pressed.png" id="16_50h4t"]
@@ -125,6 +127,12 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="DenyButton" type="TextureButton" parent="UILayer"]
+offset_left = 971.0
+offset_top = 195.0
+offset_right = 1011.0
+offset_bottom = 235.0
+
+[node name="Node" parent="." instance=ExtResource("12_jvwup")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
