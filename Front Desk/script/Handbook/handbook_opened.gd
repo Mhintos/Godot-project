@@ -9,20 +9,14 @@ var page_frames = {
 	"contents": 0, #The main contents page frame
 	"basic_rules": 1, #The basic rules page frame
 	"basic_rules_hover": 7, #The hover state for basic rules
-	"professor1": 2, #The employees page frame
+	"professor1": 3, #The employees page frame
 	"professor_hover": 8, #The hover state for professor
-	"guard": 3, #E-1 page frame
-	"guard_hover": 9, #The hover state for E-1
-	"service_master": 4, #E-2 page frame
-	"service_master_hover": 10, #The hover state for E-2
-	"school_caterer": 5, #E-3 page frame
-	"school_caterer_hover": 11, #The hover state for E-3
+	"canteen_staff": 5, #E-1 page frame
+	"canteen_staff_hover": 9, #The hover state for E-1
 }
 @onready var basic_rules_button: Button = %BasicRules
 @onready var professor_button: Button = %Professor
-@onready var guard_button: Button = %Guard
-@onready var service_master_button: Button = %ServiceMaster
-@onready var school_caterer_button: Button = %SchoolCaterer
+@onready var canteen_staff_button: Button = %CanteenStaff
 @onready var bookmark_button: Button = %"Bookmark (Red)"
 
 #Variables for Handbook
@@ -47,15 +41,9 @@ func _ready() -> void:
 	professor_button.mouse_entered.connect(_on_professor_hover)
 	professor_button.mouse_exited.connect(_on_professor_unhover)
 	professor_button.pressed.connect(_on_professor_clicked)
-	guard_button.mouse_entered.connect(_on_guard_hover)
-	guard_button.mouse_exited.connect(_on_guard_unhover)
-	guard_button.pressed.connect(_on_guard_clicked)
-	service_master_button.mouse_entered.connect(_on_service_master_hover)
-	service_master_button.mouse_exited.connect(_on_service_master_unhover)
-	service_master_button.pressed.connect(_on_service_master_clicked)
-	school_caterer_button.mouse_entered.connect(_on_school_caterer_hover)
-	school_caterer_button.mouse_exited.connect(_on_school_caterer_unhover)
-	school_caterer_button.pressed.connect(_on_school_caterer_clicked)
+	canteen_staff_button.mouse_entered.connect(_on_canteen_staff_hover)
+	canteen_staff_button.mouse_exited.connect(_on_canteen_staff_unhover)
+	canteen_staff_button.pressed.connect(_on_canteen_staff_clicked)
 	bookmark_button.pressed.connect(_on_bookmark_clicked)
 
 #Functions for Flipping the Book
@@ -94,14 +82,9 @@ func update_button_visibility():
 		professor_button.disabled = false
 		professor_button.mouse_filter = Control.MOUSE_FILTER_STOP
 		
-		guard_button.disabled = false
-		guard_button.mouse_filter = Control.MOUSE_FILTER_STOP
-		
-		service_master_button.disabled = false
-		service_master_button.mouse_filter = Control.MOUSE_FILTER_STOP
-		
-		school_caterer_button.disabled = false
-		school_caterer_button.mouse_filter = Control.MOUSE_FILTER_STOP
+		canteen_staff_button.disabled = false
+		canteen_staff_button.mouse_filter = Control.MOUSE_FILTER_STOP
+
 	else:
 		basic_rules_button.disabled = true
 		basic_rules_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -109,14 +92,8 @@ func update_button_visibility():
 		professor_button.disabled = true
 		professor_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
-		guard_button.disabled = true
-		guard_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		
-		service_master_button.disabled = true
-		service_master_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		
-		school_caterer_button.disabled = true
-		school_caterer_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		canteen_staff_button.disabled = true
+		canteen_staff_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 #Functions for Drag and Drop
 func _process(_delta):
@@ -146,9 +123,7 @@ func _on_button_pressed() -> void:
 		handbook_opened_sprite.frame = current_frame
 		basic_rules_button.disabled = false
 		professor_button.disabled = false
-		guard_button.disabled = false
-		service_master_button.disabled = false
-		school_caterer_button.disabled = false
+		canteen_staff_button.disabled = false
 
 #For First page button functions
 func _on_basic_rules_hover():
@@ -168,9 +143,7 @@ func _on_basic_rules_clicked():
 	#For Button node to disappear to avoid interference with other pages
 	basic_rules_button.disabled = true
 	professor_button.disabled = true
-	guard_button.disabled = true
-	service_master_button.disabled = true
-	school_caterer_button.disabled = true
+	canteen_staff_button.disabled = true
 
 func _on_professor_hover():
 	if current_frame == page_frames["contents"]:
@@ -185,66 +158,30 @@ func _on_professor_clicked():
 	handbook_opened_sprite.frame = current_frame
 	basic_rules_button.disabled = true
 	professor_button.disabled = true
-	guard_button.disabled = true
-	service_master_button.disabled = true
-	school_caterer_button.disabled = true
+	canteen_staff_button.disabled = true
 
-func _on_guard_hover():
+
+func _on_canteen_staff_hover():
 	if current_frame == page_frames["contents"]:
-		handbook_opened_sprite.frame = page_frames["guard_hover"]
+		handbook_opened_sprite.frame = page_frames["canteen_staff_hover"]
 
-func _on_guard_unhover():
-	if current_frame == page_frames["contents"]:
-		handbook_opened_sprite.frame = page_frames["contents"]
-
-func _on_guard_clicked():
-	current_frame = page_frames["guard"]
-	handbook_opened_sprite.frame = current_frame
-	basic_rules_button.disabled = true
-	professor_button.disabled = true
-	guard_button.disabled = true
-	service_master_button.disabled = true
-	school_caterer_button.disabled = true
-
-func _on_service_master_hover():
-	if current_frame == page_frames["contents"]:
-		handbook_opened_sprite.frame = page_frames["service_master_hover"]
-
-func _on_service_master_unhover():
+func _on_canteen_staff_unhover():
 	if current_frame == page_frames["contents"]:
 		handbook_opened_sprite.frame = page_frames["contents"]
 
-func _on_service_master_clicked():
-	current_frame = page_frames["service_master"]
+func _on_canteen_staff_clicked():
+	current_frame = page_frames["canteen_staff"]
 	handbook_opened_sprite.frame = current_frame
 	basic_rules_button.disabled = true
 	professor_button.disabled = true
-	guard_button.disabled = true
-	service_master_button.disabled = true
-	school_caterer_button.disabled = true
-
-func _on_school_caterer_hover():
-	if current_frame == page_frames["contents"]:
-		handbook_opened_sprite.frame = page_frames["school_caterer_hover"]
-
-func _on_school_caterer_unhover():
-	if current_frame == page_frames["contents"]:
-		handbook_opened_sprite.frame = page_frames["contents"]
-
-func _on_school_caterer_clicked():
-	current_frame = page_frames["school_caterer"]
-	handbook_opened_sprite.frame = current_frame
-	basic_rules_button.disabled = true
-	professor_button.disabled = true
-	guard_button.disabled = true
-	service_master_button.disabled = true
-	school_caterer_button.disabled = true
+	canteen_staff_button.disabled = true
 
 func _on_bookmark_clicked():
 	current_frame = page_frames["contents"]
 	handbook_opened_sprite.frame = current_frame
 	basic_rules_button.disabled = false
+	basic_rules_button.mouse_filter = Control.MOUSE_FILTER_STOP #When bookmark is pressed, buttons will work properly again
 	professor_button.disabled = false
-	guard_button.disabled = false
-	service_master_button.disabled = false
-	school_caterer_button.disabled = false
+	professor_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	canteen_staff_button.disabled = false
+	canteen_staff_button.mouse_filter = Control.MOUSE_FILTER_STOP

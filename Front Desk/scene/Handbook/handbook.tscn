@@ -8,7 +8,3 @@
 position = Vector2(3.8146973e-06, 3.8146973e-06)
 scale = Vector2(3.84375, 3.84375)
 texture = ExtResource("1_n3so6")
-[node name="Handbook" type="Sprite2D" parent="."]
-position = Vector2(-4, -4)
-scale = Vector2(1.1, 1.1)
-texture = ExtResource("1_va5wk")
