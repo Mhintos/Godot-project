@@ -182,15 +182,18 @@ animations = [{
 size = Vector2(100, 89)
 
 [node name="BlindsSystem" type="Node2D"]
+z_index = 100
 script = ExtResource("1_46d77")
 
 [node name="Blinds" type="AnimatedSprite2D" parent="."]
+z_index = 100
 position = Vector2(216, 201.99998)
 scale = Vector2(0.446, 0.4238532)
 sprite_frames = SubResource("SpriteFrames_bne74")
 animation = &"opening"
 
 [node name="Lever" type="AnimatedSprite2D" parent="."]
+z_index = 150
 position = Vector2(401.00003, 78.00001)
 scale = Vector2(0.31, 0.31)
 sprite_frames = SubResource("SpriteFrames_p50d0")
@@ -199,5 +202,7 @@ animation = &"pull_up"
 [node name="LeverArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeverArea"]
+visible = false
+z_index = 151
 position = Vector2(384, 73)
 shape = SubResource("RectangleShape2D_fe0kc")

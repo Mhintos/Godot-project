@@ -14,6 +14,7 @@ mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
 mini_table_layer_path = NodePath("../MiniTableLayer")
 mini_id_scene = ExtResource("2_eprum")
 mini_permit_scene = ExtResource("3_n6d6x")
+is_true_form = true
 
 [node name="Professor1" type="Sprite2D" parent="."]
 z_index = 2

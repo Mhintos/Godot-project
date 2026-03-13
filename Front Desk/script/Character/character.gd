@@ -1,4 +1,5 @@
 extends Node2D
+signal reached_stop
 
 @export var exit_left_marker_path: NodePath
 @export var spawn_marker_path: NodePath
@@ -66,7 +67,7 @@ func enter() -> void:
 		.set_ease(Tween.EASE_OUT)
 
 	t.tween_callback(_start_idle)
-
+	t.tween_callback(func(): emit_signal("reached_stop"))
 
 
 func _start_idle() -> void:
@@ -88,6 +89,19 @@ func _start_idle() -> void:
 		.set_ease(Tween.EASE_IN_OUT)
 
 
+func _clear_mini_docs() -> void:
+	var anchor_id := get_node_or_null(mini_doc_anchor_path) as Node2D
+	var anchor_permit := get_node_or_null(mini_doc_anchor2_path) as Node2D
+
+	if anchor_id:
+		for child in anchor_id.get_children():
+			child.queue_free()
+
+	if anchor_permit:
+		for child in anchor_permit.get_children():
+			child.queue_free()
+
+
 func exit_right(on_done: Callable = Callable()) -> void:
 	if _exiting:
 		return
@@ -96,6 +110,9 @@ func exit_right(on_done: Callable = Callable()) -> void:
 	# stop idle so it doesn't fight the exit movement
 	if _idle_tween and _idle_tween.is_running():
 		_idle_tween.kill()
+
+	# remove hovering mini docs before exiting
+	_clear_mini_docs()
 
 	# ---- Exit marker guard ----
 	if exit_right_marker_path.is_empty():
@@ -121,14 +138,28 @@ func exit_right(on_done: Callable = Callable()) -> void:
 		queue_free()
 	)
 
+
 func exit_left(on_done: Callable = Callable()) -> void:
 	if _exiting:
 		return
 	_exiting = true
 
-	var exit_marker: Marker2D = get_node(exit_left_marker_path)
+	if _idle_tween and _idle_tween.is_running():
+		_idle_tween.kill()
 
-	# no fade by default for deny (feels snappy)
+	_clear_mini_docs()
+
+	if exit_left_marker_path.is_empty():
+		push_error("Character.gd: exit_left_marker_path is empty.")
+		_exiting = false
+		return
+
+	var exit_marker := get_node_or_null(exit_left_marker_path) as Marker2D
+	if exit_marker == null:
+		push_error("Character.gd: left exit marker not found: " + str(exit_left_marker_path))
+		_exiting = false
+		return
+
 	modulate.a = 1.0
 
 	var t := create_tween()
@@ -170,22 +201,21 @@ func _spawn_mini_docs() -> void:
 	for child in anchor_permit.get_children():
 		child.queue_free()
 
-# ── ID MINI ───────────────────────────
+	# ── ID MINI ───────────────────────────
 	var id_mini = mini_id_scene.instantiate()
 	anchor_id.add_child(id_mini)
 
-# anchor-based placement
+	# anchor-based placement
 	id_mini.position = Vector2.ZERO
 
 	id_mini.table_layer_path = table_layer.get_path()
 	id_mini.table_slot_path = id_slot.get_path()
 
-
-# ── PERMIT MINI ───────────────────────
+	# ── PERMIT MINI ───────────────────────
 	var permit_mini = mini_permit_scene.instantiate()
 	anchor_permit.add_child(permit_mini)
 
-# anchor-based placement
+	# anchor-based placement
 	permit_mini.position = Vector2.ZERO
 
 	permit_mini.table_layer_path = table_layer.get_path()

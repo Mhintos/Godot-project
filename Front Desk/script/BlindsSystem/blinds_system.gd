@@ -1,4 +1,5 @@
 extends Node2D
+signal blinds_closed_success
 
 @onready var blinds: AnimatedSprite2D = $Blinds
 @onready var lever: AnimatedSprite2D = $Lever
@@ -17,8 +18,15 @@ func _ready() -> void:
 	blinds.play("idle_open")
 	lever.play("up")
 
-
-func _on_lever_input_event(viewport, event, shape_idx) -> void:
+func force_open() -> void:
+	is_closed = false
+	is_animating = false
+	lever_done = false
+	blinds_done = false
+	blinds.play("idle_open")
+	lever.play("up")
+	
+func _on_lever_input_event(_viewport, event, _shape_idx) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		toggle_blinds()
 
@@ -44,6 +52,7 @@ func _on_blinds_animation_finished() -> void:
 		is_closed = true
 		blinds.play("idle_closed")
 		blinds_done = true
+		emit_signal("blinds_closed_success")
 		_check_finish()
 
 	elif blinds.animation == "opening":
