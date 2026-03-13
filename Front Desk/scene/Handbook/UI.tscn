@@ -1,12 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://1sp74id1xekh"]
+[gd_scene load_steps=3 format=3 uid="uid://6tu0hm5rvxl4"]
 
-[ext_resource type="PackedScene" uid="uid://dj8jdfpebwoc5" path="res://scenes/handbook.tscn" id="1_5hgee"]
-[ext_resource type="PackedScene" uid="uid://dll78gnht4365" path="res://scenes/handbook-opened.tscn" id="2_xsilq"]
+[ext_resource type="PackedScene" uid="uid://dj8jdfpebwoc5" path="res://scenes/Handbook/handbook.tscn" id="1_5hgee"]
+[ext_resource type="PackedScene" uid="uid://dll78gnht4365" path="res://scenes/Handbook/handbook-opened.tscn" id="2_kmu0d"]
 
 [node name="Node" type="Node"]
 
-[node name="Handbook" parent="." instance=ExtResource("1_5hgee")]
-position = Vector2(206, 526)
+[node name="HandbookIcon" parent="." instance=ExtResource("1_5hgee")]
+unique_name_in_owner = true
+position = Vector2(170, 501)
 
-[node name="Node2D" parent="." instance=ExtResource("2_xsilq")]
-position = Vector2(730, 307)
+[node name="TextureButton" type="TextureButton" parent="HandbookIcon"]
+offset_left = -35.0
+offset_top = -48.0
+offset_right = 36.0
+offset_bottom = 46.0
+
+[node name="Handbook" parent="." instance=ExtResource("2_kmu0d")]
+unique_name_in_owner = true
+visible = false
+z_index = 10
+position = Vector2(566, 385)
+
+[connection signal="pressed" from="HandbookIcon/TextureButton" to="Handbook" method="_on_button_pressed"]

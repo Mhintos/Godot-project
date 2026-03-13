@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=13 format=3 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/background.png" id="1_eqw22"]
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Button/inspection_2d.gd" id="1_yfmp5"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Professor_1.tscn" id="8_k8hxm"]
 [ext_resource type="PackedScene" uid="uid://dksotdh3jqsjd" path="res://scene/Character/Mini_ID.tscn" id="11_nwdbo"]
 [ext_resource type="PackedScene" uid="uid://y7nfh74ijttf" path="res://scene/Character/Mini_Permit.tscn" id="12_c24fy"]
+[ext_resource type="PackedScene" uid="uid://1sp74id1xekh" path="res://scene/Handbook/UI.tscn" id="12_jvwup"]
 
 [node name="Inspection2D" type="Node2D"]
 script = ExtResource("1_yfmp5")
@@ -100,3 +101,5 @@ offset_left = 971.0
 offset_top = 195.0
 offset_right = 1011.0
 offset_bottom = 235.0
+
+[node name="Node" parent="." instance=ExtResource("12_jvwup")]

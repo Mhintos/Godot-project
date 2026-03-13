@@ -1,101 +1,94 @@
-[gd_scene load_steps=62 format=3 uid="uid://dll78gnht4365"]
+[gd_scene load_steps=50 format=3 uid="uid://dll78gnht4365"]
 
 [ext_resource type="Script" uid="uid://bpu8xdx5llih1" path="res://scripts/handbook_opened.gd" id="1_5lew5"]
-[ext_resource type="Texture2D" uid="uid://dw12gmkqopmwr" path="res://assets/Handbook-Opened/Hand Book - Opened.png" id="1_qpoi3"]
+[ext_resource type="Texture2D" uid="uid://du07c5kwbyg7u" path="res://assets/Handbook-Opened/Hand Book - Openedv2.png" id="2_5jgmi"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5lew5"]
-atlas = ExtResource("1_qpoi3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_whf1o"]
+atlas = ExtResource("2_5jgmi")
 region = Rect2(0, 0, 192, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hwxy5"]
-atlas = ExtResource("1_qpoi3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_deuk5"]
+atlas = ExtResource("2_5jgmi")
+region = Rect2(1152, 0, 192, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_humpy"]
+atlas = ExtResource("2_5jgmi")
 region = Rect2(1344, 0, 192, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3oddy"]
-atlas = ExtResource("1_qpoi3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_wj3ql"]
+atlas = ExtResource("2_5jgmi")
 region = Rect2(1536, 0, 192, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2p5e3"]
-atlas = ExtResource("1_qpoi3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkrhf"]
+atlas = ExtResource("2_5jgmi")
 region = Rect2(1728, 0, 192, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cgau6"]
-atlas = ExtResource("1_qpoi3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_kehng"]
+atlas = ExtResource("2_5jgmi")
 region = Rect2(1920, 0, 192, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qnh6q"]
-atlas = ExtResource("1_qpoi3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvijr"]
+atlas = ExtResource("2_5jgmi")
 region = Rect2(2112, 0, 192, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6sbr7"]
-atlas = ExtResource("1_qpoi3")
-region = Rect2(2304, 0, 192, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5dgl7"]
-atlas = ExtResource("1_qpoi3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jgmi"]
+atlas = ExtResource("2_5jgmi")
 region = Rect2(192, 0, 192, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3xquq"]
-atlas = ExtResource("1_qpoi3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_i12co"]
+atlas = ExtResource("2_5jgmi")
 region = Rect2(384, 0, 192, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y380w"]
-atlas = ExtResource("1_qpoi3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7uqa"]
+atlas = ExtResource("2_5jgmi")
 region = Rect2(576, 0, 192, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dhcxt"]
-atlas = ExtResource("1_qpoi3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3jpg"]
+atlas = ExtResource("2_5jgmi")
 region = Rect2(768, 0, 192, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_q47ak"]
-atlas = ExtResource("1_qpoi3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_cncot"]
+atlas = ExtResource("2_5jgmi")
 region = Rect2(960, 0, 192, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ecks6"]
-atlas = ExtResource("1_qpoi3")
-region = Rect2(1152, 0, 192, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5dgl7"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5lew5")
+"texture": SubResource("AtlasTexture_whf1o")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hwxy5")
+"texture": SubResource("AtlasTexture_deuk5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3oddy")
+"texture": SubResource("AtlasTexture_humpy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2p5e3")
+"texture": SubResource("AtlasTexture_wj3ql")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cgau6")
+"texture": SubResource("AtlasTexture_nkrhf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qnh6q")
+"texture": SubResource("AtlasTexture_kehng")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6sbr7")
+"texture": SubResource("AtlasTexture_jvijr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5dgl7")
+"texture": SubResource("AtlasTexture_5jgmi")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3xquq")
+"texture": SubResource("AtlasTexture_i12co")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y380w")
+"texture": SubResource("AtlasTexture_i7uqa")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dhcxt")
+"texture": SubResource("AtlasTexture_s3jpg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_q47ak")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ecks6")
+"texture": SubResource("AtlasTexture_cncot")
 }],
 "loop": false,
 "name": &"flip",
@@ -149,28 +142,6 @@ size = Vector2(159.89905, 114.27129)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wjs4l"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cy5cl"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y1rlr"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07pbt"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6sius"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_150ls"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o06cv"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mwlsg"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5fxtm"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bq0ky"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d0mpu"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vfiiy"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_40nlg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dojs7"]
@@ -193,14 +164,14 @@ size = Vector2(159.89905, 114.27129)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kxsxi"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Handbook" type="Node2D"]
 position = Vector2(530, 313)
 script = ExtResource("1_5lew5")
 
 [node name="HandbookOpen" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0.37500215, -0.74999446)
-scale = Vector2(2.7929688, 2.7929688)
+position = Vector2(94.5, -63.500027)
+scale = Vector2(3.7734377, 3.7734377)
 sprite_frames = SubResource("SpriteFrames_5dgl7")
 animation = &"flip"
 
@@ -244,7 +215,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_humpy")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_wj3ql")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_nkrhf")
 
-[node name="Employees" type="Button" parent="HandbookOpen/Area2D"]
+[node name="Professor" type="Button" parent="HandbookOpen/Area2D"]
 unique_name_in_owner = true
 offset_left = 16.693712
 offset_top = -17.991606
@@ -262,77 +233,59 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_uxvr7")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_t7mmc")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wjs4l")
 
-[node name="E-1" type="Button" parent="HandbookOpen/Area2D"]
+[node name="Guard" type="Button" parent="HandbookOpen/Area2D"]
 unique_name_in_owner = true
-offset_left = 73.98042
-offset_top = -48.783222
-offset_right = 81.98042
-offset_bottom = -34.103504
-theme_override_styles/normal = SubResource("StyleBoxEmpty_cy5cl")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_y1rlr")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_07pbt")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_6sius")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_150ls")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_o06cv")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_mwlsg")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_5fxtm")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_bq0ky")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_d0mpu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_vfiiy")
+offset_left = 16.69371
+offset_top = -4.027977
+offset_right = 61.44896
+offset_bottom = 7.787407
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kehng")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_jvijr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_svyw8")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_lbtt8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h8ncy")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_i0tod")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_3xqhw")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_4dinw")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_uxvr7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_t7mmc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wjs4l")
 
-[node name="E-2" type="Button" parent="HandbookOpen/Area2D"]
+[node name="ServiceMaster" type="Button" parent="HandbookOpen/Area2D"]
 unique_name_in_owner = true
-offset_left = 73.980446
-offset_top = -29.806988
-offset_right = 81.980446
-offset_bottom = -15.12727
-theme_override_styles/normal = SubResource("StyleBoxEmpty_cy5cl")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_y1rlr")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_07pbt")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_6sius")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_150ls")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_o06cv")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_mwlsg")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_5fxtm")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_bq0ky")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_d0mpu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_vfiiy")
+offset_left = 16.69371
+offset_top = 9.935661
+offset_right = 61.44896
+offset_bottom = 21.751045
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kehng")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_jvijr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_svyw8")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_lbtt8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h8ncy")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_i0tod")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_3xqhw")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_4dinw")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_uxvr7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_t7mmc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wjs4l")
 
-[node name="E-3" type="Button" parent="HandbookOpen/Area2D"]
+[node name="SchoolCaterer" type="Button" parent="HandbookOpen/Area2D"]
 unique_name_in_owner = true
-offset_left = 73.980446
-offset_top = -10.830769
-offset_right = 81.980446
-offset_bottom = 3.8489494
-theme_override_styles/normal = SubResource("StyleBoxEmpty_cy5cl")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_y1rlr")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_07pbt")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_6sius")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_150ls")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_o06cv")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_mwlsg")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_5fxtm")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_bq0ky")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_d0mpu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_vfiiy")
-
-[node name="E-4" type="Button" parent="HandbookOpen/Area2D"]
-unique_name_in_owner = true
-offset_left = 73.980446
-offset_top = 8.145458
-offset_right = 81.980446
-offset_bottom = 22.825176
-theme_override_styles/normal = SubResource("StyleBoxEmpty_cy5cl")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_y1rlr")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_07pbt")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_6sius")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_150ls")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_o06cv")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_mwlsg")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_5fxtm")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_bq0ky")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_d0mpu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_vfiiy")
+offset_left = 16.69371
+offset_top = 24.257347
+offset_right = 61.44896
+offset_bottom = 36.07273
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kehng")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_jvijr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_svyw8")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_lbtt8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h8ncy")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_i0tod")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_3xqhw")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_4dinw")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_uxvr7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_t7mmc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wjs4l")
 
 [node name="Bookmark (Red)" type="Button" parent="HandbookOpen/Area2D"]
 unique_name_in_owner = true

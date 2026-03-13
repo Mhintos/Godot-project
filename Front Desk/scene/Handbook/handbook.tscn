@@ -1,9 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://dj8jdfpebwoc5"]
 
-[ext_resource type="Texture2D" uid="uid://c36841sdn10yr" path="res://assets/Handbook/Hand Book.png" id="1_va5wk"]
+[ext_resource type="Texture2D" uid="uid://coarolo8w1v7b" path="res://scenes/Handbook/Hand Book.png" id="1_n3so6"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Handbook" type="Sprite2D" parent="."]
-position = Vector2(-4, -4)
-texture = ExtResource("1_va5wk")
+[node name="HandBook" type="Sprite2D" parent="."]
+position = Vector2(3.8146973e-06, 3.8146973e-06)
+scale = Vector2(3.84375, 3.84375)
+texture = ExtResource("1_n3so6")
