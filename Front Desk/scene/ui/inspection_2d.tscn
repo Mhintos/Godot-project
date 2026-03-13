@@ -52,7 +52,7 @@ texture = ExtResource("2_bmk1n")
 metadata/_edit_lock_ = true
 
 [node name="Telephone" type="Sprite2D" parent="Background"]
-position = Vector2(-2545.141, 2753.7852)
+position = Vector2(-2533.9902, 2775.7715)
 scale = Vector2(3.6770678, 4.1490297)
 texture = ExtResource("8_8y0pi")
 metadata/_edit_lock_ = true
