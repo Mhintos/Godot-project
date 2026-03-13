@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-static var top_z := 0
 @export var drag_speed: float = 25.0
 
 var is_active := false
@@ -13,26 +12,24 @@ func set_active(value: bool) -> void:
 
 func _update_visual() -> void:
 	if is_active:
-		modulate = Color(1.1, 1.1, 1.1) # subtle highlight
+		modulate = Color(1.1, 1.1, 1.1)
 	else:
 		modulate = Color(1, 1, 1)
 
-func _input_event(viewport, event, shape_idx) -> void:
+func _input_event(_viewport, event, _shape_idx) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			dragging = true
 			drag_offset = global_position - get_global_mouse_position()
 
-			top_z += 1
-			z_index = top_z
-
 			var manager = get_tree().get_first_node_in_group("document_manager")
 			if manager:
+				manager._bring_doc_to_front(self)
 				manager.set_active_document(self)
 		else:
 			dragging = false
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if dragging:
 		var target_pos = get_global_mouse_position() + drag_offset
 		velocity = (target_pos - global_position) * drag_speed

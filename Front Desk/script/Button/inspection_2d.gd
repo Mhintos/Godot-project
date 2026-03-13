@@ -48,6 +48,8 @@ func spawn_character() -> void:
 	current_character.spawn_marker_path = NodePath("../CharacterSpawn")
 	current_character.stop_marker_path = NodePath("../CharacterStop")
 	current_character.exit_right_marker_path = NodePath("../CharacterExitRight")
+	current_character.exit_left_marker_path = NodePath("../CharacterExitLeft")
+
 
 	# mini table + slots (siblings of character)
 	current_character.mini_table_layer_path = NodePath("../MiniTableLayer")
@@ -66,21 +68,34 @@ func _on_decision_pressed(decision: String) -> void:
 	_locked = true
 	_disable_buttons(true)
 
-	# clear docs
 	_clear_layer(get_node(mini_table_layer_path))
 	_clear_layer(get_node(document_layer_path))
 
-	# make character exit right + fade
-	if current_character and current_character.has_method("exit_right"):
-		current_character.exit_right(func():
+	if not current_character:
+		_locked = false
+		_disable_buttons(false)
+		spawn_character()
+		return
+
+	var exit_method := "exit_right"
+	if decision == "deny":
+		exit_method = "exit_left"
+
+	if current_character.has_method(exit_method):
+		current_character.call(exit_method, func():
 			current_character = null
 			_locked = false
 			_disable_buttons(false)
-			# later: spawn next character here (spawn_character())
+			spawn_character()
 		)
 	else:
+		current_character = null
 		_locked = false
 		_disable_buttons(false)
+		spawn_character()
+
+
+
 
 
 func _clear_layer(layer: Node) -> void:

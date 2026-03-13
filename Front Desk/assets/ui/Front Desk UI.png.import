@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ch7p7xm4ps4gp"
-path="res://.godot/imported/buttondenied.png-d3599a0d70565ab5b5a16d08b49589b0.ctex"
+uid="uid://bkd6jse8or5mu"
+path="res://.godot/imported/Front Desk UI.png-fd471689278740b4ef65f859e8382c18.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/buttondenied.png"
-dest_files=["res://.godot/imported/buttondenied.png-d3599a0d70565ab5b5a16d08b49589b0.ctex"]
+source_file="res://assets/ui/Front Desk UI.png"
+dest_files=["res://.godot/imported/Front Desk UI.png-fd471689278740b4ef65f859e8382c18.ctex"]
 
 [params]
 

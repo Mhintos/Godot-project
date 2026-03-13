@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfdkkxen2ug4j"
-path="res://.godot/imported/professor2.png-bf3e126478f82cab35f01993357b259a.ctex"
+uid="uid://ccjpdkck2exen"
+path="res://.godot/imported/telephone.png-2554a4f0769905dd2dc712c1b399ac84.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Characters/professor2.png"
-dest_files=["res://.godot/imported/professor2.png-bf3e126478f82cab35f01993357b259a.ctex"]
+source_file="res://assets/ui/telephone.png"
+dest_files=["res://.godot/imported/telephone.png-2554a4f0769905dd2dc712c1b399ac84.ctex"]
 
 [params]
 

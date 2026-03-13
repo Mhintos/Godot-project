@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var exit_left_marker_path: NodePath
 @export var spawn_marker_path: NodePath
 @export var stop_marker_path: NodePath
 @export var exit_right_marker_path: NodePath
@@ -22,6 +23,7 @@ var _idle_tween: Tween = null
 
 func _ready() -> void:
 	modulate.a = 1.0
+	z_index = 1
 
 	# ---- Spawn marker guard ----
 	if spawn_marker_path.is_empty():
@@ -43,15 +45,27 @@ func _ready() -> void:
 
 	# Set initial position then enter using the stop marker we already resolved
 	global_position = spawn.global_position
-	enter(stop)
+	enter()
 
 
-func enter(stop: Marker2D) -> void:
+func enter() -> void:
+	var stop: Marker2D = get_node(stop_marker_path)
+
 	var t := create_tween()
 	t.tween_property(self, "global_position", stop.global_position, enter_time)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_OUT)
+
+	# tiny settle bounce (optional polish)
+	t.tween_property(self, "global_position:y", stop.global_position.y + 6, 0.08)\
+		.set_trans(Tween.TRANS_SINE)\
+		.set_ease(Tween.EASE_OUT)
+	t.tween_property(self, "global_position:y", stop.global_position.y, 0.10)\
+		.set_trans(Tween.TRANS_SINE)\
+		.set_ease(Tween.EASE_OUT)
+
 	t.tween_callback(_start_idle)
+
 
 
 func _start_idle() -> void:
@@ -72,7 +86,18 @@ func _start_idle() -> void:
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_IN_OUT)
 
+func _clear_mini_docs() -> void:
+	var anchor_id := get_node_or_null(mini_doc_anchor_path) as Node2D
+	var anchor_permit := get_node_or_null(mini_doc_anchor2_path) as Node2D
 
+	if anchor_id:
+		for child in anchor_id.get_children():
+			child.queue_free()
+
+	if anchor_permit:
+		for child in anchor_permit.get_children():
+			child.queue_free()
+			
 func exit_right(on_done: Callable = Callable()) -> void:
 	if _exiting:
 		return
@@ -81,6 +106,9 @@ func exit_right(on_done: Callable = Callable()) -> void:
 	# stop idle so it doesn't fight the exit movement
 	if _idle_tween and _idle_tween.is_running():
 		_idle_tween.kill()
+
+	# remove the hovering mini docs before exiting
+	_clear_mini_docs()
 
 	# ---- Exit marker guard ----
 	if exit_right_marker_path.is_empty():
@@ -96,17 +124,31 @@ func exit_right(on_done: Callable = Callable()) -> void:
 	modulate.a = 1.0
 
 	var t := create_tween()
-	t.set_parallel(true)
-
 	t.tween_property(self, "global_position", exit_marker.global_position, exit_time)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_IN)
 
-	t.tween_property(self, "modulate:a", 0.0, exit_time)\
+	t.tween_callback(func():
+		if on_done.is_valid():
+			on_done.call()
+		queue_free()
+	)
+
+func exit_left(on_done: Callable = Callable()) -> void:
+	if _exiting:
+		return
+	_exiting = true
+
+	var exit_marker: Marker2D = get_node(exit_left_marker_path)
+
+	# no fade by default for deny (feels snappy)
+	modulate.a = 1.0
+
+	var t := create_tween()
+	t.tween_property(self, "global_position", exit_marker.global_position, exit_time)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_IN)
 
-	t.set_parallel(false)
 	t.tween_callback(func():
 		if on_done.is_valid():
 			on_done.call()
@@ -161,3 +203,4 @@ func _spawn_mini_docs() -> void:
 
 	permit_mini.table_layer_path = table_layer.get_path()
 	permit_mini.table_slot_path = permit_slot.get_path()
+	

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2tnjiffpeocf"
-path="res://.godot/imported/organizer.png-daea4f34722df3bb6f3f992bcb5a80ac.ctex"
+uid="uid://6mtj7fdekuhd"
+path="res://.godot/imported/securityguard.png-95deb5e3ec85260fe56875f043eef27c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/organizer.png"
-dest_files=["res://.godot/imported/organizer.png-daea4f34722df3bb6f3f992bcb5a80ac.ctex"]
+source_file="res://assets/Characters/True Form/securityguard.png"
+dest_files=["res://.godot/imported/securityguard.png-95deb5e3ec85260fe56875f043eef27c.ctex"]
 
 [params]
 
