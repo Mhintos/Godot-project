@@ -16,6 +16,7 @@ extends Node2D
 
 @export var mini_id_scene: PackedScene
 @export var mini_permit_scene: PackedScene
+@export var is_true_form: bool = false
 
 var _exiting := false
 var _idle_tween: Tween = null
