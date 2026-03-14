@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=24 format=3 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Button/inspection_2d.gd" id="1_yfmp5"]
@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://y7nfh74ijttf" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Alicia.tscn" id="12_c24fy"]
 [ext_resource type="Texture2D" uid="uid://dtr364r42mb1a" path="res://assets/ui/Shadow/Table Shadow.png" id="12_mga6p"]
 [ext_resource type="Texture2D" uid="uid://b1j65ga2ir6mq" path="res://assets/ui/Shadow/Blinds Shadow.png" id="13_50h4t"]
-[ext_resource type="Script" uid="uid://dyyiw6d3if0co" path="res://script/Documents/document_manager.gd" id="15_50h4t"]
+[ext_resource type="Script" uid="uid://dyyiw6d3if0co" path="res://script/documents/document_manager.gd" id="15_50h4t"]
 [ext_resource type="Texture2D" uid="uid://dbgtdd8kao8bg" path="res://assets/ui/Approve and Deny/approve_normal.png" id="15_mga6p"]
 [ext_resource type="Texture2D" uid="uid://bn8cfs4mwykji" path="res://assets/ui/Table/big table.png" id="15_og0fh"]
 [ext_resource type="Texture2D" uid="uid://clj6qp3d4e42v" path="res://assets/ui/Approve and Deny/approve_pressed.png" id="16_50h4t"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://bdrrqhr1rnkgw" path="res://assets/ui/Approve and Deny/deny_normal.png" id="18_5er1a"]
 [ext_resource type="Texture2D" uid="uid://b4f2futggdswd" path="res://assets/ui/Approve and Deny/deny_pressed.png" id="19_7su7m"]
 [ext_resource type="PackedScene" uid="uid://bc3fso0qb6sdi" path="res://scene/Blinds System/blinds_system.tscn" id="23_5er1a"]
+[ext_resource type="PackedScene" uid="uid://dll78gnht4365" path="res://scene/Handbook/handbook-opened.tscn" id="23_7su7m"]
 
 [node name="Inspection2D" type="Node2D"]
 script = ExtResource("1_yfmp5")
@@ -160,12 +161,29 @@ texture_hover = ExtResource("18_5er1a")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Node2D" parent="." instance=ExtResource("17_vjnc3")]
-position = Vector2(215, 568)
-metadata/_edit_lock_ = true
+[node name="HandbookIcon" parent="." instance=ExtResource("17_vjnc3")]
+unique_name_in_owner = true
+light_mask = 513
+visibility_layer = 513
+z_index = 200
+position = Vector2(211.585, 557.98)
+scale = Vector2(2.04, 2.04)
+
+[node name="Handbook" parent="HandbookIcon" instance=ExtResource("23_7su7m")]
+unique_name_in_owner = true
+visible = false
+position = Vector2(249.71324, -40.18627)
+scale = Vector2(0.475, 0.475)
+
+[node name="TextureButton" type="TextureButton" parent="HandbookIcon"]
+offset_left = -18.91422
+offset_top = -24.990189
+offset_right = 20.30147
+offset_bottom = 26.480408
 
 [node name="TrueFormTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 
+[connection signal="pressed" from="HandbookIcon/TextureButton" to="HandbookIcon/Handbook" method="_on_button_pressed"]
 [connection signal="timeout" from="TrueFormTimer" to="." method="_on_true_form_timer_timeout"]
