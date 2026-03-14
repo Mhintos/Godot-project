@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhj6mj58265oc"]
+[gd_scene load_steps=3 format=3 uid="uid://qaeqwprrrdxp"]
 
-[ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_05aig"]
-[ext_resource type="Texture2D" uid="uid://bou6sdltc8ug5" path="res://assets/Characters/True Form/professor3.png" id="4_t6ke8"]
+[ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_emtnp"]
+[ext_resource type="Texture2D" uid="uid://tn3pt42b5ejw" path="res://assets/Characters/True Form/Caleb Alonso Security.png" id="2_b28wy"]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_05aig")
+script = ExtResource("1_emtnp")
 enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")
@@ -16,7 +16,7 @@ is_true_form = true
 z_index = 2
 position = Vector2(-150, -6)
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("4_t6ke8")
+texture = ExtResource("2_b28wy")
 centered = false
 
 [node name="MiniDocAnchor" type="Node2D" parent="."]

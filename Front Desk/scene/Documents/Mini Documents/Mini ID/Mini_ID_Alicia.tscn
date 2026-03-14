@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://y7nfh74ijttf"]
+
+[ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_bynmn"]
+[ext_resource type="PackedScene" uid="uid://cmddlcv1y20py" path="res://scene/Documents/Full Documents/Document_ID_Alicia.tscn" id="2_a58b7"]
+[ext_resource type="Texture2D" uid="uid://dhj4gtsn47tvp" path="res://assets/documents/Alicia Roxas Professor/ID.png" id="3_a58b7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glixn"]
+size = Vector2(118, 58)
+
+[node name="CharacterMiniDoc" type="Area2D"]
+script = ExtResource("1_bynmn")
+doc_id = "alicia_id"
+full_document_scene = ExtResource("2_a58b7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.047, 0.047)
+texture = ExtResource("3_a58b7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_glixn")

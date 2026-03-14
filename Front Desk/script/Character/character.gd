@@ -15,8 +15,7 @@ signal reached_stop
 @export var mini_id_slot_path: NodePath
 @export var mini_permit_slot_path: NodePath
 
-@export var mini_id_scene: PackedScene
-@export var mini_permit_scene: PackedScene
+@export var mini_doc_scenes: Array[PackedScene] = []
 @export var is_true_form: bool = false
 
 var _exiting := false
@@ -74,20 +73,8 @@ func _start_idle() -> void:
 	print("START IDLE")
 	_spawn_mini_docs()
 
-	# if idle tween already exists, kill it
 	if _idle_tween and _idle_tween.is_running():
 		_idle_tween.kill()
-
-	var base_y := global_position.y
-	_idle_tween = create_tween()
-	_idle_tween.set_loops()
-	_idle_tween.tween_property(self, "global_position:y", base_y - 2, 0.5)\
-		.set_trans(Tween.TRANS_SINE)\
-		.set_ease(Tween.EASE_IN_OUT)
-	_idle_tween.tween_property(self, "global_position:y", base_y, 0.5)\
-		.set_trans(Tween.TRANS_SINE)\
-		.set_ease(Tween.EASE_IN_OUT)
-
 
 func _clear_mini_docs() -> void:
 	var anchor_id := get_node_or_null(mini_doc_anchor_path) as Node2D
@@ -176,47 +163,49 @@ func exit_left(on_done: Callable = Callable()) -> void:
 
 func _spawn_mini_docs() -> void:
 	print("Spawning minis...")
-	print("mini_id_scene:", mini_id_scene)
-	print("mini_permit_scene:", mini_permit_scene)
-	print("anchor paths:", mini_doc_anchor_path, mini_doc_anchor2_path)
+	print("mini_doc_scenes:", mini_doc_scenes)
 
-	# ---- Anchors guard (these are usually inside the character scene) ----
-	var anchor_id := get_node_or_null(mini_doc_anchor_path) as Node2D
-	var anchor_permit := get_node_or_null(mini_doc_anchor2_path) as Node2D
-	if anchor_id == null or anchor_permit == null:
+	if is_true_form:
+		print("True form detected. No mini docs will spawn.")
+		return
+
+	if mini_doc_scenes.is_empty():
+		print("No mini documents assigned.")
+		return
+
+	var anchor_1 := get_node_or_null(mini_doc_anchor_path) as Node2D
+	var anchor_2 := get_node_or_null(mini_doc_anchor2_path) as Node2D
+	if anchor_1 == null or anchor_2 == null:
 		push_error("Character.gd: mini doc anchors not found. Check mini_doc_anchor_path / mini_doc_anchor2_path.")
 		return
 
-	# ---- Table/slots guard (these are usually in the main scene) ----
 	var table_layer := get_node_or_null(mini_table_layer_path)
-	var id_slot := get_node_or_null(mini_id_slot_path) as Marker2D
-	var permit_slot := get_node_or_null(mini_permit_slot_path) as Marker2D
-	if table_layer == null or id_slot == null or permit_slot == null:
-		push_error("Character.gd: table_layer or slots not found. Check mini_table_layer_path / slot paths.")
+	var slot_1 := get_node_or_null(mini_id_slot_path) as Marker2D
+	var slot_2 := get_node_or_null(mini_permit_slot_path) as Marker2D
+	if table_layer == null:
+		push_error("Character.gd: mini_table_layer_path not found.")
 		return
 
-	# Clear old mini docs
-	for child in anchor_id.get_children():
-		child.queue_free()
-	for child in anchor_permit.get_children():
+	for child in anchor_1.get_children():
 		child.queue_free()
 
-	# ── ID MINI ───────────────────────────
-	var id_mini = mini_id_scene.instantiate()
-	anchor_id.add_child(id_mini)
+	for child in anchor_2.get_children():
+		child.queue_free()
 
-	# anchor-based placement
-	id_mini.position = Vector2.ZERO
+	if mini_doc_scenes.size() >= 1 and mini_doc_scenes[0] != null:
+		var mini_1 = mini_doc_scenes[0].instantiate()
+		anchor_1.add_child(mini_1)
+		mini_1.position = Vector2.ZERO
+		mini_1.table_layer_path = table_layer.get_path()
 
-	id_mini.table_layer_path = table_layer.get_path()
-	id_mini.table_slot_path = id_slot.get_path()
+		if slot_1 != null:
+			mini_1.table_slot_path = slot_1.get_path()
 
-	# ── PERMIT MINI ───────────────────────
-	var permit_mini = mini_permit_scene.instantiate()
-	anchor_permit.add_child(permit_mini)
+	if mini_doc_scenes.size() >= 2 and mini_doc_scenes[1] != null:
+		var mini_2 = mini_doc_scenes[1].instantiate()
+		anchor_2.add_child(mini_2)
+		mini_2.position = Vector2.ZERO
+		mini_2.table_layer_path = table_layer.get_path()
 
-	# anchor-based placement
-	permit_mini.position = Vector2.ZERO
-
-	permit_mini.table_layer_path = table_layer.get_path()
-	permit_mini.table_slot_path = permit_slot.get_path()
+		if slot_2 != null:
+			mini_2.table_slot_path = slot_2.get_path()

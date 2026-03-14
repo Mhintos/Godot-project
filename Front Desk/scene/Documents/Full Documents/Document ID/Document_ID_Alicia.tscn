@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmddlcv1y20py"]
+
+[ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/Documents/document.gd" id="1_qfpi4"]
+[ext_resource type="Texture2D" uid="uid://dhj4gtsn47tvp" path="res://assets/documents/Alicia Roxas Professor/ID.png" id="2_dtrbm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qfpi4"]
+size = Vector2(349, 173)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_mask = 0
+input_pickable = true
+script = ExtResource("1_qfpi4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(900, 480)
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("2_dtrbm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(899.5, 479.5)
+shape = SubResource("RectangleShape2D_qfpi4")

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpelxgf0a2akl"]
+
+[ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/Documents/document.gd" id="1_wvhdi"]
+[ext_resource type="Texture2D" uid="uid://bmervu4isludc" path="res://assets/documents/Loopy Varnes Canteen Staff/Campus Access Permit.png" id="2_wvhdi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o6bhg"]
+size = Vector2(5300, 6967.5)
+
+[node name="Document_Permit_Alicia_NEW" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+input_pickable = true
+script = ExtResource("1_wvhdi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(852, 226)
+scale = Vector2(0.046, 0.046)
+texture = ExtResource("2_wvhdi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(852, 225.65)
+scale = Vector2(0.046, 0.046)
+shape = SubResource("RectangleShape2D_o6bhg")
