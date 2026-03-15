@@ -19,6 +19,9 @@ extends Node2D
 @onready var blood_minitable: CanvasItem = get_node(blood_minitable_path)
 @onready var blood_organizer: CanvasItem = get_node(blood_organizer_path)
 
+@export var jumpscare_sprite_path: NodePath
+@onready var jumpscare_sprite: AnimatedSprite2D = get_node(jumpscare_sprite_path)
+
 var _char_index := 0
 
 var current_character: Node2D = null
@@ -38,6 +41,9 @@ func _ready() -> void:
 	blinds_system.blinds_closed_success.connect(_on_blinds_closed_success)
 
 	spawn_character()
+	
+	jumpscare_sprite.visible = false
+	jumpscare_sprite.animation_finished.connect(_on_jumpscare_finished)
 
 func spawn_character() -> void:
 	if character_scenes.is_empty():
@@ -137,7 +143,23 @@ func trigger_jumpscare() -> void:
 	_disable_buttons(true)
 	true_form_timer.stop()
 
-	print("GAME OVER")
+	_clear_layer(get_node(mini_table_layer_path))
+	_clear_layer(get_node(document_layer_path))
+
+	if current_character and is_instance_valid(current_character):
+		current_character.queue_free()
+		current_character = null
+
+	blinds_system.force_open()
+
+	jumpscare_sprite.visible = true
+	jumpscare_sprite.play("play")
+
+	print("JUMPSCARE START")
+	
+func _on_jumpscare_finished() -> void:
+	jumpscare_sprite.stop()
+	print("JUMPSCARE FINISHED")
 	
 func _on_decision_pressed(decision: String) -> void:
 	if _locked or game_over:

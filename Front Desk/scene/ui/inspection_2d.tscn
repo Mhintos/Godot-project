@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=31 format=3 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
@@ -22,6 +22,42 @@
 [ext_resource type="Texture2D" uid="uid://cuj3gk4me6igb" path="res://assets/ui/Bloody Version/Bloody Organizer.png" id="20_50h4t"]
 [ext_resource type="PackedScene" uid="uid://bc3fso0qb6sdi" path="res://scene/Blinds System/blinds_system.tscn" id="23_5er1a"]
 [ext_resource type="PackedScene" uid="uid://dll78gnht4365" path="res://scene/Handbook/handbook-opened.tscn" id="23_7su7m"]
+[ext_resource type="Texture2D" uid="uid://c5syxh2kwfoxg" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/1.png" id="23_tokp6"]
+[ext_resource type="Texture2D" uid="uid://dm3tjtf46ml4w" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/2.png" id="24_ex0io"]
+[ext_resource type="Texture2D" uid="uid://c57s16ujdvv8b" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/3.png" id="25_vhmf8"]
+[ext_resource type="Texture2D" uid="uid://jk4ievy8srti" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/4.png" id="26_sx8aa"]
+[ext_resource type="Texture2D" uid="uid://ds608sxn27om" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/5.png" id="27_cc2gp"]
+[ext_resource type="Texture2D" uid="uid://de4818bs5c78y" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/6.png" id="28_r88fj"]
+[ext_resource type="Texture2D" uid="uid://b3kiu62hpvd0x" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/7.png" id="29_1oqq2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y8ley"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_tokp6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_ex0io")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_vhmf8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_sx8aa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_cc2gp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_r88fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_1oqq2")
+}],
+"loop": false,
+"name": &"Jumpscare",
+"speed": 7.0
+}]
 
 [node name="Inspection2D" type="Node2D"]
 script = ExtResource("1_2wxcv")
@@ -34,6 +70,7 @@ document_layer_path = NodePath("DocumentLayer")
 character_scenes = Array[PackedScene]([ExtResource("8_k8hxm"), ExtResource("3_yfmp5"), ExtResource("5_2wxcv"), ExtResource("6_50h4t")])
 blood_minitable_path = NodePath("UILayer/BloodMiniTable")
 blood_organizer_path = NodePath("UILayer/BloodOrganizer")
+jumpscare_sprite_path = NodePath("JumpscareLayer/JumpscareSprite")
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
@@ -169,7 +206,6 @@ expand_mode = 1
 
 [node name="BloodOrganizer" type="TextureRect" parent="UILayer"]
 visible = false
-z_index = -100
 offset_left = 1.0
 offset_top = 512.0
 offset_right = 429.0
@@ -197,6 +233,16 @@ offset_left = -18.91422
 offset_top = -24.990189
 offset_right = 20.30147
 offset_bottom = 26.480408
+
+[node name="JumpscareLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="JumpscareSprite" type="AnimatedSprite2D" parent="JumpscareLayer"]
+visible = false
+position = Vector2(576.50006, 323.5)
+scale = Vector2(0.10026043, 0.10108026)
+sprite_frames = SubResource("SpriteFrames_y8ley")
+animation = &"Jumpscare"
 
 [node name="TrueFormTimer" type="Timer" parent="."]
 wait_time = 5.0
