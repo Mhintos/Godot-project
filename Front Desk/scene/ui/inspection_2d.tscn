@@ -1,14 +1,14 @@
-[gd_scene load_steps=29 format=3 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=37 format=3 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
 [ext_resource type="PackedScene" uid="uid://lrbticr1ov8o" path="res://scene/Character/Ralph Romero Professor.tscn" id="3_yfmp5"]
 [ext_resource type="PackedScene" uid="uid://qaeqwprrrdxp" path="res://scene/Character/Caleb Alonso Security Anomaly.tscn" id="5_2wxcv"]
 [ext_resource type="PackedScene" uid="uid://dgau330eg8kdh" path="res://scene/Character/Loopy Varns Canteen Staff.tscn" id="6_50h4t"]
-[ext_resource type="Texture2D" uid="uid://bfhkqbtlfkyhj" path="res://assets/ui/Table/organizer.png" id="7_lwtii"]
+[ext_resource type="Texture2D" uid="uid://bfhkqbtlfkyhj" path="res://assets/ui/Table/Organizer.png" id="7_lwtii"]
 [ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Alicia Roxas Professor.tscn" id="8_k8hxm"]
 [ext_resource type="Texture2D" uid="uid://bgdm30kdupwmd" path="res://assets/ui/Table/Mini Table.png" id="8_kspj7"]
-[ext_resource type="Texture2D" uid="uid://bvd700yvkq2yn" path="res://assets/ui/Telephone/telephone.png" id="9_lwtii"]
+[ext_resource type="Texture2D" uid="uid://bvd700yvkq2yn" path="res://assets/ui/Telephone/Telephone.png" id="9_lwtii"]
 [ext_resource type="Script" uid="uid://dyyiw6d3if0co" path="res://script/documents/document_manager.gd" id="15_50h4t"]
 [ext_resource type="Texture2D" uid="uid://dbgtdd8kao8bg" path="res://assets/ui/Approve and Deny/approve_normal.png" id="15_mga6p"]
 [ext_resource type="Texture2D" uid="uid://clj6qp3d4e42v" path="res://assets/ui/Approve and Deny/approve_pressed.png" id="16_50h4t"]
@@ -25,8 +25,16 @@
 [ext_resource type="Texture2D" uid="uid://dempketnmw7jq" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/3.png" id="25_vhmf8"]
 [ext_resource type="Texture2D" uid="uid://c0tripluupea2" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/4.png" id="26_sx8aa"]
 [ext_resource type="Texture2D" uid="uid://cwbntg2j5vyqv" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/5.png" id="27_cc2gp"]
+[ext_resource type="AudioStream" uid="uid://cm58dfe30p6e6" path="res://sfx/Maingame/In Game BG Music.mp3" id="28_1oqq2"]
 [ext_resource type="Texture2D" uid="uid://28nfsv3mpni6" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/6.png" id="28_r88fj"]
 [ext_resource type="Texture2D" uid="uid://db84xe4ulgp0d" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/7.png" id="29_1oqq2"]
+[ext_resource type="AudioStream" uid="uid://55ljf4tgrp8b" path="res://sfx/Maingame/Footsteps.mp3" id="29_y8ley"]
+[ext_resource type="AudioStream" uid="uid://dgbk8g8wyxax6" path="res://sfx/Maingame/Sliding Paper.mp3" id="30_3nq0w"]
+[ext_resource type="AudioStream" uid="uid://dnlr2x3d5pye7" path="res://sfx/Maingame/Page Turn.mp3" id="31_d50na"]
+[ext_resource type="AudioStream" uid="uid://ckcaau6gxc6dr" path="res://sfx/Maingame/Mistake.mp3" id="32_pgn82"]
+[ext_resource type="AudioStream" uid="uid://b53cvvxqb87dn" path="res://sfx/Maingame/True Form Presence.mp3" id="33_rlkgx"]
+[ext_resource type="AudioStream" uid="uid://bunh3u3q2yqw3" path="res://sfx/Maingame/Screen Distort.mp3" id="34_q2qns"]
+[ext_resource type="AudioStream" uid="uid://jdbjiplnkxrn" path="res://sfx/Maingame/Jumpscare.mp3" id="35_i83lm"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y8ley"]
 animations = [{
@@ -296,7 +304,39 @@ frame_progress = 1.0
 wait_time = 5.0
 one_shot = true
 
-[node name="Node" type="Node" parent="."]
+[node name="SFX" type="Node" parent="."]
+
+[node name="InGameMusic" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("28_1oqq2")
+volume_db = -12.0
+autoplay = true
+
+[node name="FootstepSFX" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("29_y8ley")
+volume_db = -5.0
+
+[node name="SlidingPaperSFX" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("30_3nq0w")
+volume_db = -4.0
+
+[node name="PageTurnSFX" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("31_d50na")
+volume_db = -4.0
+
+[node name="MistakeSFX" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("32_pgn82")
+volume_db = -2.0
+
+[node name="TrueFormPresenceSFX" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("33_rlkgx")
+volume_db = -3.0
+
+[node name="ScreenDistortSFX" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("34_q2qns")
+volume_db = -5.0
+
+[node name="JumpscareSFX" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("35_i83lm")
 
 [connection signal="pressed" from="Table Layer/UILayer/HandbookIcon/TextureButton" to="Table Layer/UILayer/HandbookIcon/Handbook" method="_on_button_pressed"]
 [connection signal="pressed" from="Bloody UI/HandbookIcon/TextureButton" to="Bloody UI/HandbookIcon/Handbook" method="_on_button_pressed"]

@@ -1,5 +1,6 @@
 extends Node2D
 signal reached_stop
+signal play_footstep
 
 enum ExpectedDecision {
 	APPROVE,
@@ -59,12 +60,13 @@ func _ready() -> void:
 func enter() -> void:
 	var stop: Marker2D = get_node(stop_marker_path)
 
+	emit_signal("play_footstep")
+
 	var t := create_tween()
 	t.tween_property(self, "global_position", stop.global_position, enter_time)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_OUT)
 
-	# tiny settle bounce (optional polish)
 	t.tween_property(self, "global_position:y", stop.global_position.y + 6, 0.08)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_OUT)
@@ -74,7 +76,6 @@ func enter() -> void:
 
 	t.tween_callback(_start_idle)
 	t.tween_callback(func(): emit_signal("reached_stop"))
-
 
 func _start_idle() -> void:
 	print("START IDLE")
@@ -120,6 +121,8 @@ func exit_right(on_done: Callable = Callable()) -> void:
 		return
 
 	modulate.a = 1.0
+	
+	emit_signal("play_footstep")
 
 	var t := create_tween()
 	t.tween_property(self, "global_position", exit_marker.global_position, exit_time)\
@@ -155,6 +158,8 @@ func exit_left(on_done: Callable = Callable()) -> void:
 		return
 
 	modulate.a = 1.0
+	
+	emit_signal("play_footstep")
 
 	var t := create_tween()
 	t.tween_property(self, "global_position", exit_marker.global_position, exit_time)\

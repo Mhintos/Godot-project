@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://0xvufe6itncj"]
 
-[ext_resource type="Script" uid="uid://c4hcanq24yylb" path="res://scene/Success/success.gd" id="1_efb16"]
+[ext_resource type="Script" uid="uid://c4hcanq24yylb" path="res://script/Game over/Success/success.gd" id="1_efb16"]
 [ext_resource type="Texture2D" uid="uid://bu3cmsxchjxcj" path="res://assets/Success/End of Shift (1).png" id="1_hniwk"]
 [ext_resource type="Texture2D" uid="uid://cd1ir0hsf2y2l" path="res://assets/Success/Sucesslight.png" id="2_tp14k"]
 [ext_resource type="Texture2D" uid="uid://dab6l85rx5vxc" path="res://assets/Success/sucessdark.png" id="3_efb16"]
@@ -30,6 +30,8 @@ stretch_mode = 6
 
 [node name="SuccessMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_006as")
+volume_db = -10.0
+autoplay = true
 
 [node name="HoverSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_shpx3")

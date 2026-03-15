@@ -22,6 +22,18 @@ extends Node2D
 @export var jumpscare_sprite_path: NodePath
 @onready var jumpscare_sprite: AnimatedSprite2D = get_node(jumpscare_sprite_path)
 
+@onready var in_game_music: AudioStreamPlayer = $SFX/InGameMusic
+@onready var footstep_sfx: AudioStreamPlayer = $SFX/FootstepSFX
+@onready var sliding_paper_sfx: AudioStreamPlayer = $SFX/SlidingPaperSFX
+@onready var page_turn_sfx: AudioStreamPlayer = $SFX/PageTurnSFX
+@onready var mistake_sfx: AudioStreamPlayer = $SFX/MistakeSFX
+@onready var true_form_presence_sfx: AudioStreamPlayer = $SFX/TrueFormPresenceSFX
+@onready var screen_distort_sfx: AudioStreamPlayer = $SFX/ScreenDistortSFX
+@onready var jumpscare_sfx: AudioStreamPlayer = $SFX/JumpscareSFX
+
+@export var max_characters_per_shift: int = 4
+@export var success_scene_path: String = "res://scene/Success/success.tscn"
+
 var _char_index := 0
 
 var current_character: Node2D = null
@@ -29,6 +41,7 @@ var _locked := false
 var true_form_active := false
 var mistake_count := 0
 var game_over := false
+var processed_characters := 0
 
 func _ready() -> void:
 	var approve_btn: BaseButton = get_node(approve_button_path)
@@ -62,7 +75,8 @@ func spawn_character() -> void:
 	_clear_layer(get_node(document_layer_path))
 
 	if _char_index >= character_scenes.size():
-		_char_index = 0
+		print("No more characters left to spawn.")
+		return
 
 	current_character = character_scenes[_char_index].instantiate()
 	_char_index += 1
@@ -77,14 +91,19 @@ func spawn_character() -> void:
 	current_character.mini_permit_slot_path = NodePath("../Documents/MiniSlot_Permit")
 
 	add_child(current_character)
+	current_character.play_footstep.connect(play_footstep_sfx)
 	current_character.reached_stop.connect(_on_character_reached_stop)
-
+	
 func _on_character_reached_stop() -> void:
 	if current_character == null:
 		return
 
+	play_sliding_paper_sfx()
+
 	if current_character.is_true_form:
 		true_form_active = true
+		play_true_form_presence_sfx()
+		play_screen_distort_sfx()
 		print("True form reached stop. Timer started.")
 		true_form_timer.start()
 
@@ -117,17 +136,13 @@ func _reject_true_form() -> void:
 			current_character.call("exit_left", func():
 				current_character = null
 				blinds_system.force_open()
-				_locked = false
-				_disable_buttons(false)
-				spawn_character()
-			)
-			return
+				_finish_character_and_continue()
+		)
+		return
 
 	current_character = null
 	blinds_system.force_open()
-	_locked = false
-	_disable_buttons(false)
-	spawn_character()
+	_finish_character_and_continue()
 
 
 func _on_true_form_timer_timeout() -> void:
@@ -162,6 +177,8 @@ func trigger_jumpscare() -> void:
 
 	blinds_system.force_open()
 
+	play_jumpscare_sfx()
+
 	jumpscare_sprite.visible = true
 
 	if jumpscare_sprite.sprite_frames and jumpscare_sprite.sprite_frames.has_animation("play"):
@@ -174,6 +191,7 @@ func trigger_jumpscare() -> void:
 func _on_jumpscare_finished() -> void:
 	jumpscare_sprite.stop()
 	print("JUMPSCARE FINISHED")
+	get_tree().change_scene_to_file("res://scene/GameOver/game_over.tscn")
 	
 func _on_decision_pressed(decision: String) -> void:
 	if _locked or game_over:
@@ -216,9 +234,7 @@ func _on_decision_pressed(decision: String) -> void:
 			if game_over:
 				return
 
-			_locked = false
-			_disable_buttons(false)
-			spawn_character()
+			_finish_character_and_continue()
 		)
 	else:
 		current_character = null
@@ -226,6 +242,8 @@ func _on_decision_pressed(decision: String) -> void:
 
 		if game_over:
 			return
+
+		_finish_character_and_continue()
 
 		_locked = false
 		_disable_buttons(false)
@@ -250,13 +268,13 @@ func _is_decision_correct(decision: String) -> bool:
 
 func _register_mistake() -> void:
 	mistake_count += 1
+	play_mistake_sfx()
 	print("Mistake count: ", mistake_count)
 
 	if mistake_count == 1:
 		_show_bloody_ui()
 	elif mistake_count >= 2:
 		trigger_jumpscare()
-
 
 func _show_bloody_ui() -> void:
 	blood_minitable.visible = true
@@ -279,6 +297,8 @@ func reset_run_state() -> void:
 	game_over = false
 	true_form_active = false
 	_locked = false
+	processed_characters = 0
+	_char_index = 0
 
 	blood_minitable.visible = false
 	blood_organizer.visible = false
@@ -290,3 +310,43 @@ func reset_run_state() -> void:
 		blinds_system.force_open()
 	else:
 		push_error("BlindsSystem not found. Check node path.")
+		
+func _finish_character_and_continue() -> void:
+	processed_characters += 1
+	print("Processed characters: ", processed_characters, "/", max_characters_per_shift)
+
+	if processed_characters >= max_characters_per_shift:
+		get_tree().change_scene_to_file(success_scene_path)
+		return
+
+	_locked = false
+	_disable_buttons(false)
+	spawn_character()
+		
+func play_footstep_sfx() -> void:
+	if footstep_sfx.stream:
+		footstep_sfx.play()
+
+func play_sliding_paper_sfx() -> void:
+	if sliding_paper_sfx.stream:
+		sliding_paper_sfx.play()
+
+func play_page_turn_sfx() -> void:
+	if page_turn_sfx.stream:
+		page_turn_sfx.play()
+
+func play_mistake_sfx() -> void:
+	if mistake_sfx.stream:
+		mistake_sfx.play()
+
+func play_true_form_presence_sfx() -> void:
+	if true_form_presence_sfx.stream:
+		true_form_presence_sfx.play()
+
+func play_screen_distort_sfx() -> void:
+	if screen_distort_sfx.stream:
+		screen_distort_sfx.play()
+
+func play_jumpscare_sfx() -> void:
+	if jumpscare_sfx.stream:
+		jumpscare_sfx.play()

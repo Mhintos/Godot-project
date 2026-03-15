@@ -23,6 +23,8 @@ var page_frames = {
 @onready var handbook_icon: Node2D = %HandbookIcon
 @onready var handbook: Node2D = %Handbook
 
+@onready var page_turn_sfx: AudioStreamPlayer = get_tree().current_scene.get_node_or_null("SFX/PageTurnSFX")
+
 #Variables for Flipping the Book
 var flip = false
 @onready var handbook_opened_sprite = %HandbookOpen
@@ -53,16 +55,18 @@ func _on_flip_right_pressed():
 		print("Already at last page")
 		return
 	else:
+		play_page_turn_sfx()
 		advance_frame(1)
 	update_button_visibility()
-
+	
 func _on_flip_left_pressed():
 	print("FLIP LEFT PRESSED")
 	if current_frame <= 0:
 		print ("Already at first page")
-		return #It stops here
+		return
 	else:
-		advance_frame(-1)  # Move backward one frame
+		play_page_turn_sfx()
+		advance_frame(-1)
 	update_button_visibility()
 
 func advance_frame(direction):
@@ -118,7 +122,8 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 func _on_button_pressed() -> void:
 	handbook.visible = !handbook.visible
 	if handbook.visible:
-		handbook_opened_sprite.global_position = Vector2(800, 350) #Places book consistently on the same spot
+		play_page_turn_sfx()
+		handbook_opened_sprite.global_position = Vector2(800, 350)
 		current_frame = page_frames["contents"]
 		handbook_opened_sprite.frame = current_frame
 		basic_rules_button.disabled = false
@@ -137,10 +142,9 @@ func _on_basic_rules_unhover():
 		handbook_opened_sprite.frame = page_frames["contents"]
 
 func _on_basic_rules_clicked():
-	#For click function of the buttons
+	play_page_turn_sfx()
 	current_frame = page_frames["basic_rules"]
 	handbook_opened_sprite.frame = current_frame
-	#For Button node to disappear to avoid interference with other pages
 	basic_rules_button.disabled = true
 	professor_button.disabled = true
 	canteen_staff_button.disabled = true
@@ -154,6 +158,7 @@ func _on_professor_unhover():
 		handbook_opened_sprite.frame = page_frames["contents"]
 
 func _on_professor_clicked():
+	play_page_turn_sfx()
 	current_frame = page_frames["professor1"]
 	handbook_opened_sprite.frame = current_frame
 	basic_rules_button.disabled = true
@@ -170,6 +175,7 @@ func _on_canteen_staff_unhover():
 		handbook_opened_sprite.frame = page_frames["contents"]
 
 func _on_canteen_staff_clicked():
+	play_page_turn_sfx()
 	current_frame = page_frames["canteen_staff"]
 	handbook_opened_sprite.frame = current_frame
 	basic_rules_button.disabled = true
@@ -177,11 +183,18 @@ func _on_canteen_staff_clicked():
 	canteen_staff_button.disabled = true
 
 func _on_bookmark_clicked():
+	play_page_turn_sfx()
 	current_frame = page_frames["contents"]
 	handbook_opened_sprite.frame = current_frame
 	basic_rules_button.disabled = false
-	basic_rules_button.mouse_filter = Control.MOUSE_FILTER_STOP #When bookmark is pressed, buttons will work properly again
+	basic_rules_button.mouse_filter = Control.MOUSE_FILTER_STOP
 	professor_button.disabled = false
 	professor_button.mouse_filter = Control.MOUSE_FILTER_STOP
 	canteen_staff_button.disabled = false
 	canteen_staff_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	
+func play_page_turn_sfx() -> void:
+	if page_turn_sfx and page_turn_sfx.stream:
+		if page_turn_sfx.playing:
+			page_turn_sfx.stop()
+		page_turn_sfx.play()

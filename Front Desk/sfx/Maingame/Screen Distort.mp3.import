@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bunh3u3q2yqw3"
+path="res://.godot/imported/Screen Distort.mp3-0e760cc1aeddf48fc577581592499b2b.mp3str"
+
+[deps]
+
+source_file="res://sfx/Maingame/Screen Distort.mp3"
+dest_files=["res://.godot/imported/Screen Distort.mp3-0e760cc1aeddf48fc577581592499b2b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -3,6 +3,7 @@ extends Node2D
 @export var main_menu_scene_path: String = "res://scene/Main Menu/Mainmenu.tscn"
 
 @onready var home_button = $CanvasLayer/HomeButton
+@onready var success_music: AudioStreamPlayer = $SuccessMusic
 @onready var hover_sfx: AudioStreamPlayer = $HoverSFX
 @onready var click_sfx: AudioStreamPlayer = $ClickSFX
 

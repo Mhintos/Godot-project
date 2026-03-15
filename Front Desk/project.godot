@@ -13,10 +13,13 @@ config_version=5
 config/name="Front Desk"
 run/main_scene="uid://vegcmgex6h1c"
 config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="uid://m0vmc5ax1ax0"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="uid://bel0qcahglanw"
 
 [input]
 
