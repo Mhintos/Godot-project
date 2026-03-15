@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Front Desk"
-run/main_scene="uid://cjkqk8fhkjsme"
+run/main_scene="uid://vegcmgex6h1c"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
 [display]
