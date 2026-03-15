@@ -2,22 +2,22 @@
 
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
-[ext_resource type="Texture2D" uid="uid://c2tnjiffpeocf" path="res://assets/ui/Table/organizer.png" id="2_bmk1n"]
-[ext_resource type="Texture2D" uid="uid://bv5npysftqwu6" path="res://assets/ui/Table/minitable.png" id="3_cq3x7"]
 [ext_resource type="PackedScene" uid="uid://lrbticr1ov8o" path="res://scene/Character/Ralph Romero Professor.tscn" id="3_yfmp5"]
 [ext_resource type="PackedScene" uid="uid://qaeqwprrrdxp" path="res://scene/Character/Caleb Alonso Security Anomaly.tscn" id="5_2wxcv"]
 [ext_resource type="PackedScene" uid="uid://dgau330eg8kdh" path="res://scene/Character/Loopy Varns Canteen Staff.tscn" id="6_50h4t"]
-[ext_resource type="Texture2D" uid="uid://ccjpdkck2exen" path="res://assets/ui/Telephone/telephone.png" id="8_8y0pi"]
+[ext_resource type="Texture2D" uid="uid://bfhkqbtlfkyhj" path="res://assets/ui/Table/Organizer.png" id="7_lwtii"]
 [ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Alicia Roxas Professor.tscn" id="8_k8hxm"]
+[ext_resource type="Texture2D" uid="uid://bgdm30kdupwmd" path="res://assets/ui/Table/Mini Table.png" id="8_kspj7"]
+[ext_resource type="Texture2D" uid="uid://bvd700yvkq2yn" path="res://assets/ui/Telephone/Telephone.png" id="9_lwtii"]
 [ext_resource type="Script" uid="uid://dyyiw6d3if0co" path="res://script/documents/document_manager.gd" id="15_50h4t"]
 [ext_resource type="Texture2D" uid="uid://dbgtdd8kao8bg" path="res://assets/ui/Approve and Deny/approve_normal.png" id="15_mga6p"]
 [ext_resource type="Texture2D" uid="uid://clj6qp3d4e42v" path="res://assets/ui/Approve and Deny/approve_pressed.png" id="16_50h4t"]
 [ext_resource type="PackedScene" uid="uid://dj8jdfpebwoc5" path="res://scene/Handbook/handbook.tscn" id="17_vjnc3"]
 [ext_resource type="Texture2D" uid="uid://bdrrqhr1rnkgw" path="res://assets/ui/Approve and Deny/deny_normal.png" id="18_5er1a"]
 [ext_resource type="Texture2D" uid="uid://b4f2futggdswd" path="res://assets/ui/Approve and Deny/deny_pressed.png" id="19_7su7m"]
-[ext_resource type="Texture2D" uid="uid://dl46r3acckdpy" path="res://assets/ui/Table/Table.png" id="19_lwtii"]
-[ext_resource type="Texture2D" uid="uid://cetoxw1xwve4s" path="res://assets/ui/Bloody Version/Bloody Minitable.png" id="19_mga6p"]
-[ext_resource type="Texture2D" uid="uid://cuj3gk4me6igb" path="res://assets/ui/Bloody Version/Bloody Organizer.png" id="20_50h4t"]
+[ext_resource type="Texture2D" uid="uid://dbmbjsakmda5o" path="res://assets/ui/Table/Main Table.png" id="19_lwtii"]
+[ext_resource type="Texture2D" uid="uid://2eyekvswf3xp" path="res://assets/ui/Bloody Version/Bloody Minitable.png" id="19_mga6p"]
+[ext_resource type="Texture2D" uid="uid://ftr6jxfiqtat" path="res://assets/ui/Bloody Version/Bloody Organizer.png" id="20_50h4t"]
 [ext_resource type="PackedScene" uid="uid://bc3fso0qb6sdi" path="res://scene/Blinds System/blinds_system.tscn" id="23_5er1a"]
 [ext_resource type="PackedScene" uid="uid://dll78gnht4365" path="res://scene/Handbook/handbook-opened.tscn" id="23_7su7m"]
 [ext_resource type="Texture2D" uid="uid://c5syxh2kwfoxg" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/1.png" id="23_tokp6"]
@@ -79,25 +79,43 @@ scale = Vector2(0.46907216, 0.3944954)
 texture = ExtResource("1_eqw22")
 
 [node name="Table Layer" type="CanvasLayer" parent="."]
+layer = 11
 
 [node name="Organizer" type="Sprite2D" parent="Table Layer"]
-position = Vector2(215, 579.5)
-scale = Vector2(0.3242424, 0.38157898)
-texture = ExtResource("2_bmk1n")
+position = Vector2(216.5, 581)
+scale = Vector2(3.280303, 3.5789475)
+texture = ExtResource("7_lwtii")
 metadata/_edit_lock_ = true
 
 [node name="mini table" type="Sprite2D" parent="Table Layer"]
-z_index = 200
-position = Vector2(214.00003, 419)
-scale = Vector2(0.49885058, 0.56363636)
-texture = ExtResource("3_cq3x7")
+position = Vector2(215.91254, 422.37732)
+scale = Vector2(4.9675283, 5.7110806)
+texture = ExtResource("8_kspj7")
 metadata/_edit_lock_ = true
 
 [node name="Telephone" type="Sprite2D" parent="Table Layer"]
 z_index = 100
-position = Vector2(350.75, 577.5)
-scale = Vector2(0.32976195, 0.37741938)
-texture = ExtResource("8_8y0pi")
+position = Vector2(351, 580)
+scale = Vector2(3.4329271, 3.6206894)
+texture = ExtResource("9_lwtii")
+metadata/_edit_lock_ = true
+
+[node name="BigTable" type="Sprite2D" parent="Table Layer"]
+z_index = 200
+position = Vector2(793, 323)
+scale = Vector2(0.58749324, 0.62081784)
+texture = ExtResource("19_lwtii")
+metadata/_edit_lock_ = true
+
+[node name="BloodOrganizer" type="TextureRect" parent="Table Layer"]
+visible = false
+offset_left = 1.0
+offset_top = 512.0
+offset_right = 429.0
+offset_bottom = 651.0
+mouse_filter = 2
+texture = ExtResource("20_50h4t")
+expand_mode = 1
 metadata/_edit_lock_ = true
 
 [node name="BloodMiniTable" type="TextureRect" parent="Table Layer"]
@@ -109,19 +127,10 @@ offset_bottom = 514.0
 mouse_filter = 2
 texture = ExtResource("19_mga6p")
 expand_mode = 1
-
-[node name="BloodOrganizer" type="TextureRect" parent="Table Layer"]
-visible = false
-offset_left = 1.0
-offset_top = 512.0
-offset_right = 429.0
-offset_bottom = 651.0
-mouse_filter = 2
-texture = ExtResource("20_50h4t")
-expand_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="Table Layer"]
-layer = 4
+layer = 11
 
 [node name="ApproveButton" type="TextureButton" parent="Table Layer/UILayer"]
 anchors_preset = 15
@@ -176,20 +185,14 @@ offset_right = 20.30147
 offset_bottom = 26.480408
 
 [node name="Blinds Layer" type="CanvasLayer" parent="."]
-layer = 5
+layer = 10
 
 [node name="BlindsSystem" parent="Blinds Layer" instance=ExtResource("23_5er1a")]
 z_index = 98
 position = Vector2(-0.99993896, 0)
 
-[node name="BigTable" type="Sprite2D" parent="Blinds Layer"]
-z_index = 200
-position = Vector2(796, 319.99994)
-scale = Vector2(0.121333346, 0.20562962)
-texture = ExtResource("19_lwtii")
-
 [node name="Documents" type="CanvasLayer" parent="."]
-layer = 4
+layer = 11
 
 [node name="MiniTableLayer" type="Node2D" parent="Documents"]
 z_index = 200

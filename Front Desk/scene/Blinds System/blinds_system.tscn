@@ -1,27 +1,26 @@
-[gd_scene load_steps=35 format=3 uid="uid://bc3fso0qb6sdi"]
+[gd_scene load_steps=34 format=3 uid="uid://bc3fso0qb6sdi"]
 
-[ext_resource type="Texture2D" uid="uid://dcvo6pb2fxle0" path="res://assets/ui/Blinds/Closed Blinds/1.png" id="1_8gdcj"]
+[ext_resource type="Texture2D" uid="uid://vpfvs3n2yshr" path="res://assets/ui/Blinds/Closed Blinds/1.png" id="1_8gdcj"]
 [ext_resource type="Script" uid="uid://dggvtpqkjgghw" path="res://script/BlindsSystem/blinds_system.gd" id="1_46d77"]
-[ext_resource type="Texture2D" uid="uid://bcwkmyka0lfdt" path="res://assets/ui/Blinds/Closed Blinds/2.png" id="2_fe0kc"]
-[ext_resource type="Texture2D" uid="uid://dchpi7cxjy6lv" path="res://assets/ui/Blinds/Closed Blinds/3.png" id="3_46d77"]
-[ext_resource type="Texture2D" uid="uid://dtmk82wluajij" path="res://assets/ui/Blinds/Closed Blinds/4.png" id="4_6524k"]
-[ext_resource type="Texture2D" uid="uid://dkw52qklqv522" path="res://assets/ui/Blinds/Closed Blinds/5.png" id="5_p50d0"]
-[ext_resource type="Texture2D" uid="uid://dnnygbwvslg76" path="res://assets/ui/Blinds/Closed Blinds/6.png" id="6_aknbg"]
-[ext_resource type="Texture2D" uid="uid://dd36f8d4507ek" path="res://assets/ui/Blinds/Closed Blinds/7.png" id="7_65xtt"]
-[ext_resource type="Texture2D" uid="uid://c0ma4anf5cc2m" path="res://assets/ui/Blinds/Closed Blinds/8.png" id="8_l24hq"]
-[ext_resource type="Texture2D" uid="uid://bp4akh23pbpth" path="res://assets/ui/Blinds/Closed Blinds/9.png" id="9_lsc0p"]
-[ext_resource type="Texture2D" uid="uid://c6wlyt8jo2kjb" path="res://assets/ui/Blinds/Closed Blinds/10.png" id="10_lf40f"]
-[ext_resource type="Texture2D" uid="uid://btvjjwpixksj0" path="res://assets/ui/Blinds/Blinds.png" id="11_iyl8b"]
-[ext_resource type="Texture2D" uid="uid://dqbkndg4mdefs" path="res://assets/ui/Blinds/Open blinds/10.png" id="12_qet78"]
-[ext_resource type="Texture2D" uid="uid://ebuabqlkwad0" path="res://assets/ui/Blinds/Open blinds/1.png" id="13_rjvwr"]
-[ext_resource type="Texture2D" uid="uid://ci1x66li2r2et" path="res://assets/ui/Blinds/Open blinds/2.png" id="14_pasxu"]
-[ext_resource type="Texture2D" uid="uid://b4awi6yqmuqv3" path="res://assets/ui/Blinds/Open blinds/3.png" id="15_88xs5"]
-[ext_resource type="Texture2D" uid="uid://bor5fw0ir5hsi" path="res://assets/ui/Blinds/Open blinds/4.png" id="16_886va"]
-[ext_resource type="Texture2D" uid="uid://dfmqhjh8jt164" path="res://assets/ui/Blinds/Open blinds/5.png" id="17_0dkeu"]
-[ext_resource type="Texture2D" uid="uid://gyb6xvt4pu1e" path="res://assets/ui/Blinds/Open blinds/6.png" id="18_n4mf8"]
-[ext_resource type="Texture2D" uid="uid://dnx26vkn0trfd" path="res://assets/ui/Blinds/Open blinds/7.png" id="19_5i12f"]
-[ext_resource type="Texture2D" uid="uid://dvjlc04qbvfpb" path="res://assets/ui/Blinds/Open blinds/8.png" id="20_jpc56"]
-[ext_resource type="Texture2D" uid="uid://05ao6r55ynrf" path="res://assets/ui/Blinds/Open blinds/9.png" id="21_4kovt"]
+[ext_resource type="Texture2D" uid="uid://ct3223q6ypamy" path="res://assets/ui/Blinds/Closed Blinds/2.png" id="2_fe0kc"]
+[ext_resource type="Texture2D" uid="uid://xed71dsev5p6" path="res://assets/ui/Blinds/Closed Blinds/3.png" id="3_46d77"]
+[ext_resource type="Texture2D" uid="uid://ddy0ebov0wk6t" path="res://assets/ui/Blinds/Closed Blinds/4.png" id="4_6524k"]
+[ext_resource type="Texture2D" uid="uid://b0fu54op0hwfk" path="res://assets/ui/Blinds/Closed Blinds/5.png" id="5_p50d0"]
+[ext_resource type="Texture2D" uid="uid://rxr0va8uw24m" path="res://assets/ui/Blinds/Closed Blinds/6.png" id="6_aknbg"]
+[ext_resource type="Texture2D" uid="uid://crjq6qtnv8t7b" path="res://assets/ui/Blinds/Closed Blinds/7.png" id="7_65xtt"]
+[ext_resource type="Texture2D" uid="uid://d304mt0pg8yvm" path="res://assets/ui/Blinds/Closed Blinds/8.png" id="8_l24hq"]
+[ext_resource type="Texture2D" uid="uid://dr4wcr1rjldf7" path="res://assets/ui/Blinds/Closed Blinds/9.png" id="9_lsc0p"]
+[ext_resource type="Texture2D" uid="uid://brtsv0fxq0o4g" path="res://assets/ui/Blinds/Closed Blinds/10.png" id="10_lf40f"]
+[ext_resource type="Texture2D" uid="uid://ff84ii42w51l" path="res://assets/ui/Blinds/Open blinds/10.png" id="12_qet78"]
+[ext_resource type="Texture2D" uid="uid://dstgssrt0hfn7" path="res://assets/ui/Blinds/Open blinds/1.png" id="13_rjvwr"]
+[ext_resource type="Texture2D" uid="uid://cdlha84ualvrh" path="res://assets/ui/Blinds/Open blinds/2.png" id="14_pasxu"]
+[ext_resource type="Texture2D" uid="uid://bk0kavvccgq78" path="res://assets/ui/Blinds/Open blinds/3.png" id="15_88xs5"]
+[ext_resource type="Texture2D" uid="uid://cvry52y2luomb" path="res://assets/ui/Blinds/Open blinds/4.png" id="16_886va"]
+[ext_resource type="Texture2D" uid="uid://dy27xv52irgty" path="res://assets/ui/Blinds/Open blinds/5.png" id="17_0dkeu"]
+[ext_resource type="Texture2D" uid="uid://dqetriw82jvcn" path="res://assets/ui/Blinds/Open blinds/6.png" id="18_n4mf8"]
+[ext_resource type="Texture2D" uid="uid://baou1qy6rm2fv" path="res://assets/ui/Blinds/Open blinds/7.png" id="19_5i12f"]
+[ext_resource type="Texture2D" uid="uid://c4yyjna0vdwn5" path="res://assets/ui/Blinds/Open blinds/8.png" id="20_jpc56"]
+[ext_resource type="Texture2D" uid="uid://fqj3yxniqw1f" path="res://assets/ui/Blinds/Open blinds/9.png" id="21_4kovt"]
 [ext_resource type="Texture2D" uid="uid://ysrb1fcsmms5" path="res://assets/ui/Lever/Lever Spritesheet.png" id="22_fe0kc"]
 [ext_resource type="Texture2D" uid="uid://dtr364r42mb1a" path="res://assets/ui/Shadow/Table Shadow.png" id="24_bte03"]
 [ext_resource type="Texture2D" uid="uid://b1j65ga2ir6mq" path="res://assets/ui/Shadow/Blinds Shadow.png" id="25_el388"]
@@ -130,7 +129,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("11_iyl8b")
+"texture": ExtResource("10_lf40f")
 }],
 "loop": false,
 "name": &"idle_closed",
@@ -197,10 +196,12 @@ sprite_frames = SubResource("SpriteFrames_p50d0")
 animation = &"pull_up"
 
 [node name="Blinds" type="AnimatedSprite2D" parent="."]
-position = Vector2(216, 201.99998)
-scale = Vector2(0.446, 0.4238532)
+position = Vector2(216, 196)
+scale = Vector2(4.4536085, 4.12844)
 sprite_frames = SubResource("SpriteFrames_bne74")
-animation = &"opening"
+animation = &"closing"
+frame = 9
+frame_progress = 1.0
 
 [node name="LeverArea" type="Area2D" parent="."]
 
@@ -210,15 +211,15 @@ z_index = 151
 position = Vector2(384, 73)
 shape = SubResource("RectangleShape2D_fe0kc")
 
+[node name="Blinds Shadow" type="Sprite2D" parent="."]
+position = Vector2(385.99927, 89.000015)
+scale = Vector2(0.08968069, 0.090965696)
+texture = ExtResource("25_el388")
+metadata/_edit_lock_ = true
+
 [node name="Table Shadow" type="Sprite2D" parent="."]
 z_index = 199
 position = Vector2(215.99796, 245.00049)
 scale = Vector2(0.08968069, 0.090965696)
 texture = ExtResource("24_bte03")
-metadata/_edit_lock_ = true
-
-[node name="Blinds Shadow" type="Sprite2D" parent="."]
-position = Vector2(385.99927, 89.000015)
-scale = Vector2(0.08968069, 0.090965696)
-texture = ExtResource("25_el388")
 metadata/_edit_lock_ = true
