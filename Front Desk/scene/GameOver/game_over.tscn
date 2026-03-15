@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://4o22kfn8prnp"]
+
+[ext_resource type="Script" uid="uid://b234dc5w8hpf5" path="res://scene/GameOver/game_over.gd" id="1_fkpf7"]
+[ext_resource type="Texture2D" uid="uid://d204jndjflrqx" path="res://assets/gameover/Game Over.png" id="1_ijvc3"]
+[ext_resource type="Texture2D" uid="uid://dswq21n6fjwm3" path="res://assets/gameover/Button.png" id="2_61u30"]
+[ext_resource type="Texture2D" uid="uid://r4juclhi7skh" path="res://assets/gameover/Darker.png" id="3_1uux7"]
+[ext_resource type="AudioStream" uid="uid://k3pggqponljl" path="res://sfx/GameOver/GameOverBG.mp3" id="6_fkpf7"]
+[ext_resource type="AudioStream" uid="uid://ci44wodondnlr" path="res://sfx/mainmenu/clicksfx.wav" id="6_m5jco"]
+
+[node name="GameOver" type="Node2D"]
+script = ExtResource("1_fkpf7")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(580.00006, 324.50003)
+scale = Vector2(0.19166669, 0.18874075)
+texture = ExtResource("1_ijvc3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HomeButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 496.0
+offset_top = 448.0
+offset_right = 627.0
+offset_bottom = 538.0
+texture_normal = ExtResource("2_61u30")
+texture_pressed = ExtResource("3_1uux7")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_m5jco")
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_fkpf7")
+volume_db = -9.08
+autoplay = true
+
+[connection signal="pressed" from="CanvasLayer/HomeButton" to="." method="_on_home_button_pressed"]

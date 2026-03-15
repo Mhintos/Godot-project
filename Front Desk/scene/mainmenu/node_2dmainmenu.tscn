@@ -1,21 +1,21 @@
 [gd_scene load_steps=9 format=3 uid="uid://vegcmgex6h1c"]
 
-[ext_resource type="Texture2D" uid="uid://pua5v5s4xhj5" path="res://Main Menu.png" id="1_0a42p"]
-[ext_resource type="Script" uid="uid://upjnoa1ar4ov" path="res://node_2_dmainmenu.gd" id="1_m2hc5"]
-[ext_resource type="Texture2D" uid="uid://btaq5ldnlycqy" path="res://Start.png" id="2_wgdhi"]
-[ext_resource type="Texture2D" uid="uid://cf8hj5k7p8udk" path="res://Start Darker.png" id="3_leese"]
-[ext_resource type="Texture2D" uid="uid://dw5o0j1cotmko" path="res://Quit.png" id="3_yykfi"]
-[ext_resource type="Texture2D" uid="uid://dbsmp8qbyyqfw" path="res://Quit Darker.png" id="5_e0u5i"]
-[ext_resource type="AudioStream" uid="uid://3x25xd6c4j8n" path="res://mixkit-dark-shadows-64.mp3" id="6_e0u5i"]
-[ext_resource type="AudioStream" uid="uid://cys0ht8tie8gl" path="res://mixkit-gear-fast-lock-tap-2857.wav" id="7_vbv8p"]
+[ext_resource type="Texture2D" uid="uid://bhhp3salxq1mq" path="res://assets/mainmenu/Main Menu.png" id="1_d7q2p"]
+[ext_resource type="Script" uid="uid://dsaeeoh6i1sce" path="res://scene/mainmenu/node_2_dmainmenu.gd" id="1_ykb7e"]
+[ext_resource type="Texture2D" uid="uid://c34t8rnnl7f23" path="res://assets/mainmenu/Start.png" id="2_wlss1"]
+[ext_resource type="Texture2D" uid="uid://b0545bsl2jb8q" path="res://assets/mainmenu/Start Darker.png" id="3_nytv0"]
+[ext_resource type="Texture2D" uid="uid://cd41dyhwhir7c" path="res://assets/mainmenu/Quit.png" id="4_ykb7e"]
+[ext_resource type="Texture2D" uid="uid://drxi51ty3huoe" path="res://assets/mainmenu/Quit Darker.png" id="5_m1y7g"]
+[ext_resource type="AudioStream" uid="uid://ci44wodondnlr" path="res://sfx/mainmenu/clicksfx.wav" id="7_m1y7g"]
+[ext_resource type="AudioStream" uid="uid://c1pukrrmpt1j1" path="res://sfx/mainmenu/backgroundmusic.mp3" id="8_rvwdn"]
 
 [node name="MainMenu" type="Node2D"]
-script = ExtResource("1_m2hc5")
+script = ExtResource("1_ykb7e")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(576.00006, 320)
 scale = Vector2(0.19058335, 0.18755555)
-texture = ExtResource("1_0a42p")
+texture = ExtResource("1_d7q2p")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -24,8 +24,8 @@ offset_left = 497.0
 offset_top = 479.0
 offset_right = 660.0
 offset_bottom = 522.0
-texture_normal = ExtResource("2_wgdhi")
-texture_pressed = ExtResource("3_leese")
+texture_normal = ExtResource("2_wlss1")
+texture_pressed = ExtResource("3_nytv0")
 ignore_texture_size = true
 stretch_mode = 6
 
@@ -34,19 +34,18 @@ offset_left = 523.0
 offset_top = 530.0
 offset_right = 628.0
 offset_bottom = 565.78687
-texture_normal = ExtResource("3_yykfi")
-texture_pressed = ExtResource("5_e0u5i")
+texture_normal = ExtResource("4_ykb7e")
+texture_pressed = ExtResource("5_m1y7g")
 ignore_texture_size = true
 stretch_mode = 6
 
 [node name="ClickSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_vbv8p")
+stream = ExtResource("7_m1y7g")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_e0u5i")
+stream = ExtResource("8_rvwdn")
 volume_db = -9.044
 autoplay = true
-parameters/looping = true
 
 [connection signal="pressed" from="CanvasLayer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/QuitButton" to="." method="_on_quit_button_pressed"]
