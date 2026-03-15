@@ -11,11 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Alicia Roxas Professor.tscn" id="8_k8hxm"]
 [ext_resource type="Script" uid="uid://dyyiw6d3if0co" path="res://script/documents/document_manager.gd" id="15_50h4t"]
 [ext_resource type="Texture2D" uid="uid://dbgtdd8kao8bg" path="res://assets/ui/Approve and Deny/approve_normal.png" id="15_mga6p"]
-[ext_resource type="Texture2D" uid="uid://bn8cfs4mwykji" path="res://assets/ui/Table/big table.png" id="15_og0fh"]
 [ext_resource type="Texture2D" uid="uid://clj6qp3d4e42v" path="res://assets/ui/Approve and Deny/approve_pressed.png" id="16_50h4t"]
 [ext_resource type="PackedScene" uid="uid://dj8jdfpebwoc5" path="res://scene/Handbook/handbook.tscn" id="17_vjnc3"]
 [ext_resource type="Texture2D" uid="uid://bdrrqhr1rnkgw" path="res://assets/ui/Approve and Deny/deny_normal.png" id="18_5er1a"]
 [ext_resource type="Texture2D" uid="uid://b4f2futggdswd" path="res://assets/ui/Approve and Deny/deny_pressed.png" id="19_7su7m"]
+[ext_resource type="Texture2D" uid="uid://dl46r3acckdpy" path="res://assets/ui/Table/Table.png" id="19_lwtii"]
 [ext_resource type="Texture2D" uid="uid://cetoxw1xwve4s" path="res://assets/ui/Bloody Version/Bloody Minitable.png" id="19_mga6p"]
 [ext_resource type="Texture2D" uid="uid://cuj3gk4me6igb" path="res://assets/ui/Bloody Version/Bloody Organizer.png" id="20_50h4t"]
 [ext_resource type="PackedScene" uid="uid://bc3fso0qb6sdi" path="res://scene/Blinds System/blinds_system.tscn" id="23_5er1a"]
@@ -53,7 +53,7 @@ animations = [{
 "texture": ExtResource("29_1oqq2")
 }],
 "loop": false,
-"name": &"Jumpscare",
+"name": &"play",
 "speed": 7.0
 }]
 
@@ -74,11 +74,9 @@ jumpscare_sprite_path = NodePath("JumpscareLayer/JumpscareSprite")
 layer = -1
 
 [node name="Background" type="Sprite2D" parent="BG Layer"]
-z_index = -10
-position = Vector2(578, 325.00003)
-scale = Vector2(0.08968069, 0.090965696)
+position = Vector2(226.5, 213)
+scale = Vector2(0.46907216, 0.3944954)
 texture = ExtResource("1_eqw22")
-metadata/_edit_lock_ = true
 
 [node name="Table Layer" type="CanvasLayer" parent="."]
 
@@ -188,7 +186,7 @@ position = Vector2(-0.99993896, 0)
 z_index = 200
 position = Vector2(796, 319.99994)
 scale = Vector2(0.121333346, 0.20562962)
-texture = ExtResource("15_og0fh")
+texture = ExtResource("19_lwtii")
 
 [node name="Documents" type="CanvasLayer" parent="."]
 layer = 4
@@ -280,14 +278,14 @@ offset_right = 20.30147
 offset_bottom = 26.480408
 
 [node name="JumpscareLayer" type="CanvasLayer" parent="."]
-layer = 2
+layer = 10
 
 [node name="JumpscareSprite" type="AnimatedSprite2D" parent="JumpscareLayer"]
 visible = false
 position = Vector2(576.50006, 323.5)
 scale = Vector2(0.10026043, 0.10108026)
 sprite_frames = SubResource("SpriteFrames_y8ley")
-animation = &"Jumpscare"
+animation = &"play"
 
 [node name="TrueFormTimer" type="Timer" parent="."]
 wait_time = 5.0

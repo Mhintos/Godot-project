@@ -14,7 +14,7 @@ extends Node2D
 @export var blood_minitable_path: NodePath
 @export var blood_organizer_path: NodePath
 @onready var true_form_timer: Timer = $TrueFormTimer
-@onready var blinds_system = $Background/BlindsSystem
+@onready var blinds_system: Node = get_node_or_null("Blinds Layer/BlindsSystem")
 
 @onready var blood_minitable: CanvasItem = get_node(blood_minitable_path)
 @onready var blood_organizer: CanvasItem = get_node(blood_organizer_path)
@@ -38,7 +38,11 @@ func _ready() -> void:
 
 	approve_btn.pressed.connect(func(): _on_decision_pressed("approve"))
 	deny_btn.pressed.connect(func(): _on_decision_pressed("deny"))
-	blinds_system.blinds_closed_success.connect(_on_blinds_closed_success)
+
+	if blinds_system:
+		blinds_system.blinds_closed_success.connect(_on_blinds_closed_success)
+	else:
+		push_error("BlindsSystem not found in _ready(). Check node path.")
 
 	spawn_character()
 	
@@ -63,14 +67,14 @@ func spawn_character() -> void:
 	current_character = character_scenes[_char_index].instantiate()
 	_char_index += 1
 
-	current_character.spawn_marker_path = NodePath("../CharacterSpawn")
-	current_character.stop_marker_path = NodePath("../CharacterStop")
-	current_character.exit_right_marker_path = NodePath("../CharacterExitRight")
-	current_character.exit_left_marker_path = NodePath("../CharacterExitLeft")
+	current_character.spawn_marker_path = NodePath("../Character Layer/CharacterSpawn")
+	current_character.stop_marker_path = NodePath("../Character Layer/CharacterStop")
+	current_character.exit_right_marker_path = NodePath("../Character Layer/CharacterExitRight")
+	current_character.exit_left_marker_path = NodePath("../Character Layer/CharacterExitLeft")
 
-	current_character.mini_table_layer_path = NodePath("../MiniTableLayer")
-	current_character.mini_id_slot_path = NodePath("../MiniSlot_ID")
-	current_character.mini_permit_slot_path = NodePath("../MiniSlot_Permit")
+	current_character.mini_table_layer_path = NodePath("../Documents/MiniTableLayer")
+	current_character.mini_id_slot_path = NodePath("../Documents/MiniSlot_ID")
+	current_character.mini_permit_slot_path = NodePath("../Documents/MiniSlot_Permit")
 
 	add_child(current_character)
 	current_character.reached_stop.connect(_on_character_reached_stop)
@@ -159,7 +163,11 @@ func trigger_jumpscare() -> void:
 	blinds_system.force_open()
 
 	jumpscare_sprite.visible = true
-	jumpscare_sprite.play("play")
+
+	if jumpscare_sprite.sprite_frames and jumpscare_sprite.sprite_frames.has_animation("play"):
+		jumpscare_sprite.play("play")
+	else:
+		push_error("JumpscareSprite has no animation named 'play'.")
 
 	print("JUMPSCARE START")
 	
@@ -187,6 +195,9 @@ func _on_decision_pressed(decision: String) -> void:
 
 	if not is_correct:
 		_register_mistake()
+
+	if game_over or current_character == null or not is_instance_valid(current_character):
+		return
 
 	true_form_active = false
 
@@ -274,4 +285,8 @@ func reset_run_state() -> void:
 
 	true_form_timer.stop()
 	_disable_buttons(false)
-	blinds_system.force_open()
+
+	if blinds_system:
+		blinds_system.force_open()
+	else:
+		push_error("BlindsSystem not found. Check node path.")
