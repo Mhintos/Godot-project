@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://vegcmgex6h1c"]
+
+[ext_resource type="Script" uid="uid://b401wr8esj01v" path="res://script/Main Menu/mainmenu.gd" id="1_hm8h1"]
+[ext_resource type="Texture2D" uid="uid://bhhp3salxq1mq" path="res://assets/mainmenu/Main Menu.png" id="2_xbe61"]
+[ext_resource type="Texture2D" uid="uid://c34t8rnnl7f23" path="res://assets/mainmenu/Start.png" id="3_o0tjd"]
+[ext_resource type="Texture2D" uid="uid://b0545bsl2jb8q" path="res://assets/mainmenu/Start Darker.png" id="4_kjm3w"]
+[ext_resource type="Texture2D" uid="uid://cd41dyhwhir7c" path="res://assets/mainmenu/Quit.png" id="5_5rmyy"]
+[ext_resource type="Texture2D" uid="uid://drxi51ty3huoe" path="res://assets/mainmenu/Quit Darker.png" id="6_4oy5i"]
+[ext_resource type="AudioStream" uid="uid://ci44wodondnlr" path="res://sfx/mainmenu/clicksfx.wav" id="7_eno1v"]
+[ext_resource type="AudioStream" uid="uid://c1pukrrmpt1j1" path="res://sfx/mainmenu/backgroundmusic.mp3" id="8_4vphq"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_hm8h1")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(576.00006, 320)
+scale = Vector2(0.19058335, 0.18755555)
+texture = ExtResource("2_xbe61")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StartButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 497.0
+offset_top = 479.0
+offset_right = 660.0
+offset_bottom = 522.0
+texture_normal = ExtResource("3_o0tjd")
+texture_pressed = ExtResource("4_kjm3w")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="QuitButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 523.0
+offset_top = 530.0
+offset_right = 628.0
+offset_bottom = 565.78687
+texture_normal = ExtResource("5_5rmyy")
+texture_pressed = ExtResource("6_4oy5i")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_eno1v")
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_4vphq")
+volume_db = -9.044
+autoplay = true
+parameters/looping = true
+
+[connection signal="pressed" from="CanvasLayer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/QuitButton" to="." method="_on_quit_button_pressed"]

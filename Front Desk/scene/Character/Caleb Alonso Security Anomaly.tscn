@@ -11,6 +11,7 @@ mini_doc_anchor_path = NodePath("MiniDocAnchor")
 mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
 mini_table_layer_path = NodePath("../MiniTableLayer")
 is_true_form = true
+expected_decision = 2
 
 [node name="Professor1" type="Sprite2D" parent="."]
 z_index = 2

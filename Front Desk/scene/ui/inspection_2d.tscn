@@ -1,17 +1,14 @@
-[gd_scene load_steps=24 format=3 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=23 format=3 uid="uid://cjkqk8fhkjsme"]
 
+[ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
-[ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Button/inspection_2d.gd" id="1_yfmp5"]
 [ext_resource type="Texture2D" uid="uid://c2tnjiffpeocf" path="res://assets/ui/Table/organizer.png" id="2_bmk1n"]
 [ext_resource type="Texture2D" uid="uid://bv5npysftqwu6" path="res://assets/ui/Table/minitable.png" id="3_cq3x7"]
-[ext_resource type="PackedScene" uid="uid://dhj6mj58265oc" path="res://scene/Character/Trueform_1.tscn" id="3_og0fh"]
 [ext_resource type="PackedScene" uid="uid://lrbticr1ov8o" path="res://scene/Character/Ralph Romero Professor.tscn" id="3_yfmp5"]
 [ext_resource type="PackedScene" uid="uid://qaeqwprrrdxp" path="res://scene/Character/Caleb Alonso Security Anomaly.tscn" id="5_2wxcv"]
 [ext_resource type="PackedScene" uid="uid://dgau330eg8kdh" path="res://scene/Character/Loopy Varns Canteen Staff.tscn" id="6_50h4t"]
 [ext_resource type="Texture2D" uid="uid://ccjpdkck2exen" path="res://assets/ui/Telephone/telephone.png" id="8_8y0pi"]
 [ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Alicia Roxas Professor.tscn" id="8_k8hxm"]
-[ext_resource type="PackedScene" uid="uid://dksotdh3jqsjd" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Alicia.tscn" id="11_nwdbo"]
-[ext_resource type="PackedScene" uid="uid://y7nfh74ijttf" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Alicia.tscn" id="12_c24fy"]
 [ext_resource type="Texture2D" uid="uid://dtr364r42mb1a" path="res://assets/ui/Shadow/Table Shadow.png" id="12_mga6p"]
 [ext_resource type="Texture2D" uid="uid://b1j65ga2ir6mq" path="res://assets/ui/Shadow/Blinds Shadow.png" id="13_50h4t"]
 [ext_resource type="Script" uid="uid://dyyiw6d3if0co" path="res://script/documents/document_manager.gd" id="15_50h4t"]
@@ -21,16 +18,22 @@
 [ext_resource type="PackedScene" uid="uid://dj8jdfpebwoc5" path="res://scene/Handbook/handbook.tscn" id="17_vjnc3"]
 [ext_resource type="Texture2D" uid="uid://bdrrqhr1rnkgw" path="res://assets/ui/Approve and Deny/deny_normal.png" id="18_5er1a"]
 [ext_resource type="Texture2D" uid="uid://b4f2futggdswd" path="res://assets/ui/Approve and Deny/deny_pressed.png" id="19_7su7m"]
+[ext_resource type="Texture2D" uid="uid://cetoxw1xwve4s" path="res://assets/ui/Bloody Version/Bloody Minitable.png" id="19_mga6p"]
+[ext_resource type="Texture2D" uid="uid://cuj3gk4me6igb" path="res://assets/ui/Bloody Version/Bloody Organizer.png" id="20_50h4t"]
 [ext_resource type="PackedScene" uid="uid://bc3fso0qb6sdi" path="res://scene/Blinds System/blinds_system.tscn" id="23_5er1a"]
 [ext_resource type="PackedScene" uid="uid://dll78gnht4365" path="res://scene/Handbook/handbook-opened.tscn" id="23_7su7m"]
 
 [node name="Inspection2D" type="Node2D"]
-script = ExtResource("1_yfmp5")
+script = ExtResource("1_2wxcv")
+mini_id_slot_path = NodePath("MiniSlot_ID")
+mini_permit_slot_path = NodePath("MiniSlot_Permit")
 approve_button_path = NodePath("UILayer/ApproveButton")
 deny_button_path = NodePath("UILayer/DenyButton")
 mini_table_layer_path = NodePath("MiniTableLayer")
 document_layer_path = NodePath("DocumentLayer")
-character_scenes = Array[PackedScene]([ExtResource("8_k8hxm"), ExtResource("3_og0fh"), ExtResource("3_yfmp5"), ExtResource("5_2wxcv"), ExtResource("6_50h4t")])
+character_scenes = Array[PackedScene]([ExtResource("8_k8hxm"), ExtResource("3_yfmp5"), ExtResource("5_2wxcv"), ExtResource("6_50h4t")])
+blood_minitable_path = NodePath("UILayer/BloodMiniTable")
+blood_organizer_path = NodePath("UILayer/BloodOrganizer")
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
@@ -50,12 +53,6 @@ metadata/_edit_lock_ = true
 position = Vector2(-4047.694, 2797.7578)
 scale = Vector2(3.6155212, 4.194757)
 texture = ExtResource("2_bmk1n")
-metadata/_edit_lock_ = true
-
-[node name="Telephone" type="Sprite2D" parent="Background"]
-position = Vector2(-2533.9902, 2775.7715)
-scale = Vector2(3.6770678, 4.1490297)
-texture = ExtResource("8_8y0pi")
 metadata/_edit_lock_ = true
 
 [node name="button blinds" type="Sprite2D" parent="Background"]
@@ -84,7 +81,7 @@ metadata/_edit_lock_ = true
 
 [node name="BlindsSystem" parent="Background" instance=ExtResource("23_5er1a")]
 z_index = 98
-position = Vector2(-6445.089, -3572.776)
+position = Vector2(-6456.2393, -3572.776)
 scale = Vector2(11.150673, 10.9931555)
 
 [node name="MiniTableLayer" type="Node2D" parent="."]
@@ -119,15 +116,14 @@ position = Vector2(145, 457)
 [node name="MiniSlot_Permit" type="Marker2D" parent="."]
 position = Vector2(255, 457)
 
-[node name="CharacterMiniDoc" parent="." instance=ExtResource("11_nwdbo")]
-z_index = 99
-position = Vector2(-172, 464)
-
-[node name="CharacterMiniDoc2" parent="." instance=ExtResource("12_c24fy")]
-z_index = 99
-position = Vector2(-171, 563)
-
 [node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="Telephone" type="Sprite2D" parent="UILayer"]
+z_index = 100
+position = Vector2(350.75, 577.5)
+scale = Vector2(0.32976195, 0.37741938)
+texture = ExtResource("8_8y0pi")
+metadata/_edit_lock_ = true
 
 [node name="ApproveButton" type="TextureButton" parent="UILayer"]
 anchors_preset = 15
@@ -161,7 +157,28 @@ texture_hover = ExtResource("18_5er1a")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="HandbookIcon" parent="." instance=ExtResource("17_vjnc3")]
+[node name="BloodMiniTable" type="TextureRect" parent="UILayer"]
+visible = false
+offset_left = -2.0
+offset_top = 326.0
+offset_right = 431.0
+offset_bottom = 514.0
+mouse_filter = 2
+texture = ExtResource("19_mga6p")
+expand_mode = 1
+
+[node name="BloodOrganizer" type="TextureRect" parent="UILayer"]
+visible = false
+z_index = -100
+offset_left = 1.0
+offset_top = 512.0
+offset_right = 429.0
+offset_bottom = 651.0
+mouse_filter = 2
+texture = ExtResource("20_50h4t")
+expand_mode = 1
+
+[node name="HandbookIcon" parent="UILayer" instance=ExtResource("17_vjnc3")]
 unique_name_in_owner = true
 light_mask = 513
 visibility_layer = 513
@@ -169,13 +186,13 @@ z_index = 200
 position = Vector2(211.585, 557.98)
 scale = Vector2(2.04, 2.04)
 
-[node name="Handbook" parent="HandbookIcon" instance=ExtResource("23_7su7m")]
+[node name="Handbook" parent="UILayer/HandbookIcon" instance=ExtResource("23_7su7m")]
 unique_name_in_owner = true
 visible = false
 position = Vector2(249.71324, -40.18627)
 scale = Vector2(0.475, 0.475)
 
-[node name="TextureButton" type="TextureButton" parent="HandbookIcon"]
+[node name="TextureButton" type="TextureButton" parent="UILayer/HandbookIcon"]
 offset_left = -18.91422
 offset_top = -24.990189
 offset_right = 20.30147
@@ -185,5 +202,5 @@ offset_bottom = 26.480408
 wait_time = 5.0
 one_shot = true
 
-[connection signal="pressed" from="HandbookIcon/TextureButton" to="HandbookIcon/Handbook" method="_on_button_pressed"]
+[connection signal="pressed" from="UILayer/HandbookIcon/TextureButton" to="UILayer/HandbookIcon/Handbook" method="_on_button_pressed"]
 [connection signal="timeout" from="TrueFormTimer" to="." method="_on_true_form_timer_timeout"]

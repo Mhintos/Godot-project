@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://lrbticr1ov8o"]
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_omfsv"]
-[ext_resource type="PackedScene" uid="uid://dwqk20ej7jio0" path="res://scene/documents/Mini_ID_Ralph.tscn" id="2_au0cf"]
-[ext_resource type="PackedScene" uid="uid://bnfchmyqumdlo" path="res://scene/documents/Mini_Permit_Ralph.tscn" id="3_ygp7y"]
+[ext_resource type="PackedScene" uid="uid://dwqk20ej7jio0" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Ralph.tscn" id="2_au0cf"]
+[ext_resource type="PackedScene" uid="uid://bnfchmyqumdlo" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Ralph.tscn" id="3_ygp7y"]
 [ext_resource type="Texture2D" uid="uid://dfdkkxen2ug4j" path="res://assets/Characters/Normal/professor2.png" id="4_omfsv"]
 
 [node name="Node2D" type="Node2D"]

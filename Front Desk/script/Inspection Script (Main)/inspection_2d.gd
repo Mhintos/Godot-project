@@ -11,19 +11,27 @@ extends Node2D
 
 @export var character_scenes: Array[PackedScene]
 
+@export var blood_minitable_path: NodePath
+@export var blood_organizer_path: NodePath
 @onready var true_form_timer: Timer = $TrueFormTimer
 @onready var blinds_system = $Background/BlindsSystem
+
+@onready var blood_minitable: CanvasItem = get_node(blood_minitable_path)
+@onready var blood_organizer: CanvasItem = get_node(blood_organizer_path)
 
 var _char_index := 0
 
 var current_character: Node2D = null
 var _locked := false
 var true_form_active := false
-
+var mistake_count := 0
+var game_over := false
 
 func _ready() -> void:
 	var approve_btn: BaseButton = get_node(approve_button_path)
 	var deny_btn: BaseButton = get_node(deny_button_path)
+
+	reset_run_state()
 
 	approve_btn.pressed.connect(func(): _on_decision_pressed("approve"))
 	deny_btn.pressed.connect(func(): _on_decision_pressed("deny"))
@@ -120,26 +128,42 @@ func _on_true_form_timer_timeout() -> void:
 
 
 func trigger_jumpscare() -> void:
-	print("GAME OVER")
+	if game_over:
+		return
 
+	game_over = true
+	true_form_active = false
+	_locked = true
+	_disable_buttons(true)
+	true_form_timer.stop()
+
+	print("GAME OVER")
+	
 func _on_decision_pressed(decision: String) -> void:
-	if _locked:
+	if _locked or game_over:
 		return
 	_locked = true
 	_disable_buttons(true)
 
 	true_form_timer.stop()
-	true_form_active = false
 
-	_clear_layer(get_node(mini_table_layer_path))
-	_clear_layer(get_node(document_layer_path))
-
-	if not current_character:
+	if current_character == null:
+		true_form_active = false
 		blinds_system.force_open()
 		_locked = false
 		_disable_buttons(false)
 		spawn_character()
 		return
+
+	var is_correct := _is_decision_correct(decision)
+
+	if not is_correct:
+		_register_mistake()
+
+	true_form_active = false
+
+	_clear_layer(get_node(mini_table_layer_path))
+	_clear_layer(get_node(document_layer_path))
 
 	var exit_method := "exit_right"
 	if decision == "deny":
@@ -148,20 +172,57 @@ func _on_decision_pressed(decision: String) -> void:
 	if current_character.has_method(exit_method):
 		current_character.call(exit_method, func():
 			current_character = null
-			true_form_active = false
 			blinds_system.force_open()
+
+			if game_over:
+				return
+
 			_locked = false
 			_disable_buttons(false)
 			spawn_character()
 		)
 	else:
 		current_character = null
-		true_form_active = false
 		blinds_system.force_open()
+
+		if game_over:
+			return
+
 		_locked = false
 		_disable_buttons(false)
 		spawn_character()
+	
+func _is_decision_correct(decision: String) -> bool:
+	if current_character == null:
+		return false
 
+	var expected = current_character.get_expected_result()
+
+	match expected:
+		current_character.ExpectedDecision.APPROVE:
+			return decision == "approve"
+		current_character.ExpectedDecision.DENY:
+			return decision == "deny"
+		current_character.ExpectedDecision.TRUE_FORM:
+			return false
+
+	return false
+
+
+func _register_mistake() -> void:
+	mistake_count += 1
+	print("Mistake count: ", mistake_count)
+
+	if mistake_count == 1:
+		_show_bloody_ui()
+	elif mistake_count >= 2:
+		trigger_jumpscare()
+
+
+func _show_bloody_ui() -> void:
+	blood_minitable.visible = true
+	blood_organizer.visible = true
+	print("SHOW BLOODY UI WARNING")
 
 func _clear_layer(layer: Node) -> void:
 	for c in layer.get_children():
@@ -173,3 +234,16 @@ func _disable_buttons(disabled: bool) -> void:
 	var deny_btn: BaseButton = get_node(deny_button_path)
 	approve_btn.disabled = disabled
 	deny_btn.disabled = disabled
+
+func reset_run_state() -> void:
+	mistake_count = 0
+	game_over = false
+	true_form_active = false
+	_locked = false
+
+	blood_minitable.visible = false
+	blood_organizer.visible = false
+
+	true_form_timer.stop()
+	_disable_buttons(false)
+	blinds_system.force_open()

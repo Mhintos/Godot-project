@@ -1,6 +1,12 @@
 extends Node2D
 signal reached_stop
 
+enum ExpectedDecision {
+	APPROVE,
+	DENY,
+	TRUE_FORM
+}
+
 @export var exit_left_marker_path: NodePath
 @export var spawn_marker_path: NodePath
 @export var stop_marker_path: NodePath
@@ -17,6 +23,7 @@ signal reached_stop
 
 @export var mini_doc_scenes: Array[PackedScene] = []
 @export var is_true_form: bool = false
+@export var expected_decision: ExpectedDecision = ExpectedDecision.APPROVE
 
 var _exiting := false
 var _idle_tween: Tween = null
@@ -209,3 +216,8 @@ func _spawn_mini_docs() -> void:
 
 		if slot_2 != null:
 			mini_2.table_slot_path = slot_2.get_path()
+
+func get_expected_result() -> int:
+	if is_true_form:
+		return ExpectedDecision.TRUE_FORM
+	return expected_decision
