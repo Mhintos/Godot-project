@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ci1x66li2r2et"
-path="res://.godot/imported/2.png-158ccbe84edcd8b3a1c355784375d104.ctex"
+uid="uid://w88waonnirbc"
+path="res://.godot/imported/2.png-27dfa3cf1ca444a1fd829441c5b371aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Blinds/Open blinds/2.png"
-dest_files=["res://.godot/imported/2.png-158ccbe84edcd8b3a1c355784375d104.ctex"]
+source_file="res://assets/UI/Blinds/Open blinds/2.png"
+dest_files=["res://.godot/imported/2.png-27dfa3cf1ca444a1fd829441c5b371aa.ctex"]
 
 [params]
 

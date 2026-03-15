@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm2jfv5i2thfn"
-path="res://.godot/imported/deny_normal.png-57c30660d63ae444d658378e3b14c7ff.ctex"
+uid="uid://dm1k6kwsjqlg3"
+path="res://.godot/imported/Organizer.png-5e3cd18a63ed67287222299b1cea18b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Approve and Deny/deny_normal.png"
-dest_files=["res://.godot/imported/deny_normal.png-57c30660d63ae444d658378e3b14c7ff.ctex"]
+source_file="res://assets/Bloody UI/Organizer.png"
+dest_files=["res://.godot/imported/Organizer.png-5e3cd18a63ed67287222299b1cea18b0.ctex"]
 
 [params]
 

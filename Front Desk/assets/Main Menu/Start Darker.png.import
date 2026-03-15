@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0545bsl2jb8q"
-path="res://.godot/imported/Start Darker.png-b857001447dc0f00988434a18ac54105.ctex"
+path="res://.godot/imported/Start Darker.png-08b076852355c2510780b881d48680c0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mainmenu/Start Darker.png"
-dest_files=["res://.godot/imported/Start Darker.png-b857001447dc0f00988434a18ac54105.ctex"]
+source_file="res://assets/Main Menu/Start Darker.png"
+dest_files=["res://.godot/imported/Start Darker.png-08b076852355c2510780b881d48680c0.ctex"]
 
 [params]
 

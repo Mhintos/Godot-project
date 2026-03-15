@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtr364r42mb1a"
-path="res://.godot/imported/Table Shadow.png-4c3e7ddcf1123c49103cb29d206ca194.ctex"
+uid="uid://bj7utiiayqajd"
+path="res://.godot/imported/Table Shadow.png-c40cde571d6d9c0df4c86209fce8e668.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Shadow/Table Shadow.png"
-dest_files=["res://.godot/imported/Table Shadow.png-4c3e7ddcf1123c49103cb29d206ca194.ctex"]
+source_file="res://assets/UI/Shadow/Table Shadow.png"
+dest_files=["res://.godot/imported/Table Shadow.png-c40cde571d6d9c0df4c86209fce8e668.ctex"]
 
 [params]
 

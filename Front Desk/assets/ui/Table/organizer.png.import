@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2tnjiffpeocf"
-path="res://.godot/imported/organizer.png-9db97aec014c1ec703dd76e826a3f63b.ctex"
+uid="uid://cpxscppjgtnbt"
+path="res://.godot/imported/organizer.png-bde91e99c1897e5c3f2ef3e34243d97d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Table/organizer.png"
-dest_files=["res://.godot/imported/organizer.png-9db97aec014c1ec703dd76e826a3f63b.ctex"]
+source_file="res://assets/UI/Table/organizer.png"
+dest_files=["res://.godot/imported/organizer.png-bde91e99c1897e5c3f2ef3e34243d97d.ctex"]
 
 [params]
 

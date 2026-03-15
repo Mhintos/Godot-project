@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv5npysftqwu6"
-path="res://.godot/imported/minitable.png-33e4512ba5ff607636415289b573d975.ctex"
+uid="uid://5xgxjm1a52nt"
+path="res://.godot/imported/minitable.png-970c3cdbcf4ed4ba171f2226d16ab588.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Table/minitable.png"
-dest_files=["res://.godot/imported/minitable.png-33e4512ba5ff607636415289b573d975.ctex"]
+source_file="res://assets/UI/Table/minitable.png"
+dest_files=["res://.godot/imported/minitable.png-970c3cdbcf4ed4ba171f2226d16ab588.ctex"]
 
 [params]
 

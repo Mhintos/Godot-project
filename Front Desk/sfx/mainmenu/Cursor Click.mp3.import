@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bbb4yrq2ofu44"
+path="res://.godot/imported/Cursor Click.mp3-84a73c5f9e83382e122c7f57aa2c33b2.mp3str"
+
+[deps]
+
+source_file="res://sfx/mainmenu/Cursor Click.mp3"
+dest_files=["res://.godot/imported/Cursor Click.mp3-84a73c5f9e83382e122c7f57aa2c33b2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

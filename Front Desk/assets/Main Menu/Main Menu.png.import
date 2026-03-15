@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drxi51ty3huoe"
-path="res://.godot/imported/Quit Darker.png-9695715ba77ad07cf9965c3873ca14b9.ctex"
+uid="uid://bhhp3salxq1mq"
+path="res://.godot/imported/Main Menu.png-2a830958957b99d84e5e58cfd80e80f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mainmenu/Quit Darker.png"
-dest_files=["res://.godot/imported/Quit Darker.png-9695715ba77ad07cf9965c3873ca14b9.ctex"]
+source_file="res://assets/Main Menu/Main Menu.png"
+dest_files=["res://.godot/imported/Main Menu.png-2a830958957b99d84e5e58cfd80e80f6.ctex"]
 
 [params]
 

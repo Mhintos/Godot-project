@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1j65ga2ir6mq"
-path="res://.godot/imported/Blinds Shadow.png-24c816628b6810dc13bbeaf42696c112.ctex"
+uid="uid://7hncfdf7bj10"
+path="res://.godot/imported/Blinds Shadow.png-51963ba1486b899a3e79e0ec8a6bd0a2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Shadow/Blinds Shadow.png"
-dest_files=["res://.godot/imported/Blinds Shadow.png-24c816628b6810dc13bbeaf42696c112.ctex"]
+source_file="res://assets/UI/Shadow/Blinds Shadow.png"
+dest_files=["res://.godot/imported/Blinds Shadow.png-51963ba1486b899a3e79e0ec8a6bd0a2.ctex"]
 
 [params]
 

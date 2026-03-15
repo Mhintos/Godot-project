@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkd6jse8or5mu"
-path="res://.godot/imported/Front Desk UI.png-9971617c93b35d5e1a8b79cb1f6cf901.ctex"
+uid="uid://b7mjc2m3npjwp"
+path="res://.godot/imported/Front Desk UI.png-33a424f254ccafb9956f21a28f486182.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Background/Front Desk UI.png"
-dest_files=["res://.godot/imported/Front Desk UI.png-9971617c93b35d5e1a8b79cb1f6cf901.ctex"]
+source_file="res://assets/UI/Background/Front Desk UI.png"
+dest_files=["res://.godot/imported/Front Desk UI.png-33a424f254ccafb9956f21a28f486182.ctex"]
 
 [params]
 

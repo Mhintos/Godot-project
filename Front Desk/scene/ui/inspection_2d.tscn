@@ -1,21 +1,21 @@
 [gd_scene load_steps=17 format=3 uid="uid://cjkqk8fhkjsme"]
 
-[ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/background.png" id="1_eqw22"]
-[ext_resource type="Texture2D" uid="uid://c2tnjiffpeocf" path="res://assets/ui/organizer.png" id="2_bmk1n"]
-[ext_resource type="Texture2D" uid="uid://bv5npysftqwu6" path="res://assets/ui/minitable.png" id="3_cq3x7"]
-[ext_resource type="Texture2D" uid="uid://d1c2u7cynl40l" path="res://assets/ui/buttonblinds.png" id="5_k8hxm"]
-[ext_resource type="Script" uid="uid://coa1faqglk504" path="res://script/documents/document_manager.gd" id="7_726ts"]
-[ext_resource type="Texture2D" uid="uid://ccjpdkck2exen" path="res://assets/ui/telephone.png" id="8_8y0pi"]
-[ext_resource type="PackedScene" uid="uid://dksotdh3jqsjd" path="res://scene/Character/Mini_ID.tscn" id="11_nwdbo"]
-[ext_resource type="PackedScene" uid="uid://y7nfh74ijttf" path="res://scene/Character/Mini_Permit.tscn" id="12_c24fy"]
+[ext_resource type="Texture2D" uid="uid://vag5hauuhwt2" path="res://assets/UI/Background/background.png" id="1_eqw22"]
+[ext_resource type="Texture2D" uid="uid://cpxscppjgtnbt" path="res://assets/UI/Table/organizer.png" id="2_bmk1n"]
+[ext_resource type="Texture2D" uid="uid://5xgxjm1a52nt" path="res://assets/UI/Table/minitable.png" id="3_cq3x7"]
+[ext_resource type="PackedScene" uid="uid://bc3fso0qb6sdi" path="res://scene/Blinds System/blinds_system.tscn" id="6_ktxa8"]
+[ext_resource type="Script" uid="uid://dyyiw6d3if0co" path="res://script/Documents/document_manager.gd" id="7_726ts"]
+[ext_resource type="Texture2D" uid="uid://c70mnv0k6flmu" path="res://assets/UI/Telephone/telephone.png" id="8_8y0pi"]
+[ext_resource type="PackedScene" uid="uid://dksotdh3jqsjd" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Alicia.tscn" id="11_nwdbo"]
+[ext_resource type="PackedScene" uid="uid://y7nfh74ijttf" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Alicia.tscn" id="12_c24fy"]
 [ext_resource type="AudioStream" uid="uid://c4od3ckyxp0tv" path="res://sfx/maingame/In Game BG Music.mp3" id="15_2wxcv"]
-[ext_resource type="Texture2D" uid="uid://dbgtdd8kao8bg" path="res://assets/ui/approve_normal.png" id="15_mga6p"]
-[ext_resource type="Texture2D" uid="uid://bn8cfs4mwykji" path="res://assets/ui/big table.png" id="15_og0fh"]
+[ext_resource type="Texture2D" uid="uid://dk676jgixyrnw" path="res://assets/UI/Approve and Deny/approve_normal.png" id="15_mga6p"]
+[ext_resource type="Texture2D" uid="uid://ckye24pc8p386" path="res://assets/UI/Table/big table.png" id="15_og0fh"]
 [ext_resource type="AudioStream" uid="uid://d3qo1uo0qh1yj" path="res://sfx/buttonhover/Button Hover.mp3" id="16_2wxcv"]
-[ext_resource type="Texture2D" uid="uid://clj6qp3d4e42v" path="res://assets/ui/approve_pressed.png" id="16_50h4t"]
+[ext_resource type="Texture2D" uid="uid://bdnvsfyramx2f" path="res://assets/UI/Approve and Deny/approve_pressed.png" id="16_50h4t"]
 [ext_resource type="PackedScene" uid="uid://dj8jdfpebwoc5" path="res://scene/Handbook/handbook.tscn" id="17_vjnc3"]
-[ext_resource type="Texture2D" uid="uid://bdrrqhr1rnkgw" path="res://assets/ui/deny_normal.png" id="18_5er1a"]
-[ext_resource type="Texture2D" uid="uid://b4f2futggdswd" path="res://assets/ui/deny_pressed.png" id="19_7su7m"]
+[ext_resource type="Texture2D" uid="uid://dm2jfv5i2thfn" path="res://assets/UI/Approve and Deny/deny_normal.png" id="18_5er1a"]
+[ext_resource type="Texture2D" uid="uid://d4mdw716lsy51" path="res://assets/UI/Approve and Deny/deny_pressed.png" id="19_7su7m"]
 
 [node name="Inspection2D" type="Node2D"]
 
@@ -45,17 +45,13 @@ scale = Vector2(3.6770678, 4.1490297)
 texture = ExtResource("8_8y0pi")
 metadata/_edit_lock_ = true
 
-[node name="button blinds" type="Sprite2D" parent="Background"]
-position = Vector2(-2051.7236, -2363.5288)
-scale = Vector2(4.072609, 3.7144845)
-texture = ExtResource("5_k8hxm")
-metadata/_edit_lock_ = true
-
 [node name="mini table" type="Sprite2D" parent="Background"]
 position = Vector2(-4030.9683, 1033.3564)
 scale = Vector2(5.4471674, 6.196142)
 texture = ExtResource("3_cq3x7")
 metadata/_edit_lock_ = true
+
+[node name="BlindsSystem" parent="Background" instance=ExtResource("6_ktxa8")]
 
 [node name="MiniTableLayer" type="Node2D" parent="."]
 position = Vector2(119, 454)

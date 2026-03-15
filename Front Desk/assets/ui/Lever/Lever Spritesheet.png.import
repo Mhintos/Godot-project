@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ysrb1fcsmms5"
-path="res://.godot/imported/Lever Spritesheet.png-8963886e3b8d8f459c0b802230b5dba4.ctex"
+uid="uid://h5rg7u4rbu8g"
+path="res://.godot/imported/Lever Spritesheet.png-c49386471134d7f5e2c4cff1e8fb68b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Lever/Lever Spritesheet.png"
-dest_files=["res://.godot/imported/Lever Spritesheet.png-8963886e3b8d8f459c0b802230b5dba4.ctex"]
+source_file="res://assets/UI/Lever/Lever Spritesheet.png"
+dest_files=["res://.godot/imported/Lever Spritesheet.png-c49386471134d7f5e2c4cff1e8fb68b1.ctex"]
 
 [params]
 

@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://vegcmgex6h1c"]
+
+[ext_resource type="Script" uid="uid://b401wr8esj01v" path="res://script/Main Menu/mainmenu.gd" id="1_ril3j"]
+[ext_resource type="Texture2D" path="res://assets/mainmenu/Main Menu.png" id="2_dhj8h"]
+[ext_resource type="Texture2D" path="res://assets/mainmenu/Start.png" id="3_mpq5e"]
+[ext_resource type="Texture2D" path="res://assets/mainmenu/Start Darker.png" id="4_e2f1c"]
+[ext_resource type="Texture2D" path="res://assets/mainmenu/Quit.png" id="5_3yeca"]
+[ext_resource type="Texture2D" path="res://assets/mainmenu/Quit Darker.png" id="6_po8w0"]
+[ext_resource type="AudioStream" uid="uid://bbb4yrq2ofu44" path="res://sfx/mainmenu/Cursor Click.mp3" id="7_ep7ri"]
+[ext_resource type="AudioStream" uid="uid://c0ygf1mjnm8au" path="res://sfx/mainmenu/Main Menu Official BG Music.mp3" id="8_yytoc"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_ril3j")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(576.00006, 320)
+scale = Vector2(0.19058335, 0.18755555)
+texture = ExtResource("2_dhj8h")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StartButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 497.0
+offset_top = 479.0
+offset_right = 660.0
+offset_bottom = 522.0
+texture_normal = ExtResource("3_mpq5e")
+texture_pressed = ExtResource("4_e2f1c")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="QuitButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 523.0
+offset_top = 530.0
+offset_right = 628.0
+offset_bottom = 565.78687
+texture_normal = ExtResource("5_3yeca")
+texture_pressed = ExtResource("6_po8w0")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ep7ri")
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_yytoc")
+volume_db = -9.044
+autoplay = true
+parameters/looping = true
+
+[connection signal="pressed" from="CanvasLayer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/QuitButton" to="." method="_on_quit_button_pressed"]
