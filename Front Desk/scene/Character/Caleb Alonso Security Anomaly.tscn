@@ -41,6 +41,8 @@ position = Vector2(12, 145.5)
 scale = Vector2(3, 2.9693878)
 sprite_frames = SubResource("SpriteFrames_73hae")
 animation = &"idle"
+autoplay = "idle"
+frame = 3
 
 [node name="MiniDocAnchor" type="Node2D" parent="."]
 z_index = 50
