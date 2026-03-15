@@ -1,8 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhj6mj58265oc"]
+[gd_scene load_steps=3 format=3 uid="uid://dhj6mj58265oc"]
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_05aig"]
-[ext_resource type="PackedScene" uid="uid://dksotdh3jqsjd" path="res://scene/Character/Mini_ID.tscn" id="2_mdfjp"]
-[ext_resource type="PackedScene" uid="uid://y7nfh74ijttf" path="res://scene/Character/Mini_Permit.tscn" id="3_6ecma"]
 [ext_resource type="Texture2D" uid="uid://bou6sdltc8ug5" path="res://assets/Characters/True Form/professor3.png" id="4_t6ke8"]
 
 [node name="Node2D" type="Node2D"]
@@ -12,8 +10,7 @@ exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")
 mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
 mini_table_layer_path = NodePath("../MiniTableLayer")
-mini_id_scene = ExtResource("2_mdfjp")
-mini_permit_scene = ExtResource("3_6ecma")
+is_true_form = true
 
 [node name="Professor1" type="Sprite2D" parent="."]
 z_index = 2

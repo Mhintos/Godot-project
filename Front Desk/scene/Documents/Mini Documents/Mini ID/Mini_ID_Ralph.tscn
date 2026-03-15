@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwqk20ej7jio0"]
+
+[ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_shah3"]
+[ext_resource type="PackedScene" uid="uid://pd10u4ydifla" path="res://scene/Documents/Full Documents/Document_ID_Ralph.tscn" id="2_l8ycd"]
+[ext_resource type="Texture2D" uid="uid://5xwphs32cr7" path="res://assets/documents/Ralph Romero Professor/ID.png" id="3_ht88t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glixn"]
+size = Vector2(118, 58)
+
+[node name="CharacterMiniDoc" type="Area2D"]
+script = ExtResource("1_shah3")
+doc_id = "ralph_id"
+full_document_scene = ExtResource("2_l8ycd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-6.67572e-06, -5.9008603e-06)
+scale = Vector2(0.04715447, 0.04745762)
+texture = ExtResource("3_ht88t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_glixn")

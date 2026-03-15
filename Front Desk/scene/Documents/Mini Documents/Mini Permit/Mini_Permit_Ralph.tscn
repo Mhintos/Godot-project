@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnfchmyqumdlo"]
+
+[ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_ag7xt"]
+[ext_resource type="PackedScene" uid="uid://diopumny5f1pc" path="res://scene/Documents/Full Documents/Document Permit/Document_Permit_Ralph.tscn" id="2_coiev"]
+[ext_resource type="Texture2D" uid="uid://dtvosctiro82c" path="res://assets/documents/Ralph Romero Professor/Campus Access Permit.png" id="3_pudxe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glixn"]
+size = Vector2(80, 106)
+
+[node name="CharacterMiniDoc" type="Area2D"]
+script = ExtResource("1_ag7xt")
+doc_id = "ralph_permit"
+full_document_scene = ExtResource("2_coiev")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.015, 0.015)
+texture = ExtResource("3_pudxe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_glixn")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3bp4e2jntma8"]
+
+[ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/Documents/document.gd" id="1_rm8jr"]
+[ext_resource type="Texture2D" uid="uid://dameuntggina6" path="res://assets/documents/Loopy Varnes Canteen Staff/ID.png" id="2_rm8jr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qfpi4"]
+size = Vector2(349, 173)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_mask = 0
+input_pickable = true
+script = ExtResource("1_rm8jr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(900, 480)
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("2_rm8jr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(899.5, 479.5)
+shape = SubResource("RectangleShape2D_qfpi4")
