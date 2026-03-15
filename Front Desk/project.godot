@@ -16,8 +16,7 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 
 [display]
 
-window/stretch/mode="viewport"
-window/stretch/aspect="expand"
+window/stretch/mode="canvas_items"
 
 [input]
 
@@ -30,3 +29,4 @@ drag={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"

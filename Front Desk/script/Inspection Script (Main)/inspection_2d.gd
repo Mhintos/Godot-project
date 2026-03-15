@@ -50,6 +50,13 @@ func spawn_character() -> void:
 		push_error("inspection_2d.gd: character_scenes is empty. Add Professor scenes in Inspector.")
 		return
 
+	if current_character and is_instance_valid(current_character):
+		current_character.queue_free()
+		current_character = null
+
+	_clear_layer(get_node(mini_table_layer_path))
+	_clear_layer(get_node(document_layer_path))
+
 	if _char_index >= character_scenes.size():
 		_char_index = 0
 
@@ -67,7 +74,6 @@ func spawn_character() -> void:
 
 	add_child(current_character)
 	current_character.reached_stop.connect(_on_character_reached_stop)
-
 
 func _on_character_reached_stop() -> void:
 	if current_character == null:
