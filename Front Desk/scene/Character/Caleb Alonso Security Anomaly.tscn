@@ -1,7 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://qaeqwprrrdxp"]
+[gd_scene load_steps=7 format=3 uid="uid://qaeqwprrrdxp"]
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_emtnp"]
-[ext_resource type="Texture2D" uid="uid://tn3pt42b5ejw" path="res://assets/Characters/True Form/Caleb Alonso Security.png" id="2_b28wy"]
+[ext_resource type="Texture2D" uid="uid://b6x5ta4oljdqy" path="res://assets/Characters/True Form/Caleb Alonso Security/Idle/1.png" id="2_obsdk"]
+[ext_resource type="Texture2D" uid="uid://c77px2vvymcei" path="res://assets/Characters/True Form/Caleb Alonso Security/Idle/2.png" id="3_nr5rj"]
+[ext_resource type="Texture2D" uid="uid://chqlj33v0lsnk" path="res://assets/Characters/True Form/Caleb Alonso Security/Idle/3.png" id="4_6n2bs"]
+[ext_resource type="Texture2D" uid="uid://d0ih84tohs2do" path="res://assets/Characters/True Form/Caleb Alonso Security/Idle/4.png" id="5_ojsnp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_73hae"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_obsdk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nr5rj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6n2bs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ojsnp")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_emtnp")
@@ -13,12 +36,11 @@ mini_table_layer_path = NodePath("../MiniTableLayer")
 is_true_form = true
 expected_decision = 2
 
-[node name="Professor1" type="Sprite2D" parent="."]
-z_index = 2
-position = Vector2(-150, -6)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_b28wy")
-centered = false
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(12, 145.5)
+scale = Vector2(3, 2.9693878)
+sprite_frames = SubResource("SpriteFrames_73hae")
+animation = &"idle"
 
 [node name="MiniDocAnchor" type="Node2D" parent="."]
 z_index = 50

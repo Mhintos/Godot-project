@@ -20,13 +20,13 @@
 [ext_resource type="Texture2D" uid="uid://ftr6jxfiqtat" path="res://assets/ui/Bloody Version/Bloody Organizer.png" id="20_50h4t"]
 [ext_resource type="PackedScene" uid="uid://bc3fso0qb6sdi" path="res://scene/Blinds System/blinds_system.tscn" id="23_5er1a"]
 [ext_resource type="PackedScene" uid="uid://dll78gnht4365" path="res://scene/Handbook/handbook-opened.tscn" id="23_7su7m"]
-[ext_resource type="Texture2D" uid="uid://c5syxh2kwfoxg" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/1.png" id="23_tokp6"]
-[ext_resource type="Texture2D" uid="uid://dm3tjtf46ml4w" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/2.png" id="24_ex0io"]
-[ext_resource type="Texture2D" uid="uid://c57s16ujdvv8b" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/3.png" id="25_vhmf8"]
-[ext_resource type="Texture2D" uid="uid://jk4ievy8srti" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/4.png" id="26_sx8aa"]
-[ext_resource type="Texture2D" uid="uid://ds608sxn27om" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/5.png" id="27_cc2gp"]
-[ext_resource type="Texture2D" uid="uid://de4818bs5c78y" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/6.png" id="28_r88fj"]
-[ext_resource type="Texture2D" uid="uid://b3kiu62hpvd0x" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/7.png" id="29_1oqq2"]
+[ext_resource type="Texture2D" uid="uid://c27i282aa7yy" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/1.png" id="23_tokp6"]
+[ext_resource type="Texture2D" uid="uid://b4jbdprn1fnnm" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/2.png" id="24_ex0io"]
+[ext_resource type="Texture2D" uid="uid://dempketnmw7jq" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/3.png" id="25_vhmf8"]
+[ext_resource type="Texture2D" uid="uid://c0tripluupea2" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/4.png" id="26_sx8aa"]
+[ext_resource type="Texture2D" uid="uid://cwbntg2j5vyqv" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/5.png" id="27_cc2gp"]
+[ext_resource type="Texture2D" uid="uid://28nfsv3mpni6" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/6.png" id="28_r88fj"]
+[ext_resource type="Texture2D" uid="uid://db84xe4ulgp0d" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/7.png" id="29_1oqq2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y8ley"]
 animations = [{
@@ -130,7 +130,7 @@ expand_mode = 1
 metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="Table Layer"]
-layer = 11
+layer = 12
 
 [node name="ApproveButton" type="TextureButton" parent="Table Layer/UILayer"]
 anchors_preset = 15
@@ -192,7 +192,7 @@ z_index = 98
 position = Vector2(-0.99993896, 0)
 
 [node name="Documents" type="CanvasLayer" parent="."]
-layer = 11
+layer = 12
 
 [node name="MiniTableLayer" type="Node2D" parent="Documents"]
 z_index = 200
@@ -281,14 +281,16 @@ offset_right = 20.30147
 offset_bottom = 26.480408
 
 [node name="JumpscareLayer" type="CanvasLayer" parent="."]
-layer = 10
+layer = 20
 
 [node name="JumpscareSprite" type="AnimatedSprite2D" parent="JumpscareLayer"]
 visible = false
-position = Vector2(576.50006, 323.5)
-scale = Vector2(0.10026043, 0.10108026)
+position = Vector2(578, 327.50006)
+scale = Vector2(1.0069444, 1.013889)
 sprite_frames = SubResource("SpriteFrames_y8ley")
 animation = &"play"
+frame = 6
+frame_progress = 1.0
 
 [node name="TrueFormTimer" type="Timer" parent="."]
 wait_time = 5.0

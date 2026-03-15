@@ -1,9 +1,11 @@
-[gd_scene load_steps=34 format=3 uid="uid://bc3fso0qb6sdi"]
+[gd_scene load_steps=29 format=3 uid="uid://bc3fso0qb6sdi"]
 
 [ext_resource type="Texture2D" uid="uid://vpfvs3n2yshr" path="res://assets/ui/Blinds/Closed Blinds/1.png" id="1_8gdcj"]
 [ext_resource type="Script" uid="uid://dggvtpqkjgghw" path="res://script/BlindsSystem/blinds_system.gd" id="1_46d77"]
+[ext_resource type="Texture2D" uid="uid://08g0fliy6nfm" path="res://assets/ui/Lever/1.png" id="2_bte03"]
 [ext_resource type="Texture2D" uid="uid://ct3223q6ypamy" path="res://assets/ui/Blinds/Closed Blinds/2.png" id="2_fe0kc"]
 [ext_resource type="Texture2D" uid="uid://xed71dsev5p6" path="res://assets/ui/Blinds/Closed Blinds/3.png" id="3_46d77"]
+[ext_resource type="Texture2D" uid="uid://b7qcapoxt7d5d" path="res://assets/ui/Lever/2.png" id="3_el388"]
 [ext_resource type="Texture2D" uid="uid://ddy0ebov0wk6t" path="res://assets/ui/Blinds/Closed Blinds/4.png" id="4_6524k"]
 [ext_resource type="Texture2D" uid="uid://b0fu54op0hwfk" path="res://assets/ui/Blinds/Closed Blinds/5.png" id="5_p50d0"]
 [ext_resource type="Texture2D" uid="uid://rxr0va8uw24m" path="res://assets/ui/Blinds/Closed Blinds/6.png" id="6_aknbg"]
@@ -21,39 +23,14 @@
 [ext_resource type="Texture2D" uid="uid://baou1qy6rm2fv" path="res://assets/ui/Blinds/Open blinds/7.png" id="19_5i12f"]
 [ext_resource type="Texture2D" uid="uid://c4yyjna0vdwn5" path="res://assets/ui/Blinds/Open blinds/8.png" id="20_jpc56"]
 [ext_resource type="Texture2D" uid="uid://fqj3yxniqw1f" path="res://assets/ui/Blinds/Open blinds/9.png" id="21_4kovt"]
-[ext_resource type="Texture2D" uid="uid://ysrb1fcsmms5" path="res://assets/ui/Lever/Lever Spritesheet.png" id="22_fe0kc"]
-[ext_resource type="Texture2D" uid="uid://dtr364r42mb1a" path="res://assets/ui/Shadow/Table Shadow.png" id="24_bte03"]
-[ext_resource type="Texture2D" uid="uid://b1j65ga2ir6mq" path="res://assets/ui/Shadow/Blinds Shadow.png" id="25_el388"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_46d77"]
-atlas = ExtResource("22_fe0kc")
-region = Rect2(0, 0, 640, 640)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6524k"]
-atlas = ExtResource("22_fe0kc")
-region = Rect2(640, 0, 640, 640)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p50d0"]
-atlas = ExtResource("22_fe0kc")
-region = Rect2(0, 0, 640, 640)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aknbg"]
-atlas = ExtResource("22_fe0kc")
-region = Rect2(0, 0, 640, 640)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_65xtt"]
-atlas = ExtResource("22_fe0kc")
-region = Rect2(640, 0, 640, 640)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l24hq"]
-atlas = ExtResource("22_fe0kc")
-region = Rect2(640, 0, 640, 640)
+[ext_resource type="Texture2D" uid="uid://dmk08sg8p6u8b" path="res://assets/ui/Shadow/Table Shadow.png" id="24_bte03"]
+[ext_resource type="Texture2D" uid="uid://dj1558tgf43jk" path="res://assets/ui/Shadow/Blinds Shadow.png" id="25_el388"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p50d0"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_46d77")
+"texture": ExtResource("2_bte03")
 }],
 "loop": false,
 "name": &"down",
@@ -61,10 +38,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6524k")
+"texture": ExtResource("2_bte03")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p50d0")
+"texture": ExtResource("3_el388")
 }],
 "loop": false,
 "name": &"pull_down",
@@ -72,10 +49,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_aknbg")
+"texture": ExtResource("2_bte03")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_65xtt")
+"texture": ExtResource("3_el388")
 }],
 "loop": false,
 "name": &"pull_up",
@@ -83,7 +60,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l24hq")
+"texture": ExtResource("3_el388")
 }],
 "loop": false,
 "name": &"up",
@@ -190,18 +167,20 @@ script = ExtResource("1_46d77")
 
 [node name="Lever" type="AnimatedSprite2D" parent="."]
 z_index = 2
-position = Vector2(401.00003, 78.00001)
-scale = Vector2(0.31, 0.31)
+position = Vector2(376, 67)
+scale = Vector2(3.6363635, 3.1875)
 sprite_frames = SubResource("SpriteFrames_p50d0")
 animation = &"pull_up"
+metadata/_edit_lock_ = true
 
 [node name="Blinds" type="AnimatedSprite2D" parent="."]
-position = Vector2(216, 196)
-scale = Vector2(4.4536085, 4.12844)
+position = Vector2(216, 200.50002)
+scale = Vector2(4.4536085, 4.211009)
 sprite_frames = SubResource("SpriteFrames_bne74")
 animation = &"closing"
 frame = 9
 frame_progress = 1.0
+metadata/_edit_lock_ = true
 
 [node name="LeverArea" type="Area2D" parent="."]
 
@@ -212,14 +191,14 @@ position = Vector2(384, 73)
 shape = SubResource("RectangleShape2D_fe0kc")
 
 [node name="Blinds Shadow" type="Sprite2D" parent="."]
-position = Vector2(385.99927, 89.000015)
+position = Vector2(371.99927, 77.000015)
 scale = Vector2(0.08968069, 0.090965696)
 texture = ExtResource("25_el388")
 metadata/_edit_lock_ = true
 
 [node name="Table Shadow" type="Sprite2D" parent="."]
 z_index = 199
-position = Vector2(215.99796, 245.00049)
+position = Vector2(215.99796, 260.0005)
 scale = Vector2(0.08968069, 0.090965696)
 texture = ExtResource("24_bte03")
 metadata/_edit_lock_ = true
