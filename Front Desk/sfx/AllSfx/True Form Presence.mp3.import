@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b53cvvxqb87dn"
+path="res://.godot/imported/True Form Presence.mp3-a1665027308a9cb82d9a2737047ef636.mp3str"
+
+[deps]
+
+source_file="res://sfx/AllSfx/True Form Presence.mp3"
+dest_files=["res://.godot/imported/True Form Presence.mp3-a1665027308a9cb82d9a2737047ef636.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

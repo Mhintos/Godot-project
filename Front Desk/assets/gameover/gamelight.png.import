@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c28rikpqbxtgd"
-path="res://.godot/imported/Success Button Darker.png-ffb4a688573a7846a89898d46f3a8cca.ctex"
+uid="uid://cuwydfxrbwmdk"
+path="res://.godot/imported/gamelight.png-bbe13820032da121e97a861490d2dc05.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Success/Success Button Darker.png"
-dest_files=["res://.godot/imported/Success Button Darker.png-ffb4a688573a7846a89898d46f3a8cca.ctex"]
+source_file="res://assets/gameover/gamelight.png"
+dest_files=["res://.godot/imported/gamelight.png-bbe13820032da121e97a861490d2dc05.ctex"]
 
 [params]
 

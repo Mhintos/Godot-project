@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b8q71apnbigdq"
+path="res://.godot/imported/5 Seconds.mp3-48f44654f36fc64d6b1f3b70b7a95a97.mp3str"
+
+[deps]
+
+source_file="res://sfx/AllSfx/5 Seconds.mp3"
+dest_files=["res://.godot/imported/5 Seconds.mp3-48f44654f36fc64d6b1f3b70b7a95a97.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

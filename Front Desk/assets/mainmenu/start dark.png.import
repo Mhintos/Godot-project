@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://r4juclhi7skh"
-path="res://.godot/imported/Darker.png-801e6e8ee3b1a259342093511df88198.ctex"
+uid="uid://5bxpnvaju4qk"
+path="res://.godot/imported/start dark.png-7f537026bea445056223154be1807456.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gameover/Darker.png"
-dest_files=["res://.godot/imported/Darker.png-801e6e8ee3b1a259342093511df88198.ctex"]
+source_file="res://assets/mainmenu/start dark.png"
+dest_files=["res://.godot/imported/start dark.png-7f537026bea445056223154be1807456.ctex"]
 
 [params]
 

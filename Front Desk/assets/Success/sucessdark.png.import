@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0545bsl2jb8q"
-path="res://.godot/imported/Start Darker.png-b857001447dc0f00988434a18ac54105.ctex"
+uid="uid://dab6l85rx5vxc"
+path="res://.godot/imported/sucessdark.png-2ef49966e1ca4714df27e67222109e14.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mainmenu/Start Darker.png"
-dest_files=["res://.godot/imported/Start Darker.png-b857001447dc0f00988434a18ac54105.ctex"]
+source_file="res://assets/Success/sucessdark.png"
+dest_files=["res://.godot/imported/sucessdark.png-2ef49966e1ca4714df27e67222109e14.ctex"]
 
 [params]
 

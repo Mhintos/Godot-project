@@ -5,10 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://lrbticr1ov8o" path="res://scene/Character/Ralph Romero Professor.tscn" id="3_yfmp5"]
 [ext_resource type="PackedScene" uid="uid://qaeqwprrrdxp" path="res://scene/Character/Caleb Alonso Security Anomaly.tscn" id="5_2wxcv"]
 [ext_resource type="PackedScene" uid="uid://dgau330eg8kdh" path="res://scene/Character/Loopy Varns Canteen Staff.tscn" id="6_50h4t"]
-[ext_resource type="Texture2D" uid="uid://bfhkqbtlfkyhj" path="res://assets/ui/Table/Organizer.png" id="7_lwtii"]
+[ext_resource type="Texture2D" uid="uid://bfhkqbtlfkyhj" path="res://assets/ui/Table/organizer.png" id="7_lwtii"]
 [ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Alicia Roxas Professor.tscn" id="8_k8hxm"]
 [ext_resource type="Texture2D" uid="uid://bgdm30kdupwmd" path="res://assets/ui/Table/Mini Table.png" id="8_kspj7"]
-[ext_resource type="Texture2D" uid="uid://bvd700yvkq2yn" path="res://assets/ui/Telephone/Telephone.png" id="9_lwtii"]
+[ext_resource type="Texture2D" uid="uid://bvd700yvkq2yn" path="res://assets/ui/Telephone/telephone.png" id="9_lwtii"]
 [ext_resource type="Script" uid="uid://dyyiw6d3if0co" path="res://script/documents/document_manager.gd" id="15_50h4t"]
 [ext_resource type="Texture2D" uid="uid://dbgtdd8kao8bg" path="res://assets/ui/Approve and Deny/approve_normal.png" id="15_mga6p"]
 [ext_resource type="Texture2D" uid="uid://clj6qp3d4e42v" path="res://assets/ui/Approve and Deny/approve_pressed.png" id="16_50h4t"]
@@ -295,6 +295,8 @@ frame_progress = 1.0
 [node name="TrueFormTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="Node" type="Node" parent="."]
 
 [connection signal="pressed" from="Table Layer/UILayer/HandbookIcon/TextureButton" to="Table Layer/UILayer/HandbookIcon/Handbook" method="_on_button_pressed"]
 [connection signal="pressed" from="Bloody UI/HandbookIcon/TextureButton" to="Bloody UI/HandbookIcon/Handbook" method="_on_button_pressed"]
