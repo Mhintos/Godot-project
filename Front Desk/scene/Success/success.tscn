@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://0xvufe6itncj"]
+[gd_scene load_steps=9 format=3 uid="uid://0xvufe6itncj"]
 
 [ext_resource type="Script" uid="uid://c4hcanq24yylb" path="res://script/Game over/Success/success.gd" id="1_efb16"]
 [ext_resource type="Texture2D" uid="uid://bu3cmsxchjxcj" path="res://assets/Success/End of Shift (1).png" id="1_hniwk"]
 [ext_resource type="Texture2D" uid="uid://cd1ir0hsf2y2l" path="res://assets/Success/Sucesslight.png" id="2_tp14k"]
 [ext_resource type="Texture2D" uid="uid://dab6l85rx5vxc" path="res://assets/Success/sucessdark.png" id="3_efb16"]
 [ext_resource type="AudioStream" uid="uid://7c84qhb5566j" path="res://sfx/AllSfx/Main Menu Official BG Music.mp3" id="5_006as"]
+[ext_resource type="Texture2D" uid="uid://cu0lfmn61uhlb" path="res://assets/Success/Success Hover.png" id="5_qch5f"]
 [ext_resource type="AudioStream" uid="uid://c7txs6ksd3pjw" path="res://sfx/AllSfx/Button Hover.mp3" id="5_shpx3"]
 [ext_resource type="AudioStream" uid="uid://bponfxch0uuiy" path="res://sfx/AllSfx/ButtonClick.mp3" id="6_006as"]
 
@@ -19,12 +20,13 @@ texture = ExtResource("1_hniwk")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HomeButton" type="TextureButton" parent="CanvasLayer"]
-offset_left = 524.0
-offset_top = 483.0
-offset_right = 619.0
-offset_bottom = 575.0
+offset_left = 535.0
+offset_top = 503.0
+offset_right = 604.0
+offset_bottom = 570.0
 texture_normal = ExtResource("2_tp14k")
 texture_pressed = ExtResource("3_efb16")
+texture_hover = ExtResource("5_qch5f")
 ignore_texture_size = true
 stretch_mode = 6
 

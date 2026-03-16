@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://4o22kfn8prnp"]
+[gd_scene load_steps=9 format=3 uid="uid://4o22kfn8prnp"]
 
 [ext_resource type="Script" uid="uid://b234dc5w8hpf5" path="res://script/Game over/game_over.gd" id="1_fkpf7"]
 [ext_resource type="Texture2D" uid="uid://cuwydfxrbwmdk" path="res://assets/gameover/gamelight.png" id="1_ijvc3"]
 [ext_resource type="Texture2D" uid="uid://d3i12sv54rna8" path="res://assets/gameover/Game Over (1).png" id="2_owwri"]
 [ext_resource type="Texture2D" uid="uid://dyhu21l5y82su" path="res://assets/gameover/gamedark.png" id="3_1uux7"]
 [ext_resource type="AudioStream" uid="uid://s0mi6pi0sm6w" path="res://sfx/AllSfx/Game Over BG Music.mp3" id="5_m5jco"]
+[ext_resource type="Texture2D" uid="uid://d3omc0eir0fet" path="res://assets/gameover/Game Over Hover.png" id="5_shmw8"]
 [ext_resource type="AudioStream" uid="uid://c7txs6ksd3pjw" path="res://sfx/AllSfx/Button Hover.mp3" id="6_shmw8"]
 [ext_resource type="AudioStream" uid="uid://bponfxch0uuiy" path="res://sfx/AllSfx/ButtonClick.mp3" id="7_jarpt"]
 
@@ -19,12 +20,13 @@ texture = ExtResource("2_owwri")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HomeButton" type="TextureButton" parent="CanvasLayer"]
-offset_left = 515.0
-offset_top = 453.0
-offset_right = 635.0
-offset_bottom = 539.0
+offset_left = 531.0
+offset_top = 462.0
+offset_right = 623.0
+offset_bottom = 549.0
 texture_normal = ExtResource("1_ijvc3")
 texture_pressed = ExtResource("3_1uux7")
+texture_hover = ExtResource("5_shmw8")
 ignore_texture_size = true
 stretch_mode = 6
 
