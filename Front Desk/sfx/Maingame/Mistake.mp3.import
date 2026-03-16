@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://ckcaau6gxc6dr"
-path="res://.godot/imported/Mistake.mp3-c6446f3a412fe146f62f1ab2ed44bd71.mp3str"
+path="res://.godot/imported/Mistake.mp3-d0b02b28f4f781f69c88ad466f0ed180.mp3str"
 
 [deps]
 
-source_file="res://sfx/maingame/Mistake.mp3"
-dest_files=["res://.godot/imported/Mistake.mp3-c6446f3a412fe146f62f1ab2ed44bd71.mp3str"]
+source_file="res://sfx/Maingame/Mistake.mp3"
+dest_files=["res://.godot/imported/Mistake.mp3-d0b02b28f4f781f69c88ad466f0ed180.mp3str"]
 
 [params]
 

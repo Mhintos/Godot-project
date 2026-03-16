@@ -1,10 +1,12 @@
 extends Node
 
+
 @export var document_layer_path: NodePath
 @export var inspect_spawn_path: NodePath
 
 var active_document: Node = null
 var opened_docs := {}  # doc_id -> Node (instance)
+
 
 func _ready() -> void:
 	add_to_group("document_manager")

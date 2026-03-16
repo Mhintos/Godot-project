@@ -9,24 +9,30 @@ extends Area2D
 @export var bob_height: float = 2.0
 @export var bob_time: float = 0.5
 
-enum State { WITH_CHARACTER, ON_TABLE }
+enum State {
+	WITH_CHARACTER,
+	ON_TABLE
+}
+
 var state := State.WITH_CHARACTER
 
 var _moving := false
 var _base_y := 0.0
-var _bob_tween: Tween
+var _bob_tween: Tween = null
+var _move_tween: Tween = null
+
+@onready var table_layer: Node = get_node_or_null(table_layer_path)
+@onready var table_slot: Node2D = get_node_or_null(table_slot_path)
 
 
 func _ready() -> void:
 	z_index = 100
-	print("MINI DOC READY:", name)
 	_base_y = position.y
 	_start_bob()
 
 
 func _start_bob() -> void:
-	if _bob_tween and _bob_tween.is_valid():
-		_bob_tween.kill()
+	_stop_bob_tween()
 
 	_bob_tween = create_tween()
 	_bob_tween.set_loops()
@@ -38,45 +44,82 @@ func _start_bob() -> void:
 		.set_ease(Tween.EASE_IN_OUT)
 
 
-func send_to_table(table_layer: Node, target_global_pos: Vector2, slide_time: float = 0.35) -> void:
+func send_to_table(target_layer: Node, target_global_pos: Vector2, slide_time: float = 0.35) -> void:
 	if _moving:
 		return
-	_moving = true
 
-	if _bob_tween and _bob_tween.is_valid():
-		_bob_tween.kill()
+	if target_layer == null:
+		push_error("character_mini_doc.gd: target table layer is null.")
+		return
+
+	_moving = true
+	_stop_all_tweens()
 
 	var start_global := global_position
+	var old_parent := get_parent()
 
-	get_parent().remove_child(self)
-	table_layer.add_child(self)
+	if old_parent:
+		old_parent.remove_child(self)
+
+	target_layer.add_child(self)
 	global_position = start_global
 
-	var t := create_tween()
-	t.tween_property(self, "global_position", target_global_pos, slide_time)\
+	_move_tween = create_tween()
+	_move_tween.tween_property(self, "global_position", target_global_pos, slide_time)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_OUT)
-	t.tween_callback(_finish_to_table)
+	_move_tween.tween_callback(_finish_to_table)
 
 
 func _finish_to_table() -> void:
 	state = State.ON_TABLE
 	_moving = false
+	_move_tween = null
 
 
 func _input_event(_viewport, event, _shape_idx) -> void:
 	if not (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
 		return
 
-	# FIRST CLICK: slide to table
-	if state == State.WITH_CHARACTER:
-		var table_layer: Node = get_node(table_layer_path)
-		var slot: Node2D = get_node(table_slot_path)
-		send_to_table(table_layer, slot.global_position)
+	if _moving:
 		return
 
-	# SECOND CLICK: open full document
+	if state == State.WITH_CHARACTER:
+		if table_layer == null:
+			push_error("character_mini_doc.gd: table_layer_path not found.")
+			return
+
+		if table_slot == null:
+			push_error("character_mini_doc.gd: table_slot_path not found.")
+			return
+
+		send_to_table(table_layer, table_slot.global_position)
+		return
+
 	if state == State.ON_TABLE:
-		var manager = get_tree().get_first_node_in_group("document_manager")
-		if manager:
+		var manager := get_tree().get_first_node_in_group("document_manager")
+		if manager and manager.has_method("open_document"):
 			manager.open_document(doc_id, full_document_scene)
+		else:
+			push_error("character_mini_doc.gd: document_manager not found or missing open_document().")
+
+
+func _stop_bob_tween() -> void:
+	if _bob_tween and _bob_tween.is_valid():
+		_bob_tween.kill()
+	_bob_tween = null
+
+
+func _stop_move_tween() -> void:
+	if _move_tween and _move_tween.is_valid():
+		_move_tween.kill()
+	_move_tween = null
+
+
+func _stop_all_tweens() -> void:
+	_stop_bob_tween()
+	_stop_move_tween()
+
+
+func _exit_tree() -> void:
+	_stop_all_tweens()
