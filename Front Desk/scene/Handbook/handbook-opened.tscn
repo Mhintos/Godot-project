@@ -1,6 +1,6 @@
 [gd_scene load_steps=48 format=3 uid="uid://dll78gnht4365"]
 
-[ext_resource type="Script" uid="uid://bpu8xdx5llih1" path="res://scripts/handbook_opened.gd" id="1_5lew5"]
+[ext_resource type="Script" uid="uid://bpu8xdx5llih1" path="res://script/Handbook/handbook_opened.gd" id="1_5lew5"]
 [ext_resource type="Texture2D" uid="uid://du07c5kwbyg7u" path="res://assets/Handbook-Opened/Hand Book - Openedv2.png" id="2_5jgmi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5jgmi"]
@@ -180,7 +180,8 @@ offset_bottom = 54.23216
 metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HandbookOpen/Area2D"]
-position = Vector2(-2.6226044e-06, 0.20189275)
+position = Vector2(0, 0.20188904)
+scale = Vector2(0.99999994, 0.99999994)
 shape = SubResource("RectangleShape2D_5lew5")
 
 [node name="BasicRules" type="Button" parent="HandbookOpen/Area2D"]

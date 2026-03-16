@@ -3,8 +3,8 @@ extends Area2D
 @export var doc_id: String = ""
 @export var full_document_scene: PackedScene
 
-@export var table_layer_path: NodePath
-@export var table_slot_path: NodePath
+var table_layer: Node = null
+var table_slot: Node2D = null
 
 @export var bob_height: float = 2.0
 @export var bob_time: float = 0.5
@@ -20,9 +20,6 @@ var _moving := false
 var _base_y := 0.0
 var _bob_tween: Tween = null
 var _move_tween: Tween = null
-
-@onready var table_layer: Node = get_node_or_null(table_layer_path)
-@onready var table_slot: Node2D = get_node_or_null(table_slot_path)
 
 
 func _ready() -> void:
@@ -86,11 +83,11 @@ func _input_event(_viewport, event, _shape_idx) -> void:
 
 	if state == State.WITH_CHARACTER:
 		if table_layer == null:
-			push_error("character_mini_doc.gd: table_layer_path not found.")
+			push_error("character_mini_doc.gd: table_layer not assigned.")
 			return
 
 		if table_slot == null:
-			push_error("character_mini_doc.gd: table_slot_path not found.")
+			push_error("character_mini_doc.gd: table_slot not assigned.")
 			return
 
 		send_to_table(table_layer, table_slot.global_position)

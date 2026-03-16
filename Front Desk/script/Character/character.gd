@@ -165,19 +165,15 @@ func _spawn_mini_docs() -> void:
 		var mini_1 = mini_doc_scenes[0].instantiate()
 		mini_doc_anchor_1.add_child(mini_1)
 		mini_1.position = Vector2.ZERO
-		mini_1.table_layer_path = mini_table_layer.get_path()
-
-		if mini_id_slot != null:
-			mini_1.table_slot_path = mini_id_slot.get_path()
+		mini_1.table_layer = mini_table_layer
+		mini_1.table_slot = mini_id_slot
 
 	if mini_doc_scenes.size() >= 2 and mini_doc_scenes[1] != null:
 		var mini_2 = mini_doc_scenes[1].instantiate()
 		mini_doc_anchor_2.add_child(mini_2)
 		mini_2.position = Vector2.ZERO
-		mini_2.table_layer_path = mini_table_layer.get_path()
-
-		if mini_permit_slot != null:
-			mini_2.table_slot_path = mini_permit_slot.get_path()
+		mini_2.table_layer = mini_table_layer
+		mini_2.table_slot = mini_permit_slot
 
 
 func _clear_mini_docs() -> void:
