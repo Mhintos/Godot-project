@@ -12,7 +12,9 @@ config_version=5
 
 config/name="Front Desk"
 run/main_scene="uid://vegcmgex6h1c"
+config/use_custom_user_dir=true
 config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/image="uid://cjns48nxpcljx"
 config/icon="uid://caua4wf67rwhm"
 
 [display]

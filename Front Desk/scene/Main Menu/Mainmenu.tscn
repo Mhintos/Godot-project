@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://clevkenb5jyjy" path="res://assets/mainmenu/quitdark.png" id="6_5rmyy"]
 [ext_resource type="AudioStream" uid="uid://7c84qhb5566j" path="res://sfx/AllSfx/Main Menu Official BG Music.mp3" id="7_yrmxh"]
 [ext_resource type="Texture2D" uid="uid://dl7vp62ucodgc" path="res://assets/mainmenu/Quit Hover.png" id="8_4oy5i"]
-[ext_resource type="AudioStream" uid="uid://c7txs6ksd3pjw" path="res://sfx/AllSfx/Button Hover.mp3" id="8_xbe61"]
 [ext_resource type="AudioStream" uid="uid://bponfxch0uuiy" path="res://sfx/AllSfx/ButtonClick.mp3" id="9_o0tjd"]
+[ext_resource type="AudioStream" uid="uid://d3qo1uo0qh1yj" path="res://sfx/buttonhover/Button Hover.mp3" id="10_kjm3w"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_hm8h1")
@@ -50,7 +50,7 @@ volume_db = -10.0
 autoplay = true
 
 [node name="HoverSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_xbe61")
+stream = ExtResource("10_kjm3w")
 volume_db = -10.0
 
 [node name="ClickSFX" type="AudioStreamPlayer" parent="."]

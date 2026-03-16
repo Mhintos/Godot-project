@@ -32,6 +32,7 @@ stretch_mode = 6
 
 [node name="GameOverMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_m5jco")
+volume_db = -10.0
 autoplay = true
 
 [node name="HoverSFX" type="AudioStreamPlayer" parent="."]
