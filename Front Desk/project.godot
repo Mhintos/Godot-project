@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Front Desk"
+config/name="The Front Desk"
 run/main_scene="uid://vegcmgex6h1c"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="uid://m0vmc5ax1ax0"
+config/icon="uid://caua4wf67rwhm"
 
 [display]
 

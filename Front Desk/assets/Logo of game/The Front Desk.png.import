@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m0vmc5ax1ax0"
-path="res://.godot/imported/Logo.png-da4259cbc4cf63e9300ecad2fdfa7fd9.ctex"
+uid="uid://caua4wf67rwhm"
+path="res://.godot/imported/The Front Desk.png-3663cdae9fd36176349f0c854d453564.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Logo of game/Logo.png"
-dest_files=["res://.godot/imported/Logo.png-da4259cbc4cf63e9300ecad2fdfa7fd9.ctex"]
+source_file="res://assets/Logo of game/The Front Desk.png"
+dest_files=["res://.godot/imported/The Front Desk.png-3663cdae9fd36176349f0c854d453564.ctex"]
 
 [params]
 
