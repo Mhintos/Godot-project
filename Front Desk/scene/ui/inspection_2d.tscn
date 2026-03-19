@@ -69,8 +69,8 @@ animations = [{
 script = ExtResource("1_2wxcv")
 mini_id_slot_path = NodePath("Documents/MiniSlot_ID")
 mini_permit_slot_path = NodePath("Documents/MiniSlot_Permit")
-approve_button_path = NodePath("Table Layer/UILayer/ApproveButton")
-deny_button_path = NodePath("Table Layer/UILayer/DenyButton")
+approve_button_path = NodePath("UILayer/ApproveButton")
+deny_button_path = NodePath("UILayer/DenyButton")
 mini_table_layer_path = NodePath("Documents/MiniTableLayer")
 document_layer_path = NodePath("Documents/DocumentLayer")
 character_scenes = Array[PackedScene]([ExtResource("8_k8hxm"), ExtResource("3_yfmp5"), ExtResource("5_2wxcv"), ExtResource("6_50h4t")])
@@ -137,10 +137,10 @@ texture = ExtResource("19_mga6p")
 expand_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="UILayer" type="CanvasLayer" parent="Table Layer"]
+[node name="UILayer" type="CanvasLayer" parent="."]
 layer = 12
 
-[node name="ApproveButton" type="TextureButton" parent="Table Layer/UILayer"]
+[node name="ApproveButton" type="TextureButton" parent="UILayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -156,7 +156,7 @@ texture_hover = ExtResource("15_mga6p")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="DenyButton" type="TextureButton" parent="Table Layer/UILayer"]
+[node name="DenyButton" type="TextureButton" parent="UILayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -172,7 +172,7 @@ texture_hover = ExtResource("18_5er1a")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="HandbookIcon" parent="Table Layer/UILayer" instance=ExtResource("17_vjnc3")]
+[node name="HandbookIcon" parent="UILayer" instance=ExtResource("17_vjnc3")]
 unique_name_in_owner = true
 light_mask = 513
 visibility_layer = 513
@@ -180,13 +180,13 @@ z_index = 200
 position = Vector2(211.585, 557.98)
 scale = Vector2(2.04, 2.04)
 
-[node name="Handbook" parent="Table Layer/UILayer/HandbookIcon" instance=ExtResource("23_7su7m")]
+[node name="Handbook" parent="UILayer/HandbookIcon" instance=ExtResource("23_7su7m")]
 unique_name_in_owner = true
 visible = false
 position = Vector2(249.71324, -40.18627)
 scale = Vector2(0.475, 0.475)
 
-[node name="TextureButton" type="TextureButton" parent="Table Layer/UILayer/HandbookIcon"]
+[node name="TextureButton" type="TextureButton" parent="UILayer/HandbookIcon"]
 offset_left = -18.91422
 offset_top = -24.990189
 offset_right = 20.30147
@@ -203,13 +203,14 @@ position = Vector2(-0.99993896, 0)
 layer = 12
 
 [node name="MiniTableLayer" type="Node2D" parent="Documents"]
-z_index = 200
+z_index = -50
 position = Vector2(119, 454)
 
 [node name="DocumentLayer" type="Node2D" parent="Documents"]
-z_index = 201
+z_index = 50
 
 [node name="InspectSpawn" type="Marker2D" parent="Documents"]
+z_index = 50
 
 [node name="DocumentManager" type="Node" parent="Documents"]
 script = ExtResource("15_50h4t")
@@ -238,38 +239,6 @@ position = Vector2(-239, 62)
 
 [node name="Bloody UI" type="CanvasLayer" parent="."]
 
-[node name="ApproveButton" type="TextureButton" parent="Bloody UI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 80.0
-offset_top = 521.0
-offset_right = -1010.0
-offset_bottom = -46.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = ExtResource("15_mga6p")
-texture_pressed = ExtResource("16_50h4t")
-texture_hover = ExtResource("15_mga6p")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="DenyButton" type="TextureButton" parent="Bloody UI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 79.0
-offset_top = 572.0
-offset_right = -1003.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = ExtResource("18_5er1a")
-texture_pressed = ExtResource("19_7su7m")
-texture_hover = ExtResource("18_5er1a")
-ignore_texture_size = true
-stretch_mode = 5
-
 [node name="HandbookIcon" parent="Bloody UI" instance=ExtResource("17_vjnc3")]
 light_mask = 513
 visibility_layer = 513
@@ -278,7 +247,6 @@ position = Vector2(211.585, 557.98)
 scale = Vector2(2.04, 2.04)
 
 [node name="Handbook" parent="Bloody UI/HandbookIcon" instance=ExtResource("23_7su7m")]
-visible = false
 position = Vector2(249.71324, -40.18627)
 scale = Vector2(0.475, 0.475)
 
@@ -338,6 +306,6 @@ volume_db = -5.0
 [node name="JumpscareSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("35_i83lm")
 
-[connection signal="pressed" from="Table Layer/UILayer/HandbookIcon/TextureButton" to="Table Layer/UILayer/HandbookIcon/Handbook" method="_on_button_pressed"]
+[connection signal="pressed" from="UILayer/HandbookIcon/TextureButton" to="UILayer/HandbookIcon/Handbook" method="_on_button_pressed"]
 [connection signal="pressed" from="Bloody UI/HandbookIcon/TextureButton" to="Bloody UI/HandbookIcon/Handbook" method="_on_button_pressed"]
 [connection signal="timeout" from="TrueFormTimer" to="." method="_on_true_form_timer_timeout"]
