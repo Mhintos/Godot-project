@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://btjgwmwr58db8"]
+
+[ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_2rr5w"]
+[ext_resource type="Texture2D" uid="uid://dki6v5elfc6jd" path="res://assets/documents/Kyle Navarro Security Guard/Documents/Campus Access Permit.png" id="2_2rr5w"]
+
+[node name="Document_Permit_Alicia" type="Node2D"]
+script = ExtResource("1_2rr5w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(852, 226)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("2_2rr5w")

@@ -1,14 +1,20 @@
-[gd_scene load_steps=37 format=3 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=55 format=3 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
-[ext_resource type="PackedScene" uid="uid://lrbticr1ov8o" path="res://scene/Character/Ralph Romero Professor.tscn" id="3_yfmp5"]
-[ext_resource type="PackedScene" uid="uid://qaeqwprrrdxp" path="res://scene/Character/Caleb Alonso Security Anomaly.tscn" id="5_2wxcv"]
-[ext_resource type="PackedScene" uid="uid://dgau330eg8kdh" path="res://scene/Character/Loopy Varns Canteen Staff.tscn" id="6_50h4t"]
+[ext_resource type="PackedScene" uid="uid://lrbticr1ov8o" path="res://scene/Character/Normal Character/Ralph Romero Professor.tscn" id="3_yfmp5"]
+[ext_resource type="PackedScene" uid="uid://qaeqwprrrdxp" path="res://scene/Character/True Form Anomalies/Caleb Alonso Security Anomaly.tscn" id="5_2wxcv"]
+[ext_resource type="PackedScene" uid="uid://chisouworllid" path="res://scene/Character/Normal Character/Angelo Maderal Professor.tscn" id="5_s4fil"]
+[ext_resource type="PackedScene" uid="uid://dosvx2vykil81" path="res://scene/Character/Normal Character/Kyle Navarro Security Guard.tscn" id="6_4rdtj"]
+[ext_resource type="PackedScene" uid="uid://dgau330eg8kdh" path="res://scene/Character/Normal Character/Loopy Varns Canteen Staff.tscn" id="6_50h4t"]
+[ext_resource type="PackedScene" uid="uid://dmg7phcmhthfe" path="res://scene/Character/Normal Character/Trisha Mendoza Canteen Staff.tscn" id="7_lu1ec"]
 [ext_resource type="Texture2D" uid="uid://bfhkqbtlfkyhj" path="res://assets/ui/Table/Organizer.png" id="7_lwtii"]
-[ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Alicia Roxas Professor.tscn" id="8_k8hxm"]
+[ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Normal Character/Alicia Roxas Professor.tscn" id="8_k8hxm"]
 [ext_resource type="Texture2D" uid="uid://bgdm30kdupwmd" path="res://assets/ui/Table/Mini Table.png" id="8_kspj7"]
+[ext_resource type="PackedScene" uid="uid://uveo67mqt2au" path="res://scene/Character/Disguised Character/Ralph Romero Professor Disguised.tscn" id="8_lwdaq"]
 [ext_resource type="Texture2D" uid="uid://bvd700yvkq2yn" path="res://assets/ui/Telephone/Telephone.png" id="9_lwtii"]
+[ext_resource type="PackedScene" uid="uid://bhlefcwdnqgb7" path="res://scene/Character/Disguised Character/Trisha Mendoza Canteen Staff Disguised.tscn" id="9_qob17"]
+[ext_resource type="PackedScene" uid="uid://lsyjakldqsfr" path="res://scene/Character/True Form Anomalies/Meredith Grey Professor Anomaly.tscn" id="11_h4ua4"]
 [ext_resource type="Script" uid="uid://dyyiw6d3if0co" path="res://script/documents/document_manager.gd" id="15_50h4t"]
 [ext_resource type="Texture2D" uid="uid://dbgtdd8kao8bg" path="res://assets/ui/Approve and Deny/approve_normal.png" id="15_mga6p"]
 [ext_resource type="Texture2D" uid="uid://clj6qp3d4e42v" path="res://assets/ui/Approve and Deny/approve_pressed.png" id="16_50h4t"]
@@ -26,15 +32,26 @@
 [ext_resource type="Texture2D" uid="uid://c0tripluupea2" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/4.png" id="26_sx8aa"]
 [ext_resource type="Texture2D" uid="uid://cwbntg2j5vyqv" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/5.png" id="27_cc2gp"]
 [ext_resource type="AudioStream" uid="uid://cm58dfe30p6e6" path="res://sfx/Maingame/In Game BG Music.mp3" id="28_1oqq2"]
+[ext_resource type="Texture2D" uid="uid://bsednfd7qk5su" path="res://assets/Scare meter/1.png" id="28_5jpnk"]
 [ext_resource type="Texture2D" uid="uid://28nfsv3mpni6" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/6.png" id="28_r88fj"]
 [ext_resource type="Texture2D" uid="uid://db84xe4ulgp0d" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/7.png" id="29_1oqq2"]
+[ext_resource type="Texture2D" uid="uid://bulwqx7kaj3tr" path="res://assets/Scare meter/2.png" id="29_vrpte"]
 [ext_resource type="AudioStream" uid="uid://55ljf4tgrp8b" path="res://sfx/Maingame/Footsteps.mp3" id="29_y8ley"]
 [ext_resource type="AudioStream" uid="uid://dgbk8g8wyxax6" path="res://sfx/Maingame/Sliding Paper.mp3" id="30_3nq0w"]
+[ext_resource type="Texture2D" uid="uid://wifobkm2kpxg" path="res://assets/Scare meter/3.png" id="30_msi77"]
 [ext_resource type="AudioStream" uid="uid://dnlr2x3d5pye7" path="res://sfx/Maingame/Page Turn.mp3" id="31_d50na"]
+[ext_resource type="Texture2D" uid="uid://dlyb26os7hci5" path="res://assets/Scare meter/4.png" id="31_lph85"]
+[ext_resource type="Texture2D" uid="uid://24xaavtlkpho" path="res://assets/Scare meter/5.png" id="32_niro7"]
 [ext_resource type="AudioStream" uid="uid://ckcaau6gxc6dr" path="res://sfx/Maingame/Mistake.mp3" id="32_pgn82"]
+[ext_resource type="Texture2D" uid="uid://3732ou6ufvn" path="res://assets/Scare meter/6.png" id="33_kbtt6"]
 [ext_resource type="AudioStream" uid="uid://b53cvvxqb87dn" path="res://sfx/Maingame/True Form Presence.mp3" id="33_rlkgx"]
 [ext_resource type="AudioStream" uid="uid://bunh3u3q2yqw3" path="res://sfx/Maingame/Screen Distort.mp3" id="34_q2qns"]
+[ext_resource type="Texture2D" uid="uid://ohhymhady7fb" path="res://assets/Scare meter/7.png" id="34_s4fil"]
+[ext_resource type="Texture2D" uid="uid://bwsq2uoc12rgj" path="res://assets/Scare meter/8.png" id="35_4rdtj"]
 [ext_resource type="AudioStream" uid="uid://jdbjiplnkxrn" path="res://sfx/Maingame/Jumpscare.mp3" id="35_i83lm"]
+[ext_resource type="Texture2D" uid="uid://c67dl08xt0nu2" path="res://assets/Scare meter/9.png" id="36_lu1ec"]
+[ext_resource type="Texture2D" uid="uid://bq82ucikj4xd1" path="res://assets/Scare meter/10.png" id="37_lwdaq"]
+[ext_resource type="Texture2D" uid="uid://dj3ob4bg0amim" path="res://assets/Scare meter/11.png" id="38_qob17"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y8ley"]
 animations = [{
@@ -65,18 +82,64 @@ animations = [{
 "speed": 7.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_h4ua4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_5jpnk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_vrpte")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_msi77")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_lph85")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_niro7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_kbtt6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_s4fil")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_4rdtj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_lu1ec")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_lwdaq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_qob17")
+}],
+"loop": false,
+"name": &"default",
+"speed": 11.0
+}]
+
 [node name="Inspection2D" type="Node2D"]
 script = ExtResource("1_2wxcv")
+scare_meter_path = NodePath("ScareMeterLayer/ScareMeter")
+scare_alarm_sfx_path = NodePath("ScareMeterLayer/ScareAlarmSFX")
 mini_id_slot_path = NodePath("Documents/MiniSlot_ID")
 mini_permit_slot_path = NodePath("Documents/MiniSlot_Permit")
-approve_button_path = NodePath("Table Layer/UILayer/ApproveButton")
-deny_button_path = NodePath("Table Layer/UILayer/DenyButton")
+approve_button_path = NodePath("BG Layer/Table Layer/UILayer/ApproveButton")
+deny_button_path = NodePath("BG Layer/Table Layer/UILayer/DenyButton")
 mini_table_layer_path = NodePath("Documents/MiniTableLayer")
 document_layer_path = NodePath("Documents/DocumentLayer")
-character_scenes = Array[PackedScene]([ExtResource("8_k8hxm"), ExtResource("3_yfmp5"), ExtResource("5_2wxcv"), ExtResource("6_50h4t")])
-blood_minitable_path = NodePath("Table Layer/BloodMiniTable")
-blood_organizer_path = NodePath("Table Layer/BloodOrganizer")
+normal_character_scenes = Array[PackedScene]([ExtResource("8_k8hxm"), ExtResource("5_s4fil"), ExtResource("6_4rdtj"), ExtResource("6_50h4t"), ExtResource("3_yfmp5"), ExtResource("7_lu1ec")])
+disguised_character_scenes = Array[PackedScene]([ExtResource("8_lwdaq"), ExtResource("9_qob17")])
+true_form_character_scenes = Array[PackedScene]([ExtResource("5_2wxcv"), ExtResource("11_h4ua4")])
+blood_minitable_path = NodePath("BG Layer/Table Layer/BloodMiniTable")
+blood_organizer_path = NodePath("BG Layer/Table Layer/BloodOrganizer")
 jumpscare_sprite_path = NodePath("JumpscareLayer/JumpscareSprite")
+max_characters_per_shift = 10
 
 [node name="BG Layer" type="CanvasLayer" parent="."]
 layer = -1
@@ -86,36 +149,36 @@ position = Vector2(226.5, 213)
 scale = Vector2(0.46907216, 0.3944954)
 texture = ExtResource("1_eqw22")
 
-[node name="Table Layer" type="CanvasLayer" parent="."]
+[node name="Table Layer" type="CanvasLayer" parent="BG Layer"]
 layer = 11
 
-[node name="Organizer" type="Sprite2D" parent="Table Layer"]
+[node name="Organizer" type="Sprite2D" parent="BG Layer/Table Layer"]
 position = Vector2(216.5, 581)
 scale = Vector2(3.280303, 3.5789475)
 texture = ExtResource("7_lwtii")
 metadata/_edit_lock_ = true
 
-[node name="mini table" type="Sprite2D" parent="Table Layer"]
+[node name="mini table" type="Sprite2D" parent="BG Layer/Table Layer"]
 position = Vector2(215.91254, 422.37732)
 scale = Vector2(4.9675283, 5.7110806)
 texture = ExtResource("8_kspj7")
 metadata/_edit_lock_ = true
 
-[node name="Telephone" type="Sprite2D" parent="Table Layer"]
+[node name="Telephone" type="Sprite2D" parent="BG Layer/Table Layer"]
 z_index = 100
 position = Vector2(351, 580)
 scale = Vector2(3.4329271, 3.6206894)
 texture = ExtResource("9_lwtii")
 metadata/_edit_lock_ = true
 
-[node name="BigTable" type="Sprite2D" parent="Table Layer"]
+[node name="BigTable" type="Sprite2D" parent="BG Layer/Table Layer"]
 z_index = 200
 position = Vector2(793, 323)
 scale = Vector2(0.58749324, 0.62081784)
 texture = ExtResource("19_lwtii")
 metadata/_edit_lock_ = true
 
-[node name="BloodOrganizer" type="TextureRect" parent="Table Layer"]
+[node name="BloodOrganizer" type="TextureRect" parent="BG Layer/Table Layer"]
 visible = false
 offset_left = 1.0
 offset_top = 512.0
@@ -126,7 +189,7 @@ texture = ExtResource("20_50h4t")
 expand_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="BloodMiniTable" type="TextureRect" parent="Table Layer"]
+[node name="BloodMiniTable" type="TextureRect" parent="BG Layer/Table Layer"]
 visible = false
 offset_left = -2.0
 offset_top = 326.0
@@ -137,10 +200,10 @@ texture = ExtResource("19_mga6p")
 expand_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="UILayer" type="CanvasLayer" parent="Table Layer"]
+[node name="UILayer" type="CanvasLayer" parent="BG Layer/Table Layer"]
 layer = 11
 
-[node name="HandbookIcon" parent="Table Layer/UILayer" instance=ExtResource("17_vjnc3")]
+[node name="HandbookIcon" parent="BG Layer/Table Layer/UILayer" instance=ExtResource("17_vjnc3")]
 unique_name_in_owner = true
 light_mask = 513
 visibility_layer = 513
@@ -148,13 +211,13 @@ z_index = 100
 position = Vector2(211.585, 557.98)
 scale = Vector2(2.04, 2.04)
 
-[node name="TextureButton" type="TextureButton" parent="Table Layer/UILayer/HandbookIcon"]
+[node name="TextureButton" type="TextureButton" parent="BG Layer/Table Layer/UILayer/HandbookIcon"]
 offset_left = -18.914223
 offset_top = -24.990189
 offset_right = 20.301476
 offset_bottom = 26.480408
 
-[node name="ApproveButton" type="TextureButton" parent="Table Layer/UILayer"]
+[node name="ApproveButton" type="TextureButton" parent="BG Layer/Table Layer/UILayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -170,7 +233,7 @@ texture_hover = ExtResource("15_mga6p")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="DenyButton" type="TextureButton" parent="Table Layer/UILayer"]
+[node name="DenyButton" type="TextureButton" parent="BG Layer/Table Layer/UILayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -192,6 +255,20 @@ layer = 10
 [node name="BlindsSystem" parent="Blinds Layer" instance=ExtResource("23_5er1a")]
 z_index = 98
 position = Vector2(-0.99993896, 0)
+
+[node name="Character Layer" type="CanvasLayer" parent="."]
+
+[node name="CharacterSpawn" type="Marker2D" parent="Character Layer"]
+position = Vector2(-166, 62)
+
+[node name="CharacterStop" type="Marker2D" parent="Character Layer"]
+position = Vector2(207, 62)
+
+[node name="CharacterExitRight" type="Marker2D" parent="Character Layer"]
+position = Vector2(1341, 62)
+
+[node name="CharacterExitLeft" type="Marker2D" parent="Character Layer"]
+position = Vector2(-239, 62)
 
 [node name="Documents" type="CanvasLayer" parent="."]
 layer = 13
@@ -217,20 +294,6 @@ position = Vector2(145, 457)
 [node name="MiniSlot_Permit" type="Marker2D" parent="Documents"]
 position = Vector2(255, 457)
 
-[node name="Character Layer" type="CanvasLayer" parent="."]
-
-[node name="CharacterSpawn" type="Marker2D" parent="Character Layer"]
-position = Vector2(-166, 62)
-
-[node name="CharacterStop" type="Marker2D" parent="Character Layer"]
-position = Vector2(207, 62)
-
-[node name="CharacterExitRight" type="Marker2D" parent="Character Layer"]
-position = Vector2(1341, 62)
-
-[node name="CharacterExitLeft" type="Marker2D" parent="Character Layer"]
-position = Vector2(-239, 62)
-
 [node name="Bloody UI" type="CanvasLayer" parent="."]
 
 [node name="HandbookIcon" parent="Bloody UI" instance=ExtResource("17_vjnc3")]
@@ -241,7 +304,7 @@ position = Vector2(211.585, 557.98)
 scale = Vector2(2.04, 2.04)
 
 [node name="Handbook" parent="Bloody UI/HandbookIcon" instance=ExtResource("23_7su7m")]
-position = Vector2(249.71324, -40.18627)
+position = Vector2(224.71324, -167.63724)
 scale = Vector2(0.475, 0.475)
 
 [node name="TextureButton" type="TextureButton" parent="Bloody UI/HandbookIcon"]
@@ -271,6 +334,17 @@ frame_progress = 1.0
 [node name="TrueFormTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="ScareMeterLayer" type="CanvasLayer" parent="."]
+layer = 50
+
+[node name="ScareMeter" type="AnimatedSprite2D" parent="ScareMeterLayer"]
+position = Vector2(125.399994, 28.899998)
+scale = Vector2(0.38530347, 0.37924525)
+sprite_frames = SubResource("SpriteFrames_h4ua4")
+
+[node name="ScareAlarmSFX" type="AudioStreamPlayer" parent="ScareMeterLayer"]
+stream = ExtResource("34_q2qns")
 
 [node name="SFX" type="Node" parent="."]
 
@@ -306,6 +380,6 @@ volume_db = -5.0
 [node name="JumpscareSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("35_i83lm")
 
-[connection signal="pressed" from="Table Layer/UILayer/HandbookIcon/TextureButton" to="JumpscareLayer/Handbook" method="_on_button_pressed"]
+[connection signal="pressed" from="BG Layer/Table Layer/UILayer/HandbookIcon/TextureButton" to="JumpscareLayer/Handbook" method="_on_button_pressed"]
 [connection signal="pressed" from="Bloody UI/HandbookIcon/TextureButton" to="Bloody UI/HandbookIcon/Handbook" method="_on_button_pressed"]
 [connection signal="timeout" from="TrueFormTimer" to="." method="_on_true_form_timer_timeout"]

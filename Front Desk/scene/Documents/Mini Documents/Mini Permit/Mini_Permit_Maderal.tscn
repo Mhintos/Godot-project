@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxm7j65scrf2g"]
+
+[ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_hpcpn"]
+[ext_resource type="PackedScene" uid="uid://bab8bfo6rn1wk" path="res://scene/Documents/Full Documents/Document Permit/Document_Permit_Maderal.tscn" id="2_hpcpn"]
+[ext_resource type="Texture2D" uid="uid://dt3b5oqu1oarr" path="res://assets/documents/Angelo Maderal Professor/Documents/Campus Access Permit.png" id="3_hpcpn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glixn"]
+size = Vector2(80, 106)
+
+[node name="CharacterMiniDoc" type="Area2D"]
+script = ExtResource("1_hpcpn")
+doc_id = "maderal_permit"
+full_document_scene = ExtResource("2_hpcpn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.149, 0.151)
+texture = ExtResource("3_hpcpn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_glixn")
+metadata/_edit_lock_ = true

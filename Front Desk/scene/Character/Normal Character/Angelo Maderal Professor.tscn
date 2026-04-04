@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://chisouworllid"]
+
+[ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_frpdb"]
+[ext_resource type="PackedScene" uid="uid://bupjq7d8643dc" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Maderal.tscn" id="2_bptp4"]
+[ext_resource type="PackedScene" uid="uid://bxm7j65scrf2g" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Maderal.tscn" id="3_arebf"]
+[ext_resource type="Texture2D" uid="uid://c58u6ibjaa8ol" path="res://assets/Characters/Normal/Angelo Maderal Professor/1.png" id="4_frpdb"]
+[ext_resource type="Texture2D" uid="uid://bg43128efl626" path="res://assets/Characters/Normal/Angelo Maderal Professor/2.png" id="5_agoey"]
+[ext_resource type="Texture2D" uid="uid://cxxhdi3jtfwlj" path="res://assets/Characters/Normal/Angelo Maderal Professor/3.png" id="6_f1gkx"]
+[ext_resource type="Texture2D" uid="uid://dpv8igs5jrf0a" path="res://assets/Characters/Normal/Angelo Maderal Professor/4.png" id="7_2dhs1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c7ua8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_frpdb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_agoey")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f1gkx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2dhs1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}]
+
+[node name="Node2D" type="Node2D"]
+z_index = 2
+script = ExtResource("1_frpdb")
+enter_time = 2.0
+exit_time = 2.0
+mini_doc_anchor_path = NodePath("MiniDocAnchor")
+mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
+mini_table_layer_path = NodePath("../MiniTableLayer")
+mini_doc_scenes = Array[PackedScene]([ExtResource("2_bptp4"), ExtResource("3_arebf")])
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(6, 148)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_c7ua8")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.7354947
+
+[node name="MiniDocAnchor" type="Node2D" parent="."]
+z_index = 50
+position = Vector2(-52, 221)
+rotation = -0.19192323
+
+[node name="MiniDocAnchor2" type="Node2D" parent="."]
+z_index = 50
+position = Vector2(69, 217)
+rotation = 0.30290103

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b3bp4e2jntma8"]
 
 [ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_rm8jr"]
-[ext_resource type="Texture2D" uid="uid://dameuntggina6" path="res://assets/documents/Loopy Varnes Canteen Staff/ID.png" id="2_rm8jr"]
+[ext_resource type="Texture2D" uid="uid://dameuntggina6" path="res://assets/documents/Loopy Varnes Canteen Staff/Documents/ID.png" id="2_rm8jr"]
 
 [node name="Document_ID_Loopy" type="Node2D"]
 script = ExtResource("1_rm8jr")

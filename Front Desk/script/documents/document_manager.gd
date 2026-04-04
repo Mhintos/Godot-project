@@ -33,7 +33,6 @@ func set_active_document(doc: Node) -> void:
 
 
 func open_document(doc_id: String, scene: PackedScene) -> void:
-
 	if doc_id == "" or scene == null:
 		return
 

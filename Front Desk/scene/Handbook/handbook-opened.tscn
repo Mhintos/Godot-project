@@ -160,8 +160,6 @@ position = Vector2(62.000004, 8.999998)
 scale = Vector2(3.7734377, 3.7734377)
 sprite_frames = SubResource("SpriteFrames_5dgl7")
 animation = &"flip"
-frame = 1
-frame_progress = 0.031827953
 
 [node name="Area2D" type="Area2D" parent="HandbookOpen"]
 metadata/_edit_lock_ = true

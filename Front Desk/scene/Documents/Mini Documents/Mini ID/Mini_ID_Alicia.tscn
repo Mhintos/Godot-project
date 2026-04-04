@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_bynmn"]
 [ext_resource type="PackedScene" uid="uid://cmddlcv1y20py" path="res://scene/Documents/Full Documents/Document ID/Document_ID_Alicia.tscn" id="2_a58b7"]
-[ext_resource type="Texture2D" uid="uid://cd70jloggldgf" path="res://assets/documents/Alicia Roxas Professor/ID.png" id="3_a58b7"]
+[ext_resource type="Texture2D" uid="uid://cd70jloggldgf" path="res://assets/documents/Alicia Roxas Professor/Documents/ID.png" id="3_a58b7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_glixn"]
 size = Vector2(118, 58)

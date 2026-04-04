@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://dosvx2vykil81"]
+
+[ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_mryi3"]
+[ext_resource type="PackedScene" uid="uid://o32occfgsjsy" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Kyle.tscn" id="2_e6xm0"]
+[ext_resource type="PackedScene" uid="uid://rmaxgoy2l31q" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Kyle.tscn" id="3_qrcpg"]
+[ext_resource type="Texture2D" uid="uid://b5tpepbwqkuvg" path="res://assets/Characters/Normal/Kyle Navarro Security Guard/1.png" id="4_mryi3"]
+[ext_resource type="Texture2D" uid="uid://vv28ipp52f8i" path="res://assets/Characters/Normal/Kyle Navarro Security Guard/2.png" id="5_f5ld0"]
+[ext_resource type="Texture2D" uid="uid://bw5xrvttujuo0" path="res://assets/Characters/Normal/Kyle Navarro Security Guard/3.png" id="6_2b10s"]
+[ext_resource type="Texture2D" uid="uid://b4citd5p8di0r" path="res://assets/Characters/Normal/Kyle Navarro Security Guard/4.png" id="7_578p3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c7ua8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_mryi3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f5ld0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2b10s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_578p3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}]
+
+[node name="Node2D" type="Node2D"]
+z_index = 2
+script = ExtResource("1_mryi3")
+enter_time = 2.0
+exit_time = 2.0
+mini_doc_anchor_path = NodePath("MiniDocAnchor")
+mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
+mini_table_layer_path = NodePath("../MiniTableLayer")
+mini_doc_scenes = Array[PackedScene]([ExtResource("2_e6xm0"), ExtResource("3_qrcpg")])
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(6, 139)
+scale = Vector2(3, 3.1)
+sprite_frames = SubResource("SpriteFrames_c7ua8")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.7962187
+
+[node name="MiniDocAnchor" type="Node2D" parent="."]
+z_index = 50
+position = Vector2(-52, 221)
+rotation = -0.19192323
+
+[node name="MiniDocAnchor2" type="Node2D" parent="."]
+z_index = 50
+position = Vector2(69, 217)
+rotation = 0.30290103

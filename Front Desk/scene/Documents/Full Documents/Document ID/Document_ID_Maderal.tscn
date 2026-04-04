@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://4l8asjup7368"]
+
+[ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_s50vv"]
+[ext_resource type="Texture2D" uid="uid://bowwr03kew0hg" path="res://assets/documents/Angelo Maderal Professor/Documents/ID.png" id="2_s50vv"]
+
+[node name="Document_ID_Alicia" type="Node2D"]
+script = ExtResource("1_s50vv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(900, 480)
+scale = Vector2(1.39, 1.4)
+texture = ExtResource("2_s50vv")

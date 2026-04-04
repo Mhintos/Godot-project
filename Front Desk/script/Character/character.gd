@@ -24,7 +24,12 @@ enum ExpectedDecision {
 @export var mini_permit_slot_path: NodePath
 
 @export var mini_doc_scenes: Array[PackedScene] = []
+
 @export var is_true_form: bool = false
+@export var is_disguised: bool = false
+@export var anomaly_uses_blinds: bool = false
+@export var custom_scare_duration: float = -1.0
+
 @export var expected_decision: ExpectedDecision = ExpectedDecision.APPROVE
 
 @onready var spawn_marker: Marker2D = get_node_or_null(spawn_marker_path)
@@ -41,7 +46,6 @@ enum ExpectedDecision {
 var _exiting := false
 var _move_tween: Tween = null
 var _idle_tween: Tween = null
-
 
 func _ready() -> void:
 	modulate.a = 1.0
@@ -63,7 +67,6 @@ func _ready() -> void:
 
 	global_position = spawn_marker.global_position
 	enter()
-
 
 func enter() -> void:
 	if stop_marker == null:
@@ -89,7 +92,6 @@ func enter() -> void:
 	_move_tween.tween_callback(_start_idle)
 	_move_tween.tween_callback(func(): emit_signal("reached_stop"))
 
-
 func _start_idle() -> void:
 	print("START IDLE")
 	_spawn_mini_docs()
@@ -97,14 +99,21 @@ func _start_idle() -> void:
 	if _idle_tween and _idle_tween.is_running():
 		_idle_tween.kill()
 
-
 func exit_right(on_done: Callable = Callable()) -> void:
-	_exit_to_marker(exit_right_marker, "Character.gd: exit_right_marker_path is empty.", "Character.gd: exit marker not found: " + str(exit_right_marker_path), on_done)
-
+	_exit_to_marker(
+		exit_right_marker,
+		"Character.gd: exit_right_marker_path is empty.",
+		"Character.gd: exit marker not found: " + str(exit_right_marker_path),
+		on_done
+	)
 
 func exit_left(on_done: Callable = Callable()) -> void:
-	_exit_to_marker(exit_left_marker, "Character.gd: exit_left_marker_path is empty.", "Character.gd: left exit marker not found: " + str(exit_left_marker_path), on_done)
-
+	_exit_to_marker(
+		exit_left_marker,
+		"Character.gd: exit_left_marker_path is empty.",
+		"Character.gd: left exit marker not found: " + str(exit_left_marker_path),
+		on_done
+	)
 
 func _exit_to_marker(marker: Marker2D, empty_error: String, missing_error: String, on_done: Callable = Callable()) -> void:
 	if _exiting:
@@ -138,11 +147,7 @@ func _exit_to_marker(marker: Marker2D, empty_error: String, missing_error: Strin
 		queue_free()
 	)
 
-
 func _spawn_mini_docs() -> void:
-	print("Spawning minis...")
-	print("mini_doc_scenes:", mini_doc_scenes)
-
 	if is_true_form:
 		print("True form detected. No mini docs will spawn.")
 		return
@@ -175,7 +180,6 @@ func _spawn_mini_docs() -> void:
 		mini_2.table_layer = mini_table_layer
 		mini_2.table_slot = mini_permit_slot
 
-
 func _clear_mini_docs() -> void:
 	if mini_doc_anchor_1:
 		for child in mini_doc_anchor_1.get_children():
@@ -185,7 +189,6 @@ func _clear_mini_docs() -> void:
 		for child in mini_doc_anchor_2.get_children():
 			child.queue_free()
 
-
 func _stop_all_tweens() -> void:
 	if _move_tween and _move_tween.is_running():
 		_move_tween.kill()
@@ -193,8 +196,11 @@ func _stop_all_tweens() -> void:
 	if _idle_tween and _idle_tween.is_running():
 		_idle_tween.kill()
 
-
 func get_expected_result() -> int:
 	if is_true_form:
 		return ExpectedDecision.TRUE_FORM
+
+	if is_disguised and anomaly_uses_blinds:
+		return ExpectedDecision.TRUE_FORM
+
 	return expected_decision

@@ -73,7 +73,6 @@ func _finish_to_table() -> void:
 	_moving = false
 	_move_tween = null
 
-
 func _input_event(_viewport, event, _shape_idx) -> void:
 	if not (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
 		return
@@ -90,16 +89,23 @@ func _input_event(_viewport, event, _shape_idx) -> void:
 			push_error("character_mini_doc.gd: table_slot not assigned.")
 			return
 
+		var inspection = get_tree().get_first_node_in_group("inspection_controller")
+		if inspection and inspection.has_method("start_scare_meter"):
+			inspection.start_scare_meter()
+
 		send_to_table(table_layer, table_slot.global_position)
 		return
 
 	if state == State.ON_TABLE:
+		if full_document_scene == null:
+			push_error("character_mini_doc.gd: full_document_scene is null for doc_id: " + doc_id)
+			return
+
 		var manager := get_tree().get_first_node_in_group("document_manager")
 		if manager and manager.has_method("open_document"):
 			manager.open_document(doc_id, full_document_scene)
 		else:
 			push_error("character_mini_doc.gd: document_manager not found or missing open_document().")
-
 
 func _stop_bob_tween() -> void:
 	if _bob_tween and _bob_tween.is_valid():

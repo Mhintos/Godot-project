@@ -241,10 +241,7 @@ func play_page_turn_sfx() -> void:
 # Flip Right
 # =============================
 func _on_flip_right_pressed():
-	print("FLIP RIGHT PRESSED")
-
 	if current_frame >= total_frames - 1:
-		print("Already at last page")
 		return
 
 	play_page_turn_sfx()
@@ -255,10 +252,7 @@ func _on_flip_right_pressed():
 # Flip Left
 # =============================
 func _on_flip_left_pressed():
-	print("FLIP LEFT PRESSED")
-
 	if current_frame <= 0:
-		print("Already at first page")
 		return
 
 	play_page_turn_sfx()
@@ -273,7 +267,6 @@ func advance_frame(direction):
 	current_frame = clamp(current_frame, 0, total_frames - 1)
 
 	handbook_opened_sprite.frame = current_frame
-	print("Current frame after advance: ", current_frame)
 
 # =============================
 # Button visibility control
