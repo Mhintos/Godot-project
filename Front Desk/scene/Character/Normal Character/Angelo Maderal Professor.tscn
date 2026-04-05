@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_frpdb"]
 [ext_resource type="PackedScene" uid="uid://bupjq7d8643dc" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Maderal.tscn" id="2_bptp4"]
-[ext_resource type="PackedScene" uid="uid://bxm7j65scrf2g" path="res://scene/Documents/Mini Documents Forged/Mini Permit/Mini_Permit_Maderal_Forged.tscn" id="3_arebf"]
-[ext_resource type="PackedScene" uid="uid://bxm7j65scrf2g" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Maderal.tscn" id="4_arebf"]
+[ext_resource type="PackedScene" uid="uid://bxm7j65scrf2g" path="res://scene/Documents/Mini Documents Forged/Mini Permit/Mini_Permit_Maderal_Forged.tscn" id="4_arebf"]
 [ext_resource type="Texture2D" uid="uid://c58u6ibjaa8ol" path="res://assets/Characters/Normal/Angelo Maderal Professor/1.png" id="4_frpdb"]
+[ext_resource type="PackedScene" uid="uid://bxm7j65scrf2g" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Maderal.tscn" id="4_ou5vl"]
 [ext_resource type="Texture2D" uid="uid://bg43128efl626" path="res://assets/Characters/Normal/Angelo Maderal Professor/2.png" id="5_agoey"]
 [ext_resource type="Texture2D" uid="uid://cxxhdi3jtfwlj" path="res://assets/Characters/Normal/Angelo Maderal Professor/3.png" id="6_f1gkx"]
 [ext_resource type="Texture2D" uid="uid://dpv8igs5jrf0a" path="res://assets/Characters/Normal/Angelo Maderal Professor/4.png" id="7_2dhs1"]
@@ -33,13 +33,13 @@ animations = [{
 z_index = 2
 script = ExtResource("1_frpdb")
 forged_enabled = true
-forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_bptp4"), ExtResource("3_arebf")])
+forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_bptp4"), ExtResource("4_arebf")])
 enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")
 mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
 mini_table_layer_path = NodePath("../MiniTableLayer")
-mini_doc_scenes = Array[PackedScene]([ExtResource("2_bptp4"), ExtResource("4_arebf")])
+mini_doc_scenes = Array[PackedScene]([ExtResource("2_bptp4"), ExtResource("4_ou5vl")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, 148)

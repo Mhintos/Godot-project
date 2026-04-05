@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_mryi3"]
 [ext_resource type="PackedScene" uid="uid://o32occfgsjsy" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Kyle.tscn" id="2_e6xm0"]
-[ext_resource type="PackedScene" uid="uid://rmaxgoy2l31q" path="res://scene/Documents/Mini Documents Forged/Mini Permit/Mini_Permit_Kyle_Forged.tscn" id="3_qrcpg"]
 [ext_resource type="Texture2D" uid="uid://b5tpepbwqkuvg" path="res://assets/Characters/Normal/Kyle Navarro Security Guard/1.png" id="4_mryi3"]
-[ext_resource type="PackedScene" uid="uid://rmaxgoy2l31q" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Kyle.tscn" id="4_qrcpg"]
+[ext_resource type="PackedScene" uid="uid://rmaxgoy2l31q" path="res://scene/Documents/Mini Documents Forged/Mini Permit/Mini_Permit_Kyle_Forged.tscn" id="4_qrcpg"]
+[ext_resource type="PackedScene" uid="uid://rmaxgoy2l31q" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Kyle.tscn" id="4_yokek"]
 [ext_resource type="Texture2D" uid="uid://vv28ipp52f8i" path="res://assets/Characters/Normal/Kyle Navarro Security Guard/2.png" id="5_f5ld0"]
 [ext_resource type="Texture2D" uid="uid://bw5xrvttujuo0" path="res://assets/Characters/Normal/Kyle Navarro Security Guard/3.png" id="6_2b10s"]
 [ext_resource type="Texture2D" uid="uid://b4citd5p8di0r" path="res://assets/Characters/Normal/Kyle Navarro Security Guard/4.png" id="7_578p3"]
@@ -33,13 +33,13 @@ animations = [{
 z_index = 2
 script = ExtResource("1_mryi3")
 forged_enabled = true
-forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_e6xm0"), ExtResource("3_qrcpg")])
+forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_e6xm0"), ExtResource("4_qrcpg")])
 enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")
 mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
 mini_table_layer_path = NodePath("../MiniTableLayer")
-mini_doc_scenes = Array[PackedScene]([ExtResource("2_e6xm0"), ExtResource("4_qrcpg")])
+mini_doc_scenes = Array[PackedScene]([ExtResource("2_e6xm0"), ExtResource("4_yokek")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, 139)
