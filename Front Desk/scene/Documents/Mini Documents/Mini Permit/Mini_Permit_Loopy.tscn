@@ -9,11 +9,11 @@ size = Vector2(80, 106)
 
 [node name="CharacterMiniDoc" type="Area2D"]
 script = ExtResource("1_wc0fs")
-doc_id = "loopy_disguised_permit"
+doc_id = "loopy_permit"
 full_document_scene = ExtResource("2_0xwpl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.015, 0.015)
+scale = Vector2(0.149, 0.151)
 texture = ExtResource("3_wc0fs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

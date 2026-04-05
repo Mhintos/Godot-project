@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dwqk20ej7jio0"]
 
 [ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_shah3"]
-[ext_resource type="PackedScene" uid="uid://pd10u4ydifla" path="res://scene/Documents/Full Documents Forged/Document ID Forged/Document_ID_Ralph_Forged.tscn" id="2_l8ycd"]
+[ext_resource type="PackedScene" uid="uid://pd10u4ydifla" path="res://scene/Documents/Full Documents/Document ID/Document_ID_Ralph.tscn" id="2_l8ycd"]
 [ext_resource type="Texture2D" uid="uid://5xwphs32cr7" path="res://assets/documents/Ralph Romero Professor/Documents/ID.png" id="3_ht88t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_glixn"]

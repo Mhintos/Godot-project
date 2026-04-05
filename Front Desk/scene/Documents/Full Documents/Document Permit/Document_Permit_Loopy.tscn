@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_wvhdi"]
 [ext_resource type="Texture2D" uid="uid://bmervu4isludc" path="res://assets/documents/Loopy Varnes Canteen Staff/Documents/Campus Access Permit.png" id="2_wvhdi"]
 
-[node name="Document_Permit_Alicia_NEW" type="Node2D"]
+[node name="Document_Permit_Loopy" type="Node2D"]
 script = ExtResource("1_wvhdi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(852, 226)
-scale = Vector2(0.046, 0.046)
+scale = Vector2(0.45, 0.45)
 texture = ExtResource("2_wvhdi")

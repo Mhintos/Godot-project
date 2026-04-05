@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dny8jq3otiebo"]
+[gd_scene load_steps=10 format=3 uid="uid://dny8jq3otiebo"]
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_1o7pw"]
 [ext_resource type="PackedScene" uid="uid://dksotdh3jqsjd" path="res://scene/Documents/Mini Documents Forged/Mini Permit/Mini_Permit_Alicia_Forged.tscn" id="2_5tf5q"]
 [ext_resource type="PackedScene" uid="uid://y7nfh74ijttf" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Alicia.tscn" id="3_mpssr"]
 [ext_resource type="Texture2D" uid="uid://b2s3bvt0r8bsy" path="res://assets/Characters/Normal/Alicia Roxas Professor/1.png" id="4_bkjlw"]
+[ext_resource type="PackedScene" uid="uid://dksotdh3jqsjd" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Alicia.tscn" id="4_cbffp"]
 [ext_resource type="Texture2D" uid="uid://cakd4kttgbn32" path="res://assets/Characters/Normal/Alicia Roxas Professor/2.png" id="5_c7ua8"]
 [ext_resource type="Texture2D" uid="uid://bbte1trc8kxwe" path="res://assets/Characters/Normal/Alicia Roxas Professor/3.png" id="6_wosjq"]
 [ext_resource type="Texture2D" uid="uid://cco066mh4mcf" path="res://assets/Characters/Normal/Alicia Roxas Professor/4.png" id="7_ccpsf"]
@@ -38,7 +39,7 @@ exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")
 mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
 mini_table_layer_path = NodePath("../MiniTableLayer")
-mini_doc_scenes = Array[PackedScene]([ExtResource("3_mpssr"), ExtResource("2_5tf5q")])
+mini_doc_scenes = Array[PackedScene]([ExtResource("3_mpssr"), ExtResource("4_cbffp")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, 148)

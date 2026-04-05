@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_n6s2y"]
 [ext_resource type="Texture2D" uid="uid://oh5101cluwqe" path="res://assets/documents/Kyle Navarro Security Guard/Documents/ID.png" id="2_n6s2y"]
 
-[node name="Document_ID_Alicia" type="Node2D"]
+[node name="Document_ID_Kyle" type="Node2D"]
 script = ExtResource("1_n6s2y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

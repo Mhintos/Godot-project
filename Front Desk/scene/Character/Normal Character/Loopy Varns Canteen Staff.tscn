@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgau330eg8kdh"]
+[gd_scene load_steps=10 format=3 uid="uid://dgau330eg8kdh"]
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_21ycw"]
 [ext_resource type="PackedScene" uid="uid://df1pstsf8b7vh" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Loopy.tscn" id="2_21ycw"]
-[ext_resource type="PackedScene" uid="uid://5ef6a0crwgff" path="res://scene/Documents/Mini Documents Forged/Mini Permit/Mini_Permit_Loopy_Forged.tscn" id="3_i2o4w"]
+[ext_resource type="PackedScene" uid="uid://5ef6a0crwgff" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Loopy.tscn" id="4_d00fx"]
+[ext_resource type="PackedScene" uid="uid://5ef6a0crwgff" path="res://scene/Documents/Mini Documents Forged/Mini Permit/Mini_Permit_Loopy_Forged.tscn" id="4_jptfe"]
 [ext_resource type="Texture2D" uid="uid://bpsm5d5273dko" path="res://assets/Characters/Normal/Loopy Varnes Canteen Staff/1.png" id="4_wm4ev"]
 [ext_resource type="Texture2D" uid="uid://sd04e07pgclp" path="res://assets/Characters/Normal/Loopy Varnes Canteen Staff/2.png" id="5_42m1r"]
 [ext_resource type="Texture2D" uid="uid://cp6ymj54acfbf" path="res://assets/Characters/Normal/Loopy Varnes Canteen Staff/3.png" id="6_i4238"]
@@ -32,13 +33,13 @@ animations = [{
 z_index = 2
 script = ExtResource("1_21ycw")
 forged_enabled = true
-forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_21ycw"), ExtResource("3_i2o4w")])
+forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_21ycw"), ExtResource("4_jptfe")])
 enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")
 mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
 mini_table_layer_path = NodePath("../MiniTableLayer")
-mini_doc_scenes = Array[PackedScene]([ExtResource("2_21ycw"), ExtResource("3_i2o4w")])
+mini_doc_scenes = Array[PackedScene]([ExtResource("2_21ycw"), ExtResource("4_d00fx")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(5, 150)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_xl44v"]
 [ext_resource type="PackedScene" uid="uid://dsp0xvu71mjlo" path="res://scene/Documents/Full Documents Forged/Document Permit Forged/Document_Permit_Alicia_Forged.tscn" id="2_rwe07"]
-[ext_resource type="Texture2D" uid="uid://bc5mq8krim3v0" path="res://assets/documents/Alicia Roxas Professor/Documents/Campus Access Permit.png" id="3_rwe07"]
+[ext_resource type="Texture2D" uid="uid://xa227fsrlonb" path="res://assets/documents/Alicia Roxas Professor/Forged Documents/Forged.png" id="3_bwnrv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_glixn"]
 size = Vector2(80, 106)
@@ -13,8 +13,8 @@ doc_id = "alicia_forged_permit"
 full_document_scene = ExtResource("2_rwe07")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.015, 0.015)
-texture = ExtResource("3_rwe07")
+scale = Vector2(0.15, 0.151)
+texture = ExtResource("3_bwnrv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_glixn")

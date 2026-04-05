@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_5odx1"]
 [ext_resource type="PackedScene" uid="uid://b8g8fhdeq6gkr" path="res://scene/Documents/Full Documents Forged/Document Permit Forged/Document_Permit_Kyle_Forged.tscn" id="2_gr6vt"]
-[ext_resource type="Texture2D" uid="uid://dki6v5elfc6jd" path="res://assets/documents/Kyle Navarro Security Guard/Documents/Campus Access Permit.png" id="3_5odx1"]
+[ext_resource type="Texture2D" uid="uid://c3xgwu14vgwac" path="res://assets/documents/Kyle Navarro Security Guard/Forged Documents/Forged.png" id="3_gr6vt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_glixn"]
 size = Vector2(80, 106)
@@ -14,7 +14,7 @@ full_document_scene = ExtResource("2_gr6vt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.149, 0.151)
-texture = ExtResource("3_5odx1")
+texture = ExtResource("3_gr6vt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_glixn")
