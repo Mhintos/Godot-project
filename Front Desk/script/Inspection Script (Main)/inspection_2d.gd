@@ -22,7 +22,7 @@ extends Node2D
 
 @export var jumpscare_sprite_path: NodePath
 
-@export var max_characters_per_shift: int = 4
+@export var max_characters_per_shift: int = 10
 @export var success_scene_path: String = "res://scene/Success/success.tscn"
 @export var game_over_scene_path: String = "res://scene/GameOver/game_over.tscn"
 
@@ -223,6 +223,10 @@ func spawn_character() -> void:
 	_cleanup_current_character()
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
+	
+	var doc_manager = get_tree().get_first_node_in_group("document_manager")
+	if doc_manager and doc_manager.has_method("clear_opened_docs"):
+		doc_manager.clear_opened_docs()
 
 	if _char_index >= shift_queue.size():
 		debug_log("No more characters left to spawn.")
@@ -340,6 +344,10 @@ func _reject_true_form() -> void:
 
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
+	
+	var doc_manager = get_tree().get_first_node_in_group("document_manager")
+	if doc_manager and doc_manager.has_method("clear_opened_docs"):
+		doc_manager.clear_opened_docs()
 
 	if current_character and is_instance_valid(current_character):
 		if current_character.has_method("exit_left"):
@@ -437,6 +445,10 @@ func _on_decision_pressed(decision: String) -> void:
 
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
+	
+	var doc_manager = get_tree().get_first_node_in_group("document_manager")
+	if doc_manager and doc_manager.has_method("clear_opened_docs"):
+		doc_manager.clear_opened_docs()
 
 	var exit_method := "exit_right"
 	if decision == "deny":
@@ -562,6 +574,10 @@ func reset_run_state() -> void:
 
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
+	var doc_manager = get_tree().get_first_node_in_group("document_manager")
+	if doc_manager and doc_manager.has_method("clear_opened_docs"):
+		doc_manager.clear_opened_docs()
+	
 	_cleanup_current_character()
 
 	_apply_layer_shake_offset(Vector2.ZERO)

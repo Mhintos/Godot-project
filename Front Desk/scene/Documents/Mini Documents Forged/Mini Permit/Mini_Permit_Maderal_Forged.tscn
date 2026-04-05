@@ -1,15 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxm7j65scrf2g"]
+[gd_scene load_steps=5 format=3 uid="uid://bis01kbi7fhup"]
 
 [ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_hpcpn"]
 [ext_resource type="PackedScene" uid="uid://dds8atf4xijr1" path="res://scene/Documents/Full Documents Forged/Document Permit Forged/Document_Permit_Maderal_Forged.tscn" id="2_r8man"]
 [ext_resource type="Texture2D" uid="uid://c3hpvuw0esq6h" path="res://assets/documents/Angelo Maderal Professor/Forged Documents/mads.png" id="3_r8man"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_glixn"]
-size = Vector2(80, 106)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r8man"]
+size = Vector2(80, 107)
 
-[node name="CharacterMiniDoc" type="Area2D"]
+[node name="Area2D" type="Area2D"]
 script = ExtResource("1_hpcpn")
-doc_id = "maderal_forged_permit"
+doc_id = "maderal_permit_forged"
 full_document_scene = ExtResource("2_r8man")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -17,5 +17,5 @@ scale = Vector2(0.149, 0.151)
 texture = ExtResource("3_r8man")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_glixn")
-metadata/_edit_lock_ = true
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_r8man")

@@ -4,6 +4,14 @@ extends Node
 @export var inspect_spawn_path: NodePath
 
 var opened_docs := {}
+func clear_opened_docs() -> void:
+	for doc in opened_docs.values():
+		if is_instance_valid(doc):
+			doc.queue_free()
+
+	opened_docs.clear()
+	active_document = null
+
 var dragging_document: Node = null
 var active_document: Node = null
 

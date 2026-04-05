@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://coyo5av20s1cp"]
+[gd_scene load_steps=3 format=3 uid="uid://bfihir6bsr8ve"]
 
 [ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_654g1"]
 [ext_resource type="Texture2D" uid="uid://bsas3xubu0g83" path="res://assets/documents/Loopy Varnes Canteen Staff/Forged Documents/Forged.png" id="2_2p37f"]
 
-[node name="Document_Permit_Loopy" type="Node2D"]
+[node name="Node2D" type="Node2D"]
 script = ExtResource("1_654g1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

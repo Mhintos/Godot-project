@@ -56,30 +56,30 @@
 [sub_resource type="SpriteFrames" id="SpriteFrames_y8ley"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 3.81,
 "texture": ExtResource("23_tokp6")
 }, {
-"duration": 1.0,
+"duration": 0.61,
 "texture": ExtResource("24_ex0io")
 }, {
-"duration": 1.0,
+"duration": 0.61,
 "texture": ExtResource("25_vhmf8")
 }, {
-"duration": 1.0,
+"duration": 0.61,
 "texture": ExtResource("26_sx8aa")
 }, {
-"duration": 1.0,
+"duration": 0.61,
 "texture": ExtResource("27_cc2gp")
 }, {
 "duration": 1.0,
 "texture": ExtResource("28_r88fj")
 }, {
-"duration": 1.0,
+"duration": 2.01,
 "texture": ExtResource("29_1oqq2")
 }],
 "loop": false,
 "name": &"play",
-"speed": 7.0
+"speed": 15.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_h4ua4"]
@@ -139,14 +139,13 @@ true_form_character_scenes = Array[PackedScene]([ExtResource("5_2wxcv"), ExtReso
 blood_minitable_path = NodePath("BG Layer/Table Layer/BloodMiniTable")
 blood_organizer_path = NodePath("BG Layer/Table Layer/BloodOrganizer")
 jumpscare_sprite_path = NodePath("JumpscareLayer/JumpscareSprite")
-max_characters_per_shift = 10
 
 [node name="BG Layer" type="CanvasLayer" parent="."]
 layer = -1
 
 [node name="Background" type="Sprite2D" parent="BG Layer"]
-position = Vector2(226.5, 213)
-scale = Vector2(0.46907216, 0.3944954)
+position = Vector2(213.99998, 202.50002)
+scale = Vector2(0.472165, 0.39541286)
 texture = ExtResource("1_eqw22")
 
 [node name="Table Layer" type="CanvasLayer" parent="BG Layer"]

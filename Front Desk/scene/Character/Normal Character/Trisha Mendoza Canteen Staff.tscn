@@ -26,10 +26,10 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 4.0
+"speed": 2.0
 }]
 
-[node name="Node2D" type="Node2D"]
+[node name="Trisha Mendoza" type="Node2D"]
 z_index = 2
 script = ExtResource("1_s5y6w")
 forged_enabled = true
@@ -38,7 +38,6 @@ enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")
 mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
-mini_table_layer_path = NodePath("../MiniTableLayer")
 mini_doc_scenes = Array[PackedScene]([ExtResource("2_8mfhe"), ExtResource("3_u01xe")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

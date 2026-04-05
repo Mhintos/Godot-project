@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dds8atf4xijr1"]
+[gd_scene load_steps=3 format=3 uid="uid://duteqyjojb6cs"]
 
 [ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_h6xy1"]
 [ext_resource type="Texture2D" uid="uid://c3hpvuw0esq6h" path="res://assets/documents/Angelo Maderal Professor/Forged Documents/mads.png" id="2_dr6dq"]
@@ -8,5 +8,5 @@ script = ExtResource("1_h6xy1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(852, 226)
-scale = Vector2(0.461, 0.46)
+scale = Vector2(0.461, 0.461)
 texture = ExtResource("2_dr6dq")

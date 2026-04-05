@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://pd10u4ydifla"]
+[gd_scene load_steps=3 format=3 uid="uid://bmh7s7avxhayv"]
 
 [ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_luk7n"]
 [ext_resource type="Texture2D" uid="uid://c8v8vhw03way6" path="res://assets/documents/Ralph Romero Professor/Forged Documents/Forged.png" id="2_35wn2"]
 
-[node name="Document_ID_Ralph" type="Node2D"]
+[node name="Node2D" type="Node2D"]
 script = ExtResource("1_luk7n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
