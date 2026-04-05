@@ -9,6 +9,14 @@ enum ExpectedDecision {
 	TRUE_FORM
 }
 
+@export var identity_key: String = ""
+@export var forged_enabled: bool = false
+@export var forged_mini_doc_scenes: Array[PackedScene] = []
+
+var run_is_forged: bool = false
+var _normal_mini_doc_scenes_cache: Array[PackedScene] = []
+var _normal_expected_decision_cache: ExpectedDecision = ExpectedDecision.APPROVE
+
 @export var exit_left_marker_path: NodePath
 @export var spawn_marker_path: NodePath
 @export var stop_marker_path: NodePath
@@ -46,6 +54,34 @@ enum ExpectedDecision {
 var _exiting := false
 var _move_tween: Tween = null
 var _idle_tween: Tween = null
+
+func apply_run_variant(is_forged_run: bool) -> void:
+	if _normal_mini_doc_scenes_cache.is_empty():
+		_normal_mini_doc_scenes_cache = mini_doc_scenes.duplicate()
+		_normal_expected_decision_cache = expected_decision
+
+	run_is_forged = is_forged_run
+
+	if run_is_forged:
+		if not forged_enabled:
+			push_warning("Character '%s' was marked forged, but forged_enabled is false." % name)
+			mini_doc_scenes = _normal_mini_doc_scenes_cache.duplicate()
+			expected_decision = _normal_expected_decision_cache
+			run_is_forged = false
+			return
+
+		if forged_mini_doc_scenes.size() != 2:
+			push_error("Character '%s' forged_mini_doc_scenes must contain exactly 2 entries: ID and Permit." % name)
+			mini_doc_scenes = _normal_mini_doc_scenes_cache.duplicate()
+			expected_decision = _normal_expected_decision_cache
+			run_is_forged = false
+			return
+
+		mini_doc_scenes = forged_mini_doc_scenes.duplicate()
+		expected_decision = ExpectedDecision.DENY
+	else:
+		mini_doc_scenes = _normal_mini_doc_scenes_cache.duplicate()
+		expected_decision = _normal_expected_decision_cache
 
 func _ready() -> void:
 	modulate.a = 1.0

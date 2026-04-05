@@ -58,7 +58,11 @@ extends Node2D
 @onready var screen_distort_sfx: AudioStreamPlayer = $SFX/ScreenDistortSFX
 @onready var jumpscare_sfx: AudioStreamPlayer = $SFX/JumpscareSFX
 
-var shift_queue: Array[PackedScene] = []
+const NORMALS_PER_RUN := 6
+const DISGUISED_PER_RUN := 2
+const TRUE_FORMS_PER_RUN := 2
+
+var shift_queue: Array = []
 
 var _char_index := 0
 var current_character: Node2D = null
@@ -139,46 +143,75 @@ func generate_shift_queue() -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.randomize()
 
-	if normal_character_scenes.is_empty():
-		push_error("No normal characters assigned in normal_character_scenes.")
+	if normal_character_scenes.size() < NORMALS_PER_RUN:
+		push_error("Need at least %d normal characters." % NORMALS_PER_RUN)
 		return
 
-	var normal_pool: Array[PackedScene] = normal_character_scenes.duplicate()
+	if disguised_character_scenes.size() < DISGUISED_PER_RUN:
+		push_error("Need at least %d disguised characters." % DISGUISED_PER_RUN)
+		return
+
+	if true_form_character_scenes.size() < TRUE_FORMS_PER_RUN:
+		push_error("Need at least %d true form characters." % TRUE_FORMS_PER_RUN)
+		return
+
+	var selected_normals: Array[PackedScene] = normal_character_scenes.duplicate()
+	selected_normals.shuffle()
+	selected_normals = selected_normals.slice(0, NORMALS_PER_RUN)
+
+	# First character must always be a correct normal
+	var first_normal: PackedScene = selected_normals[0]
+	shift_queue.append({
+		"scene": first_normal,
+		"is_forged": false,
+		"type": "normal"
+	})
+
+	var remaining_normals: Array[PackedScene] = selected_normals.slice(1, selected_normals.size())
+
+	# Randomly choose 2 to 3 forged normals, but never the first character
+	var forged_count := rng.randi_range(2, 3)
+	forged_count = min(forged_count, remaining_normals.size())
+
+	var forged_pick_pool: Array[PackedScene] = remaining_normals.duplicate()
+	forged_pick_pool.shuffle()
+
+	var forged_selected: Array[PackedScene] = forged_pick_pool.slice(0, forged_count)
+
+	var tail_queue: Array = []
+
+	for scene in remaining_normals:
+		tail_queue.append({
+			"scene": scene,
+			"is_forged": forged_selected.has(scene),
+			"type": "normal"
+		})
+
 	var disguised_pool: Array[PackedScene] = disguised_character_scenes.duplicate()
-	var true_form_pool: Array[PackedScene] = true_form_character_scenes.duplicate()
-
-	normal_pool.shuffle()
 	disguised_pool.shuffle()
+	for i in range(DISGUISED_PER_RUN):
+		tail_queue.append({
+			"scene": disguised_pool[i],
+			"is_forged": false,
+			"type": "disguised"
+		})
+
+	var true_form_pool: Array[PackedScene] = true_form_character_scenes.duplicate()
 	true_form_pool.shuffle()
+	for i in range(TRUE_FORMS_PER_RUN):
+		tail_queue.append({
+			"scene": true_form_pool[i],
+			"is_forged": false,
+			"type": "true_form"
+		})
 
-	# First character must always be normal and correct
-	var first_character: PackedScene = normal_pool.pop_front()
-	shift_queue.append(first_character)
-
-	var remaining_pool: Array[PackedScene] = []
-
-	# Add all remaining normals
-	for scene in normal_pool:
-		remaining_pool.append(scene)
-
-	# Add all disguised characters
-	for scene in disguised_pool:
-		remaining_pool.append(scene)
-
-	# Add all true form anomalies
-	for scene in true_form_pool:
-		remaining_pool.append(scene)
-
-	remaining_pool.shuffle()
-
-	for scene in remaining_pool:
-		if shift_queue.size() >= max_characters_per_shift:
-			break
-		shift_queue.append(scene)
+	tail_queue.shuffle()
+	shift_queue.append_array(tail_queue)
 
 	debug_log("Generated shift queue size: " + str(shift_queue.size()))
 	for i in range(shift_queue.size()):
-		print("QUEUE[", i, "]: ", shift_queue[i].resource_path)
+		var entry = shift_queue[i]
+		print("QUEUE[", i, "]: ", entry["scene"].resource_path, " | forged=", entry["is_forged"], " | type=", entry["type"])
 
 func spawn_character() -> void:
 	if shift_queue.is_empty():
@@ -195,8 +228,13 @@ func spawn_character() -> void:
 		debug_log("No more characters left to spawn.")
 		return
 
-	current_character = shift_queue[_char_index].instantiate()
+	var entry: Dictionary = shift_queue[_char_index]
 	_char_index += 1
+
+	current_character = entry["scene"].instantiate()
+
+	if current_character.has_method("apply_run_variant"):
+		current_character.apply_run_variant(bool(entry.get("is_forged", false)))
 
 	current_scare_duration = get_current_normal_scare_duration()
 	reset_scare_meter()
