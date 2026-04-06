@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cmddlcv1y20py"]
 
 [ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_qfpi4"]
-[ext_resource type="Texture2D" uid="uid://cd70jloggldgf" path="res://assets/documents/Alicia Roxas Professor/ID.png" id="2_dtrbm"]
+[ext_resource type="Texture2D" uid="uid://cd70jloggldgf" path="res://assets/documents/Alicia Roxas Professor/Documents/ID.png" id="2_dtrbm"]
 
 [node name="Document_ID_Alicia" type="Node2D"]
 script = ExtResource("1_qfpi4")

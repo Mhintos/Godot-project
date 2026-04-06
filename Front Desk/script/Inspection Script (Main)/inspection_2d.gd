@@ -13,7 +13,7 @@ extends Node2D
 @export var document_layer_path: NodePath
 
 @export var normal_character_scenes: Array[PackedScene]
-@export var forged_character_scenes: Array[PackedScene]
+
 @export var disguised_character_scenes: Array[PackedScene]
 @export var true_form_character_scenes: Array[PackedScene]
 
@@ -25,6 +25,10 @@ extends Node2D
 @export var max_characters_per_shift: int = 10
 @export var success_scene_path: String = "res://scene/Success/success.tscn"
 @export var game_over_scene_path: String = "res://scene/GameOver/game_over.tscn"
+
+@export var warning2_overlay_path: NodePath
+
+@onready var warning2_overlay: TextureRect = get_node_or_null(warning2_overlay_path)
 
 @onready var bg_layer_shake: Node = $"BG Layer"
 @onready var blinds_layer_shake: Node = $"Blinds Layer"
@@ -63,6 +67,11 @@ const DISGUISED_PER_RUN := 2
 const TRUE_FORMS_PER_RUN := 2
 
 var shift_queue: Array = []
+
+var warning2_overlay_flicker_timer: float = 0.0
+var warning2_overlay_base_alpha: float = 0.34
+var warning2_overlay_flicker_strength: float = 0.10
+var warning2_overlay_pulse_speed: float = 2.2
 
 var _char_index := 0
 var current_character: Node2D = null
@@ -136,6 +145,10 @@ func _ready() -> void:
 	screen_shake_strength = 0.0
 	warning2_distortion_timer = 0.0
 	_apply_layer_shake_offset(Vector2.ZERO)
+	
+	if warning2_overlay:
+		warning2_overlay.visible = false
+		warning2_overlay.modulate.a = 0.0
 
 func generate_shift_queue() -> void:
 	shift_queue.clear()
@@ -407,6 +420,8 @@ func trigger_jumpscare() -> void:
 		push_error("JumpscareSprite has no animation named 'play'.")
 
 	debug_log("JUMPSCARE START")
+	
+	hide_warning2_overlay()
 
 func _on_jumpscare_finished() -> void:
 	jumpscare_sprite.stop()
@@ -590,6 +605,8 @@ func reset_run_state() -> void:
 	generate_shift_queue()
 	spawn_character()
 
+	hide_warning2_overlay()
+
 func _finish_character_and_continue() -> void:
 	processed_characters += 1
 	debug_log("Processed characters: " + str(processed_characters) + "/" + str(max_characters_per_shift))
@@ -726,6 +743,7 @@ func advance_warning_state_from_meter() -> void:
 		play_screen_distort_sfx()
 		start_screen_shake(0.25, 8.0)
 		start_flicker(0.10, 0.15)
+		show_warning2_overlay()
 
 	elif scare_warning_stage >= 3:
 		trigger_jumpscare()
@@ -743,6 +761,7 @@ func advance_warning_state_from_mistake() -> void:
 		play_screen_distort_sfx()
 		start_screen_shake(0.25, 8.0)
 		start_flicker(0.10, 0.15)
+		show_warning2_overlay()
 
 	elif scare_warning_stage >= 3:
 		trigger_jumpscare()
@@ -776,6 +795,18 @@ func _process(delta: float) -> void:
 		_reset_flicker()
 
 	if scare_warning_stage >= 2 and not game_over:
+		if warning2_overlay:
+			if not warning2_overlay.visible:
+				show_warning2_overlay()
+
+			warning2_overlay_flicker_timer += delta
+
+			var pulse := sin(warning2_overlay_flicker_timer * warning2_overlay_pulse_speed) * 0.5 + 0.5
+			var alpha := warning2_overlay_base_alpha + (pulse * warning2_overlay_flicker_strength)
+			alpha += randf_range(-0.03, 0.03)
+
+			warning2_overlay.modulate.a = clamp(alpha, 0.28, 0.60)
+
 		warning2_distortion_timer -= delta
 
 		if warning2_distortion_timer <= 0.0:
@@ -786,6 +817,9 @@ func _process(delta: float) -> void:
 			start_flicker(0.10, 0.15)
 	else:
 		warning2_distortion_timer = 0.0
+
+		if warning2_overlay and warning2_overlay.visible:
+			hide_warning2_overlay()
 
 func _apply_layer_shake_offset(offset: Vector2) -> void:
 	for layer in shake_layers:
@@ -857,3 +891,19 @@ func _get_character_anomaly_duration(character: Node) -> float:
 
 	return 0.0
 	
+func show_warning2_overlay() -> void:
+	if warning2_overlay == null:
+		return
+
+	warning2_overlay.visible = true
+	warning2_overlay.modulate.a = warning2_overlay_base_alpha
+	warning2_overlay_flicker_timer = 0.0
+
+
+func hide_warning2_overlay() -> void:
+	if warning2_overlay == null:
+		return
+
+	warning2_overlay.visible = false
+	warning2_overlay.modulate.a = 0.0
+	warning2_overlay_flicker_timer = 0.0

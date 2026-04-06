@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=56 format=3 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
@@ -52,6 +52,7 @@
 [ext_resource type="Texture2D" uid="uid://c67dl08xt0nu2" path="res://assets/Scare meter/9.png" id="36_lu1ec"]
 [ext_resource type="Texture2D" uid="uid://bq82ucikj4xd1" path="res://assets/Scare meter/10.png" id="37_lwdaq"]
 [ext_resource type="Texture2D" uid="uid://dj3ob4bg0amim" path="res://assets/Scare meter/11.png" id="38_qob17"]
+[ext_resource type="Texture2D" uid="uid://dqq30yn7ctrs2" path="res://assets/ui/Screen Damage Distort/Screen Damage Distort.png" id="46_4rdtj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y8ley"]
 animations = [{
@@ -139,6 +140,7 @@ true_form_character_scenes = Array[PackedScene]([ExtResource("5_2wxcv"), ExtReso
 blood_minitable_path = NodePath("BG Layer/Table Layer/BloodMiniTable")
 blood_organizer_path = NodePath("BG Layer/Table Layer/BloodOrganizer")
 jumpscare_sprite_path = NodePath("JumpscareLayer/JumpscareSprite")
+warning2_overlay_path = NodePath("Warning2OverlayLayer/Screen Damage Overlay")
 
 [node name="BG Layer" type="CanvasLayer" parent="."]
 layer = -1
@@ -200,7 +202,7 @@ expand_mode = 1
 metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="BG Layer/Table Layer"]
-layer = 11
+layer = 12
 
 [node name="HandbookIcon" parent="BG Layer/Table Layer/UILayer" instance=ExtResource("17_vjnc3")]
 unique_name_in_owner = true
@@ -335,7 +337,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="ScareMeterLayer" type="CanvasLayer" parent="."]
-layer = 50
+layer = 19
 
 [node name="ScareMeter" type="AnimatedSprite2D" parent="ScareMeterLayer"]
 position = Vector2(125.399994, 28.899998)
@@ -344,6 +346,21 @@ sprite_frames = SubResource("SpriteFrames_h4ua4")
 
 [node name="ScareAlarmSFX" type="AudioStreamPlayer" parent="ScareMeterLayer"]
 stream = ExtResource("34_q2qns")
+
+[node name="Warning2OverlayLayer" type="CanvasLayer" parent="."]
+layer = 11
+
+[node name="Screen Damage Overlay" type="TextureRect" parent="Warning2OverlayLayer"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.6666667)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("46_4rdtj")
 
 [node name="SFX" type="Node" parent="."]
 
