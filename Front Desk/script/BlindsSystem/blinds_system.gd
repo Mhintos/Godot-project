@@ -1,4 +1,5 @@
 extends Node2D
+
 signal blinds_closed_success
 
 @onready var blinds: AnimatedSprite2D = $Blinds
@@ -11,25 +12,38 @@ var lever_done: bool = false
 var blinds_done: bool = false
 
 func _ready() -> void:
-	lever_area.input_event.connect(_on_lever_input_event)
+	lever_area.input_event.connect(_on_lever_area_input_event)
 	blinds.animation_finished.connect(_on_blinds_animation_finished)
 	lever.animation_finished.connect(_on_lever_animation_finished)
 
 	blinds.play("idle_open")
 	lever.play("up")
 
+func get_inspection_controller():
+	return get_tree().get_first_node_in_group("inspection_controller")
+
 func force_open() -> void:
+	var was_closed := is_closed
+
 	is_closed = false
 	is_animating = false
 	lever_done = false
 	blinds_done = false
 	blinds.play("idle_open")
 	lever.play("up")
-	
-func _on_lever_input_event(_viewport, event, _shape_idx) -> void:
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		toggle_blinds()
 
+	if was_closed:
+		var inspection = get_inspection_controller()
+		if inspection and inspection.has_method("play_blinds_up_sfx"):
+			inspection.play_blinds_up_sfx()
+
+func _on_lever_area_input_event(_viewport, event, _shape_idx) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var inspection = get_inspection_controller()
+		if inspection and inspection.has_method("play_lever_sfx"):
+			inspection.play_lever_sfx()
+
+		toggle_blinds()
 
 func toggle_blinds() -> void:
 	if is_animating:
@@ -39,13 +53,20 @@ func toggle_blinds() -> void:
 	lever_done = false
 	blinds_done = false
 
+	var inspection = get_inspection_controller()
+
 	if is_closed:
+		if inspection and inspection.has_method("play_blinds_up_sfx"):
+			inspection.play_blinds_up_sfx()
+
 		lever.play("pull_up")
 		blinds.play("opening")
 	else:
+		if inspection and inspection.has_method("play_blinds_down_sfx"):
+			inspection.play_blinds_down_sfx()
+
 		lever.play("pull_down")
 		blinds.play("closing")
-
 
 func _on_blinds_animation_finished() -> void:
 	if blinds.animation == "closing":
@@ -61,7 +82,6 @@ func _on_blinds_animation_finished() -> void:
 		blinds_done = true
 		_check_finish()
 
-
 func _on_lever_animation_finished() -> void:
 	if lever.animation == "pull_down":
 		lever.play("down")
@@ -73,7 +93,36 @@ func _on_lever_animation_finished() -> void:
 		lever_done = true
 		_check_finish()
 
-
 func _check_finish() -> void:
 	if lever_done and blinds_done:
 		is_animating = false
+
+func close_blinds() -> void:
+	if is_animating or is_closed:
+		return
+
+	is_animating = true
+	lever_done = false
+	blinds_done = false
+
+	var inspection = get_inspection_controller()
+	if inspection and inspection.has_method("play_blinds_down_sfx"):
+		inspection.play_blinds_down_sfx()
+
+	lever.play("pull_down")
+	blinds.play("closing")
+
+func open_blinds() -> void:
+	if is_animating or not is_closed:
+		return
+
+	is_animating = true
+	lever_done = false
+	blinds_done = false
+
+	var inspection = get_inspection_controller()
+	if inspection and inspection.has_method("play_blinds_up_sfx"):
+		inspection.play_blinds_up_sfx()
+
+	lever.play("pull_up")
+	blinds.play("opening")

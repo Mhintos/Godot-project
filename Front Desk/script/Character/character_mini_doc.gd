@@ -21,12 +21,13 @@ var _base_y := 0.0
 var _bob_tween: Tween = null
 var _move_tween: Tween = null
 
-
 func _ready() -> void:
 	z_index = 100
 	_base_y = position.y
 	_start_bob()
 
+func get_inspection_controller():
+	return get_tree().get_first_node_in_group("inspection_controller")
 
 func _start_bob() -> void:
 	_stop_bob_tween()
@@ -40,7 +41,6 @@ func _start_bob() -> void:
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_IN_OUT)
 
-
 func send_to_table(target_layer: Node, target_global_pos: Vector2, slide_time: float = 0.35) -> void:
 	if _moving:
 		return
@@ -51,6 +51,10 @@ func send_to_table(target_layer: Node, target_global_pos: Vector2, slide_time: f
 
 	_moving = true
 	_stop_all_tweens()
+
+	var inspection = get_inspection_controller()
+	if inspection and inspection.has_method("play_sliding_paper_sfx"):
+		inspection.play_sliding_paper_sfx()
 
 	var start_global := global_position
 	var old_parent := get_parent()
@@ -67,7 +71,6 @@ func send_to_table(target_layer: Node, target_global_pos: Vector2, slide_time: f
 		.set_ease(Tween.EASE_OUT)
 	_move_tween.tween_callback(_finish_to_table)
 
-
 func _finish_to_table() -> void:
 	state = State.ON_TABLE
 	_moving = false
@@ -80,6 +83,8 @@ func _input_event(_viewport, event, _shape_idx) -> void:
 	if _moving:
 		return
 
+	var inspection = get_inspection_controller()
+
 	if state == State.WITH_CHARACTER:
 		if table_layer == null:
 			push_error("character_mini_doc.gd: table_layer not assigned.")
@@ -89,7 +94,6 @@ func _input_event(_viewport, event, _shape_idx) -> void:
 			push_error("character_mini_doc.gd: table_slot not assigned.")
 			return
 
-		var inspection = get_tree().get_first_node_in_group("inspection_controller")
 		if inspection and inspection.has_method("start_scare_meter"):
 			inspection.start_scare_meter()
 
@@ -100,6 +104,9 @@ func _input_event(_viewport, event, _shape_idx) -> void:
 		if full_document_scene == null:
 			push_error("character_mini_doc.gd: full_document_scene is null for doc_id: " + doc_id)
 			return
+
+		if inspection and inspection.has_method("play_sliding_paper_sfx"):
+			inspection.play_sliding_paper_sfx()
 
 		var manager := get_tree().get_first_node_in_group("document_manager")
 		if manager and manager.has_method("open_document"):
@@ -112,17 +119,14 @@ func _stop_bob_tween() -> void:
 		_bob_tween.kill()
 	_bob_tween = null
 
-
 func _stop_move_tween() -> void:
 	if _move_tween and _move_tween.is_valid():
 		_move_tween.kill()
 	_move_tween = null
 
-
 func _stop_all_tweens() -> void:
 	_stop_bob_tween()
 	_stop_move_tween()
-
 
 func _exit_tree() -> void:
 	_stop_all_tweens()

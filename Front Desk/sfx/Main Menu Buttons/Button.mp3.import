@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dyysd7slmno11"
+path="res://.godot/imported/Button.mp3-935631b0c81ed40b27ea37b7e2a377f3.mp3str"
+
+[deps]
+
+source_file="res://sfx/Main Menu Buttons/Button.mp3"
+dest_files=["res://.godot/imported/Button.mp3-935631b0c81ed40b27ea37b7e2a377f3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

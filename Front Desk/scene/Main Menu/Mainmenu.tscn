@@ -7,10 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://dl6gsrj6ywohu" path="res://assets/mainmenu/Start Hover.png" id="5_5rmyy"]
 [ext_resource type="Texture2D" uid="uid://btlbycxnw10eh" path="res://assets/mainmenu/Quit.png" id="5_kjm3w"]
 [ext_resource type="Texture2D" uid="uid://clevkenb5jyjy" path="res://assets/mainmenu/quitdark.png" id="6_5rmyy"]
-[ext_resource type="AudioStream" uid="uid://7c84qhb5566j" path="res://sfx/AllSfx/Main Menu Official BG Music.mp3" id="7_yrmxh"]
 [ext_resource type="Texture2D" uid="uid://dl7vp62ucodgc" path="res://assets/mainmenu/Quit Hover.png" id="8_4oy5i"]
-[ext_resource type="AudioStream" uid="uid://bponfxch0uuiy" path="res://sfx/AllSfx/ButtonClick.mp3" id="9_o0tjd"]
-[ext_resource type="AudioStream" uid="uid://d3qo1uo0qh1yj" path="res://sfx/buttonhover/Button Hover.mp3" id="10_kjm3w"]
+[ext_resource type="AudioStream" uid="uid://2868f1nw1ern" path="res://sfx/Background Music/Main Menu Official BG Music.mp3" id="9_kjm3w"]
+[ext_resource type="AudioStream" uid="uid://cuvp20rcb28yw" path="res://sfx/Main Menu Buttons/Button Hover.mp3" id="10_kjm3w"]
+[ext_resource type="AudioStream" uid="uid://dyysd7slmno11" path="res://sfx/Main Menu Buttons/Button.mp3" id="11_5rmyy"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_hm8h1")
@@ -45,16 +45,17 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_yrmxh")
+stream = ExtResource("9_kjm3w")
 volume_db = -10.0
 autoplay = true
+parameters/looping = true
 
 [node name="HoverSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_kjm3w")
 volume_db = -10.0
 
 [node name="ClickSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("9_o0tjd")
+stream = ExtResource("11_5rmyy")
 volume_db = -10.0
 
 [connection signal="pressed" from="CanvasLayer/StartButton" to="." method="_on_start_button_pressed"]

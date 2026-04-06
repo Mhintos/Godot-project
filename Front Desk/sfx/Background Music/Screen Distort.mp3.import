@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://du8egcm2wa6ff"
+path="res://.godot/imported/Screen Distort.mp3-ff8c106ef052bc5059765d2df7d5aad6.mp3str"
+
+[deps]
+
+source_file="res://sfx/Background Music/Screen Distort.mp3"
+dest_files=["res://.godot/imported/Screen Distort.mp3-ff8c106ef052bc5059765d2df7d5aad6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

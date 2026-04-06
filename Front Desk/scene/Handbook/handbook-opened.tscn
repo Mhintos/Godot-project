@@ -1,7 +1,7 @@
 [gd_scene load_steps=52 format=3 uid="uid://dll78gnht4365"]
 
 [ext_resource type="Script" uid="uid://bpu8xdx5llih1" path="res://script/Handbook/handbook_opened.gd" id="1_5lew5"]
-[ext_resource type="Texture2D" uid="uid://bn2cqg47ahvd0" path="res://assets/Handbook-Opened/Hand Book - Openedv3.png" id="2_15ynw"]
+[ext_resource type="Texture2D" uid="uid://cfj0h881oq822" path="res://assets/Handbook-Opened/Hand Book - Openedv3.png" id="2_15ynw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_15ynw"]
 atlas = ExtResource("2_15ynw")
@@ -311,6 +311,5 @@ theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_njejy")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_kxsxi")
 metadata/_edit_lock_ = true
 
-[connection signal="input_event" from="HandbookOpen/Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="pressed" from="HandbookOpen/Area2D/FlipRight" to="." method="_on_flip_right_pressed"]
 [connection signal="pressed" from="HandbookOpen/Area2D/FlipLeft" to="." method="_on_flip_left_pressed"]

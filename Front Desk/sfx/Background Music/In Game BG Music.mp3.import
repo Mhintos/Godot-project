@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bc5mukypc6txq"
+path="res://.godot/imported/In Game BG Music.mp3-dde40607b01893aec4fcf802e4985edf.mp3str"
+
+[deps]
+
+source_file="res://sfx/Background Music/In Game BG Music.mp3"
+dest_files=["res://.godot/imported/In Game BG Music.mp3-dde40607b01893aec4fcf802e4985edf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
