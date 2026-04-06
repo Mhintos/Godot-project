@@ -21,16 +21,19 @@ var is_active := false
 var page_frames = {
 	"contents": 0,
 	"basic_rules": 1,
-	"basic_rules_hover": 7,
+	"basic_rules_hover": 10,
 	"professor1": 3,
-	"professor_hover": 8,
-	"canteen_staff": 5,
-	"canteen_staff_hover": 9,
+	"professor_hover": 11,
+	"canteen_staff": 6,
+	"canteen_staff_hover": 12,
+	"guard": 8,
+	"guard_hover": 13,
 }
 
 @onready var basic_rules_button: Button = %BasicRules
 @onready var professor_button: Button = %Professor
 @onready var canteen_staff_button: Button = %CanteenStaff
+@onready var guard_button: Button = %Guard
 @onready var bookmark_button: Button = %"Bookmark (Red)"
 
 # If you have flip buttons in scene, keep these exact node names or adjust
@@ -38,7 +41,7 @@ var page_frames = {
 @onready var flip_left_button: Button = get_node_or_null("FlipLeft")
 
 var current_frame := 0
-var total_frames := 7
+var total_frames := 10
 
 # =============================
 # READY
@@ -68,6 +71,11 @@ func _ready():
 		canteen_staff_button.mouse_entered.connect(_on_canteen_staff_hover)
 		canteen_staff_button.mouse_exited.connect(_on_canteen_staff_unhover)
 		canteen_staff_button.pressed.connect(_on_canteen_staff_clicked)
+
+	if guard_button:
+		guard_button.mouse_entered.connect(_on_guard_hover)
+		guard_button.mouse_exited.connect(_on_guard_unhover)
+		guard_button.pressed.connect(_on_guard_clicked)
 
 	if bookmark_button:
 		bookmark_button.pressed.connect(_on_bookmark_clicked)
@@ -241,7 +249,10 @@ func play_page_turn_sfx() -> void:
 # Flip Right
 # =============================
 func _on_flip_right_pressed():
+	print("FLIP RIGHT PRESSED")
+
 	if current_frame >= total_frames - 1:
+		print("Already at last page")
 		return
 
 	play_page_turn_sfx()
@@ -252,7 +263,10 @@ func _on_flip_right_pressed():
 # Flip Left
 # =============================
 func _on_flip_left_pressed():
+	print("FLIP LEFT PRESSED")
+
 	if current_frame <= 0:
+		print("Already at first page")
 		return
 
 	play_page_turn_sfx()
@@ -267,6 +281,7 @@ func advance_frame(direction):
 	current_frame = clamp(current_frame, 0, total_frames - 1)
 
 	handbook_opened_sprite.frame = current_frame
+	print("Current frame after advance: ", current_frame)
 
 # =============================
 # Button visibility control
@@ -281,6 +296,9 @@ func update_button_visibility():
 
 		canteen_staff_button.disabled = false
 		canteen_staff_button.mouse_filter = Control.MOUSE_FILTER_STOP
+
+		guard_button.disabled = false
+		guard_button.mouse_filter = Control.MOUSE_FILTER_STOP
 	else:
 		basic_rules_button.disabled = true
 		basic_rules_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -290,6 +308,9 @@ func update_button_visibility():
 
 		canteen_staff_button.disabled = true
 		canteen_staff_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+		guard_button.disabled = true
+		guard_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 # =============================
 # BASIC RULES BUTTON
@@ -344,6 +365,25 @@ func _on_canteen_staff_clicked():
 	play_page_turn_sfx()
 
 	current_frame = page_frames["canteen_staff"]
+	handbook_opened_sprite.frame = current_frame
+
+	update_button_visibility()
+
+# =============================
+# GUARD BUTTON
+# =============================
+func _on_guard_hover():
+	if current_frame == page_frames["contents"]:
+		handbook_opened_sprite.frame = page_frames["guard_hover"]
+
+func _on_guard_unhover():
+	if current_frame == page_frames["contents"]:
+		handbook_opened_sprite.frame = page_frames["contents"]
+
+func _on_guard_clicked():
+	play_page_turn_sfx()
+
+	current_frame = page_frames["guard"]
 	handbook_opened_sprite.frame = current_frame
 
 	update_button_visibility()

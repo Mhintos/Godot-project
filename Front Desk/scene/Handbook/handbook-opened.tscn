@@ -1,47 +1,63 @@
-[gd_scene load_steps=48 format=3 uid="uid://dll78gnht4365"]
+[gd_scene load_steps=52 format=3 uid="uid://dll78gnht4365"]
 
 [ext_resource type="Script" uid="uid://bpu8xdx5llih1" path="res://script/Handbook/handbook_opened.gd" id="1_5lew5"]
-[ext_resource type="Texture2D" uid="uid://du07c5kwbyg7u" path="res://assets/Handbook-Opened/Hand Book - Openedv2.png" id="2_5jgmi"]
+[ext_resource type="Texture2D" uid="uid://bn2cqg47ahvd0" path="res://assets/Handbook-Opened/Hand Book - Openedv3.png" id="2_15ynw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_15ynw"]
-atlas = ExtResource("2_5jgmi")
-region = Rect2(16, 7, 160, 114)
+atlas = ExtResource("2_15ynw")
+region = Rect2(0, 0, 160, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a084o"]
-atlas = ExtResource("2_5jgmi")
-region = Rect2(784, 7, 160, 115)
+atlas = ExtResource("2_15ynw")
+region = Rect2(800, 0, 160, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nq1gg"]
-atlas = ExtResource("2_5jgmi")
-region = Rect2(976, 7, 160, 115)
+atlas = ExtResource("2_15ynw")
+region = Rect2(960, 0, 160, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tgvlw"]
-atlas = ExtResource("2_5jgmi")
-region = Rect2(1168, 7, 160, 114)
+atlas = ExtResource("2_15ynw")
+region = Rect2(1120, 0, 160, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1t5mb"]
-atlas = ExtResource("2_5jgmi")
-region = Rect2(1360, 7, 160, 114)
+atlas = ExtResource("2_15ynw")
+region = Rect2(1280, 0, 160, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_six11"]
-atlas = ExtResource("2_5jgmi")
-region = Rect2(1552, 7, 160, 114)
+atlas = ExtResource("2_15ynw")
+region = Rect2(1440, 0, 160, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mt0xv"]
-atlas = ExtResource("2_5jgmi")
-region = Rect2(1744, 7, 160, 114)
+atlas = ExtResource("2_15ynw")
+region = Rect2(1600, 0, 160, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0oc4s"]
-atlas = ExtResource("2_5jgmi")
-region = Rect2(208, 7, 160, 114)
+atlas = ExtResource("2_15ynw")
+region = Rect2(1760, 0, 160, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ketsh"]
-atlas = ExtResource("2_5jgmi")
-region = Rect2(400, 7, 160, 114)
+atlas = ExtResource("2_15ynw")
+region = Rect2(1920, 0, 160, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mvht4"]
-atlas = ExtResource("2_5jgmi")
-region = Rect2(592, 7, 160, 114)
+atlas = ExtResource("2_15ynw")
+region = Rect2(2080, 0, 160, 114)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trg8s"]
+atlas = ExtResource("2_15ynw")
+region = Rect2(160, 0, 160, 114)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rnjg5"]
+atlas = ExtResource("2_15ynw")
+region = Rect2(320, 0, 160, 114)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jl7l7"]
+atlas = ExtResource("2_15ynw")
+region = Rect2(480, 0, 160, 114)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1y0j"]
+atlas = ExtResource("2_15ynw")
+region = Rect2(640, 0, 160, 114)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5dgl7"]
 animations = [{
@@ -75,6 +91,18 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mvht4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trg8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rnjg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jl7l7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1y0j")
 }],
 "loop": true,
 "name": &"flip",
@@ -82,7 +110,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lew5"]
-size = Vector2(159.89905, 114.27129)
+size = Vector2(155.56114, 110.509346)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5jgmi"]
 
@@ -156,7 +184,7 @@ script = ExtResource("1_5lew5")
 
 [node name="HandbookOpen" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(62.000004, 8.999998)
+position = Vector2(-13.000015, -5.0000153)
 scale = Vector2(3.7734377, 3.7734377)
 sprite_frames = SubResource("SpriteFrames_5dgl7")
 animation = &"flip"
@@ -183,8 +211,8 @@ metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HandbookOpen/Area2D"]
-position = Vector2(0, 0.20188904)
-scale = Vector2(0.99999994, 0.99999994)
+position = Vector2(-0.13252258, -0.13251495)
+scale = Vector2(0.9999998, 0.9999998)
 shape = SubResource("RectangleShape2D_5lew5")
 metadata/_edit_lock_ = true
 
@@ -232,6 +260,25 @@ offset_left = 16.69371
 offset_top = -4.027977
 offset_right = 68.77019
 offset_bottom = 7.787407
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kehng")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_jvijr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_svyw8")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_lbtt8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h8ncy")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_i0tod")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_3xqhw")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_4dinw")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_uxvr7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_t7mmc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wjs4l")
+metadata/_edit_lock_ = true
+
+[node name="Guard" type="Button" parent="HandbookOpen/Area2D"]
+unique_name_in_owner = true
+offset_left = 17.225674
+offset_top = 9.805386
+offset_right = 69.302155
+offset_bottom = 21.62077
 theme_override_styles/normal = SubResource("StyleBoxEmpty_kehng")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_jvijr")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_svyw8")
