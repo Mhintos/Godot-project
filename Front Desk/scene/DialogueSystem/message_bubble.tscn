@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://cm2mlsgtojbwy"]
+
+[ext_resource type="FontFile" uid="uid://dfyrx6t4hiqrb" path="res://scene/DialogueSystem/Pixellari.ttf" id="1_6h6s8"]
+[ext_resource type="Script" uid="uid://cg6yvfq6hsuup" path="res://script/DialogueSystem/inspector_bubble.gd" id="2_7esa0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6h6s8"]
+content_margin_left = 6.0
+content_margin_top = 5.0
+content_margin_right = 6.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 0.93333334, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="MessageBubble" type="RichTextLabel"]
+light_mask = 513
+visibility_layer = 513
+z_index = 200
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 31.0
+offset_right = -1043.0
+offset_bottom = -593.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("1_6h6s8")
+theme_override_font_sizes/normal_font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_6h6s8")
+text = "Sample Text"
+fit_content = true
+autowrap_mode = 0
+script = ExtResource("2_7esa0")

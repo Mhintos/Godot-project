@@ -26,6 +26,16 @@ extends Node2D
 @export var success_scene_path: String = "res://scene/Success/success.tscn"
 @export var game_over_scene_path: String = "res://scene/GameOver/game_over.tscn"
 
+<<<<<<< Updated upstream
+=======
+@export var warning2_overlay_path: NodePath
+
+@onready var warning2_overlay: TextureRect = null
+
+@onready var dialogue_ui = $DialogueUI/DialogueUI
+@export var microphone_button: TextureButton = null
+
+>>>>>>> Stashed changes
 @onready var bg_layer_shake: Node = $"BG Layer"
 @onready var blinds_layer_shake: Node = $"Blinds Layer"
 @onready var character_layer_shake: Node = $"Character Layer"
@@ -88,6 +98,11 @@ var normal_scare_times := [30.0, 27.0, 24.0, 21.0]
 const WARNING2_SPEED_MULTIPLIER := 1.5
 const SCARE_ALARM_THRESHOLD := 0.85
 
+var character_dialogue_messages: Array = []
+var microphone_used := false
+var current_approved_messages: Array = [] 
+var current_denied_messages: Array = []    
+
 const DEBUG_LOGS := false
 
 func debug_log(msg) -> void:
@@ -107,6 +122,9 @@ func _ready() -> void:
 
 	jumpscare_sprite.visible = false
 	jumpscare_sprite.animation_finished.connect(_on_jumpscare_finished)
+
+	if microphone_button:
+		microphone_button.pressed.connect(_on_microphone_pressed)
 
 	shake_layers = [
 		bg_layer_shake,
@@ -134,6 +152,10 @@ func _ready() -> void:
 	_apply_layer_shake_offset(Vector2.ZERO)
 
 func generate_shift_queue() -> void:
+	print("Generating shift queue...")
+	print("Normal scenes count: ", normal_character_scenes.size())
+	print("Disguised scenes count: ", disguised_character_scenes.size())
+	print("True form scenes count: ", true_form_character_scenes.size())
 	shift_queue.clear()
 
 	var rng := RandomNumberGenerator.new()
@@ -181,11 +203,15 @@ func generate_shift_queue() -> void:
 		print("QUEUE[", i, "]: ", shift_queue[i].resource_path)
 
 func spawn_character() -> void:
+	print("spawn_character called, shift_queue size: ", shift_queue.size())
 	if shift_queue.is_empty():
 		push_error("Shift queue is empty. Generate the shift queue first.")
 		return
 
 	_lock_gameplay()
+
+	microphone_used = false
+	character_dialogue_messages = []
 
 	_cleanup_current_character()
 	_clear_layer(mini_table_layer)
@@ -243,7 +269,22 @@ func _on_character_reached_stop() -> void:
 	if current_character == null:
 		return
 
-	play_sliding_paper_sfx()
+	if current_character.has_method("get_dialogue_messages"):
+		character_dialogue_messages = current_character.get_dialogue_messages()
+	else:
+		character_dialogue_messages = []
+	_lock_gameplay()
+
+	if microphone_button and character_dialogue_messages.size() > 0:
+		microphone_button.visible = true
+		var mic_sprite = microphone_button.get_node("MicSprite")
+		if mic_sprite:
+			mic_sprite.play("hint")
+			await mic_sprite.animation_finished
+			if mic_sprite.is_visible_in_tree() and mic_sprite.animation == "hint":
+				mic_sprite.play("default")
+	else:
+		_unlock_gameplay()
 
 	# True form anomaly
 	if _is_true_form_character(current_character):
@@ -277,9 +318,38 @@ func _on_character_reached_stop() -> void:
 		debug_log("Disguised reached stop. 8-second anomaly state started.")
 		return
 
-	# Normal character
+func _on_microphone_pressed() -> void:
+	var mic_sprite = microphone_button.get_node("MicSprite")
+	play_sliding_paper_sfx()
+	if mic_sprite:
+		mic_sprite.stop()
+	if not dialogue_ui or not current_character:
+		return
+	if microphone_used:
+		return
+	microphone_used = true
+
+	# Spawn documents (paper sound already played in _on_character_reached_stop)
+	if current_character.has_method("spawn_documents"):
+		current_character.spawn_documents()
+
+	# Start the initial dialogue
+	if character_dialogue_messages.size() > 0:
+		if dialogue_ui.conversation_finished.is_connected(_on_dialogue_finished):
+				dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
+		dialogue_ui.conversation_finished.connect(_on_dialogue_finished)
+		dialogue_ui.visible = true
+		dialogue_ui.start_conversation(character_dialogue_messages)
+	else:
+		_on_dialogue_finished()
+
+func _on_dialogue_finished() -> void:
+	if dialogue_ui:
+		dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
+		dialogue_ui.visible = false
+	character_dialogue_messages = []
 	_unlock_gameplay()
-	
+
 func _on_blinds_closed_success() -> void:
 	if not true_form_active:
 		return
@@ -399,33 +469,56 @@ func _on_decision_pressed(decision: String) -> void:
 
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
+<<<<<<< Updated upstream
+=======
+	
+	var dialogue_messages: Array = []
+	if decision == "approve":
+		if current_character.has_method("get_approve_messages"):
+			dialogue_messages = current_character.get_approve_messages()
+	else: # deny
+		if current_character.has_method("get_deny_messages"):
+			dialogue_messages = current_character.get_deny_messages()
+	
+	if dialogue_ui and dialogue_messages.size() > 0:
+		# Temporarily disconnect any previous connection
+		if dialogue_ui.conversation_finished.is_connected(_on_decision_dialogue_finished):
+			dialogue_ui.conversation_finished.disconnect(_on_decision_dialogue_finished)
+	#	 Connect to a function that will proceed with exit
+		dialogue_ui.conversation_finished.connect(_on_decision_dialogue_finished.bind(decision))
+		dialogue_ui.visible = true
+		dialogue_ui.start_conversation(dialogue_messages)
+		# The rest of the exit will be triggered after the dialogue finishes
+	else:
+		_finish_decision(decision)
+	
+	var doc_manager = get_tree().get_first_node_in_group("document_manager")
+	if doc_manager and doc_manager.has_method("clear_opened_docs"):
+		doc_manager.clear_opened_docs()
+>>>>>>> Stashed changes
 
-	var exit_method := "exit_right"
-	if decision == "deny":
-		exit_method = "exit_left"
+func _on_decision_dialogue_finished(decision: String) -> void:
+	if dialogue_ui:
+		dialogue_ui.conversation_finished.disconnect(_on_decision_dialogue_finished)
+		dialogue_ui.visible = false
+	_finish_decision(decision)
 
-	if current_character.has_method(exit_method):
+func _finish_decision(decision: String) -> void:
+	var exit_method := "exit_right" if decision == "approve" else "exit_left"
+	if current_character and current_character.has_method(exit_method):
 		current_character.call(exit_method, func():
 			current_character = null
-
 			if blinds_system:
 				blinds_system.force_open()
-
-			if game_over:
-				return
-
-			_finish_character_and_continue()
+			if not game_over:
+				_finish_character_and_continue()
 		)
 	else:
 		current_character = null
-
 		if blinds_system:
 			blinds_system.force_open()
-
-		if game_over:
-			return
-
-		_finish_character_and_continue()
+		if not game_over:
+			_finish_character_and_continue()
 
 func _is_decision_correct(decision: String) -> bool:
 	if current_character == null:
@@ -489,6 +582,7 @@ func _unlock_gameplay() -> void:
 	_disable_buttons(false)
 
 func reset_run_state() -> void:
+	print("reset_run_state called")
 	if blood_minitable:
 		blood_minitable.visible = false
 
@@ -534,9 +628,11 @@ func reset_run_state() -> void:
 		push_error("BlindsSystem not found. Check node path.")
 
 	generate_shift_queue()
+	print("Shift queue size after generation: ", shift_queue.size())
 	spawn_character()
 
 func _finish_character_and_continue() -> void:
+	microphone_used = false
 	processed_characters += 1
 	debug_log("Processed characters: " + str(processed_characters) + "/" + str(max_characters_per_shift))
 

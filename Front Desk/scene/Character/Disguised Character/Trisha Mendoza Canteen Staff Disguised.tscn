@@ -41,6 +41,10 @@ is_disguised = true
 anomaly_uses_blinds = true
 custom_scare_duration = 8.0
 expected_decision = 1
+dialogue_texts = Array[String](["Trisha..what happened to you?", "It's me, Trisha Mendoza."])
+dialogue_sides = Array[String](["left", "right"])
+deny_texts = Array[String](["$k9N*eV1!wZ7^hY3"])
+deny_sides = Array[String](["right"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, 148)

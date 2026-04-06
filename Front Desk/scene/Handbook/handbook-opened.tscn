@@ -1,7 +1,11 @@
 [gd_scene load_steps=48 format=3 uid="uid://dll78gnht4365"]
 
 [ext_resource type="Script" uid="uid://bpu8xdx5llih1" path="res://script/Handbook/handbook_opened.gd" id="1_5lew5"]
+<<<<<<< Updated upstream
 [ext_resource type="Texture2D" uid="uid://du07c5kwbyg7u" path="res://assets/Handbook-Opened/Hand Book - Openedv2.png" id="2_5jgmi"]
+=======
+[ext_resource type="Texture2D" uid="uid://cfj0h881oq822" path="res://assets/Handbook-Opened/Hand Book - Openedv3.png" id="2_15ynw"]
+>>>>>>> Stashed changes
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_15ynw"]
 atlas = ExtResource("2_5jgmi")
@@ -43,7 +47,7 @@ region = Rect2(400, 7, 160, 114)
 atlas = ExtResource("2_5jgmi")
 region = Rect2(592, 7, 160, 114)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_5dgl7"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_2c67l"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -77,7 +81,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_mvht4")
 }],
 "loop": true,
-"name": &"flip",
+"name": &"default",
 "speed": 5.0
 }]
 
@@ -158,8 +162,7 @@ script = ExtResource("1_5lew5")
 unique_name_in_owner = true
 position = Vector2(62.000004, 8.999998)
 scale = Vector2(3.7734377, 3.7734377)
-sprite_frames = SubResource("SpriteFrames_5dgl7")
-animation = &"flip"
+sprite_frames = SubResource("SpriteFrames_2c67l")
 
 [node name="Area2D" type="Area2D" parent="HandbookOpen"]
 metadata/_edit_lock_ = true

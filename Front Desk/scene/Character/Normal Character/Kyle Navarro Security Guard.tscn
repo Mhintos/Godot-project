@@ -35,8 +35,18 @@ enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")
 mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
+<<<<<<< Updated upstream
 mini_table_layer_path = NodePath("../MiniTableLayer")
 mini_doc_scenes = Array[PackedScene]([ExtResource("2_e6xm0"), ExtResource("3_qrcpg")])
+=======
+mini_doc_scenes = Array[PackedScene]([ExtResource("2_e6xm0"), ExtResource("4_qrcpg")])
+dialogue_texts = Array[String](["Present your documents.", "Kyle Navarro, security."])
+dialogue_sides = Array[String](["left", "right"])
+approve_texts = Array[String](["Thanks.", "I was patrolling near the old building.", "I was assigned there last night.", "Did anything happen?", "I saw things I wasn't supposed to."])
+approve_sides = Array[String](["right", "right", "right", "left", "right"])
+deny_texts = Array[String](["These documents do not match.", "I know nothing about that."])
+deny_sides = Array[String](["left", "right"])
+>>>>>>> Stashed changes
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, 139)

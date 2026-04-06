@@ -1,20 +1,24 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=55 format=3 uid="uid://cjkqk8fhkjsme"]
+=======
+[gd_scene load_steps=62 format=3 uid="uid://cjkqk8fhkjsme"]
+>>>>>>> Stashed changes
 
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
-[ext_resource type="PackedScene" uid="uid://lrbticr1ov8o" path="res://scene/Character/Normal Character/Ralph Romero Professor.tscn" id="3_yfmp5"]
-[ext_resource type="PackedScene" uid="uid://qaeqwprrrdxp" path="res://scene/Character/True Form Anomalies/Caleb Alonso Security Anomaly.tscn" id="5_2wxcv"]
-[ext_resource type="PackedScene" uid="uid://chisouworllid" path="res://scene/Character/Normal Character/Angelo Maderal Professor.tscn" id="5_s4fil"]
-[ext_resource type="PackedScene" uid="uid://dosvx2vykil81" path="res://scene/Character/Normal Character/Kyle Navarro Security Guard.tscn" id="6_4rdtj"]
-[ext_resource type="PackedScene" uid="uid://dgau330eg8kdh" path="res://scene/Character/Normal Character/Loopy Varns Canteen Staff.tscn" id="6_50h4t"]
-[ext_resource type="PackedScene" uid="uid://dmg7phcmhthfe" path="res://scene/Character/Normal Character/Trisha Mendoza Canteen Staff.tscn" id="7_lu1ec"]
-[ext_resource type="Texture2D" uid="uid://bfhkqbtlfkyhj" path="res://assets/ui/Table/Organizer.png" id="7_lwtii"]
-[ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Normal Character/Alicia Roxas Professor.tscn" id="8_k8hxm"]
+[ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Normal Character/Alicia Roxas Professor.tscn" id="2_axbcc"]
+[ext_resource type="PackedScene" uid="uid://lrbticr1ov8o" path="res://scene/Character/Normal Character/Ralph Romero Professor.tscn" id="3_rxtuv"]
+[ext_resource type="PackedScene" uid="uid://chisouworllid" path="res://scene/Character/Normal Character/Angelo Maderal Professor.tscn" id="4_je71q"]
+[ext_resource type="PackedScene" uid="uid://dgau330eg8kdh" path="res://scene/Character/Normal Character/Loopy Varns Canteen Staff.tscn" id="5_wk4rh"]
+[ext_resource type="PackedScene" uid="uid://dosvx2vykil81" path="res://scene/Character/Normal Character/Kyle Navarro Security Guard.tscn" id="6_wgy7w"]
+[ext_resource type="Texture2D" uid="uid://bfhkqbtlfkyhj" path="res://assets/ui/Table/organizer.png" id="7_lwtii"]
+[ext_resource type="PackedScene" uid="uid://dmg7phcmhthfe" path="res://scene/Character/Normal Character/Trisha Mendoza Canteen Staff.tscn" id="7_r36fy"]
+[ext_resource type="PackedScene" uid="uid://uveo67mqt2au" path="res://scene/Character/Disguised Character/Ralph Romero Professor Disguised.tscn" id="8_abs7s"]
 [ext_resource type="Texture2D" uid="uid://bgdm30kdupwmd" path="res://assets/ui/Table/Mini Table.png" id="8_kspj7"]
-[ext_resource type="PackedScene" uid="uid://uveo67mqt2au" path="res://scene/Character/Disguised Character/Ralph Romero Professor Disguised.tscn" id="8_lwdaq"]
-[ext_resource type="Texture2D" uid="uid://bvd700yvkq2yn" path="res://assets/ui/Telephone/Telephone.png" id="9_lwtii"]
-[ext_resource type="PackedScene" uid="uid://bhlefcwdnqgb7" path="res://scene/Character/Disguised Character/Trisha Mendoza Canteen Staff Disguised.tscn" id="9_qob17"]
-[ext_resource type="PackedScene" uid="uid://lsyjakldqsfr" path="res://scene/Character/True Form Anomalies/Meredith Grey Professor Anomaly.tscn" id="11_h4ua4"]
+[ext_resource type="Texture2D" uid="uid://bvd700yvkq2yn" path="res://assets/ui/Telephone/telephone.png" id="9_lwtii"]
+[ext_resource type="PackedScene" uid="uid://bhlefcwdnqgb7" path="res://scene/Character/Disguised Character/Trisha Mendoza Canteen Staff Disguised.tscn" id="9_ydxcx"]
+[ext_resource type="PackedScene" uid="uid://qaeqwprrrdxp" path="res://scene/Character/True Form Anomalies/Caleb Alonso Security Anomaly.tscn" id="10_l4esu"]
+[ext_resource type="PackedScene" uid="uid://lsyjakldqsfr" path="res://scene/Character/True Form Anomalies/Meredith Grey Professor Anomaly.tscn" id="11_pgrei"]
 [ext_resource type="Script" uid="uid://dyyiw6d3if0co" path="res://script/documents/document_manager.gd" id="15_50h4t"]
 [ext_resource type="Texture2D" uid="uid://dbgtdd8kao8bg" path="res://assets/ui/Approve and Deny/approve_normal.png" id="15_mga6p"]
 [ext_resource type="Texture2D" uid="uid://clj6qp3d4e42v" path="res://assets/ui/Approve and Deny/approve_pressed.png" id="16_50h4t"]
@@ -52,6 +56,15 @@
 [ext_resource type="Texture2D" uid="uid://c67dl08xt0nu2" path="res://assets/Scare meter/9.png" id="36_lu1ec"]
 [ext_resource type="Texture2D" uid="uid://bq82ucikj4xd1" path="res://assets/Scare meter/10.png" id="37_lwdaq"]
 [ext_resource type="Texture2D" uid="uid://dj3ob4bg0amim" path="res://assets/Scare meter/11.png" id="38_qob17"]
+<<<<<<< Updated upstream
+=======
+[ext_resource type="Texture2D" uid="uid://dqq30yn7ctrs2" path="res://assets/ui/Screen Damage Distort/Screen Damage Distort.png" id="46_4rdtj"]
+[ext_resource type="Texture2D" uid="uid://dtq4adcbv61i5" path="res://assets/Microphone/MicIdle.png" id="54_lu1ec"]
+[ext_resource type="Script" uid="uid://clrhkbr0u1fi" path="res://script/DialogueSystem/microphone_button.gd" id="54_lwdaq"]
+[ext_resource type="Texture2D" uid="uid://dd6m63y3t0qm7" path="res://assets/Microphone/MicHint.png" id="56_h4ua4"]
+[ext_resource type="Texture2D" uid="uid://d2amp2b0ffggx" path="res://assets/Microphone/MicHover.png" id="57_axbcc"]
+[ext_resource type="Script" uid="uid://dhx6ox0okw3kq" path="res://script/DialogueSystem/dialogue_ui.gd" id="58_axbcc"]
+>>>>>>> Stashed changes
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y8ley"]
 animations = [{
@@ -123,7 +136,34 @@ animations = [{
 "speed": 11.0
 }]
 
-[node name="Inspection2D" type="Node2D"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_lwdaq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("54_lu1ec")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("56_h4ua4")
+}],
+"loop": true,
+"name": &"hint",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("57_axbcc")
+}],
+"loop": true,
+"name": &"hover",
+"speed": 5.0
+}]
+
+[node name="Inspection2D" type="Node2D" node_paths=PackedStringArray("microphone_button")]
 script = ExtResource("1_2wxcv")
 scare_meter_path = NodePath("ScareMeterLayer/ScareMeter")
 scare_alarm_sfx_path = NodePath("ScareMeterLayer/ScareAlarmSFX")
@@ -131,15 +171,20 @@ mini_id_slot_path = NodePath("Documents/MiniSlot_ID")
 mini_permit_slot_path = NodePath("Documents/MiniSlot_Permit")
 approve_button_path = NodePath("BG Layer/Table Layer/UILayer/ApproveButton")
 deny_button_path = NodePath("BG Layer/Table Layer/UILayer/DenyButton")
-mini_table_layer_path = NodePath("Documents/MiniTableLayer")
+mini_table_layer_path = NodePath("BG Layer/Table Layer/mini table")
 document_layer_path = NodePath("Documents/DocumentLayer")
-normal_character_scenes = Array[PackedScene]([ExtResource("8_k8hxm"), ExtResource("5_s4fil"), ExtResource("6_4rdtj"), ExtResource("6_50h4t"), ExtResource("3_yfmp5"), ExtResource("7_lu1ec")])
-disguised_character_scenes = Array[PackedScene]([ExtResource("8_lwdaq"), ExtResource("9_qob17")])
-true_form_character_scenes = Array[PackedScene]([ExtResource("5_2wxcv"), ExtResource("11_h4ua4")])
+normal_character_scenes = Array[PackedScene]([ExtResource("2_axbcc"), ExtResource("3_rxtuv"), ExtResource("4_je71q"), ExtResource("5_wk4rh"), ExtResource("6_wgy7w"), ExtResource("7_r36fy")])
+disguised_character_scenes = Array[PackedScene]([ExtResource("8_abs7s"), ExtResource("9_ydxcx")])
+true_form_character_scenes = Array[PackedScene]([ExtResource("10_l4esu"), ExtResource("11_pgrei")])
 blood_minitable_path = NodePath("BG Layer/Table Layer/BloodMiniTable")
 blood_organizer_path = NodePath("BG Layer/Table Layer/BloodOrganizer")
 jumpscare_sprite_path = NodePath("JumpscareLayer/JumpscareSprite")
+<<<<<<< Updated upstream
 max_characters_per_shift = 10
+=======
+warning2_overlay_path = NodePath("Warning2OverlayLayer/Screen Damage Overlay")
+microphone_button = NodePath("MicrophoneLayer/MicrophoneButton")
+>>>>>>> Stashed changes
 
 [node name="BG Layer" type="CanvasLayer" parent="."]
 layer = -1
@@ -165,6 +210,7 @@ texture = ExtResource("8_kspj7")
 metadata/_edit_lock_ = true
 
 [node name="Telephone" type="Sprite2D" parent="BG Layer/Table Layer"]
+visible = false
 z_index = 100
 position = Vector2(351, 580)
 scale = Vector2(3.4329271, 3.6206894)
@@ -379,6 +425,33 @@ volume_db = -5.0
 
 [node name="JumpscareSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("35_i83lm")
+
+[node name="MicrophoneLayer" type="CanvasLayer" parent="."]
+layer = 19
+
+[node name="MicrophoneButton" type="TextureButton" parent="MicrophoneLayer"]
+offset_left = 300.0
+offset_top = 526.0
+offset_right = 392.0
+offset_bottom = 628.0
+script = ExtResource("54_lwdaq")
+
+[node name="MicSprite" type="AnimatedSprite2D" parent="MicrophoneLayer/MicrophoneButton"]
+position = Vector2(46, 50)
+scale = Vector2(3.5, 3.5)
+sprite_frames = SubResource("SpriteFrames_lwdaq")
+animation = &"hover"
+metadata/_edit_lock_ = true
+
+[node name="DialogueUI" type="CanvasLayer" parent="."]
+layer = 19
+
+[node name="DialogueUI" type="Control" parent="DialogueUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("58_axbcc")
 
 [connection signal="pressed" from="BG Layer/Table Layer/UILayer/HandbookIcon/TextureButton" to="JumpscareLayer/Handbook" method="_on_button_pressed"]
 [connection signal="pressed" from="Bloody UI/HandbookIcon/TextureButton" to="Bloody UI/HandbookIcon/Handbook" method="_on_button_pressed"]

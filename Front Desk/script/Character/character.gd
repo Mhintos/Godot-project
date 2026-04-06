@@ -32,6 +32,13 @@ enum ExpectedDecision {
 
 @export var expected_decision: ExpectedDecision = ExpectedDecision.APPROVE
 
+@export var dialogue_texts: Array[String] = []
+@export var dialogue_sides: Array[String] = []
+@export var approve_texts: Array[String] = []
+@export var approve_sides: Array[String] = []
+@export var deny_texts: Array[String] = []
+@export var deny_sides: Array[String] = []
+
 @onready var spawn_marker: Marker2D = get_node_or_null(spawn_marker_path)
 @onready var stop_marker: Marker2D = get_node_or_null(stop_marker_path)
 @onready var exit_left_marker: Marker2D = get_node_or_null(exit_left_marker_path)
@@ -46,6 +53,7 @@ enum ExpectedDecision {
 var _exiting := false
 var _move_tween: Tween = null
 var _idle_tween: Tween = null
+var _documents_spawned := false
 
 func _ready() -> void:
 	modulate.a = 1.0
@@ -94,10 +102,35 @@ func enter() -> void:
 
 func _start_idle() -> void:
 	print("START IDLE")
-	_spawn_mini_docs()
-
 	if _idle_tween and _idle_tween.is_running():
 		_idle_tween.kill()
+
+func get_dialogue_messages() -> Array:
+	var messages = []
+	for i in range(dialogue_texts.size()):
+		var side = "left"
+		if i < dialogue_sides.size() and dialogue_sides[i] == "right":
+			side = "right"
+		messages.append({"text": dialogue_texts[i], "side": side})
+	return messages
+
+func get_approve_messages() -> Array:
+	var messages = []
+	for i in range(approve_texts.size()):
+		var side = "left"
+		if i < approve_sides.size() and approve_sides[i] == "right":
+			side = "right"
+		messages.append({"text": approve_texts[i], "side": side})
+	return messages
+
+func get_deny_messages() -> Array:
+	var messages = []
+	for i in range(deny_texts.size()):
+		var side = "left"
+		if i < deny_sides.size() and deny_sides[i] == "right":
+			side = "right"
+		messages.append({"text": deny_texts[i], "side": side})
+	return messages
 
 func exit_right(on_done: Callable = Callable()) -> void:
 	_exit_to_marker(
@@ -146,6 +179,11 @@ func _exit_to_marker(marker: Marker2D, empty_error: String, missing_error: Strin
 			on_done.call()
 		queue_free()
 	)
+
+func spawn_documents() -> void:
+	if not _documents_spawned:
+		_spawn_mini_docs()
+		_documents_spawned = true
 
 func _spawn_mini_docs() -> void:
 	if is_true_form:
