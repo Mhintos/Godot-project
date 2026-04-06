@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsgojyuvk4lkn"]
+
+[ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_x307y"]
+[ext_resource type="Texture2D" uid="uid://bxd6kty33ksln" path="res://assets/documents/Trisha Mendoza canteen Staff/Forged Documents/Forged.png" id="2_ehthr"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_x307y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(900, 480)
+scale = Vector2(1.39, 1.407)
+texture = ExtResource("2_ehthr")

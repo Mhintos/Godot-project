@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://ci65pa2u5w5o7"]
+
+[ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_amv7i"]
+[ext_resource type="PackedScene" uid="uid://bsgojyuvk4lkn" path="res://scene/Documents/Full Documents Forged/Document ID Forged/Document_ID_Trisha_Forged.tscn" id="2_amv7i"]
+[ext_resource type="Texture2D" uid="uid://bxd6kty33ksln" path="res://assets/documents/Trisha Mendoza canteen Staff/Forged Documents/Forged.png" id="3_50nqb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cjj38"]
+size = Vector2(118, 58)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_amv7i")
+doc_id = "trisha_id_forged"
+full_document_scene = ExtResource("2_amv7i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.472, 0.472)
+texture = ExtResource("3_50nqb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cjj38")

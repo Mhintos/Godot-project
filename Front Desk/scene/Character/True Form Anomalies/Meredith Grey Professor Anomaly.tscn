@@ -23,7 +23,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 4.0
+"speed": 2.0
 }]
 
 [node name="Node2D" type="Node2D"]
@@ -35,7 +35,7 @@ mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
 mini_table_layer_path = NodePath("../MiniTableLayer")
 is_true_form = true
 anomaly_uses_blinds = true
-custom_scare_duration = 4.0
+custom_scare_duration = 3.0
 expected_decision = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -44,7 +44,7 @@ scale = Vector2(3, 2.7562244)
 sprite_frames = SubResource("SpriteFrames_73hae")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.9298487
+frame_progress = 0.020989196
 
 [node name="MiniDocAnchor" type="Node2D" parent="."]
 z_index = 50

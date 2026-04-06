@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4oe5kgk3algb"]
+
+[ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_shah3"]
+[ext_resource type="PackedScene" uid="uid://bmh7s7avxhayv" path="res://scene/Documents/Full Documents Forged/Document ID Forged/Document_ID_Ralph_Forged.tscn" id="2_l8ycd"]
+[ext_resource type="Texture2D" uid="uid://c8v8vhw03way6" path="res://assets/documents/Ralph Romero Professor/Forged Documents/Forged.png" id="3_vkuvf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_afpkd"]
+size = Vector2(118, 58)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_shah3")
+doc_id = "ralph_id_forged"
+full_document_scene = ExtResource("2_l8ycd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.472, 0.472)
+texture = ExtResource("3_vkuvf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_afpkd")

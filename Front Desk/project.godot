@@ -23,6 +23,24 @@ window/size/mode=3
 window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="uid://bel0qcahglanw"
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "pink",
+"res://assets/Characters/": "teal",
+"res://assets/documents/": "pink",
+"res://assets/ui/": "red",
+"res://scene/": "orange",
+"res://scene/Character/": "teal",
+"res://scene/Documents/": "green",
+"res://scene/Documents/Full Documents Forged/": "purple",
+"res://scene/Documents/Full Documents/": "purple",
+"res://scene/Documents/Mini Documents Forged/": "yellow",
+"res://scene/Documents/Mini Documents/": "yellow",
+"res://script/": "red",
+"res://sfx/": "gray"
+}
+
 [input]
 
 drag={

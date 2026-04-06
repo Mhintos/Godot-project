@@ -25,7 +25,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 4.0
+"speed": 2.0
 }]
 
 [node name="Node2D" type="Node2D"]
@@ -38,7 +38,7 @@ mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
 mini_table_layer_path = NodePath("../MiniTableLayer")
 mini_doc_scenes = Array[PackedScene]([ExtResource("2_wcypm"), ExtResource("3_x4m0x")])
 is_disguised = true
-custom_scare_duration = 8.0
+custom_scare_duration = 5.0
 expected_decision = 1
 dialogue_texts = Array[String](["Ralph..?", "Professor Ralph Romero."])
 dialogue_sides = Array[String](["left", "right"])

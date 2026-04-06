@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dmg7phcmhthfe"]
+[gd_scene load_steps=10 format=3 uid="uid://dmg7phcmhthfe"]
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_s5y6w"]
 [ext_resource type="PackedScene" uid="uid://b667fte731go8" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Trisha.tscn" id="2_8mfhe"]
+[ext_resource type="PackedScene" uid="uid://ci65pa2u5w5o7" path="res://scene/Documents/Mini Documents Forged/Mini ID/Mini_ID_Trisha_Forged.tscn" id="2_u01xe"]
 [ext_resource type="PackedScene" uid="uid://c2ddnmjfkbg1u" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Trisha.tscn" id="3_u01xe"]
 [ext_resource type="Texture2D" uid="uid://c3ibo7yjuf3gr" path="res://assets/Characters/Normal/Trisha Mendoza canteen Staff/1.png" id="4_s5y6w"]
 [ext_resource type="Texture2D" uid="uid://xn1t0fwrso73" path="res://assets/Characters/Normal/Trisha Mendoza canteen Staff/2.png" id="5_fw6y5"]
@@ -25,17 +26,18 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 4.0
+"speed": 2.0
 }]
 
-[node name="Node2D" type="Node2D"]
+[node name="Trisha Mendoza" type="Node2D"]
 z_index = 2
 script = ExtResource("1_s5y6w")
+forged_enabled = true
+forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_u01xe"), ExtResource("3_u01xe")])
 enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")
 mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
-mini_table_layer_path = NodePath("../MiniTableLayer")
 mini_doc_scenes = Array[PackedScene]([ExtResource("2_8mfhe"), ExtResource("3_u01xe")])
 dialogue_texts = Array[String](["Present your documents.", "Trisha Mendoza, canteen staff."])
 dialogue_sides = Array[String](["left", "right"])

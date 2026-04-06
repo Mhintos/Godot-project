@@ -9,6 +9,15 @@ enum ExpectedDecision {
 	TRUE_FORM
 }
 
+@export var identity_key: String = ""
+@export var forged_enabled: bool = false
+@export var forged_mini_doc_scenes: Array[PackedScene] = []
+
+var run_is_forged: bool = false
+var _normal_mini_doc_scenes_cache: Array[PackedScene] = []
+var _normal_expected_decision_cache: ExpectedDecision = ExpectedDecision.APPROVE
+var runtime_mini_doc_scenes: Array[PackedScene] = []
+
 @export var exit_left_marker_path: NodePath
 @export var spawn_marker_path: NodePath
 @export var stop_marker_path: NodePath
@@ -54,6 +63,60 @@ var _exiting := false
 var _move_tween: Tween = null
 var _idle_tween: Tween = null
 var _documents_spawned := false
+
+func apply_run_variant(is_forged_run: bool) -> void:
+	print("BASE mini_doc_scenes size = ", mini_doc_scenes.size())
+	for i in range(mini_doc_scenes.size()):
+		if mini_doc_scenes[i]:
+			print("BASE mini_doc_scenes[", i, "] = ", mini_doc_scenes[i].resource_path)
+		else:
+			print("BASE mini_doc_scenes[", i, "] = null")
+
+	print("BASE forged_mini_doc_scenes size = ", forged_mini_doc_scenes.size())
+	for i in range(forged_mini_doc_scenes.size()):
+		if forged_mini_doc_scenes[i]:
+			print("BASE forged_mini_doc_scenes[", i, "] = ", forged_mini_doc_scenes[i].resource_path)
+		else:
+			print("BASE forged_mini_doc_scenes[", i, "] = null")
+
+	if _normal_mini_doc_scenes_cache.is_empty():
+		_normal_mini_doc_scenes_cache = mini_doc_scenes.duplicate()
+		_normal_expected_decision_cache = expected_decision
+
+	run_is_forged = is_forged_run
+
+	# Always start from the normal set
+	runtime_mini_doc_scenes = _normal_mini_doc_scenes_cache.duplicate()
+
+	if run_is_forged:
+		if not forged_enabled:
+			push_warning("Character '%s' was marked forged, but forged_enabled is false." % name)
+			expected_decision = _normal_expected_decision_cache
+			run_is_forged = false
+			return
+
+		if forged_mini_doc_scenes.size() != 2:
+			push_error("Character '%s' forged_mini_doc_scenes must contain exactly 2 entries: ID and Permit." % name)
+			expected_decision = _normal_expected_decision_cache
+			run_is_forged = false
+			return
+
+		for i in range(min(runtime_mini_doc_scenes.size(), forged_mini_doc_scenes.size())):
+			if forged_mini_doc_scenes[i] != null:
+				runtime_mini_doc_scenes[i] = forged_mini_doc_scenes[i]
+
+		expected_decision = ExpectedDecision.DENY
+	else:
+		expected_decision = _normal_expected_decision_cache
+
+	print("RUN VARIANT -> ", name, " | forged=", run_is_forged)
+
+	for i in range(runtime_mini_doc_scenes.size()):
+		var scene_ref = runtime_mini_doc_scenes[i]
+		if scene_ref:
+			print("runtime_mini_doc_scenes[", i, "] = ", scene_ref.resource_path)
+		else:
+			print("runtime_mini_doc_scenes[", i, "] = null")
 
 func _ready() -> void:
 	modulate.a = 1.0
@@ -190,7 +253,10 @@ func _spawn_mini_docs() -> void:
 		print("True form detected. No mini docs will spawn.")
 		return
 
-	if mini_doc_scenes.is_empty():
+	if runtime_mini_doc_scenes.is_empty():
+		runtime_mini_doc_scenes = _normal_mini_doc_scenes_cache.duplicate()
+
+	if runtime_mini_doc_scenes.is_empty():
 		print("No mini documents assigned.")
 		return
 
@@ -204,19 +270,31 @@ func _spawn_mini_docs() -> void:
 
 	_clear_mini_docs()
 
-	if mini_doc_scenes.size() >= 1 and mini_doc_scenes[0] != null:
-		var mini_1 = mini_doc_scenes[0].instantiate()
+	if runtime_mini_doc_scenes.size() >= 1 and runtime_mini_doc_scenes[0] != null:
+		var mini_1 = runtime_mini_doc_scenes[0].instantiate()
 		mini_doc_anchor_1.add_child(mini_1)
 		mini_1.position = Vector2.ZERO
 		mini_1.table_layer = mini_table_layer
 		mini_1.table_slot = mini_id_slot
 
-	if mini_doc_scenes.size() >= 2 and mini_doc_scenes[1] != null:
-		var mini_2 = mini_doc_scenes[1].instantiate()
+		print("RUNTIME MINI[0] doc_id = ", mini_1.doc_id)
+		if mini_1.full_document_scene:
+			print("RUNTIME MINI[0] full_document_scene = ", mini_1.full_document_scene.resource_path)
+		else:
+			print("RUNTIME MINI[0] full_document_scene = null")
+
+	if runtime_mini_doc_scenes.size() >= 2 and runtime_mini_doc_scenes[1] != null:
+		var mini_2 = runtime_mini_doc_scenes[1].instantiate()
 		mini_doc_anchor_2.add_child(mini_2)
 		mini_2.position = Vector2.ZERO
 		mini_2.table_layer = mini_table_layer
 		mini_2.table_slot = mini_permit_slot
+
+		print("RUNTIME MINI[1] doc_id = ", mini_2.doc_id)
+		if mini_2.full_document_scene:
+			print("RUNTIME MINI[1] full_document_scene = ", mini_2.full_document_scene.resource_path)
+		else:
+			print("RUNTIME MINI[1] full_document_scene = null")
 
 func _clear_mini_docs() -> void:
 	if mini_doc_anchor_1:

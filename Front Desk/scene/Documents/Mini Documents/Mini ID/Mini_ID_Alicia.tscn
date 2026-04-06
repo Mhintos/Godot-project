@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://y7nfh74ijttf"]
+[gd_scene load_steps=5 format=3 uid="uid://q6npw3a34ro4"]
 
 [ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_bynmn"]
 [ext_resource type="PackedScene" uid="uid://cmddlcv1y20py" path="res://scene/Documents/Full Documents/Document ID/Document_ID_Alicia.tscn" id="2_a58b7"]

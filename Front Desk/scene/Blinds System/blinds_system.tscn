@@ -198,7 +198,7 @@ metadata/_edit_lock_ = true
 
 [node name="Table Shadow" type="Sprite2D" parent="."]
 z_index = 199
-position = Vector2(215.99796, 260.0005)
-scale = Vector2(0.08968069, 0.090965696)
+position = Vector2(215.99796, 257)
+scale = Vector2(0.1, 0.1094575)
 texture = ExtResource("24_bte03")
 metadata/_edit_lock_ = true

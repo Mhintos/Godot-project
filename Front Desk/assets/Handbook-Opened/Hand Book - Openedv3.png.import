@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvd700yvkq2yn"
-path="res://.godot/imported/telephone.png-f0c2c330d1f4adf9ebccff2e0261bf0e.ctex"
+uid="uid://cfj0h881oq822"
+path="res://.godot/imported/Hand Book - Openedv3.png-b3d2cc50ff7b089dca10ea86f01be783.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Telephone/telephone.png"
-dest_files=["res://.godot/imported/telephone.png-f0c2c330d1f4adf9ebccff2e0261bf0e.ctex"]
+source_file="res://assets/Handbook-Opened/Hand Book - Openedv3.png"
+dest_files=["res://.godot/imported/Hand Book - Openedv3.png-b3d2cc50ff7b089dca10ea86f01be783.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_hp2dn"]
 [ext_resource type="Texture2D" uid="uid://ca7eiueas17yo" path="res://assets/documents/Trisha Mendoza canteen Staff/Documents/Campus Access Permit.png" id="2_hp2dn"]
 
-[node name="Document_Permit_Alicia" type="Node2D"]
+[node name="Document_Permit_Trisha" type="Node2D"]
 script = ExtResource("1_hp2dn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
