@@ -39,6 +39,12 @@ exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")
 mini_doc_anchor2_path = NodePath("MiniDocAnchor2")
 mini_doc_scenes = Array[PackedScene]([ExtResource("2_8mfhe"), ExtResource("3_u01xe")])
+dialogue_texts = Array[String](["Present your documents.", "Trisha Mendoza, canteen staff."])
+dialogue_sides = Array[String](["left", "right"])
+approve_texts = Array[String](["The old building should have stayed closed.", "Did something happen there?", "People who go in..", "..never come back the same."])
+approve_sides = Array[String](["right", "left", "right", "right"])
+deny_texts = Array[String](["This document is expired.", "I know nothing about that."])
+deny_sides = Array[String](["left", "right"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, 139)

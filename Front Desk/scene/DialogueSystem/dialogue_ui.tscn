@@ -1,0 +1,88 @@
+[gd_scene load_steps=3 format=3 uid="uid://vrdhq60sm56o"]
+
+[ext_resource type="Script" uid="uid://dhx6ox0okw3kq" path="res://script/DialogueSystem/dialogue_ui.gd" id="1_6q285"]
+[ext_resource type="PackedScene" uid="uid://cm2mlsgtojbwy" path="res://scene/DialogueSystem/message_bubble.tscn" id="1_dwk8m"]
+
+[node name="dialogue_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6q285")
+
+[node name="Bubble2" parent="." instance=ExtResource("1_dwk8m")]
+layout_mode = 1
+offset_left = -312.0
+offset_top = 83.0
+offset_right = -1313.0
+offset_bottom = -525.0
+text = "Here you go sir."
+horizontal_alignment = 2
+grow_from_right = true
+
+[node name="Bubble6" parent="." instance=ExtResource("1_dwk8m")]
+layout_mode = 1
+offset_left = -448.0
+offset_top = 350.0
+offset_right = -1405.0
+offset_bottom = -242.0
+text = "You don't have an ID. I cannot let you in."
+
+[node name="Bubble1" parent="." instance=ExtResource("1_dwk8m")]
+layout_mode = 1
+offset_left = -457.0
+offset_top = 17.0
+offset_right = -1403.0
+offset_bottom = -591.0
+text = "Present your documents."
+
+[node name="Bubble3" parent="." instance=ExtResource("1_dwk8m")]
+layout_mode = 1
+offset_left = -323.0
+offset_top = 143.0
+offset_right = -1315.0
+offset_bottom = -449.0
+text = "By the way, can I ask you a favor?"
+horizontal_alignment = 2
+grow_from_right = true
+
+[node name="Bubble4" parent="." instance=ExtResource("1_dwk8m")]
+layout_mode = 1
+offset_left = -344.0
+offset_top = 218.0
+offset_right = -1313.0
+offset_bottom = -374.0
+text = "I left my ID at home, could you let me in?"
+horizontal_alignment = 2
+grow_from_right = true
+
+[node name="Bubble5" parent="." instance=ExtResource("1_dwk8m")]
+layout_mode = 1
+offset_left = -368.0
+offset_top = 284.0
+offset_right = -1311.0
+offset_bottom = -308.0
+text = "I'll treat you shawarma, promise."
+horizontal_alignment = 2
+grow_from_right = true
+
+[node name="Bubble7" parent="." instance=ExtResource("1_dwk8m")]
+layout_mode = 1
+offset_left = -356.0
+offset_top = 415.0
+offset_right = -1309.0
+offset_bottom = -177.0
+text = "Come on handsome, let me in, will ya?"
+horizontal_alignment = 2
+grow_from_right = true
+
+[node name="Microphone" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 294.0
+offset_top = 532.0
+offset_right = 412.0
+offset_bottom = 627.0
+
+[connection signal="pressed" from="Microphone" to="." method="_on_microphone_pressed"]
