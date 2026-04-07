@@ -65,20 +65,6 @@ var _idle_tween: Tween = null
 var _documents_spawned := false
 
 func apply_run_variant(is_forged_run: bool) -> void:
-	print("BASE mini_doc_scenes size = ", mini_doc_scenes.size())
-	for i in range(mini_doc_scenes.size()):
-		if mini_doc_scenes[i]:
-			print("BASE mini_doc_scenes[", i, "] = ", mini_doc_scenes[i].resource_path)
-		else:
-			print("BASE mini_doc_scenes[", i, "] = null")
-
-	print("BASE forged_mini_doc_scenes size = ", forged_mini_doc_scenes.size())
-	for i in range(forged_mini_doc_scenes.size()):
-		if forged_mini_doc_scenes[i]:
-			print("BASE forged_mini_doc_scenes[", i, "] = ", forged_mini_doc_scenes[i].resource_path)
-		else:
-			print("BASE forged_mini_doc_scenes[", i, "] = null")
-
 	if _normal_mini_doc_scenes_cache.is_empty():
 		_normal_mini_doc_scenes_cache = mini_doc_scenes.duplicate()
 		_normal_expected_decision_cache = expected_decision
@@ -108,15 +94,6 @@ func apply_run_variant(is_forged_run: bool) -> void:
 		expected_decision = ExpectedDecision.DENY
 	else:
 		expected_decision = _normal_expected_decision_cache
-
-	print("RUN VARIANT -> ", name, " | forged=", run_is_forged)
-
-	for i in range(runtime_mini_doc_scenes.size()):
-		var scene_ref = runtime_mini_doc_scenes[i]
-		if scene_ref:
-			print("runtime_mini_doc_scenes[", i, "] = ", scene_ref.resource_path)
-		else:
-			print("runtime_mini_doc_scenes[", i, "] = null")
 
 func _ready() -> void:
 	modulate.a = 1.0
@@ -161,10 +138,9 @@ func enter() -> void:
 		.set_ease(Tween.EASE_OUT)
 
 	_move_tween.tween_callback(_start_idle)
-	_move_tween.tween_callback(func(): emit_signal("reached_stop"))
+	_move_tween.tween_callback(func(): reached_stop.emit())
 
 func _start_idle() -> void:
-	print("START IDLE")
 	if _idle_tween and _idle_tween.is_running():
 		_idle_tween.kill()
 
@@ -250,14 +226,12 @@ func spawn_documents() -> void:
 
 func _spawn_mini_docs() -> void:
 	if is_true_form:
-		print("True form detected. No mini docs will spawn.")
 		return
 
 	if runtime_mini_doc_scenes.is_empty():
 		runtime_mini_doc_scenes = _normal_mini_doc_scenes_cache.duplicate()
 
 	if runtime_mini_doc_scenes.is_empty():
-		print("No mini documents assigned.")
 		return
 
 	if mini_doc_anchor_1 == null or mini_doc_anchor_2 == null:
@@ -277,24 +251,12 @@ func _spawn_mini_docs() -> void:
 		mini_1.table_layer = mini_table_layer
 		mini_1.table_slot = mini_id_slot
 
-		print("RUNTIME MINI[0] doc_id = ", mini_1.doc_id)
-		if mini_1.full_document_scene:
-			print("RUNTIME MINI[0] full_document_scene = ", mini_1.full_document_scene.resource_path)
-		else:
-			print("RUNTIME MINI[0] full_document_scene = null")
-
 	if runtime_mini_doc_scenes.size() >= 2 and runtime_mini_doc_scenes[1] != null:
 		var mini_2 = runtime_mini_doc_scenes[1].instantiate()
 		mini_doc_anchor_2.add_child(mini_2)
 		mini_2.position = Vector2.ZERO
 		mini_2.table_layer = mini_table_layer
 		mini_2.table_slot = mini_permit_slot
-
-		print("RUNTIME MINI[1] doc_id = ", mini_2.doc_id)
-		if mini_2.full_document_scene:
-			print("RUNTIME MINI[1] full_document_scene = ", mini_2.full_document_scene.resource_path)
-		else:
-			print("RUNTIME MINI[1] full_document_scene = null")
 
 func _clear_mini_docs() -> void:
 	if mini_doc_anchor_1:
@@ -320,3 +282,6 @@ func get_expected_result() -> int:
 		return ExpectedDecision.TRUE_FORM
 
 	return expected_decision
+	
+func get_character_id() -> String:
+	return identity_key

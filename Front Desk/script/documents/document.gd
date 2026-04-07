@@ -8,18 +8,20 @@ var is_dragging: bool = false
 var drag_offset: Vector2 = Vector2.ZERO
 var is_active: bool = false
 
+var document_manager: Node = null
+var inspection_controller: Node = null
+
 func _ready() -> void:
 	add_to_group("draggable_documents")
+	document_manager = get_tree().get_first_node_in_group("document_manager")
+	inspection_controller = get_tree().get_first_node_in_group("inspection_controller")
 
 func _process(_delta: float) -> void:
 	if is_dragging:
 		global_position = get_global_mouse_position() - drag_offset
 
-func _get_manager():
-	return get_tree().get_first_node_in_group("document_manager")
-
-func get_inspection_controller():
-	return get_tree().get_first_node_in_group("inspection_controller")
+func _get_manager() -> Node:
+	return document_manager
 
 func _input(event) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -50,7 +52,7 @@ func _try_start_drag():
 
 	_make_active()
 
-	var inspection = get_tree().get_first_node_in_group("inspection_controller")
+	var inspection = inspection_controller
 	if inspection and inspection.has_method("play_sliding_paper_sfx"):
 		inspection.play_sliding_paper_sfx()
 

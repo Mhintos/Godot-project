@@ -28,6 +28,7 @@ animations = [{
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_emtnp")
+identity_key = "caleb_alonso"
 enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")

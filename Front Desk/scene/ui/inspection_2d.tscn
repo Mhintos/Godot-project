@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=4 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=77 format=4 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
@@ -23,7 +23,9 @@
 [ext_resource type="Texture2D" uid="uid://b4f2futggdswd" path="res://assets/ui/Approve and Deny/deny_pressed.png" id="19_7su7m"]
 [ext_resource type="Texture2D" uid="uid://dbmbjsakmda5o" path="res://assets/ui/Table/Main Table.png" id="19_lwtii"]
 [ext_resource type="Texture2D" uid="uid://2eyekvswf3xp" path="res://assets/ui/Bloody Version/Bloody Minitable.png" id="19_mga6p"]
+[ext_resource type="Texture2D" uid="uid://8wjxnsdxk7im" path="res://assets/ui/Bloodier Table/Bloodier Minitable.png" id="19_tqu6d"]
 [ext_resource type="Texture2D" uid="uid://ftr6jxfiqtat" path="res://assets/ui/Bloody Version/Bloody Organizer.png" id="20_50h4t"]
+[ext_resource type="Texture2D" uid="uid://ndv1f7hu0mmv" path="res://assets/ui/Bloodier Table/Bloodier Organizer.png" id="20_cnux1"]
 [ext_resource type="PackedScene" uid="uid://bc3fso0qb6sdi" path="res://scene/Blinds System/blinds_system.tscn" id="23_5er1a"]
 [ext_resource type="PackedScene" uid="uid://dll78gnht4365" path="res://scene/Handbook/handbook-opened.tscn" id="23_7su7m"]
 [ext_resource type="Texture2D" uid="uid://c27i282aa7yy" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/1.png" id="23_tokp6"]
@@ -41,9 +43,16 @@
 [ext_resource type="Texture2D" uid="uid://3732ou6ufvn" path="res://assets/Scare meter/6.png" id="33_kbtt6"]
 [ext_resource type="Texture2D" uid="uid://ohhymhady7fb" path="res://assets/Scare meter/7.png" id="34_s4fil"]
 [ext_resource type="Texture2D" uid="uid://bwsq2uoc12rgj" path="res://assets/Scare meter/8.png" id="35_4rdtj"]
+[ext_resource type="Texture2D" uid="uid://dgph2n1p7u1sw" path="res://assets/Characters/True Form/Meredith Grey Professor/Jumpscare/1.png" id="36_cqrhs"]
 [ext_resource type="Texture2D" uid="uid://c67dl08xt0nu2" path="res://assets/Scare meter/9.png" id="36_lu1ec"]
 [ext_resource type="Texture2D" uid="uid://bq82ucikj4xd1" path="res://assets/Scare meter/10.png" id="37_lwdaq"]
+[ext_resource type="Texture2D" uid="uid://dqptsxqgvw75v" path="res://assets/Characters/True Form/Meredith Grey Professor/Jumpscare/2.png" id="37_pchdn"]
 [ext_resource type="Texture2D" uid="uid://dj3ob4bg0amim" path="res://assets/Scare meter/11.png" id="38_qob17"]
+[ext_resource type="Texture2D" uid="uid://dahox0g6cc2h" path="res://assets/Characters/True Form/Meredith Grey Professor/Jumpscare/3.png" id="38_spj4f"]
+[ext_resource type="Texture2D" uid="uid://mej4y7mdwpkn" path="res://assets/Characters/True Form/Meredith Grey Professor/Jumpscare/4.png" id="39_lrkpu"]
+[ext_resource type="Texture2D" uid="uid://daynjsjtlgxt7" path="res://assets/Characters/True Form/Meredith Grey Professor/Jumpscare/5.png" id="40_xr4y4"]
+[ext_resource type="Texture2D" uid="uid://s0gveoxrics6" path="res://assets/Characters/True Form/Meredith Grey Professor/Jumpscare/6.png" id="41_wwi70"]
+[ext_resource type="Texture2D" uid="uid://be31uwjrehong" path="res://assets/Characters/True Form/Meredith Grey Professor/Jumpscare/7.png" id="42_wf27c"]
 [ext_resource type="Texture2D" uid="uid://dqq30yn7ctrs2" path="res://assets/ui/Screen Damage Distort/Screen Damage Distort.png" id="46_4rdtj"]
 [ext_resource type="AudioStream" uid="uid://bc5mukypc6txq" path="res://sfx/Background Music/In Game BG Music.mp3" id="47_4rdtj"]
 [ext_resource type="AudioStream" uid="uid://b0krstscpd5wh" path="res://sfx/General Sounds/Footsteps.mp3" id="48_lu1ec"]
@@ -87,6 +96,35 @@ animations = [{
 }, {
 "duration": 2.01,
 "texture": ExtResource("29_1oqq2")
+}],
+"loop": false,
+"name": &"play",
+"speed": 15.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_clh6u"]
+animations = [{
+"frames": [{
+"duration": 3.81,
+"texture": ExtResource("36_cqrhs")
+}, {
+"duration": 0.61,
+"texture": ExtResource("37_pchdn")
+}, {
+"duration": 0.61,
+"texture": ExtResource("38_spj4f")
+}, {
+"duration": 0.61,
+"texture": ExtResource("39_lrkpu")
+}, {
+"duration": 0.61,
+"texture": ExtResource("40_xr4y4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_wwi70")
+}, {
+"duration": 2.01,
+"texture": ExtResource("42_wf27c")
 }],
 "loop": false,
 "name": &"play",
@@ -154,6 +192,9 @@ blood_minitable_path = NodePath("BG Layer/Table Layer/BloodMiniTable")
 blood_organizer_path = NodePath("BG Layer/Table Layer/BloodOrganizer")
 jumpscare_sprite_path = NodePath("JumpscareLayer/JumpscareSprite")
 warning2_overlay_path = NodePath("Warning2OverlayLayer/Screen Damage Overlay")
+bloodier_minitable_path = NodePath("BG Layer/Table Layer/BloodierMinitable")
+bloodier_organizer_path = NodePath("BG Layer/Table Layer/BloodierOrganizer")
+meredith_jumpscare_sprite_path = NodePath("JumpscareLayer/MeredithJumpscareSprite")
 
 [node name="BG Layer" type="CanvasLayer" parent="."]
 layer = -1
@@ -162,6 +203,7 @@ layer = -1
 position = Vector2(213.99998, 202.50002)
 scale = Vector2(0.472165, 0.39541286)
 texture = ExtResource("1_eqw22")
+metadata/_edit_lock_ = true
 
 [node name="Table Layer" type="CanvasLayer" parent="BG Layer"]
 layer = 11
@@ -211,6 +253,26 @@ offset_right = 431.0
 offset_bottom = 514.0
 mouse_filter = 2
 texture = ExtResource("19_mga6p")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="BloodierMinitable" type="TextureRect" parent="BG Layer/Table Layer"]
+visible = false
+offset_left = -12.0
+offset_top = 325.0
+offset_right = 431.0
+offset_bottom = 514.0
+texture = ExtResource("19_tqu6d")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="BloodierOrganizer" type="TextureRect" parent="BG Layer/Table Layer"]
+visible = false
+offset_left = -10.0
+offset_top = 514.0
+offset_right = 431.0
+offset_bottom = 649.0
+texture = ExtResource("20_cnux1")
 expand_mode = 1
 metadata/_edit_lock_ = true
 
@@ -269,6 +331,7 @@ layer = 10
 [node name="BlindsSystem" parent="Blinds Layer" instance=ExtResource("23_5er1a")]
 z_index = 98
 position = Vector2(-0.99993896, 0)
+metadata/_edit_lock_ = true
 
 [node name="Character Layer" type="CanvasLayer" parent="."]
 
@@ -318,7 +381,7 @@ position = Vector2(210.655, 557.98)
 scale = Vector2(2.04, 2.04)
 
 [node name="Handbook" parent="Bloody UI/HandbookIcon" instance=ExtResource("23_7su7m")]
-position = Vector2(224.71324, -167.63724)
+position = Vector2(223.69856, -159.30392)
 scale = Vector2(0.475, 0.475)
 
 [node name="TextureButton" type="TextureButton" parent="Bloody UI/HandbookIcon"]
@@ -335,6 +398,7 @@ unique_name_in_owner = true
 visible = false
 position = Vector2(721, 476)
 scale = Vector2(0.969, 0.969)
+metadata/_edit_lock_ = true
 
 [node name="JumpscareSprite" type="AnimatedSprite2D" parent="JumpscareLayer"]
 visible = false
@@ -344,6 +408,15 @@ sprite_frames = SubResource("SpriteFrames_y8ley")
 animation = &"play"
 frame = 6
 frame_progress = 1.0
+metadata/_edit_lock_ = true
+
+[node name="MeredithJumpscareSprite" type="AnimatedSprite2D" parent="JumpscareLayer"]
+visible = false
+position = Vector2(578, 327.5)
+scale = Vector2(1.007, 1.014)
+sprite_frames = SubResource("SpriteFrames_clh6u")
+animation = &"play"
+metadata/_edit_lock_ = true
 
 [node name="TrueFormTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -356,6 +429,7 @@ layer = 19
 position = Vector2(125.399994, 28.899998)
 scale = Vector2(0.38530347, 0.37924525)
 sprite_frames = SubResource("SpriteFrames_h4ua4")
+metadata/_edit_lock_ = true
 
 [node name="ScareAlarmSFX" type="AudioStreamPlayer" parent="ScareMeterLayer"]
 stream = SubResource("AudioStreamMP3_iv7yt")

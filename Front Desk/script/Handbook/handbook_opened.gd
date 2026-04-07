@@ -43,11 +43,14 @@ var page_frames = {
 var current_frame := 0
 var total_frames := 10
 
-# =============================
+var document_manager: Node = null
+
+# =============================	
 # READY
 # =============================
 func _ready():
 	add_to_group("draggable_documents")
+	document_manager = get_tree().get_first_node_in_group("document_manager")
 
 	handbook.visible = false
 
@@ -56,7 +59,6 @@ func _ready():
 		handbook_opened_sprite.frame = 0
 		handbook_opened_sprite.visible = true
 
-	# Reconnect button logic
 	if basic_rules_button:
 		basic_rules_button.mouse_entered.connect(_on_basic_rules_hover)
 		basic_rules_button.mouse_exited.connect(_on_basic_rules_unhover)
@@ -91,7 +93,7 @@ func _ready():
 # =============================
 # PROCESS
 # =============================
-func _process(_delta):
+func _process(_delta: float) -> void:
 	if is_dragging:
 		global_position = get_global_mouse_position() - drag_offset
 
@@ -99,7 +101,7 @@ func _process(_delta):
 # Use _unhandled_input instead of _input
 # so buttons get first chance to receive click
 # =============================
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	if not handbook.visible:
 		return
 
@@ -113,7 +115,7 @@ func _unhandled_input(event):
 # =============================
 # Drag
 # =============================
-func _try_start_drag():
+func _try_start_drag() -> void:
 	var mouse_pos = get_global_mouse_position()
 
 	if not contains_point(mouse_pos):
@@ -135,7 +137,7 @@ func _try_start_drag():
 	if manager != null:
 		manager.dragging_document = self
 
-func _stop_drag():
+func _stop_drag() -> void:
 	if is_dragging:
 		is_dragging = false
 
@@ -144,20 +146,20 @@ func _stop_drag():
 	if manager != null and manager.dragging_document == self:
 		manager.dragging_document = null
 
-func _make_active():
+func _make_active() -> void:
 	var manager = _get_manager()
 
 	if manager != null and manager.has_method("set_active_document"):
 		manager.set_active_document(self)
 
-func set_active(value):
+func set_active(value: bool) -> void:
 	is_active = value
 
 # =============================
 # Manager
 # =============================
-func _get_manager():
-	return get_tree().get_first_node_in_group("document_manager")
+func _get_manager() -> Node:
+	return document_manager	
 
 func _get_highest_z_index_among_documents() -> int:
 	var highest := 0
@@ -168,7 +170,7 @@ func _get_highest_z_index_among_documents() -> int:
 
 	return highest
 
-func _is_topmost_document_under_mouse():
+func _is_topmost_document_under_mouse() -> bool:
 	var mouse_pos = get_global_mouse_position()
 
 	var top_doc = null
@@ -191,7 +193,7 @@ func _is_topmost_document_under_mouse():
 # =============================
 # Hitbox for handbook dragging
 # =============================
-func contains_point(point):
+func contains_point(point: Vector2) -> bool:
 	if not handbook.visible:
 		return false
 
@@ -248,11 +250,8 @@ func play_page_turn_sfx() -> void:
 # =============================
 # Flip Right
 # =============================
-func _on_flip_right_pressed():
-	print("FLIP RIGHT PRESSED")
-
+func _on_flip_right_pressed() -> void:
 	if current_frame >= total_frames - 1:
-		print("Already at last page")
 		return
 
 	play_page_turn_sfx()
@@ -262,11 +261,8 @@ func _on_flip_right_pressed():
 # =============================
 # Flip Left
 # =============================
-func _on_flip_left_pressed():
-	print("FLIP LEFT PRESSED")
-
+func _on_flip_left_pressed() -> void:
 	if current_frame <= 0:
-		print("Already at first page")
 		return
 
 	play_page_turn_sfx()
@@ -276,17 +272,16 @@ func _on_flip_left_pressed():
 # =============================
 # Advance Frame
 # =============================
-func advance_frame(direction):
+func advance_frame(direction: int) -> void:
 	current_frame += direction
 	current_frame = clamp(current_frame, 0, total_frames - 1)
 
 	handbook_opened_sprite.frame = current_frame
-	print("Current frame after advance: ", current_frame)
 
 # =============================
 # Button visibility control
 # =============================
-func update_button_visibility():
+func update_button_visibility() -> void:
 	if current_frame == page_frames["contents"]:
 		basic_rules_button.disabled = false
 		basic_rules_button.mouse_filter = Control.MOUSE_FILTER_STOP

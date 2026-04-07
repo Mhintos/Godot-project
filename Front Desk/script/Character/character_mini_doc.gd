@@ -21,13 +21,16 @@ var _base_y := 0.0
 var _bob_tween: Tween = null
 var _move_tween: Tween = null
 
+var inspection_controller: Node = null
+var document_manager: Node = null
+
 func _ready() -> void:
+	inspection_controller = get_tree().get_first_node_in_group("inspection_controller")
+	document_manager = get_tree().get_first_node_in_group("document_manager")
+
 	z_index = 100
 	_base_y = position.y
 	_start_bob()
-
-func get_inspection_controller():
-	return get_tree().get_first_node_in_group("inspection_controller")
 
 func _start_bob() -> void:
 	_stop_bob_tween()
@@ -52,7 +55,7 @@ func send_to_table(target_layer: Node, target_global_pos: Vector2, slide_time: f
 	_moving = true
 	_stop_all_tweens()
 
-	var inspection = get_inspection_controller()
+	var inspection = inspection_controller
 	if inspection and inspection.has_method("play_sliding_paper_sfx"):
 		inspection.play_sliding_paper_sfx()
 
@@ -83,7 +86,7 @@ func _input_event(_viewport, event, _shape_idx) -> void:
 	if _moving:
 		return
 
-	var inspection = get_inspection_controller()
+	var inspection = inspection_controller
 
 	if state == State.WITH_CHARACTER:
 		if table_layer == null:
@@ -108,7 +111,7 @@ func _input_event(_viewport, event, _shape_idx) -> void:
 		if inspection and inspection.has_method("play_sliding_paper_sfx"):
 			inspection.play_sliding_paper_sfx()
 
-		var manager := get_tree().get_first_node_in_group("document_manager")
+		var manager: Node = document_manager
 		if manager and manager.has_method("open_document"):
 			manager.open_document(doc_id, full_document_scene)
 		else:

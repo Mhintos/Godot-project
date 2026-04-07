@@ -19,7 +19,7 @@ func _ready() -> void:
 	blinds.play("idle_open")
 	lever.play("up")
 
-func get_inspection_controller():
+func get_inspection_controller() -> Node:
 	return get_tree().get_first_node_in_group("inspection_controller")
 
 func force_open() -> void:
@@ -73,7 +73,7 @@ func _on_blinds_animation_finished() -> void:
 		is_closed = true
 		blinds.play("idle_closed")
 		blinds_done = true
-		emit_signal("blinds_closed_success")
+		blinds_closed_success.emit()
 		_check_finish()
 
 	elif blinds.animation == "opening":
@@ -96,33 +96,3 @@ func _on_lever_animation_finished() -> void:
 func _check_finish() -> void:
 	if lever_done and blinds_done:
 		is_animating = false
-
-func close_blinds() -> void:
-	if is_animating or is_closed:
-		return
-
-	is_animating = true
-	lever_done = false
-	blinds_done = false
-
-	var inspection = get_inspection_controller()
-	if inspection and inspection.has_method("play_blinds_down_sfx"):
-		inspection.play_blinds_down_sfx()
-
-	lever.play("pull_down")
-	blinds.play("closing")
-
-func open_blinds() -> void:
-	if is_animating or not is_closed:
-		return
-
-	is_animating = true
-	lever_done = false
-	blinds_done = false
-
-	var inspection = get_inspection_controller()
-	if inspection and inspection.has_method("play_blinds_up_sfx"):
-		inspection.play_blinds_up_sfx()
-
-	lever.play("pull_up")
-	blinds.play("opening")

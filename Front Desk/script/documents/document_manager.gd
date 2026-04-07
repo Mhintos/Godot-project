@@ -2,6 +2,7 @@ extends Node
 
 @export var document_layer_path: NodePath
 @export var inspect_spawn_path: NodePath
+var inspection_controller: Node = null
 
 var opened_docs := {}
 
@@ -10,9 +11,7 @@ var active_document: Node = null
 
 func _ready() -> void:
 	add_to_group("document_manager")
-
-func get_inspection_controller():
-	return get_tree().get_first_node_in_group("inspection_controller")
+	inspection_controller = get_tree().get_first_node_in_group("inspection_controller")
 
 func clear_opened_docs() -> void:
 	for doc in opened_docs.values():
@@ -57,7 +56,7 @@ func open_document(doc_id: String, scene: PackedScene) -> void:
 		push_error("DocumentManager: inspect_spawn_path invalid: " + str(inspect_spawn_path))
 		return
 
-	var inspection = get_inspection_controller()
+	var inspection = inspection_controller
 
 	# If document already exists, bring it to front and replay paper SFX
 	if opened_docs.has(doc_id) and is_instance_valid(opened_docs[doc_id]):

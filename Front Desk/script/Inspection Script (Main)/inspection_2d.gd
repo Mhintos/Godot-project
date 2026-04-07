@@ -27,6 +27,14 @@ extends Node2D
 
 @export var warning2_overlay_path: NodePath
 
+@export var bloodier_minitable_path: NodePath
+@export var bloodier_organizer_path: NodePath
+
+@export var meredith_jumpscare_sprite_path: NodePath
+
+@onready var bloodier_minitable: CanvasItem = get_node_or_null(bloodier_minitable_path)
+@onready var bloodier_organizer: CanvasItem = get_node_or_null(bloodier_organizer_path)
+@onready var meredith_jumpscare_sprite: AnimatedSprite2D = get_node_or_null(meredith_jumpscare_sprite_path)
 @onready var warning2_overlay: TextureRect = get_node_or_null(warning2_overlay_path)
 
 @onready var bg_layer_shake: Node = $"BG Layer"
@@ -74,26 +82,29 @@ extends Node2D
 @onready var blinds_down_sfx: AudioStreamPlayer = $"Screen Damage Overlay/BlindsDownSFX"
 @onready var scare_meter_sfx: AudioStreamPlayer = $"Screen Damage Overlay/ScareMeterSFX"
 
+var active_jumpscare_sprite: AnimatedSprite2D = null
+
 const NORMALS_PER_RUN := 6
 const DISGUISED_PER_RUN := 2
 const TRUE_FORMS_PER_RUN := 2
 
 const WARNING2_SPEED_MULTIPLIER := 1.5
-const SCARE_AUDIO_THRESHOLD := 0.70
 const DEBUG_LOGS := false
 
+var warning2_elapsed_time: float = 0.0
+var warning2_burst_interval: float = 3.0
 
 
 var shift_queue: Array = []
 
 var warning2_overlay_motion_time: float = 0.0
 var warning2_overlay_base_alpha: float = 0.62
-var warning2_overlay_flicker_strength: float = 0.14
 var warning2_overlay_pulse_speed: float = 0.75
 
-var warning2_overlay_drift_x: float = 10.0
-var warning2_overlay_drift_y: float = 6.0
-var warning2_overlay_jitter_strength: float = 1.1
+var warning2_overlay_drift_x: float = 4.0
+var warning2_overlay_drift_y: float = 2.0
+var warning2_overlay_jitter_strength: float = 0.35
+var warning2_overlay_flicker_strength: float = 0.08
 var warning2_overlay_base_position: Vector2 = Vector2.ZERO
 
 var _char_index := 0
@@ -111,6 +122,7 @@ var flicker_time: float = 0.0
 var flicker_strength: float = 0.0
 var shake_layers: Array[Node] = []
 var original_layer_positions := {}
+var warning2_shake_timer: float = 0.0
 
 var scare_started := false
 var scare_fill_progress := 0.0
@@ -120,6 +132,9 @@ var scare_alarm_triggered := false
 
 var current_scare_duration := 30.0
 var normal_scare_times := [30.0, 27.0, 24.0, 21.0]
+
+var document_manager: Node = null
+var current_shake_offset: Vector2 = Vector2.ZERO
 
 func debug_log(msg) -> void:
 	if DEBUG_LOGS:
@@ -131,10 +146,7 @@ func _ready() -> void:
 	approve_btn.pressed.connect(func(): _on_decision_pressed("approve"))
 	deny_btn.pressed.connect(func(): _on_decision_pressed("deny"))
 
-	if approve_btn.has_signal("mouse_entered"):
-		approve_btn.mouse_entered.connect(play_hover_sfx)
-	if deny_btn.has_signal("mouse_entered"):
-		deny_btn.mouse_entered.connect(play_hover_sfx)
+	document_manager = get_tree().get_first_node_in_group("document_manager")
 
 	if true_form_timer and not true_form_timer.timeout.is_connected(_on_true_form_timer_timeout):
 		true_form_timer.timeout.connect(_on_true_form_timer_timeout)
@@ -145,10 +157,13 @@ func _ready() -> void:
 	else:
 		push_error("BlindsSystem not found in _ready(). Check node path.")
 
-	if jumpscare_sprite:
-		jumpscare_sprite.visible = false
-		if not jumpscare_sprite.animation_finished.is_connected(_on_jumpscare_finished):
-			jumpscare_sprite.animation_finished.connect(_on_jumpscare_finished)
+	if jumpscare_sprite and not jumpscare_sprite.animation_finished.is_connected(_on_jumpscare_finished):
+		jumpscare_sprite.animation_finished.connect(_on_jumpscare_finished)
+
+	if meredith_jumpscare_sprite and not meredith_jumpscare_sprite.animation_finished.is_connected(_on_jumpscare_finished):
+		meredith_jumpscare_sprite.animation_finished.connect(_on_jumpscare_finished)
+
+	_hide_all_jumpscare_sprites()
 
 	shake_layers = [
 		bg_layer_shake,
@@ -174,6 +189,12 @@ func _ready() -> void:
 		warning2_overlay_base_position = warning2_overlay.position
 		warning2_overlay.visible = false
 		warning2_overlay.modulate.a = 0.0
+
+	if bloodier_minitable:
+		bloodier_minitable.visible = false
+
+	if bloodier_organizer:
+		bloodier_organizer.visible = false
 
 	screen_shake_time = 0.0
 	screen_shake_strength = 0.0
@@ -254,11 +275,6 @@ func generate_shift_queue() -> void:
 	tail_queue.shuffle()
 	shift_queue.append_array(tail_queue)
 
-	debug_log("Generated shift queue size: " + str(shift_queue.size()))
-	for i in range(shift_queue.size()):
-		var entry = shift_queue[i]
-		print("QUEUE[", i, "]: ", entry["scene"].resource_path, " | forged=", entry["is_forged"], " | type=", entry["type"])
-
 func spawn_character() -> void:
 	if shift_queue.is_empty():
 		push_error("Shift queue is empty. Generate the shift queue first.")
@@ -270,9 +286,8 @@ func spawn_character() -> void:
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
 
-	var doc_manager = get_tree().get_first_node_in_group("document_manager")
-	if doc_manager and doc_manager.has_method("clear_opened_docs"):
-		doc_manager.clear_opened_docs()
+	if document_manager and document_manager.has_method("clear_opened_docs"):
+		document_manager.clear_opened_docs()
 
 	if _char_index >= shift_queue.size():
 		debug_log("No more characters left to spawn.")
@@ -343,7 +358,6 @@ func _on_character_reached_stop() -> void:
 		deny_btn.disabled = true
 
 		play_true_form_presence_sfx()
-		play_screen_distort_sfx()
 
 		scare_started = true
 		scare_alarm_triggered = false
@@ -364,13 +378,10 @@ func _on_character_reached_stop() -> void:
 		if current_character.has_method("spawn_documents"):
 			current_character.spawn_documents()
 
-		scare_started = true
+		scare_started = false
 		scare_alarm_triggered = false
 
-		if true_form_timer:
-			true_form_timer.start(current_scare_duration)
-
-		debug_log("Disguised reached stop. 8-second anomaly state started.")
+		debug_log("Disguised reached stop. Waiting for first mini doc interaction.")
 		return
 
 	if current_character.has_method("spawn_documents"):
@@ -402,9 +413,8 @@ func _reject_true_form() -> void:
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
 
-	var doc_manager = get_tree().get_first_node_in_group("document_manager")
-	if doc_manager and doc_manager.has_method("clear_opened_docs"):
-		doc_manager.clear_opened_docs()
+	if document_manager and document_manager.has_method("clear_opened_docs"):
+		document_manager.clear_opened_docs()
 
 	if current_character and is_instance_valid(current_character):
 		if current_character.has_method("exit_left"):
@@ -447,8 +457,13 @@ func trigger_jumpscare() -> void:
 	approve_btn.disabled = false
 	deny_btn.disabled = false
 
+	var selected_jumpscare_sprite: AnimatedSprite2D = _get_active_jumpscare_sprite()
+
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
+
+	_hide_all_jumpscare_sprites()
+	active_jumpscare_sprite = selected_jumpscare_sprite
 
 	_cleanup_current_character()
 
@@ -458,20 +473,23 @@ func trigger_jumpscare() -> void:
 	start_screen_shake(0.2, 16.0)
 	play_jumpscare_sfx()
 
-	if jumpscare_sprite:
-		jumpscare_sprite.visible = true
+	if active_jumpscare_sprite:
+		active_jumpscare_sprite.visible = true
 
-		if jumpscare_sprite.sprite_frames and jumpscare_sprite.sprite_frames.has_animation("play"):
-			jumpscare_sprite.play("play")
+		if active_jumpscare_sprite.sprite_frames and active_jumpscare_sprite.sprite_frames.has_animation("play"):
+			active_jumpscare_sprite.play("play")
 		else:
-			push_error("JumpscareSprite has no animation named 'play'.")
+			push_error("Active jumpscare sprite has no animation named 'play'.")
 
 	debug_log("JUMPSCARE START")
 	hide_warning2_overlay()
+	hide_bloody_ui2()
 
 func _on_jumpscare_finished() -> void:
-	if jumpscare_sprite:
-		jumpscare_sprite.stop()
+	if active_jumpscare_sprite:
+		active_jumpscare_sprite.stop()
+		active_jumpscare_sprite.visible = false
+
 	debug_log("JUMPSCARE FINISHED")
 	get_tree().change_scene_to_file(game_over_scene_path)
 
@@ -513,9 +531,8 @@ func _on_decision_pressed(decision: String) -> void:
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
 
-	var doc_manager = get_tree().get_first_node_in_group("document_manager")
-	if doc_manager and doc_manager.has_method("clear_opened_docs"):
-		doc_manager.clear_opened_docs()
+	if document_manager and document_manager.has_method("clear_opened_docs"):
+		document_manager.clear_opened_docs()
 
 	var exit_method := "exit_right"
 	if decision == "deny":
@@ -615,9 +632,8 @@ func reset_run_state() -> void:
 	if blood_organizer:
 		blood_organizer.visible = false
 
-	if jumpscare_sprite:
-		jumpscare_sprite.visible = false
-		jumpscare_sprite.stop()
+	hide_bloody_ui2()
+	_hide_all_jumpscare_sprites()
 
 	reset_scare_meter()
 	stop_all_looping_sfx()
@@ -643,9 +659,8 @@ func reset_run_state() -> void:
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
 
-	var doc_manager = get_tree().get_first_node_in_group("document_manager")
-	if doc_manager and doc_manager.has_method("clear_opened_docs"):
-		doc_manager.clear_opened_docs()
+	if document_manager and document_manager.has_method("clear_opened_docs"):
+		document_manager.clear_opened_docs()
 
 	_cleanup_current_character()
 	_apply_layer_shake_offset(Vector2.ZERO)
@@ -772,6 +787,10 @@ func start_scare_meter() -> void:
 
 	scare_started = true
 	scare_alarm_triggered = false
+	
+	if _is_disguised_character(current_character) and true_form_timer:
+		true_form_timer.start(current_scare_duration)
+		
 	debug_log("Scare meter started.")
 
 func reset_scare_meter() -> void:
@@ -780,14 +799,20 @@ func reset_scare_meter() -> void:
 	scare_alarm_triggered = false
 	screen_shake_time = 0.0
 	screen_shake_strength = 0.0
+	warning2_elapsed_time = 0.0
+	warning2_shake_timer = 0.0
 
-	if scare_meter_sfx and scare_meter_sfx.playing:
-		scare_meter_sfx.stop()
+	if scare_meter_sfx:
+		if scare_meter_sfx.playing:
+			scare_meter_sfx.stop()
+
+	if scare_alarm_sfx and scare_alarm_sfx.playing:
+		scare_alarm_sfx.stop()
 
 	if alarm_sfx and alarm_sfx.playing:
 		alarm_sfx.stop()
 
-	if screen_distort_sfx and screen_distort_sfx.playing and scare_warning_stage < 2:
+	if screen_distort_sfx and screen_distort_sfx.playing:
 		screen_distort_sfx.stop()
 
 	if scare_warning_stage < 2:
@@ -836,55 +861,22 @@ func process_scare_meter(delta: float) -> void:
 
 	update_scare_meter_visual()
 
-	# 70% to 99% = scare meter core tension state
-	if scare_fill_progress >= SCARE_AUDIO_THRESHOLD and scare_fill_progress < 1.0:
-		if scare_meter_sfx and scare_meter_sfx.stream and not scare_meter_sfx.playing:
-			scare_meter_sfx.play()
-
-		if alarm_sfx and alarm_sfx.stream and not alarm_sfx.playing:
+	# Only alarm_sfx from 80% to below 100%
+	if scare_fill_progress >= 0.80 and scare_fill_progress < 1.0:
+		if alarm_sfx and not alarm_sfx.playing:
 			alarm_sfx.play()
-
-		# if you want the scare meter alarm state to overpower normal gameplay audio
-		if in_game_music and in_game_music.playing:
-			in_game_music.stop()
-
-		# keep distortion only if your current warning logic already uses it
-		if scare_warning_stage >= 2:
-			if screen_distort_sfx and screen_distort_sfx.stream and not screen_distort_sfx.playing:
-				screen_distort_sfx.play()
-
-		var alarm_strength: float = lerp(3.0, 7.0, scare_fill_progress)
-		start_screen_shake(0.15, alarm_strength)
-		start_flicker(0.08, 0.10)
-
-	# below 70% = normal gameplay audio
 	else:
-		if scare_meter_sfx and scare_meter_sfx.playing:
-			scare_meter_sfx.stop()
-
 		if alarm_sfx and alarm_sfx.playing:
 			alarm_sfx.stop()
-
-		if screen_distort_sfx and screen_distort_sfx.playing and scare_warning_stage < 2:
-			screen_distort_sfx.stop()
-
-		if scare_warning_stage < 2:
-			if in_game_music and in_game_music.stream and not in_game_music.playing:
-				in_game_music.play()
 
 	if scare_fill_progress >= 1.0:
 		scare_fill_progress = 0.0
 		scare_alarm_triggered = false
 
-		if scare_meter_sfx and scare_meter_sfx.playing:
-			scare_meter_sfx.stop()
-
 		if alarm_sfx and alarm_sfx.playing:
 			alarm_sfx.stop()
 
-		if screen_distort_sfx and screen_distort_sfx.playing and scare_warning_stage < 2:
-			screen_distort_sfx.stop()
-
+		start_screen_shake(0.22, 12.0)
 		play_mistake_sfx()
 
 		if _is_true_form_character(current_character) or _is_disguised_character(current_character):
@@ -904,14 +896,11 @@ func advance_warning_state_from_meter() -> void:
 
 	elif scare_warning_stage == 2:
 		scare_fill_speed_multiplier = WARNING2_SPEED_MULTIPLIER
-		warning2_distortion_timer = randf_range(2.4, 3.4)
-
-		play_screen_distort_sfx()
-		play_alarm_sfx()
-
-		start_screen_shake(0.50, 13.0)
-		start_flicker(0.10, 0.15)
+		warning2_distortion_timer = randf_range(2.0, 4.0)
+		warning2_shake_timer = warning2_burst_interval
+		warning2_elapsed_time = 0.0
 		show_warning2_overlay()
+		show_bloody_ui2()
 
 	elif scare_warning_stage >= 3:
 		trigger_jumpscare()
@@ -926,55 +915,61 @@ func advance_warning_state_from_mistake() -> void:
 
 	elif scare_warning_stage == 2:
 		scare_fill_speed_multiplier = WARNING2_SPEED_MULTIPLIER
-		warning2_distortion_timer = randf_range(2.4, 3.4)
-
-		play_screen_distort_sfx()
-		play_alarm_sfx()
-
-		start_screen_shake(0.40, 12.0)
-		start_flicker(0.10, 0.15)
+		warning2_distortion_timer = randf_range(2.0, 4.0)
+		warning2_shake_timer = warning2_burst_interval
+		warning2_elapsed_time = 0.0
 		show_warning2_overlay()
+		show_bloody_ui2()
 
 	elif scare_warning_stage >= 3:
 		trigger_jumpscare()
 
-func play_scare_alarm_sfx() -> void:
-	if scare_alarm_sfx and scare_alarm_sfx.stream:
-		if scare_alarm_sfx.playing:
-			scare_alarm_sfx.stop()
-		scare_alarm_sfx.play()
-
 func _process(delta: float) -> void:
 	process_scare_meter(delta)
+
+	var warning1_or_higher: bool = scare_warning_stage >= 1 and not game_over
+	var warning2_active: bool = scare_warning_stage >= 2 and not game_over
 
 	if screen_shake_time > 0.0:
 		screen_shake_time -= delta
 
-		var panic_multiplier: float = clamp(screen_shake_time * 6.0, 0.6, 1.6)
+		var shake_ratio: float = clamp(screen_shake_time / 0.36, 0.0, 1.0)
+		var t: float = Time.get_ticks_msec() * 0.001
+
+		var slam_x: float = sin(t * 62.0) * screen_shake_strength * 1.85 * shake_ratio
+		var slam_y: float = cos(t * 41.0) * screen_shake_strength * 0.55 * shake_ratio
+
+		var random_x: float = randf_range(-screen_shake_strength * 0.26, screen_shake_strength * 0.26)
+		var random_y: float = randf_range(-screen_shake_strength * 0.14, screen_shake_strength * 0.14)
 
 		var offset := Vector2(
-			randf_range(-screen_shake_strength, screen_shake_strength) * 1.3,
-			randf_range(-screen_shake_strength * 0.6, screen_shake_strength * 0.6)
+			slam_x + random_x,
+			slam_y + random_y
 		)
-
-		offset += Vector2(
-			sin(Time.get_ticks_msec() * 0.045) * 2.5,
-			cos(Time.get_ticks_msec() * 0.038) * 1.4
-		) * panic_multiplier
 
 		_apply_layer_shake_offset(offset)
 
-	if screen_shake_time <= 0.0:
+	elif warning1_or_higher:
+		warning2_elapsed_time += delta
+
+		var t: float = Time.get_ticks_msec() * 0.001
+		var sway_x: float = 0.35
+		var sway_y: float = 0.18
+
+		if warning2_active:
+			var sway_growth: float = clamp(warning2_elapsed_time / 18.0, 0.0, 1.0)
+			sway_x = lerp(0.35, 0.75, sway_growth)
+			sway_y = lerp(0.18, 0.40, sway_growth)
+
+		var subtle_offset := Vector2(
+			sin(t * 2.2) * sway_x,
+			cos(t * 1.7) * sway_y
+		)
+
+		_apply_layer_shake_offset(subtle_offset)
+
+	else:
 		_apply_layer_shake_offset(Vector2.ZERO)
-
-	if scare_warning_stage >= 2 and screen_shake_time <= 0.0 and not game_over:
-		_apply_layer_shake_offset(Vector2(
-			sin(Time.get_ticks_msec() * 0.0032) * 2.6,
-			cos(Time.get_ticks_msec() * 0.0024) * 1.8
-		))
-
-		if alarm_sfx and not alarm_sfx.playing:
-			alarm_sfx.play()
 
 	if flicker_time > 0.0:
 		flicker_time -= delta
@@ -982,7 +977,7 @@ func _process(delta: float) -> void:
 	else:
 		_reset_flicker()
 
-	if scare_warning_stage >= 2 and not game_over:
+	if warning2_active:
 		if warning2_overlay:
 			if not warning2_overlay.visible:
 				show_warning2_overlay()
@@ -995,7 +990,6 @@ func _process(delta: float) -> void:
 			)
 
 			var alpha := warning2_overlay_base_alpha + (pulse * warning2_overlay_flicker_strength)
-
 			alpha += randf_range(-0.01, 0.01)
 			warning2_overlay.modulate.a = clamp(alpha, 0.45, 0.82)
 
@@ -1012,24 +1006,35 @@ func _process(delta: float) -> void:
 			warning2_overlay.position = warning2_overlay_base_position + drift_offset + jitter_offset
 
 		warning2_distortion_timer -= delta
-
 		if warning2_distortion_timer <= 0.0:
-			warning2_distortion_timer = randf_range(1.6, 2.5)
-
-			start_screen_shake(randf_range(0.28, 0.42), 10.5)
+			warning2_distortion_timer = randf_range(2.0, 4.0)
 			play_screen_distort_sfx()
-			start_flicker(0.10, 0.15)
+
+		warning2_shake_timer -= delta
+		if warning2_shake_timer <= 0.0:
+			warning2_shake_timer = warning2_burst_interval
+
+			var burst_growth: float = clamp(warning2_elapsed_time / 18.0, 0.0, 1.0)
+			var burst_strength: float = lerp(8.5, 12.5, burst_growth)
+
+			start_screen_shake(0.36, burst_strength)
 
 	else:
 		warning2_distortion_timer = 0.0
+		warning2_shake_timer = 0.0
+
+		if scare_warning_stage < 1:
+			warning2_elapsed_time = 0.0
 
 		if warning2_overlay and warning2_overlay.visible:
 			hide_warning2_overlay()
-
-		if alarm_sfx and alarm_sfx.playing and scare_warning_stage < 2:
-			alarm_sfx.stop()
-
+		
 func _apply_layer_shake_offset(offset: Vector2) -> void:
+	if offset == current_shake_offset:
+		return
+
+	current_shake_offset = offset
+
 	for layer in shake_layers:
 		if layer == null:
 			continue
@@ -1078,28 +1083,6 @@ func _reset_flicker() -> void:
 	if documents_shake is CanvasItem:
 		documents_shake.modulate = Color.WHITE
 
-func _character_uses_blinds(character: Node) -> bool:
-	if character == null:
-		return false
-	return bool(character.get("anomaly_uses_blinds"))
-
-func _get_character_anomaly_duration(character: Node) -> float:
-	if character == null:
-		return 0.0
-
-	var custom_duration = character.get("custom_scare_duration")
-
-	if typeof(custom_duration) in [TYPE_FLOAT, TYPE_INT] and float(custom_duration) > 0.0:
-		return float(custom_duration)
-
-	if _is_true_form_character(character):
-		return 4.0
-
-	if _is_disguised_character(character):
-		return 8.0
-
-	return 0.0
-
 func show_warning2_overlay() -> void:
 	if warning2_overlay == null:
 		return
@@ -1117,6 +1100,51 @@ func hide_warning2_overlay() -> void:
 	warning2_overlay.modulate.a = 0.0
 	warning2_overlay_motion_time = 0.0
 	warning2_overlay.position = warning2_overlay_base_position
+	hide_bloody_ui2()
 
-func get_inspection_controller():
-	return get_tree().get_first_node_in_group("inspection_controller")
+func _is_meredith_true_form(character: Node) -> bool:
+	if character == null:
+		return false
+
+	if not _is_true_form_character(character):
+		return false
+
+	if character.has_method("get_character_id"):
+		return str(character.get_character_id()).to_lower() == "meredith_grey"
+
+	var scene_path := ""
+	if character.scene_file_path != null:
+		scene_path = str(character.scene_file_path).to_lower()
+
+	return "meredith" in scene_path
+	
+func _hide_all_jumpscare_sprites() -> void:
+	if jumpscare_sprite:
+		jumpscare_sprite.visible = false
+		jumpscare_sprite.stop()
+
+	if meredith_jumpscare_sprite:
+		meredith_jumpscare_sprite.visible = false
+		meredith_jumpscare_sprite.stop()
+
+	active_jumpscare_sprite = null
+	
+func _get_active_jumpscare_sprite() -> AnimatedSprite2D:
+	if _is_meredith_true_form(current_character) and meredith_jumpscare_sprite:
+		return meredith_jumpscare_sprite
+
+	return jumpscare_sprite
+	
+func show_bloody_ui2() -> void:
+	if bloodier_minitable:
+		bloodier_minitable.visible = true
+
+	if bloodier_organizer:
+		bloodier_organizer.visible = true
+		
+func hide_bloody_ui2() -> void:
+	if bloodier_minitable:
+		bloodier_minitable.visible = false
+
+	if bloodier_organizer:
+		bloodier_organizer.visible = false

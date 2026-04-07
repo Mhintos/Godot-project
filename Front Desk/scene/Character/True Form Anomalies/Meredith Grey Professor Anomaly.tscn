@@ -28,6 +28,7 @@ animations = [{
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_cmr7d")
+identity_key = "meredith_grey"
 enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")
@@ -39,12 +40,12 @@ custom_scare_duration = 3.0
 expected_decision = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(12, 146.18877)
-scale = Vector2(3, 2.7562244)
+position = Vector2(12, 147.68878)
+scale = Vector2(3, 2.7862246)
 sprite_frames = SubResource("SpriteFrames_73hae")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.020989196
+frame_progress = 0.41700757
 
 [node name="MiniDocAnchor" type="Node2D" parent="."]
 z_index = 50
