@@ -13,7 +13,6 @@ extends Node2D
 @export var document_layer_path: NodePath
 
 @export var normal_character_scenes: Array[PackedScene]
-@export var forged_character_scenes: Array[PackedScene]
 @export var disguised_character_scenes: Array[PackedScene]
 @export var true_form_character_scenes: Array[PackedScene]
 
@@ -22,21 +21,17 @@ extends Node2D
 
 @export var jumpscare_sprite_path: NodePath
 
-@export var max_characters_per_shift: int = 4
+@export var max_characters_per_shift: int = 10
 @export var success_scene_path: String = "res://scene/Success/success.tscn"
 @export var game_over_scene_path: String = "res://scene/GameOver/game_over.tscn"
 
-<<<<<<< Updated upstream
-=======
 @export var warning2_overlay_path: NodePath
 
-@onready var warning2_overlay: TextureRect = null
+@onready var warning2_overlay: TextureRect = get_node_or_null(warning2_overlay_path)
 
-@onready var dialogue_ui = $DialogueUI/DialogueUI
-@export var microphone_button: TextureButton = null
-
->>>>>>> Stashed changes
 @onready var bg_layer_shake: Node = $"BG Layer"
+@onready var table_layer_shake: Node = $"BG Layer/Table Layer"
+@onready var uilayer_shake: Node = $"BG Layer/Table Layer/UILayer"
 @onready var blinds_layer_shake: Node = $"Blinds Layer"
 @onready var character_layer_shake: Node = $"Character Layer"
 @onready var documents_shake: Node = $"Documents"
@@ -68,7 +63,38 @@ extends Node2D
 @onready var screen_distort_sfx: AudioStreamPlayer = $SFX/ScreenDistortSFX
 @onready var jumpscare_sfx: AudioStreamPlayer = $SFX/JumpscareSFX
 
-var shift_queue: Array[PackedScene] = []
+@onready var alarm_sfx: AudioStreamPlayer = $"Screen Damage Overlay/AlarmSFX"
+@onready var blood_damage_sfx: AudioStreamPlayer = $"Screen Damage Overlay/BloodDamageSFX"
+@onready var approve_button_sfx: AudioStreamPlayer = $"Screen Damage Overlay/ApproveButtonSFX"
+@onready var deny_button_sfx: AudioStreamPlayer = $"Screen Damage Overlay/DenyButtonSFX"
+@onready var hover_sfx: AudioStreamPlayer = $"Screen Damage Overlay/HoverSFX"
+@onready var click_sfx: AudioStreamPlayer = $"Screen Damage Overlay/ClickSFX"
+@onready var lever_sfx: AudioStreamPlayer = $"Screen Damage Overlay/LeverSFX"
+@onready var blinds_up_sfx: AudioStreamPlayer = $"Screen Damage Overlay/BlindsUpSFX"
+@onready var blinds_down_sfx: AudioStreamPlayer = $"Screen Damage Overlay/BlindsDownSFX"
+@onready var scare_meter_sfx: AudioStreamPlayer = $"Screen Damage Overlay/ScareMeterSFX"
+
+const NORMALS_PER_RUN := 6
+const DISGUISED_PER_RUN := 2
+const TRUE_FORMS_PER_RUN := 2
+
+const WARNING2_SPEED_MULTIPLIER := 1.5
+const SCARE_AUDIO_THRESHOLD := 0.70
+const DEBUG_LOGS := false
+
+
+
+var shift_queue: Array = []
+
+var warning2_overlay_motion_time: float = 0.0
+var warning2_overlay_base_alpha: float = 0.62
+var warning2_overlay_flicker_strength: float = 0.14
+var warning2_overlay_pulse_speed: float = 0.75
+
+var warning2_overlay_drift_x: float = 10.0
+var warning2_overlay_drift_y: float = 6.0
+var warning2_overlay_jitter_strength: float = 1.1
+var warning2_overlay_base_position: Vector2 = Vector2.ZERO
 
 var _char_index := 0
 var current_character: Node2D = null
@@ -93,17 +119,7 @@ var scare_warning_stage := 0
 var scare_alarm_triggered := false
 
 var current_scare_duration := 30.0
-
 var normal_scare_times := [30.0, 27.0, 24.0, 21.0]
-const WARNING2_SPEED_MULTIPLIER := 1.5
-const SCARE_ALARM_THRESHOLD := 0.85
-
-var character_dialogue_messages: Array = []
-var microphone_used := false
-var current_approved_messages: Array = [] 
-var current_denied_messages: Array = []    
-
-const DEBUG_LOGS := false
 
 func debug_log(msg) -> void:
 	if DEBUG_LOGS:
@@ -115,19 +131,29 @@ func _ready() -> void:
 	approve_btn.pressed.connect(func(): _on_decision_pressed("approve"))
 	deny_btn.pressed.connect(func(): _on_decision_pressed("deny"))
 
+	if approve_btn.has_signal("mouse_entered"):
+		approve_btn.mouse_entered.connect(play_hover_sfx)
+	if deny_btn.has_signal("mouse_entered"):
+		deny_btn.mouse_entered.connect(play_hover_sfx)
+
+	if true_form_timer and not true_form_timer.timeout.is_connected(_on_true_form_timer_timeout):
+		true_form_timer.timeout.connect(_on_true_form_timer_timeout)
+
 	if blinds_system:
-		blinds_system.blinds_closed_success.connect(_on_blinds_closed_success)
+		if blinds_system.has_signal("blinds_closed_success"):
+			blinds_system.blinds_closed_success.connect(_on_blinds_closed_success)
 	else:
 		push_error("BlindsSystem not found in _ready(). Check node path.")
 
-	jumpscare_sprite.visible = false
-	jumpscare_sprite.animation_finished.connect(_on_jumpscare_finished)
-
-	if microphone_button:
-		microphone_button.pressed.connect(_on_microphone_pressed)
+	if jumpscare_sprite:
+		jumpscare_sprite.visible = false
+		if not jumpscare_sprite.animation_finished.is_connected(_on_jumpscare_finished):
+			jumpscare_sprite.animation_finished.connect(_on_jumpscare_finished)
 
 	shake_layers = [
 		bg_layer_shake,
+		table_layer_shake,
+		uilayer_shake,
 		blinds_layer_shake,
 		character_layer_shake,
 		documents_shake,
@@ -144,85 +170,121 @@ func _ready() -> void:
 		elif layer is CanvasLayer:
 			original_layer_positions[layer] = layer.offset
 
-	reset_run_state()
+	if warning2_overlay:
+		warning2_overlay_base_position = warning2_overlay.position
+		warning2_overlay.visible = false
+		warning2_overlay.modulate.a = 0.0
 
 	screen_shake_time = 0.0
 	screen_shake_strength = 0.0
 	warning2_distortion_timer = 0.0
 	_apply_layer_shake_offset(Vector2.ZERO)
 
+	if in_game_music and in_game_music.stream and not in_game_music.playing:
+		in_game_music.play()
+
+	reset_run_state()
+
 func generate_shift_queue() -> void:
-	print("Generating shift queue...")
-	print("Normal scenes count: ", normal_character_scenes.size())
-	print("Disguised scenes count: ", disguised_character_scenes.size())
-	print("True form scenes count: ", true_form_character_scenes.size())
 	shift_queue.clear()
 
 	var rng := RandomNumberGenerator.new()
 	rng.randomize()
 
-	if normal_character_scenes.is_empty():
-		push_error("No normal characters assigned in normal_character_scenes.")
+	if normal_character_scenes.size() < NORMALS_PER_RUN:
+		push_error("Need at least %d normal characters." % NORMALS_PER_RUN)
 		return
 
-	var normal_pool: Array[PackedScene] = normal_character_scenes.duplicate()
+	if disguised_character_scenes.size() < DISGUISED_PER_RUN:
+		push_error("Need at least %d disguised characters." % DISGUISED_PER_RUN)
+		return
+
+	if true_form_character_scenes.size() < TRUE_FORMS_PER_RUN:
+		push_error("Need at least %d true form characters." % TRUE_FORMS_PER_RUN)
+		return
+
+	var selected_normals: Array[PackedScene] = normal_character_scenes.duplicate()
+	selected_normals.shuffle()
+	selected_normals = selected_normals.slice(0, NORMALS_PER_RUN)
+
+	var first_normal: PackedScene = selected_normals[0]
+	shift_queue.append({
+		"scene": first_normal,
+		"is_forged": false,
+		"type": "normal"
+	})
+
+	var remaining_normals: Array[PackedScene] = selected_normals.slice(1, selected_normals.size())
+
+	var forged_count := rng.randi_range(2, 3)
+	forged_count = min(forged_count, remaining_normals.size())
+
+	var forged_pick_pool: Array[PackedScene] = remaining_normals.duplicate()
+	forged_pick_pool.shuffle()
+
+	var forged_selected: Array[PackedScene] = forged_pick_pool.slice(0, forged_count)
+
+	var tail_queue: Array = []
+
+	for scene in remaining_normals:
+		tail_queue.append({
+			"scene": scene,
+			"is_forged": forged_selected.has(scene),
+			"type": "normal"
+		})
+
 	var disguised_pool: Array[PackedScene] = disguised_character_scenes.duplicate()
-	var true_form_pool: Array[PackedScene] = true_form_character_scenes.duplicate()
-
-	normal_pool.shuffle()
 	disguised_pool.shuffle()
+	for i in range(DISGUISED_PER_RUN):
+		tail_queue.append({
+			"scene": disguised_pool[i],
+			"is_forged": false,
+			"type": "disguised"
+		})
+
+	var true_form_pool: Array[PackedScene] = true_form_character_scenes.duplicate()
 	true_form_pool.shuffle()
+	for i in range(TRUE_FORMS_PER_RUN):
+		tail_queue.append({
+			"scene": true_form_pool[i],
+			"is_forged": false,
+			"type": "true_form"
+		})
 
-	# First character must always be normal and correct
-	var first_character: PackedScene = normal_pool.pop_front()
-	shift_queue.append(first_character)
-
-	var remaining_pool: Array[PackedScene] = []
-
-	# Add all remaining normals
-	for scene in normal_pool:
-		remaining_pool.append(scene)
-
-	# Add all disguised characters
-	for scene in disguised_pool:
-		remaining_pool.append(scene)
-
-	# Add all true form anomalies
-	for scene in true_form_pool:
-		remaining_pool.append(scene)
-
-	remaining_pool.shuffle()
-
-	for scene in remaining_pool:
-		if shift_queue.size() >= max_characters_per_shift:
-			break
-		shift_queue.append(scene)
+	tail_queue.shuffle()
+	shift_queue.append_array(tail_queue)
 
 	debug_log("Generated shift queue size: " + str(shift_queue.size()))
 	for i in range(shift_queue.size()):
-		print("QUEUE[", i, "]: ", shift_queue[i].resource_path)
+		var entry = shift_queue[i]
+		print("QUEUE[", i, "]: ", entry["scene"].resource_path, " | forged=", entry["is_forged"], " | type=", entry["type"])
 
 func spawn_character() -> void:
-	print("spawn_character called, shift_queue size: ", shift_queue.size())
 	if shift_queue.is_empty():
 		push_error("Shift queue is empty. Generate the shift queue first.")
 		return
 
 	_lock_gameplay()
 
-	microphone_used = false
-	character_dialogue_messages = []
-
 	_cleanup_current_character()
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
+
+	var doc_manager = get_tree().get_first_node_in_group("document_manager")
+	if doc_manager and doc_manager.has_method("clear_opened_docs"):
+		doc_manager.clear_opened_docs()
 
 	if _char_index >= shift_queue.size():
 		debug_log("No more characters left to spawn.")
 		return
 
-	current_character = shift_queue[_char_index].instantiate()
+	var entry: Dictionary = shift_queue[_char_index]
 	_char_index += 1
+
+	current_character = entry["scene"].instantiate()
+
+	if current_character.has_method("apply_run_variant"):
+		current_character.apply_run_variant(bool(entry.get("is_forged", false)))
 
 	current_scare_duration = get_current_normal_scare_duration()
 	reset_scare_meter()
@@ -259,7 +321,6 @@ func _on_first_mini_doc_interacted() -> void:
 	if scare_started:
 		return
 
-	# True form has no doc-start trigger; it starts automatically at stop
 	if _is_true_form_character(current_character):
 		return
 
@@ -269,24 +330,11 @@ func _on_character_reached_stop() -> void:
 	if current_character == null:
 		return
 
-	if current_character.has_method("get_dialogue_messages"):
-		character_dialogue_messages = current_character.get_dialogue_messages()
-	else:
-		character_dialogue_messages = []
-	_lock_gameplay()
+	play_sliding_paper_sfx()
 
-	if microphone_button and character_dialogue_messages.size() > 0:
-		microphone_button.visible = true
-		var mic_sprite = microphone_button.get_node("MicSprite")
-		if mic_sprite:
-			mic_sprite.play("hint")
-			await mic_sprite.animation_finished
-			if mic_sprite.is_visible_in_tree() and mic_sprite.animation == "hint":
-				mic_sprite.play("default")
-	else:
-		_unlock_gameplay()
+	if footstep_sfx and footstep_sfx.playing:
+		footstep_sfx.stop()
 
-	# True form anomaly
 	if _is_true_form_character(current_character):
 		true_form_active = true
 		current_scare_duration = 4.0
@@ -297,14 +345,15 @@ func _on_character_reached_stop() -> void:
 		play_true_form_presence_sfx()
 		play_screen_distort_sfx()
 
-		# Start the scare meter automatically for true form
 		scare_started = true
 		scare_alarm_triggered = false
+
+		if true_form_timer:
+			true_form_timer.start(current_scare_duration)
 
 		debug_log("True form reached stop. 4-second anomaly state started.")
 		return
 
-	# Disguised anomaly
 	if _is_disguised_character(current_character):
 		true_form_active = true
 		current_scare_duration = 8.0
@@ -312,42 +361,21 @@ func _on_character_reached_stop() -> void:
 		approve_btn.disabled = true
 		deny_btn.disabled = true
 
-		# No true form appearance SFX here
-		# play_screen_distort_sfx() # optional only if you want visual tension
+		if current_character.has_method("spawn_documents"):
+			current_character.spawn_documents()
+
+		scare_started = true
+		scare_alarm_triggered = false
+
+		if true_form_timer:
+			true_form_timer.start(current_scare_duration)
 
 		debug_log("Disguised reached stop. 8-second anomaly state started.")
 		return
 
-func _on_microphone_pressed() -> void:
-	var mic_sprite = microphone_button.get_node("MicSprite")
-	play_sliding_paper_sfx()
-	if mic_sprite:
-		mic_sprite.stop()
-	if not dialogue_ui or not current_character:
-		return
-	if microphone_used:
-		return
-	microphone_used = true
-
-	# Spawn documents (paper sound already played in _on_character_reached_stop)
 	if current_character.has_method("spawn_documents"):
 		current_character.spawn_documents()
 
-	# Start the initial dialogue
-	if character_dialogue_messages.size() > 0:
-		if dialogue_ui.conversation_finished.is_connected(_on_dialogue_finished):
-				dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
-		dialogue_ui.conversation_finished.connect(_on_dialogue_finished)
-		dialogue_ui.visible = true
-		dialogue_ui.start_conversation(character_dialogue_messages)
-	else:
-		_on_dialogue_finished()
-
-func _on_dialogue_finished() -> void:
-	if dialogue_ui:
-		dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
-		dialogue_ui.visible = false
-	character_dialogue_messages = []
 	_unlock_gameplay()
 
 func _on_blinds_closed_success() -> void:
@@ -366,12 +394,17 @@ func _reject_true_form() -> void:
 	true_form_timer.stop()
 	true_form_active = false
 	reset_scare_meter()
+	stop_anomaly_sfx()
 
 	approve_btn.disabled = false
 	deny_btn.disabled = false
 
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
+
+	var doc_manager = get_tree().get_first_node_in_group("document_manager")
+	if doc_manager and doc_manager.has_method("clear_opened_docs"):
+		doc_manager.clear_opened_docs()
 
 	if current_character and is_instance_valid(current_character):
 		if current_character.has_method("exit_left"):
@@ -409,6 +442,8 @@ func trigger_jumpscare() -> void:
 	_lock_gameplay()
 	true_form_timer.stop()
 	reset_scare_meter()
+	stop_all_looping_sfx()
+
 	approve_btn.disabled = false
 	deny_btn.disabled = false
 
@@ -423,17 +458,20 @@ func trigger_jumpscare() -> void:
 	start_screen_shake(0.2, 16.0)
 	play_jumpscare_sfx()
 
-	jumpscare_sprite.visible = true
+	if jumpscare_sprite:
+		jumpscare_sprite.visible = true
 
-	if jumpscare_sprite.sprite_frames and jumpscare_sprite.sprite_frames.has_animation("play"):
-		jumpscare_sprite.play("play")
-	else:
-		push_error("JumpscareSprite has no animation named 'play'.")
+		if jumpscare_sprite.sprite_frames and jumpscare_sprite.sprite_frames.has_animation("play"):
+			jumpscare_sprite.play("play")
+		else:
+			push_error("JumpscareSprite has no animation named 'play'.")
 
 	debug_log("JUMPSCARE START")
+	hide_warning2_overlay()
 
 func _on_jumpscare_finished() -> void:
-	jumpscare_sprite.stop()
+	if jumpscare_sprite:
+		jumpscare_sprite.stop()
 	debug_log("JUMPSCARE FINISHED")
 	get_tree().change_scene_to_file(game_over_scene_path)
 
@@ -441,13 +479,18 @@ func _on_decision_pressed(decision: String) -> void:
 	if _locked or game_over:
 		return
 
-	# Prevent decision buttons from resolving anomalies that should use blinds only
 	if true_form_active:
 		return
+
+	if decision == "approve":
+		play_approve_button_sfx()
+	elif decision == "deny":
+		play_deny_button_sfx()
 
 	_lock_gameplay()
 	true_form_timer.stop()
 	reset_scare_meter()
+	stop_anomaly_sfx()
 
 	if current_character == null:
 		true_form_active = false
@@ -469,56 +512,37 @@ func _on_decision_pressed(decision: String) -> void:
 
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
-<<<<<<< Updated upstream
-=======
-	
-	var dialogue_messages: Array = []
-	if decision == "approve":
-		if current_character.has_method("get_approve_messages"):
-			dialogue_messages = current_character.get_approve_messages()
-	else: # deny
-		if current_character.has_method("get_deny_messages"):
-			dialogue_messages = current_character.get_deny_messages()
-	
-	if dialogue_ui and dialogue_messages.size() > 0:
-		# Temporarily disconnect any previous connection
-		if dialogue_ui.conversation_finished.is_connected(_on_decision_dialogue_finished):
-			dialogue_ui.conversation_finished.disconnect(_on_decision_dialogue_finished)
-	#	 Connect to a function that will proceed with exit
-		dialogue_ui.conversation_finished.connect(_on_decision_dialogue_finished.bind(decision))
-		dialogue_ui.visible = true
-		dialogue_ui.start_conversation(dialogue_messages)
-		# The rest of the exit will be triggered after the dialogue finishes
-	else:
-		_finish_decision(decision)
-	
+
 	var doc_manager = get_tree().get_first_node_in_group("document_manager")
 	if doc_manager and doc_manager.has_method("clear_opened_docs"):
 		doc_manager.clear_opened_docs()
->>>>>>> Stashed changes
 
-func _on_decision_dialogue_finished(decision: String) -> void:
-	if dialogue_ui:
-		dialogue_ui.conversation_finished.disconnect(_on_decision_dialogue_finished)
-		dialogue_ui.visible = false
-	_finish_decision(decision)
+	var exit_method := "exit_right"
+	if decision == "deny":
+		exit_method = "exit_left"
 
-func _finish_decision(decision: String) -> void:
-	var exit_method := "exit_right" if decision == "approve" else "exit_left"
-	if current_character and current_character.has_method(exit_method):
+	if current_character.has_method(exit_method):
 		current_character.call(exit_method, func():
 			current_character = null
+
 			if blinds_system:
 				blinds_system.force_open()
-			if not game_over:
-				_finish_character_and_continue()
+
+			if game_over:
+				return
+
+			_finish_character_and_continue()
 		)
 	else:
 		current_character = null
+
 		if blinds_system:
 			blinds_system.force_open()
-		if not game_over:
-			_finish_character_and_continue()
+
+		if game_over:
+			return
+
+		_finish_character_and_continue()
 
 func _is_decision_correct(decision: String) -> bool:
 	if current_character == null:
@@ -553,8 +577,11 @@ func _register_mistake() -> void:
 	advance_warning_state_from_mistake()
 
 func _show_bloody_ui() -> void:
-	blood_minitable.visible = true
-	blood_organizer.visible = true
+	if blood_minitable:
+		blood_minitable.visible = true
+	if blood_organizer:
+		blood_organizer.visible = true
+	play_blood_damage_sfx()
 	debug_log("SHOW BLOODY UI WARNING")
 
 func _clear_layer(layer: Node) -> void:
@@ -582,7 +609,6 @@ func _unlock_gameplay() -> void:
 	_disable_buttons(false)
 
 func reset_run_state() -> void:
-	print("reset_run_state called")
 	if blood_minitable:
 		blood_minitable.visible = false
 
@@ -592,7 +618,10 @@ func reset_run_state() -> void:
 	if jumpscare_sprite:
 		jumpscare_sprite.visible = false
 		jumpscare_sprite.stop()
+
 	reset_scare_meter()
+	stop_all_looping_sfx()
+
 	scare_warning_stage = 0
 	current_scare_duration = 30.0
 	warning2_distortion_timer = 0.0
@@ -608,18 +637,17 @@ func reset_run_state() -> void:
 	_char_index = 0
 	shift_queue.clear()
 
-	blood_minitable.visible = false
-	blood_organizer.visible = false
-	jumpscare_sprite.visible = false
-	jumpscare_sprite.stop()
-
 	true_form_timer.stop()
 	_disable_buttons(false)
 
 	_clear_layer(mini_table_layer)
 	_clear_layer(document_layer)
-	_cleanup_current_character()
 
+	var doc_manager = get_tree().get_first_node_in_group("document_manager")
+	if doc_manager and doc_manager.has_method("clear_opened_docs"):
+		doc_manager.clear_opened_docs()
+
+	_cleanup_current_character()
 	_apply_layer_shake_offset(Vector2.ZERO)
 
 	if blinds_system:
@@ -628,15 +656,16 @@ func reset_run_state() -> void:
 		push_error("BlindsSystem not found. Check node path.")
 
 	generate_shift_queue()
-	print("Shift queue size after generation: ", shift_queue.size())
 	spawn_character()
 
+	hide_warning2_overlay()
+
 func _finish_character_and_continue() -> void:
-	microphone_used = false
 	processed_characters += 1
 	debug_log("Processed characters: " + str(processed_characters) + "/" + str(max_characters_per_shift))
 
 	if processed_characters >= max_characters_per_shift:
+		stop_all_looping_sfx()
 		get_tree().change_scene_to_file(success_scene_path)
 		return
 
@@ -648,32 +677,91 @@ func _finish_character_and_continue() -> void:
 	spawn_character()
 
 func play_footstep_sfx() -> void:
-	if footstep_sfx.stream:
-		footstep_sfx.play()
+	if footstep_sfx and footstep_sfx.stream:
+		if not footstep_sfx.playing:
+			footstep_sfx.play()
 
 func play_sliding_paper_sfx() -> void:
-	if sliding_paper_sfx.stream:
+	if sliding_paper_sfx and sliding_paper_sfx.stream:
 		sliding_paper_sfx.play()
 
 func play_page_turn_sfx() -> void:
-	if page_turn_sfx.stream and not page_turn_sfx.playing:
+	if page_turn_sfx and page_turn_sfx.stream and not page_turn_sfx.playing:
 		page_turn_sfx.play()
 
 func play_mistake_sfx() -> void:
-	if mistake_sfx.stream and not mistake_sfx.playing:
+	if mistake_sfx and mistake_sfx.stream and not mistake_sfx.playing:
 		mistake_sfx.play()
 
 func play_true_form_presence_sfx() -> void:
-	if true_form_presence_sfx.stream and not true_form_presence_sfx.playing:
+	if true_form_presence_sfx and true_form_presence_sfx.stream and not true_form_presence_sfx.playing:
 		true_form_presence_sfx.play()
 
 func play_screen_distort_sfx() -> void:
-	if screen_distort_sfx.stream and not screen_distort_sfx.playing:
+	if screen_distort_sfx and screen_distort_sfx.stream and not screen_distort_sfx.playing:
 		screen_distort_sfx.play()
 
 func play_jumpscare_sfx() -> void:
-	if jumpscare_sfx.stream and not jumpscare_sfx.playing:
+	if jumpscare_sfx and jumpscare_sfx.stream and not jumpscare_sfx.playing:
 		jumpscare_sfx.play()
+
+func play_alarm_sfx() -> void:
+	if alarm_sfx and alarm_sfx.stream:
+		if alarm_sfx.playing:
+			alarm_sfx.stop()
+		alarm_sfx.play()
+
+func play_blood_damage_sfx() -> void:
+	if blood_damage_sfx and blood_damage_sfx.stream and not blood_damage_sfx.playing:
+		blood_damage_sfx.play()
+
+func play_approve_button_sfx() -> void:
+	if approve_button_sfx and approve_button_sfx.stream:
+		approve_button_sfx.play()
+
+func play_deny_button_sfx() -> void:
+	if deny_button_sfx and deny_button_sfx.stream:
+		deny_button_sfx.play()
+
+func play_hover_sfx() -> void:
+	if hover_sfx and hover_sfx.stream:
+		hover_sfx.play()
+
+func play_click_sfx() -> void:
+	if click_sfx and click_sfx.stream:
+		click_sfx.play()
+
+func play_lever_sfx() -> void:
+	if lever_sfx and lever_sfx.stream:
+		lever_sfx.play()
+
+func play_blinds_up_sfx() -> void:
+	if blinds_up_sfx and blinds_up_sfx.stream:
+		blinds_up_sfx.play()
+
+func play_blinds_down_sfx() -> void:
+	if blinds_down_sfx and blinds_down_sfx.stream:
+		blinds_down_sfx.play()
+
+func stop_anomaly_sfx() -> void:
+	if true_form_presence_sfx and true_form_presence_sfx.playing:
+		true_form_presence_sfx.stop()
+	if screen_distort_sfx and screen_distort_sfx.playing and scare_warning_stage < 2:
+		screen_distort_sfx.stop()
+
+func stop_all_looping_sfx() -> void:
+	if footstep_sfx and footstep_sfx.playing:
+		footstep_sfx.stop()
+	if true_form_presence_sfx and true_form_presence_sfx.playing:
+		true_form_presence_sfx.stop()
+	if screen_distort_sfx and screen_distort_sfx.playing:
+		screen_distort_sfx.stop()
+	if scare_alarm_sfx and scare_alarm_sfx.playing:
+		scare_alarm_sfx.stop()
+	if scare_meter_sfx and scare_meter_sfx.playing:
+		scare_meter_sfx.stop()
+	if alarm_sfx and alarm_sfx.playing:
+		alarm_sfx.stop()
 
 func start_scare_meter() -> void:
 	if scare_started:
@@ -692,6 +780,19 @@ func reset_scare_meter() -> void:
 	scare_alarm_triggered = false
 	screen_shake_time = 0.0
 	screen_shake_strength = 0.0
+
+	if scare_meter_sfx and scare_meter_sfx.playing:
+		scare_meter_sfx.stop()
+
+	if alarm_sfx and alarm_sfx.playing:
+		alarm_sfx.stop()
+
+	if screen_distort_sfx and screen_distort_sfx.playing and scare_warning_stage < 2:
+		screen_distort_sfx.stop()
+
+	if scare_warning_stage < 2:
+		if in_game_music and in_game_music.stream and not in_game_music.playing:
+			in_game_music.play()
 
 	if scare_warning_stage >= 2:
 		scare_fill_speed_multiplier = WARNING2_SPEED_MULTIPLIER
@@ -735,19 +836,57 @@ func process_scare_meter(delta: float) -> void:
 
 	update_scare_meter_visual()
 
-	if scare_fill_progress >= SCARE_ALARM_THRESHOLD and not scare_alarm_triggered:
-		scare_alarm_triggered = true
-		play_scare_alarm_sfx()
+	# 70% to 99% = scare meter core tension state
+	if scare_fill_progress >= SCARE_AUDIO_THRESHOLD and scare_fill_progress < 1.0:
+		if scare_meter_sfx and scare_meter_sfx.stream and not scare_meter_sfx.playing:
+			scare_meter_sfx.play()
+
+		if alarm_sfx and alarm_sfx.stream and not alarm_sfx.playing:
+			alarm_sfx.play()
+
+		# if you want the scare meter alarm state to overpower normal gameplay audio
+		if in_game_music and in_game_music.playing:
+			in_game_music.stop()
+
+		# keep distortion only if your current warning logic already uses it
+		if scare_warning_stage >= 2:
+			if screen_distort_sfx and screen_distort_sfx.stream and not screen_distort_sfx.playing:
+				screen_distort_sfx.play()
 
 		var alarm_strength: float = lerp(3.0, 7.0, scare_fill_progress)
 		start_screen_shake(0.15, alarm_strength)
 		start_flicker(0.08, 0.10)
 
+	# below 70% = normal gameplay audio
+	else:
+		if scare_meter_sfx and scare_meter_sfx.playing:
+			scare_meter_sfx.stop()
+
+		if alarm_sfx and alarm_sfx.playing:
+			alarm_sfx.stop()
+
+		if screen_distort_sfx and screen_distort_sfx.playing and scare_warning_stage < 2:
+			screen_distort_sfx.stop()
+
+		if scare_warning_stage < 2:
+			if in_game_music and in_game_music.stream and not in_game_music.playing:
+				in_game_music.play()
+
 	if scare_fill_progress >= 1.0:
 		scare_fill_progress = 0.0
 		scare_alarm_triggered = false
 
-		# True form and disguised fail when their bar fully fills
+		if scare_meter_sfx and scare_meter_sfx.playing:
+			scare_meter_sfx.stop()
+
+		if alarm_sfx and alarm_sfx.playing:
+			alarm_sfx.stop()
+
+		if screen_distort_sfx and screen_distort_sfx.playing and scare_warning_stage < 2:
+			screen_distort_sfx.stop()
+
+		play_mistake_sfx()
+
 		if _is_true_form_character(current_character) or _is_disguised_character(current_character):
 			trigger_jumpscare()
 			return
@@ -757,6 +896,7 @@ func process_scare_meter(delta: float) -> void:
 func advance_warning_state_from_meter() -> void:
 	scare_warning_stage += 1
 	play_mistake_sfx()
+
 	debug_log("Scare warning stage from meter: " + str(scare_warning_stage))
 
 	if scare_warning_stage == 1:
@@ -765,15 +905,20 @@ func advance_warning_state_from_meter() -> void:
 	elif scare_warning_stage == 2:
 		scare_fill_speed_multiplier = WARNING2_SPEED_MULTIPLIER
 		warning2_distortion_timer = randf_range(2.4, 3.4)
+
 		play_screen_distort_sfx()
-		start_screen_shake(0.25, 8.0)
+		play_alarm_sfx()
+
+		start_screen_shake(0.50, 13.0)
 		start_flicker(0.10, 0.15)
+		show_warning2_overlay()
 
 	elif scare_warning_stage >= 3:
 		trigger_jumpscare()
 
 func advance_warning_state_from_mistake() -> void:
 	scare_warning_stage += 1
+
 	debug_log("Scare warning stage from mistake: " + str(scare_warning_stage))
 
 	if scare_warning_stage == 1:
@@ -782,9 +927,13 @@ func advance_warning_state_from_mistake() -> void:
 	elif scare_warning_stage == 2:
 		scare_fill_speed_multiplier = WARNING2_SPEED_MULTIPLIER
 		warning2_distortion_timer = randf_range(2.4, 3.4)
+
 		play_screen_distort_sfx()
-		start_screen_shake(0.25, 8.0)
+		play_alarm_sfx()
+
+		start_screen_shake(0.40, 12.0)
 		start_flicker(0.10, 0.15)
+		show_warning2_overlay()
 
 	elif scare_warning_stage >= 3:
 		trigger_jumpscare()
@@ -801,15 +950,31 @@ func _process(delta: float) -> void:
 	if screen_shake_time > 0.0:
 		screen_shake_time -= delta
 
+		var panic_multiplier: float = clamp(screen_shake_time * 6.0, 0.6, 1.6)
+
 		var offset := Vector2(
-			randf_range(-screen_shake_strength, screen_shake_strength),
-			randf_range(-screen_shake_strength, screen_shake_strength)
+			randf_range(-screen_shake_strength, screen_shake_strength) * 1.3,
+			randf_range(-screen_shake_strength * 0.6, screen_shake_strength * 0.6)
 		)
+
+		offset += Vector2(
+			sin(Time.get_ticks_msec() * 0.045) * 2.5,
+			cos(Time.get_ticks_msec() * 0.038) * 1.4
+		) * panic_multiplier
 
 		_apply_layer_shake_offset(offset)
 
-		if screen_shake_time <= 0.0:
-			_apply_layer_shake_offset(Vector2.ZERO)
+	if screen_shake_time <= 0.0:
+		_apply_layer_shake_offset(Vector2.ZERO)
+
+	if scare_warning_stage >= 2 and screen_shake_time <= 0.0 and not game_over:
+		_apply_layer_shake_offset(Vector2(
+			sin(Time.get_ticks_msec() * 0.0032) * 2.6,
+			cos(Time.get_ticks_msec() * 0.0024) * 1.8
+		))
+
+		if alarm_sfx and not alarm_sfx.playing:
+			alarm_sfx.play()
 
 	if flicker_time > 0.0:
 		flicker_time -= delta
@@ -818,16 +983,51 @@ func _process(delta: float) -> void:
 		_reset_flicker()
 
 	if scare_warning_stage >= 2 and not game_over:
+		if warning2_overlay:
+			if not warning2_overlay.visible:
+				show_warning2_overlay()
+
+			warning2_overlay_motion_time += delta
+
+			var pulse := pow(
+				sin(warning2_overlay_motion_time * warning2_overlay_pulse_speed) * 0.5 + 0.5,
+				1.6
+			)
+
+			var alpha := warning2_overlay_base_alpha + (pulse * warning2_overlay_flicker_strength)
+
+			alpha += randf_range(-0.01, 0.01)
+			warning2_overlay.modulate.a = clamp(alpha, 0.45, 0.82)
+
+			var drift_offset := Vector2(
+				sin(warning2_overlay_motion_time * 0.55) * warning2_overlay_drift_x,
+				cos(warning2_overlay_motion_time * 0.40) * warning2_overlay_drift_y
+			)
+
+			var jitter_offset := Vector2(
+				randf_range(-warning2_overlay_jitter_strength, warning2_overlay_jitter_strength),
+				randf_range(-warning2_overlay_jitter_strength, warning2_overlay_jitter_strength)
+			)
+
+			warning2_overlay.position = warning2_overlay_base_position + drift_offset + jitter_offset
+
 		warning2_distortion_timer -= delta
 
 		if warning2_distortion_timer <= 0.0:
-			warning2_distortion_timer = randf_range(2.4, 3.4)
+			warning2_distortion_timer = randf_range(1.6, 2.5)
 
-			start_screen_shake(randf_range(0.18, 0.30), 8.0)
+			start_screen_shake(randf_range(0.28, 0.42), 10.5)
 			play_screen_distort_sfx()
 			start_flicker(0.10, 0.15)
+
 	else:
 		warning2_distortion_timer = 0.0
+
+		if warning2_overlay and warning2_overlay.visible:
+			hide_warning2_overlay()
+
+		if alarm_sfx and alarm_sfx.playing and scare_warning_stage < 2:
+			alarm_sfx.stop()
 
 func _apply_layer_shake_offset(offset: Vector2) -> void:
 	for layer in shake_layers:
@@ -877,7 +1077,7 @@ func _reset_flicker() -> void:
 
 	if documents_shake is CanvasItem:
 		documents_shake.modulate = Color.WHITE
-		
+
 func _character_uses_blinds(character: Node) -> bool:
 	if character == null:
 		return false
@@ -888,6 +1088,7 @@ func _get_character_anomaly_duration(character: Node) -> float:
 		return 0.0
 
 	var custom_duration = character.get("custom_scare_duration")
+
 	if typeof(custom_duration) in [TYPE_FLOAT, TYPE_INT] and float(custom_duration) > 0.0:
 		return float(custom_duration)
 
@@ -898,4 +1099,24 @@ func _get_character_anomaly_duration(character: Node) -> float:
 		return 8.0
 
 	return 0.0
-	
+
+func show_warning2_overlay() -> void:
+	if warning2_overlay == null:
+		return
+
+	warning2_overlay.visible = true
+	warning2_overlay.modulate.a = warning2_overlay_base_alpha
+	warning2_overlay_motion_time = 0.0
+	warning2_overlay.position = warning2_overlay_base_position
+
+func hide_warning2_overlay() -> void:
+	if warning2_overlay == null:
+		return
+
+	warning2_overlay.visible = false
+	warning2_overlay.modulate.a = 0.0
+	warning2_overlay_motion_time = 0.0
+	warning2_overlay.position = warning2_overlay_base_position
+
+func get_inspection_controller():
+	return get_tree().get_first_node_in_group("inspection_controller")

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b5wwnw46puifw"
+path="res://.godot/imported/Player First Line.wav-b7189126584e35d477dee5065fdd820d.sample"
+
+[deps]
+
+source_file="res://sfx/Characters Dialogue/Player First Line.wav"
+dest_files=["res://.godot/imported/Player First Line.wav-b7189126584e35d477dee5065fdd820d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

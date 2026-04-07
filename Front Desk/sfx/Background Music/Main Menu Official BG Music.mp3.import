@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://2868f1nw1ern"
+path="res://.godot/imported/Main Menu Official BG Music.mp3-86616c0776a0679df81703fc378b0d46.mp3str"
+
+[deps]
+
+source_file="res://sfx/Background Music/Main Menu Official BG Music.mp3"
+dest_files=["res://.godot/imported/Main Menu Official BG Music.mp3-86616c0776a0679df81703fc378b0d46.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

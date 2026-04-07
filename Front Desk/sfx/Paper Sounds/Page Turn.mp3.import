@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bh4a3x6kf10rp"
+path="res://.godot/imported/Page Turn.mp3-df8e2a31195f755eba1a2368d1e43012.mp3str"
+
+[deps]
+
+source_file="res://sfx/Paper Sounds/Page Turn.mp3"
+dest_files=["res://.godot/imported/Page Turn.mp3-df8e2a31195f755eba1a2368d1e43012.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

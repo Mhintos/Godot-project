@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cuvp20rcb28yw"
+path="res://.godot/imported/Button Hover.mp3-a438b7c96c5b2447fdc290abc0d24356.mp3str"
+
+[deps]
+
+source_file="res://sfx/Main Menu Buttons/Button Hover.mp3"
+dest_files=["res://.godot/imported/Button Hover.mp3-a438b7c96c5b2447fdc290abc0d24356.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

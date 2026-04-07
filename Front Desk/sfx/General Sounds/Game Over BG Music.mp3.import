@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://s0mi6pi0sm6w"
+path="res://.godot/imported/Game Over BG Music.mp3-d37d97d7378ce57fbc3827d692d29549.mp3str"
+
+[deps]
+
+source_file="res://sfx/General Sounds/Game Over BG Music.mp3"
+dest_files=["res://.godot/imported/Game Over BG Music.mp3-d37d97d7378ce57fbc3827d692d29549.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
