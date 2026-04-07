@@ -348,6 +348,9 @@ func _on_character_reached_stop() -> void:
 		scare_started = true
 		scare_alarm_triggered = false
 
+		if true_form_timer:
+			true_form_timer.start(current_scare_duration)
+
 		debug_log("True form reached stop. 4-second anomaly state started.")
 		return
 
@@ -358,8 +361,20 @@ func _on_character_reached_stop() -> void:
 		approve_btn.disabled = true
 		deny_btn.disabled = true
 
+		if current_character.has_method("spawn_documents"):
+			current_character.spawn_documents()
+
+		scare_started = true
+		scare_alarm_triggered = false
+
+		if true_form_timer:
+			true_form_timer.start(current_scare_duration)
+
 		debug_log("Disguised reached stop. 8-second anomaly state started.")
 		return
+
+	if current_character.has_method("spawn_documents"):
+		current_character.spawn_documents()
 
 	_unlock_gameplay()
 
