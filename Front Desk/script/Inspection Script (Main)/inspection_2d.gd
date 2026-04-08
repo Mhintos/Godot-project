@@ -531,8 +531,10 @@ func _on_microphone_pressed():
 
 func _on_dialogue_finished() -> void:
 	if dialogue_ui:
-		dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
+		if dialogue_ui.conversation_finished.is_connected(_on_dialogue_finished):
+			dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
 		dialogue_ui.visible = false
+
 	character_dialogue_messages = []
 	_unlock_gameplay()
 
@@ -714,8 +716,10 @@ func _on_decision_pressed(decision: String) -> void:
 
 func _on_decision_dialogue_finished(decision: String) -> void:
 	if dialogue_ui:
-		dialogue_ui.conversation_finished.disconnect(_on_decision_dialogue_finished)
+		if dialogue_ui.conversation_finished.is_connected(_on_decision_dialogue_finished):
+			dialogue_ui.conversation_finished.disconnect(_on_decision_dialogue_finished)
 		dialogue_ui.visible = false
+
 	_finish_decision(decision)
 
 func _finish_decision(decision: String) -> void:
