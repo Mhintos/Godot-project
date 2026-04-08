@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dd70yfp62r6e8" path="res://assets/Endings/Ending 2_ They Got In.png" id="3_f1j1h"]
 [ext_resource type="Texture2D" uid="uid://cptg0hduxsxcs" path="res://assets/Endings/Ending 1_ You.png" id="3_ubmv3"]
 [ext_resource type="Texture2D" uid="uid://1sp441ub3i3m" path="res://assets/Endings/Ending 3_ Routine Shift.png" id="4_uxelc"]
-[ext_resource type="Texture2D" uid="uid://cn4wms7eavmpu" path="res://assets/Endings/Ending 4_ The Truth Below.png" id="5_44gdj"]
+[ext_resource type="Texture2D" uid="uid://c154jwk32qmvl" path="res://assets/Endings/Ending 4_ The Truth Below.png" id="5_44gdj"]
 [ext_resource type="Texture2D" uid="uid://xyxxwmh4e7vp" path="res://assets/Endings/GAME OVER_ Consumed.png" id="6_sx1k3"]
 [ext_resource type="Texture2D" uid="uid://b4tyhvk3gaxul" path="res://assets/Endings/Buttons/Game Over(1).png" id="9_uxelc"]
 [ext_resource type="Texture2D" uid="uid://b84kmaqepuldk" path="res://assets/Endings/Buttons/Game Over Hover(1).png" id="10_44gdj"]
@@ -52,6 +52,7 @@ texture_normal = ExtResource("1_h6jor")
 texture_hover = ExtResource("2_yohi4")
 ignore_texture_size = true
 stretch_mode = 5
+metadata/_edit_lock_ = true
 
 [node name="EndingTexture" type="TextureRect" parent="."]
 offset_right = 1152.0
