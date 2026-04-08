@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bvd700yvkq2yn" path="res://assets/ui/Telephone/telephone.png" id="9_lwtii"]
 [ext_resource type="PackedScene" uid="uid://bhlefcwdnqgb7" path="res://scene/Character/Disguised Character/Trisha Mendoza Canteen Staff Disguised.tscn" id="9_qob17"]
 [ext_resource type="PackedScene" uid="uid://lsyjakldqsfr" path="res://scene/Character/True Form Anomalies/Meredith Grey Professor Anomaly.tscn" id="11_h4ua4"]
-[ext_resource type="PackedScene" uid="uid://boyocx7iyt7ds" path="res://scene/pause/pause_menu.tscn" id="12_h4ua4"]
+[ext_resource type="PackedScene" uid="uid://boyocx7iyt7ds" path="res://scene/Pause Menu/pause_menu.tscn" id="12_h4ua4"]
 [ext_resource type="Script" uid="uid://dyyiw6d3if0co" path="res://script/documents/document_manager.gd" id="15_50h4t"]
 [ext_resource type="Texture2D" uid="uid://dbgtdd8kao8bg" path="res://assets/ui/Approve and Deny/approve_normal.png" id="15_mga6p"]
 [ext_resource type="Texture2D" uid="uid://clj6qp3d4e42v" path="res://assets/ui/Approve and Deny/approve_pressed.png" id="16_50h4t"]
@@ -29,29 +29,29 @@
 [ext_resource type="PackedScene" uid="uid://dll78gnht4365" path="res://scene/Handbook/handbook-opened.tscn" id="23_7su7m"]
 [ext_resource type="Texture2D" uid="uid://c27i282aa7yy" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/1.png" id="23_tokp6"]
 [ext_resource type="Texture2D" uid="uid://b4jbdprn1fnnm" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/2.png" id="24_ex0io"]
-[ext_resource type="Texture2D" uid="uid://b1lyvhjhsw10k" path="res://assets/pause/Button pause.png" id="24_qob17"]
-[ext_resource type="Texture2D" uid="uid://brfxmufrubm7f" path="res://assets/pause/Hover pause.png" id="25_h4ua4"]
+[ext_resource type="Texture2D" uid="uid://b1lyvhjhsw10k" path="res://assets/Pause Menu/Button pause.png" id="24_qob17"]
+[ext_resource type="Texture2D" uid="uid://brfxmufrubm7f" path="res://assets/Pause Menu/Hover pause.png" id="25_h4ua4"]
 [ext_resource type="Texture2D" uid="uid://dempketnmw7jq" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/3.png" id="25_vhmf8"]
 [ext_resource type="Texture2D" uid="uid://c0tripluupea2" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/4.png" id="26_sx8aa"]
 [ext_resource type="Texture2D" uid="uid://cwbntg2j5vyqv" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/5.png" id="27_cc2gp"]
-[ext_resource type="AudioStream" uid="uid://cm58dfe30p6e6" path="res://sfx/maingame/In Game BG Music.mp3" id="28_1oqq2"]
+[ext_resource type="AudioStream" uid="uid://cm58dfe30p6e6" path="res://sfx/Maingame/In Game BG Music.mp3" id="28_1oqq2"]
 [ext_resource type="Texture2D" uid="uid://bsednfd7qk5su" path="res://assets/Scare meter/1.png" id="28_5jpnk"]
 [ext_resource type="Texture2D" uid="uid://28nfsv3mpni6" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/6.png" id="28_r88fj"]
 [ext_resource type="Texture2D" uid="uid://db84xe4ulgp0d" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/7.png" id="29_1oqq2"]
 [ext_resource type="Texture2D" uid="uid://bulwqx7kaj3tr" path="res://assets/Scare meter/2.png" id="29_vrpte"]
-[ext_resource type="AudioStream" uid="uid://55ljf4tgrp8b" path="res://sfx/maingame/Footsteps.mp3" id="29_y8ley"]
-[ext_resource type="AudioStream" uid="uid://dgbk8g8wyxax6" path="res://sfx/maingame/Sliding Paper.mp3" id="30_3nq0w"]
+[ext_resource type="AudioStream" uid="uid://55ljf4tgrp8b" path="res://sfx/Maingame/Footsteps.mp3" id="29_y8ley"]
+[ext_resource type="AudioStream" uid="uid://dgbk8g8wyxax6" path="res://sfx/Maingame/Sliding Paper.mp3" id="30_3nq0w"]
 [ext_resource type="Texture2D" uid="uid://wifobkm2kpxg" path="res://assets/Scare meter/3.png" id="30_msi77"]
-[ext_resource type="AudioStream" uid="uid://dnlr2x3d5pye7" path="res://sfx/maingame/Page Turn.mp3" id="31_d50na"]
+[ext_resource type="AudioStream" uid="uid://dnlr2x3d5pye7" path="res://sfx/Maingame/Page Turn.mp3" id="31_d50na"]
 [ext_resource type="Texture2D" uid="uid://dlyb26os7hci5" path="res://assets/Scare meter/4.png" id="31_lph85"]
 [ext_resource type="Texture2D" uid="uid://24xaavtlkpho" path="res://assets/Scare meter/5.png" id="32_niro7"]
-[ext_resource type="AudioStream" uid="uid://ckcaau6gxc6dr" path="res://sfx/maingame/Mistake.mp3" id="32_pgn82"]
+[ext_resource type="AudioStream" uid="uid://ckcaau6gxc6dr" path="res://sfx/Maingame/Mistake.mp3" id="32_pgn82"]
 [ext_resource type="Texture2D" uid="uid://3732ou6ufvn" path="res://assets/Scare meter/6.png" id="33_kbtt6"]
-[ext_resource type="AudioStream" uid="uid://b53cvvxqb87dn" path="res://sfx/maingame/True Form Presence.mp3" id="33_rlkgx"]
-[ext_resource type="AudioStream" uid="uid://bunh3u3q2yqw3" path="res://sfx/maingame/Screen Distort.mp3" id="34_q2qns"]
+[ext_resource type="AudioStream" uid="uid://b53cvvxqb87dn" path="res://sfx/Maingame/True Form Presence.mp3" id="33_rlkgx"]
+[ext_resource type="AudioStream" uid="uid://bunh3u3q2yqw3" path="res://sfx/Maingame/Screen Distort.mp3" id="34_q2qns"]
 [ext_resource type="Texture2D" uid="uid://ohhymhady7fb" path="res://assets/Scare meter/7.png" id="34_s4fil"]
 [ext_resource type="Texture2D" uid="uid://bwsq2uoc12rgj" path="res://assets/Scare meter/8.png" id="35_4rdtj"]
-[ext_resource type="AudioStream" uid="uid://jdbjiplnkxrn" path="res://sfx/maingame/Jumpscare.mp3" id="35_i83lm"]
+[ext_resource type="AudioStream" uid="uid://jdbjiplnkxrn" path="res://sfx/Maingame/Jumpscare.mp3" id="35_i83lm"]
 [ext_resource type="Texture2D" uid="uid://c67dl08xt0nu2" path="res://assets/Scare meter/9.png" id="36_lu1ec"]
 [ext_resource type="Texture2D" uid="uid://bq82ucikj4xd1" path="res://assets/Scare meter/10.png" id="37_lwdaq"]
 [ext_resource type="Texture2D" uid="uid://dj3ob4bg0amim" path="res://assets/Scare meter/11.png" id="38_qob17"]
@@ -147,6 +147,9 @@ jumpscare_sprite_path = NodePath("JumpscareLayer/JumpscareSprite")
 max_characters_per_shift = 10
 pause_scene = ExtResource("12_h4ua4")
 pause_button_path = NodePath("BG Layer/TableLayer/UILayer/PauseButton")
+
+[node name="PauseOverlayLayer" type="CanvasLayer" parent="."]
+layer = 100
 
 [node name="BG Layer" type="CanvasLayer" parent="."]
 layer = -1
@@ -265,6 +268,7 @@ texture_normal = ExtResource("24_qob17")
 texture_hover = ExtResource("25_h4ua4")
 ignore_texture_size = true
 stretch_mode = 0
+metadata/_edit_lock_ = true
 
 [node name="Blinds Layer" type="CanvasLayer" parent="."]
 layer = 10
@@ -359,6 +363,7 @@ layer = 50
 position = Vector2(126.99999, 28.000002)
 scale = Vector2(0.38530347, 0.37924525)
 sprite_frames = SubResource("SpriteFrames_h4ua4")
+metadata/_edit_lock_ = true
 
 [node name="ScareAlarmSFX" type="AudioStreamPlayer" parent="ScareMeterLayer"]
 stream = ExtResource("34_q2qns")

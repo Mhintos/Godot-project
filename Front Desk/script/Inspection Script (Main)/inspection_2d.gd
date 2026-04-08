@@ -841,11 +841,25 @@ func _get_character_anomaly_duration(character: Node) -> float:
 	
 	# Pause button pressed
 func _on_pause_button_pressed() -> void:
-	if pause_scene:
-		var pause_instance = pause_scene.instantiate()
-		get_tree().paused = true
-		add_child(pause_instance)
-		pause_instance.z_index = 100  # make sure it's drawn above everything
-	else:
+	if game_over:
+		return
+
+	if get_tree().paused:
+		return
+
+	if pause_scene == null:
 		push_error("Pause scene not assigned in Inspector.")
-	
+		return
+
+	var pause_overlay_layer: CanvasLayer = get_node_or_null("PauseOverlayLayer")
+	if pause_overlay_layer == null:
+		push_error("PauseOverlayLayer not found in inspection_2d.tscn.")
+		return
+
+	for child in pause_overlay_layer.get_children():
+		child.queue_free()
+
+	var pause_instance = pause_scene.instantiate()
+	pause_overlay_layer.add_child(pause_instance)
+
+	get_tree().paused = true

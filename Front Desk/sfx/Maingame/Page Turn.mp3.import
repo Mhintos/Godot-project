@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://dnlr2x3d5pye7"
-path="res://.godot/imported/Page Turn.mp3-4ab7b0fc103f821e085a255f9774bad3.mp3str"
+path="res://.godot/imported/Page Turn.mp3-a5c4517d333b158eab2409b2f1a7f2e8.mp3str"
 
 [deps]
 
-source_file="res://sfx/maingame/Page Turn.mp3"
-dest_files=["res://.godot/imported/Page Turn.mp3-4ab7b0fc103f821e085a255f9774bad3.mp3str"]
+source_file="res://sfx/Maingame/Page Turn.mp3"
+dest_files=["res://.godot/imported/Page Turn.mp3-a5c4517d333b158eab2409b2f1a7f2e8.mp3str"]
 
 [params]
 

@@ -17,6 +17,10 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/image="uid://cjns48nxpcljx"
 config/icon="uid://caua4wf67rwhm"
 
+[autoload]
+
+MenuMusic="*res://script/Main Menu/menu_music.gd"
+
 [display]
 
 window/size/mode=3
