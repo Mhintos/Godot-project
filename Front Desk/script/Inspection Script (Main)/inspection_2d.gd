@@ -58,6 +58,17 @@ extends Node2D
 @onready var screen_distort_sfx: AudioStreamPlayer = $SFX/ScreenDistortSFX
 @onready var jumpscare_sfx: AudioStreamPlayer = $SFX/JumpscareSFX
 
+
+# SFX (AudioStreamPlayers under SFX)
+@onready var approve_sfx: AudioStreamPlayer = $SFX/ApproveButton
+@onready var deny_sfx: AudioStreamPlayer = $SFX/DenyButton
+
+@export var pause_scene: PackedScene
+@export var pause_button_path: NodePath
+@onready var pause_button: BaseButton = get_node_or_null(pause_button_path)
+
+
+
 var shift_queue: Array[PackedScene] = []
 
 var _char_index := 0
@@ -94,11 +105,36 @@ func debug_log(msg) -> void:
 	if DEBUG_LOGS:
 		print(msg)
 
-func _ready() -> void:
+func _ready() -> void: 
+	if in_game_music.stream:
+		in_game_music.stream.loop = true
+	
+	in_game_music.play()
 	add_to_group("inspection_controller")
 
-	approve_btn.pressed.connect(func(): _on_decision_pressed("approve"))
-	deny_btn.pressed.connect(func(): _on_decision_pressed("deny"))
+	# Approve button click with SFX
+	approve_btn.pressed.connect(func():
+		if approve_sfx.stream:
+			approve_sfx.play()
+		await approve_sfx.finished
+		_on_decision_pressed("approve")
+	)
+
+	# Deny button click with SFX
+	deny_btn.pressed.connect(func():
+		if deny_sfx.stream:
+			deny_sfx.play()
+		await deny_sfx.finished
+		_on_decision_pressed("deny")
+	)
+
+	# ✅ Pause button connection (Godot 4 compatible)
+	if pause_button:
+		var callable = Callable(self, "_on_pause_button_pressed")
+		if not pause_button.pressed.is_connected(callable):
+			pause_button.pressed.connect(callable)
+	else:
+		push_error("PauseButton not found! Check pause_button_path in Inspector.")
 
 	if blinds_system:
 		blinds_system.blinds_closed_success.connect(_on_blinds_closed_success)
@@ -802,4 +838,14 @@ func _get_character_anomaly_duration(character: Node) -> float:
 		return 8.0
 
 	return 0.0
+	
+	# Pause button pressed
+func _on_pause_button_pressed() -> void:
+	if pause_scene:
+		var pause_instance = pause_scene.instantiate()
+		get_tree().paused = true
+		add_child(pause_instance)
+		pause_instance.z_index = 100  # make sure it's drawn above everything
+	else:
+		push_error("Pause scene not assigned in Inspector.")
 	

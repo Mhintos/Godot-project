@@ -1,0 +1,83 @@
+[gd_scene load_steps=14 format=3 uid="uid://boyocx7iyt7ds"]
+
+[ext_resource type="Script" uid="uid://chnqael44npp5" path="res://script/pause/pause_menu.gd" id="1_3q6r8"]
+[ext_resource type="Texture2D" uid="uid://cl4h2stndaehm" path="res://assets/pause/Background pause.png" id="1_5k552"]
+[ext_resource type="Texture2D" uid="uid://x5xththmklye" path="res://assets/pause/Resume pause normal.png" id="2_3q6r8"]
+[ext_resource type="Texture2D" uid="uid://bt0fje1g6pjif" path="res://assets/pause/Resume pause hover.png" id="3_i0gtb"]
+[ext_resource type="Texture2D" uid="uid://cp1hifustlm4o" path="res://assets/pause/Main Menu pause normal.png" id="4_8rqh6"]
+[ext_resource type="Texture2D" uid="uid://vree1uqsas6d" path="res://assets/pause/Main Menu pause hover.png" id="5_c13or"]
+[ext_resource type="Texture2D" uid="uid://0ik01odmsle" path="res://assets/pause/Settings pause normal.png" id="6_367qg"]
+[ext_resource type="Texture2D" uid="uid://m2ddrxv1jxye" path="res://assets/pause/Settings pause hover.png" id="7_yl8cn"]
+[ext_resource type="Texture2D" uid="uid://dbksb1dj2mgd0" path="res://assets/pause/Quit Game pause normal.png" id="8_2gm6o"]
+[ext_resource type="Texture2D" uid="uid://dmhp105s42tyi" path="res://assets/pause/Quit Game pause hover.png" id="9_ryjim"]
+[ext_resource type="AudioStream" uid="uid://c7txs6ksd3pjw" path="res://sfx/AllSfx/Button Hover.mp3" id="11_c13or"]
+[ext_resource type="AudioStream" uid="uid://bponfxch0uuiy" path="res://sfx/AllSfx/ButtonClick.mp3" id="12_367qg"]
+[ext_resource type="AudioStream" uid="uid://7c84qhb5566j" path="res://sfx/AllSfx/Main Menu Official BG Music.mp3" id="13_yl8cn"]
+
+[node name="PauseMenu" type="Node2D"]
+script = ExtResource("1_3q6r8")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(575.5, 326)
+scale = Vector2(0.6078125, 0.6185185)
+texture = ExtResource("1_5k552")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ResumeButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 456.0
+offset_top = 249.0
+offset_right = 666.0
+offset_bottom = 312.0
+texture_normal = ExtResource("2_3q6r8")
+texture_hover = ExtResource("3_i0gtb")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="MainMenuButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 475.0
+offset_top = 324.0
+offset_right = 650.0
+offset_bottom = 379.0
+texture_normal = ExtResource("4_8rqh6")
+texture_hover = ExtResource("5_c13or")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="SettingsButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 475.0
+offset_top = 397.0
+offset_right = 644.0
+offset_bottom = 456.0
+texture_normal = ExtResource("6_367qg")
+texture_hover = ExtResource("7_yl8cn")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="QuitButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 467.0
+offset_top = 475.0
+offset_right = 652.0
+offset_bottom = 528.0
+texture_normal = ExtResource("8_2gm6o")
+texture_hover = ExtResource("9_ryjim")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="HoverSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_c13or")
+volume_db = -10.0
+
+[node name="ClickSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_367qg")
+volume_db = -10.0
+
+[node name="PauseMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_yl8cn")
+volume_db = -10.0
+autoplay = true
+
+[connection signal="pressed" from="CanvasLayer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/QuitButton" to="." method="_on_quit_button_pressed"]

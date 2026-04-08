@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://dwird0lpg3mce"]
+
+[ext_resource type="Script" uid="uid://ku8mdga1l36m" path="res://script/Settings/settings.gd" id="1_vsxj2"]
+[ext_resource type="Texture2D" uid="uid://duq24qtj3hx34" path="res://assets/settings/Background setting.png" id="2_65rbt"]
+[ext_resource type="Texture2D" uid="uid://dilc1jo5ke2cx" path="res://assets/settings/Back.png" id="3_ky3b0"]
+[ext_resource type="Texture2D" uid="uid://dmgjrgq34bjjp" path="res://assets/settings/Back Darker.png" id="4_vd27h"]
+[ext_resource type="AudioStream" uid="uid://7c84qhb5566j" path="res://sfx/AllSfx/Main Menu Official BG Music.mp3" id="5_vd27h"]
+[ext_resource type="AudioStream" uid="uid://d3qo1uo0qh1yj" path="res://sfx/buttonhover/Button Hover.mp3" id="6_qpsme"]
+[ext_resource type="AudioStream" uid="uid://bponfxch0uuiy" path="res://sfx/AllSfx/ButtonClick.mp3" id="7_ps30y"]
+
+[node name="Settings" type="Node2D"]
+script = ExtResource("1_vsxj2")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(578, 324)
+scale = Vector2(0.6046876, 0.6185186)
+texture = ExtResource("2_65rbt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VolumeSlider" type="HSlider" parent="CanvasLayer"]
+offset_left = 410.0
+offset_top = 380.0
+offset_right = 747.0
+offset_bottom = 443.0
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="BackButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 44.0
+offset_top = 31.0
+offset_right = 100.0
+offset_bottom = 82.0
+texture_normal = ExtResource("3_ky3b0")
+texture_pressed = ExtResource("4_vd27h")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="SettingsMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_vd27h")
+volume_db = -10.0
+autoplay = true
+
+[node name="HoverSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_qpsme")
+volume_db = -10.0
+
+[node name="ClickSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ps30y")
+volume_db = -10.0
+
+[connection signal="value_changed" from="CanvasLayer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_back_button_pressed"]
