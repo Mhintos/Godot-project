@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=81 format=4 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
@@ -9,13 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://dosvx2vykil81" path="res://scene/Character/Normal Character/Kyle Navarro Security Guard.tscn" id="6_4rdtj"]
 [ext_resource type="PackedScene" uid="uid://dgau330eg8kdh" path="res://scene/Character/Normal Character/Loopy Varns Canteen Staff.tscn" id="6_50h4t"]
 [ext_resource type="PackedScene" uid="uid://dmg7phcmhthfe" path="res://scene/Character/Normal Character/Trisha Mendoza Canteen Staff.tscn" id="7_lu1ec"]
-[ext_resource type="Texture2D" uid="uid://bfhkqbtlfkyhj" path="res://assets/ui/Table/organizer.png" id="7_lwtii"]
 [ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Normal Character/Alicia Roxas Professor.tscn" id="8_k8hxm"]
 [ext_resource type="Texture2D" uid="uid://bgdm30kdupwmd" path="res://assets/ui/Table/Mini Table.png" id="8_kspj7"]
 [ext_resource type="PackedScene" uid="uid://uveo67mqt2au" path="res://scene/Character/Disguised Character/Ralph Romero Professor Disguised.tscn" id="8_lwdaq"]
-[ext_resource type="Texture2D" uid="uid://bvd700yvkq2yn" path="res://assets/ui/Telephone/telephone.png" id="9_lwtii"]
 [ext_resource type="PackedScene" uid="uid://bhlefcwdnqgb7" path="res://scene/Character/Disguised Character/Trisha Mendoza Canteen Staff Disguised.tscn" id="9_qob17"]
 [ext_resource type="PackedScene" uid="uid://lsyjakldqsfr" path="res://scene/Character/True Form Anomalies/Meredith Grey Professor Anomaly.tscn" id="11_h4ua4"]
+[ext_resource type="Texture2D" uid="uid://fhjj25lp0ilj" path="res://assets/ui/Table/Organizer.png" id="14_cqrhs"]
 [ext_resource type="Script" uid="uid://dyyiw6d3if0co" path="res://script/documents/document_manager.gd" id="15_50h4t"]
 [ext_resource type="Texture2D" uid="uid://dbgtdd8kao8bg" path="res://assets/ui/Approve and Deny/approve_normal.png" id="15_mga6p"]
 [ext_resource type="Texture2D" uid="uid://clj6qp3d4e42v" path="res://assets/ui/Approve and Deny/approve_pressed.png" id="16_50h4t"]
@@ -75,6 +74,8 @@
 [ext_resource type="AudioStream" uid="uid://b2snhhepprsd5" path="res://sfx/Blinds Lever/Blinds Up.wav" id="61_f8jsk"]
 [ext_resource type="AudioStream" uid="uid://daf0wiehh70od" path="res://sfx/Blinds Lever/Blinds Down.wav" id="62_pou0t"]
 [ext_resource type="AudioStream" uid="uid://kg5v81kwx0db" path="res://sfx/Background Music/Scare Meter.mp3" id="63_r36fy"]
+[ext_resource type="Texture2D" uid="uid://dtq4adcbv61i5" path="res://assets/Microphone/MicIdle.png" id="75_spj4f"]
+[ext_resource type="Texture2D" uid="uid://d2amp2b0ffggx" path="res://assets/Microphone/MicHover.png" id="76_lrkpu"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y8ley"]
 animations = [{
@@ -219,20 +220,12 @@ layer = 11
 [node name="Organizer" type="Sprite2D" parent="BG Layer/Table Layer"]
 position = Vector2(211.49998, 581)
 scale = Vector2(3.3560605, 3.5789475)
-texture = ExtResource("7_lwtii")
-metadata/_edit_lock_ = true
+texture = ExtResource("14_cqrhs")
 
 [node name="mini table" type="Sprite2D" parent="BG Layer/Table Layer"]
 position = Vector2(211.00002, 422.37732)
 scale = Vector2(5.126437, 5.7110806)
 texture = ExtResource("8_kspj7")
-metadata/_edit_lock_ = true
-
-[node name="Telephone" type="Sprite2D" parent="BG Layer/Table Layer"]
-z_index = 100
-position = Vector2(351, 580)
-scale = Vector2(3.4329271, 3.6206894)
-texture = ExtResource("9_lwtii")
 metadata/_edit_lock_ = true
 
 [node name="BigTable" type="Sprite2D" parent="BG Layer/Table Layer"]
@@ -542,6 +535,30 @@ stream = ExtResource("62_pou0t")
 
 [node name="ScareMeterSFX" type="AudioStreamPlayer" parent="Screen Damage Overlay"]
 stream = ExtResource("63_r36fy")
+
+[node name="DialogueLayer" type="CanvasLayer" parent="."]
+
+[node name="DialogueUI" type="Control" parent="DialogueLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MicrophoneLayer" type="CanvasLayer" parent="."]
+layer = 11
+
+[node name="Microphone" type="TextureButton" parent="MicrophoneLayer"]
+anchors_preset = -1
+offset_left = 286.0
+offset_top = 522.0
+offset_right = 399.0
+offset_bottom = 632.0
+texture_normal = ExtResource("75_spj4f")
+texture_hover = ExtResource("76_lrkpu")
+stretch_mode = 0
+
+[node name="MicSprite" type="Sprite2D" parent="MicrophoneLayer/Microphone"]
+position = Vector2(-286, -522)
 
 [connection signal="pressed" from="BG Layer/Table Layer/UILayer/HandbookIcon/TextureButton" to="JumpscareLayer/Handbook" method="_on_button_pressed"]
 [connection signal="pressed" from="Bloody UI/HandbookIcon/TextureButton" to="Bloody UI/HandbookIcon/Handbook" method="_on_button_pressed"]
