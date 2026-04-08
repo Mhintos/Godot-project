@@ -426,6 +426,15 @@ func spawn_character() -> void:
 	if current_character.has_signal("reached_stop"):
 		current_character.reached_stop.connect(_on_character_reached_stop)
 	
+func _play_microphone_hint() -> void:
+	if microphone_button == null:
+		return
+
+	var mic_sprite: AnimatedSprite2D = microphone_button.get_node_or_null("MicSprite")
+	if mic_sprite == null:
+		return
+
+	mic_sprite.play("hint")
 
 func _on_first_mini_doc_interacted() -> void:
 	if current_character == null:
@@ -479,12 +488,7 @@ func _on_character_reached_stop() -> void:
 
 		if microphone_button:
 			microphone_button.visible = true
-			var mic_sprite = microphone_button.get_node("MicSprite")
-			if mic_sprite:
-				mic_sprite.play("hint")
-				await mic_sprite.animation_finished
-				if mic_sprite.is_visible_in_tree() and mic_sprite.animation == "hint":
-					mic_sprite.play("default")
+			_play_microphone_hint()
 
 		scare_started = false
 		scare_alarm_triggered = false
@@ -496,22 +500,18 @@ func _on_character_reached_stop() -> void:
 
 	if microphone_button and character_dialogue_messages.size() > 0:
 		microphone_button.visible = true
-		var mic_sprite = microphone_button.get_node("MicSprite")
-		if mic_sprite:
-			mic_sprite.play("hint")
-			await mic_sprite.animation_finished
-			if mic_sprite.is_visible_in_tree() and mic_sprite.animation == "hint":
-				mic_sprite.play("default")
+		_play_microphone_hint()
 	else:
 		_unlock_gameplay()
+
 	microphone_used = false
 	if microphone_button and character_dialogue_messages.size() > 0:
 		microphone_button.visible = true
 
 func _on_microphone_pressed():
-	var mic_sprite = microphone_button.get_node("MicSprite")
+	var mic_sprite: AnimatedSprite2D = microphone_button.get_node_or_null("MicSprite")
 	if mic_sprite:
-		mic_sprite.stop()
+		mic_sprite.play("default")
 	if not dialogue_ui or not current_character:
 		return
 	if microphone_used:
