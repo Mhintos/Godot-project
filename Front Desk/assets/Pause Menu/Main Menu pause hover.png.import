@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btlbycxnw10eh"
-path="res://.godot/imported/Quit.png-e3bd9eca1a4b87e850a5fd531a2921b8.ctex"
+uid="uid://vree1uqsas6d"
+path="res://.godot/imported/Main Menu pause hover.png-4fc163061108ed6f2ec1cc6b06d1a9a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mainmenu/Quit.png"
-dest_files=["res://.godot/imported/Quit.png-e3bd9eca1a4b87e850a5fd531a2921b8.ctex"]
+source_file="res://assets/Pause Menu/Main Menu pause hover.png"
+dest_files=["res://.godot/imported/Main Menu pause hover.png-4fc163061108ed6f2ec1cc6b06d1a9a0.ctex"]
 
 [params]
 

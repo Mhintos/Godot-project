@@ -20,6 +20,7 @@ config/icon="uid://caua4wf67rwhm"
 [autoload]
 
 GameResult="*res://script/Endings/game_result.gd"
+MenuMusic="*res://script/Main Menu/menu_music.gd"
 
 [display]
 

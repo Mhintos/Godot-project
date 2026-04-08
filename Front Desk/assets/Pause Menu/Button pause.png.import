@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvd700yvkq2yn"
-path="res://.godot/imported/telephone.png-f0c2c330d1f4adf9ebccff2e0261bf0e.ctex"
+uid="uid://b1lyvhjhsw10k"
+path="res://.godot/imported/Button pause.png-11148c96296aa2ed50e97d44a3bf8c1d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Telephone/telephone.png"
-dest_files=["res://.godot/imported/telephone.png-f0c2c330d1f4adf9ebccff2e0261bf0e.ctex"]
+source_file="res://assets/Pause Menu/Button pause.png"
+dest_files=["res://.godot/imported/Button pause.png-11148c96296aa2ed50e97d44a3bf8c1d.ctex"]
 
 [params]
 

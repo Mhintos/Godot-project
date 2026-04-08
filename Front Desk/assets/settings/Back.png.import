@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvd700yvkq2yn"
-path="res://.godot/imported/telephone.png-f0c2c330d1f4adf9ebccff2e0261bf0e.ctex"
+uid="uid://dilc1jo5ke2cx"
+path="res://.godot/imported/Back.png-0890feaad370d8ed7733c91567b564b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Telephone/telephone.png"
-dest_files=["res://.godot/imported/telephone.png-f0c2c330d1f4adf9ebccff2e0261bf0e.ctex"]
+source_file="res://assets/Settings/Back.png"
+dest_files=["res://.godot/imported/Back.png-0890feaad370d8ed7733c91567b564b8.ctex"]
 
 [params]
 

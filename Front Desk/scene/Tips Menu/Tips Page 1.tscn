@@ -1,0 +1,63 @@
+[gd_scene load_steps=12 format=3 uid="uid://ci5lr6vg3fu7i"]
+
+[ext_resource type="Script" uid="uid://caunvl8oxx85" path="res://script/Tips Menu/tips_1.gd" id="1_cqryp"]
+[ext_resource type="Texture2D" uid="uid://burvxylhqyrp6" path="res://assets/Tips/Tips 1.png" id="2_fswse"]
+[ext_resource type="Texture2D" uid="uid://ba5tg0pj64pl8" path="res://assets/Tips/Back.png" id="3_fp3ew"]
+[ext_resource type="Texture2D" uid="uid://y2tnbdxyw5lb" path="res://assets/Tips/Back Darker.png" id="4_e8vgc"]
+[ext_resource type="Texture2D" uid="uid://irvx2drnwl86" path="res://assets/Tips/Back Hover.png" id="5_o78oo"]
+[ext_resource type="Texture2D" uid="uid://qt24hj4ipxlb" path="res://assets/Tips/Next.png" id="6_q2o6q"]
+[ext_resource type="Texture2D" uid="uid://ds6ajjx6rvrtb" path="res://assets/Tips/Next Darker.png" id="7_khc4g"]
+[ext_resource type="Texture2D" uid="uid://kfcs85355vbl" path="res://assets/Tips/Next Hover.png" id="8_8ld72"]
+[ext_resource type="AudioStream" uid="uid://c7txs6ksd3pjw" path="res://sfx/AllSfx/Button Hover.mp3" id="9_svm5w"]
+[ext_resource type="AudioStream" uid="uid://bponfxch0uuiy" path="res://sfx/AllSfx/ButtonClick.mp3" id="10_iwwmr"]
+[ext_resource type="AudioStream" uid="uid://7c84qhb5566j" path="res://sfx/AllSfx/Main Menu Official BG Music.mp3" id="11_jcp4x"]
+
+[node name="Tips1" type="Node2D"]
+script = ExtResource("1_cqryp")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(577, 326.00003)
+scale = Vector2(0.6052083, 0.61111116)
+texture = ExtResource("2_fswse")
+metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BackButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 41.0
+offset_top = 32.0
+offset_right = 105.0
+offset_bottom = 84.0
+texture_normal = ExtResource("3_fp3ew")
+texture_pressed = ExtResource("4_e8vgc")
+texture_hover = ExtResource("5_o78oo")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_lock_ = true
+
+[node name="NextButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 1051.0
+offset_top = 29.0
+offset_right = 1123.0
+offset_bottom = 80.0
+texture_normal = ExtResource("6_q2o6q")
+texture_pressed = ExtResource("7_khc4g")
+texture_hover = ExtResource("8_8ld72")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_lock_ = true
+
+[node name="HoverSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_svm5w")
+volume_db = -10.0
+
+[node name="ClickSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_iwwmr")
+volume_db = -10.0
+
+[node name="TipsMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_jcp4x")
+volume_db = -10.0
+
+[connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/NextButton" to="." method="_on_next_button_pressed"]
