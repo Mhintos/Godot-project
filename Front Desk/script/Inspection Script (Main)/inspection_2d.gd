@@ -86,6 +86,25 @@ const NORMALS_PER_RUN := 6
 const DISGUISED_PER_RUN := 2
 const TRUE_FORMS_PER_RUN := 2
 
+var distortion_fade_tween: Tween = null
+
+const DISTORTION_ACTIVE_DB := 0.0
+const DISTORTION_SILENT_DB := -40.0
+const DISTORTION_FADE_OUT_TIME := 0.35
+
+var warning2_distortion_cooldown: float = 0.0
+var warning2_first_distortion_pending: bool = false
+
+const WARNING2_DISTORTION_MIN_INTERVAL := 5.0
+const WARNING2_DISTORTION_MAX_INTERVAL := 7.0
+const WARNING2_DISTORTION_PLAY_CHANCE := 0.75
+
+var true_form_presence_fade_tween: Tween = null
+
+const TRUE_FORM_PRESENCE_ACTIVE_DB := 0.0
+const TRUE_FORM_PRESENCE_SILENT_DB := -40.0
+const TRUE_FORM_PRESENCE_FADE_OUT_TIME := 3.0
+
 const WARNING2_SPEED_MULTIPLIER := 1.5
 const DEBUG_LOGS := false
 
@@ -228,56 +247,104 @@ func generate_shift_queue() -> void:
 		push_error("Need at least %d true form characters." % TRUE_FORMS_PER_RUN)
 		return
 
+	# Pick the 6 normals for this run first
 	var selected_normals: Array[PackedScene] = normal_character_scenes.duplicate()
 	selected_normals.shuffle()
 	selected_normals = selected_normals.slice(0, NORMALS_PER_RUN)
 
+	# Slot 0 must always be a valid normal
 	var first_normal: PackedScene = selected_normals[0]
-	shift_queue.append({
+
+	# Remaining 5 normals will fill the non-anomaly slots
+	var remaining_normals: Array[PackedScene] = selected_normals.slice(1, selected_normals.size())
+	remaining_normals.shuffle()
+
+	# Build a fixed-size queue first
+	shift_queue.resize(max_characters_per_shift)
+
+	shift_queue[0] = {
 		"scene": first_normal,
 		"is_forged": false,
 		"type": "normal"
-	})
+	}
 
-	var remaining_normals: Array[PackedScene] = selected_normals.slice(1, selected_normals.size())
+	# Mostly spaced patterns, with some late adjacent patterns allowed
+	var spaced_patterns: Array = [
+		[2, 4, 6, 9],
+		[2, 4, 7, 9],
+		[2, 5, 7, 9],
+		[3, 5, 7, 9]
+	]
 
-	var forged_count := rng.randi_range(2, 3)
-	forged_count = min(forged_count, remaining_normals.size())
+	var late_adjacent_patterns: Array = [
+		[2, 4, 7, 8], # late adjacent at 7,8
+		[2, 5, 7, 8],
+		[3, 5, 7, 8],
+		[2, 4, 8, 9], # late adjacent at 8,9
+		[2, 5, 8, 9],
+		[3, 5, 8, 9]
+	]
 
-	var forged_pick_pool: Array[PackedScene] = remaining_normals.duplicate()
-	forged_pick_pool.shuffle()
+	# 75% spaced, 25% late-adjacent
+	var use_late_adjacent: bool = rng.randf() < 0.25
+	var pattern_pool: Array = late_adjacent_patterns if use_late_adjacent else spaced_patterns
+	var chosen_pattern: Array = pattern_pool[rng.randi_range(0, pattern_pool.size() - 1)].duplicate()
 
-	var forged_selected: Array[PackedScene] = forged_pick_pool.slice(0, forged_count)
+	# Randomly assign which anomaly slots are disguised vs true form
+	chosen_pattern.shuffle()
+	var disguised_slots: Array = [chosen_pattern[0], chosen_pattern[1]]
+	var true_form_slots: Array = [chosen_pattern[2], chosen_pattern[3]]
 
-	var tail_queue: Array = []
-
-	for scene in remaining_normals:
-		tail_queue.append({
-			"scene": scene,
-			"is_forged": forged_selected.has(scene),
-			"type": "normal"
-		})
-
+	# Pick disguised scenes
 	var disguised_pool: Array[PackedScene] = disguised_character_scenes.duplicate()
 	disguised_pool.shuffle()
+
 	for i in range(DISGUISED_PER_RUN):
-		tail_queue.append({
+		var slot: int = disguised_slots[i]
+		shift_queue[slot] = {
 			"scene": disguised_pool[i],
 			"is_forged": false,
 			"type": "disguised"
-		})
+		}
 
+	# Pick true form scenes
 	var true_form_pool: Array[PackedScene] = true_form_character_scenes.duplicate()
 	true_form_pool.shuffle()
+
 	for i in range(TRUE_FORMS_PER_RUN):
-		tail_queue.append({
+		var slot: int = true_form_slots[i]
+		shift_queue[slot] = {
 			"scene": true_form_pool[i],
 			"is_forged": false,
 			"type": "true_form"
-		})
+		}
 
-	tail_queue.shuffle()
-	shift_queue.append_array(tail_queue)
+	# Fill remaining empty slots with normals
+	var normal_slots: Array = []
+	for i in range(max_characters_per_shift):
+		if shift_queue[i] == null:
+			normal_slots.append(i)
+
+	# Pick forged normals only from the remaining normal slots
+	var forged_count := rng.randi_range(2, 3)
+	forged_count = min(forged_count, remaining_normals.size())
+
+	var forged_slot_pool: Array = normal_slots.duplicate()
+	forged_slot_pool.shuffle()
+
+	var forged_slots: Array = []
+	for i in range(forged_count):
+		forged_slots.append(forged_slot_pool[i])
+
+	for i in range(normal_slots.size()):
+		var slot: int = normal_slots[i]
+		var scene: PackedScene = remaining_normals[i]
+
+		shift_queue[slot] = {
+			"scene": scene,
+			"is_forged": forged_slots.has(slot),
+			"type": "normal"
+		}
 
 func spawn_character() -> void:
 	if shift_queue.is_empty():
@@ -482,6 +549,8 @@ func trigger_jumpscare() -> void:
 	start_screen_shake(0.2, 16.0)
 	play_jumpscare_sfx()
 
+	_stop_distortion_sfx_immediate()
+
 	if active_jumpscare_sprite:
 		active_jumpscare_sprite.visible = true
 
@@ -671,6 +740,8 @@ func reset_run_state() -> void:
 	scare_warning_stage = 0
 	current_scare_duration = 30.0
 	warning2_distortion_timer = 0.0
+	warning2_distortion_cooldown = 0.0
+	warning2_first_distortion_pending = false
 
 	screen_shake_time = 0.0
 	screen_shake_strength = 0.0
@@ -717,6 +788,8 @@ func _finish_character_and_continue() -> void:
 
 	if processed_characters >= max_characters_per_shift:
 		stop_all_looping_sfx()
+		
+		_stop_distortion_sfx_immediate()
 
 		var ending_id := _determine_shift_ending_id()
 		GameResult.set_ending(ending_id)
@@ -749,12 +822,32 @@ func play_mistake_sfx() -> void:
 		mistake_sfx.play()
 
 func play_true_form_presence_sfx() -> void:
-	if true_form_presence_sfx and true_form_presence_sfx.stream and not true_form_presence_sfx.playing:
+	if true_form_presence_sfx == null or true_form_presence_sfx.stream == null:
+		return
+
+	if true_form_presence_fade_tween:
+		true_form_presence_fade_tween.kill()
+		true_form_presence_fade_tween = null
+
+	true_form_presence_sfx.volume_db = TRUE_FORM_PRESENCE_ACTIVE_DB
+
+	if not true_form_presence_sfx.playing:
 		true_form_presence_sfx.play()
 
 func play_screen_distort_sfx() -> void:
-	if screen_distort_sfx and screen_distort_sfx.stream and not screen_distort_sfx.playing:
-		screen_distort_sfx.play()
+	if screen_distort_sfx == null or screen_distort_sfx.stream == null:
+		return
+
+	if distortion_fade_tween:
+		distortion_fade_tween.kill()
+		distortion_fade_tween = null
+
+	screen_distort_sfx.volume_db = DISTORTION_ACTIVE_DB
+
+	if screen_distort_sfx.playing:
+		screen_distort_sfx.stop()
+
+	screen_distort_sfx.play()
 
 func play_jumpscare_sfx() -> void:
 	if jumpscare_sfx and jumpscare_sfx.stream and not jumpscare_sfx.playing:
@@ -799,24 +892,62 @@ func play_blinds_down_sfx() -> void:
 		blinds_down_sfx.play()
 
 func stop_anomaly_sfx() -> void:
-	if true_form_presence_sfx and true_form_presence_sfx.playing:
-		true_form_presence_sfx.stop()
-	if screen_distort_sfx and screen_distort_sfx.playing and scare_warning_stage < 2:
-		screen_distort_sfx.stop()
+	_stop_true_form_presence_sfx_smooth()
+
+	if scare_warning_stage < 2:
+		_stop_distortion_sfx_smooth()
 
 func stop_all_looping_sfx() -> void:
 	if footstep_sfx and footstep_sfx.playing:
 		footstep_sfx.stop()
-	if true_form_presence_sfx and true_form_presence_sfx.playing:
-		true_form_presence_sfx.stop()
-	if screen_distort_sfx and screen_distort_sfx.playing:
-		screen_distort_sfx.stop()
+
+	_stop_true_form_presence_sfx_immediate()
+
+	if scare_warning_stage < 2:
+		_stop_distortion_sfx_smooth()
+
 	if scare_alarm_sfx and scare_alarm_sfx.playing:
 		scare_alarm_sfx.stop()
+
 	if scare_meter_sfx and scare_meter_sfx.playing:
 		scare_meter_sfx.stop()
+
 	if alarm_sfx and alarm_sfx.playing:
 		alarm_sfx.stop()
+		
+func _stop_distortion_sfx_smooth(duration: float = DISTORTION_FADE_OUT_TIME, stop_after: bool = true) -> void:
+	if screen_distort_sfx == null or screen_distort_sfx.stream == null:
+		return
+
+	if not screen_distort_sfx.playing:
+		return
+
+	if distortion_fade_tween:
+		distortion_fade_tween.kill()
+		distortion_fade_tween = null
+
+	distortion_fade_tween = create_tween()
+	distortion_fade_tween.tween_property(screen_distort_sfx, "volume_db", DISTORTION_SILENT_DB, duration)
+
+	if stop_after:
+		distortion_fade_tween.tween_callback(func():
+			if screen_distort_sfx:
+				screen_distort_sfx.stop()
+				screen_distort_sfx.volume_db = DISTORTION_ACTIVE_DB
+		)
+
+func _stop_distortion_sfx_immediate() -> void:
+	if screen_distort_sfx == null:
+		return
+
+	if distortion_fade_tween:
+		distortion_fade_tween.kill()
+		distortion_fade_tween = null
+
+	if screen_distort_sfx.playing:
+		screen_distort_sfx.stop()
+
+	screen_distort_sfx.volume_db = DISTORTION_ACTIVE_DB
 
 func start_scare_meter() -> void:
 	if scare_started:
@@ -832,6 +963,40 @@ func start_scare_meter() -> void:
 		true_form_timer.start(current_scare_duration)
 		
 	debug_log("Scare meter started.")
+
+func _stop_true_form_presence_sfx_smooth(duration: float = TRUE_FORM_PRESENCE_FADE_OUT_TIME, stop_after: bool = true) -> void:
+	if true_form_presence_sfx == null or true_form_presence_sfx.stream == null:
+		return
+
+	if not true_form_presence_sfx.playing:
+		return
+
+	if true_form_presence_fade_tween:
+		true_form_presence_fade_tween.kill()
+		true_form_presence_fade_tween = null
+
+	true_form_presence_fade_tween = create_tween()
+	true_form_presence_fade_tween.tween_property(true_form_presence_sfx, "volume_db", TRUE_FORM_PRESENCE_SILENT_DB, duration)
+
+	if stop_after:
+		true_form_presence_fade_tween.tween_callback(func():
+			if true_form_presence_sfx:
+				true_form_presence_sfx.stop()
+				true_form_presence_sfx.volume_db = TRUE_FORM_PRESENCE_ACTIVE_DB
+		)
+
+func _stop_true_form_presence_sfx_immediate() -> void:
+	if true_form_presence_sfx == null:
+		return
+
+	if true_form_presence_fade_tween:
+		true_form_presence_fade_tween.kill()
+		true_form_presence_fade_tween = null
+
+	if true_form_presence_sfx.playing:
+		true_form_presence_sfx.stop()
+
+	true_form_presence_sfx.volume_db = TRUE_FORM_PRESENCE_ACTIVE_DB
 
 func reset_scare_meter() -> void:
 	scare_started = false
@@ -852,8 +1017,11 @@ func reset_scare_meter() -> void:
 	if alarm_sfx and alarm_sfx.playing:
 		alarm_sfx.stop()
 
-	if screen_distort_sfx and screen_distort_sfx.playing:
-		screen_distort_sfx.stop()
+	if scare_warning_stage < 2:
+		_stop_distortion_sfx_smooth()
+		warning2_distortion_timer = 0.0
+		warning2_distortion_cooldown = 0.0
+		warning2_first_distortion_pending = false
 
 	if scare_warning_stage < 2:
 		if in_game_music and in_game_music.stream and not in_game_music.playing:
@@ -942,7 +1110,9 @@ func advance_warning_state_from_meter() -> void:
 
 	elif scare_warning_stage == 2:
 		scare_fill_speed_multiplier = WARNING2_SPEED_MULTIPLIER
-		warning2_distortion_timer = randf_range(2.0, 4.0)
+		warning2_distortion_timer = 1.2
+		warning2_distortion_cooldown = 0.0
+		warning2_first_distortion_pending = true
 		warning2_shake_timer = warning2_burst_interval
 		warning2_elapsed_time = 0.0
 		show_warning2_overlay()
@@ -961,7 +1131,9 @@ func advance_warning_state_from_mistake() -> void:
 
 	elif scare_warning_stage == 2:
 		scare_fill_speed_multiplier = WARNING2_SPEED_MULTIPLIER
-		warning2_distortion_timer = randf_range(2.0, 4.0)
+		warning2_distortion_timer = 1.2
+		warning2_distortion_cooldown = 0.0
+		warning2_first_distortion_pending = true
 		warning2_shake_timer = warning2_burst_interval
 		warning2_elapsed_time = 0.0
 		show_warning2_overlay()
@@ -1051,10 +1223,30 @@ func _process(delta: float) -> void:
 
 			warning2_overlay.position = warning2_overlay_base_position + drift_offset + jitter_offset
 
+		if warning2_distortion_cooldown > 0.0:
+			warning2_distortion_cooldown -= delta
+
 		warning2_distortion_timer -= delta
 		if warning2_distortion_timer <= 0.0:
-			warning2_distortion_timer = randf_range(2.0, 4.0)
-			play_screen_distort_sfx()
+			var can_play_distortion := (
+				warning2_distortion_cooldown <= 0.0
+				and screen_distort_sfx
+				and not screen_distort_sfx.playing
+			)
+
+			if warning2_first_distortion_pending:
+				if can_play_distortion:
+					play_screen_distort_sfx()
+					warning2_first_distortion_pending = false
+					warning2_distortion_cooldown = randf_range(3.5, 5.0)
+				warning2_distortion_timer = randf_range(WARNING2_DISTORTION_MIN_INTERVAL, WARNING2_DISTORTION_MAX_INTERVAL)
+
+			else:
+				warning2_distortion_timer = randf_range(WARNING2_DISTORTION_MIN_INTERVAL, WARNING2_DISTORTION_MAX_INTERVAL)
+
+				if can_play_distortion and randf() <= WARNING2_DISTORTION_PLAY_CHANCE:
+					play_screen_distort_sfx()
+					warning2_distortion_cooldown = randf_range(3.5, 5.0)
 
 		warning2_shake_timer -= delta
 		if warning2_shake_timer <= 0.0:
@@ -1067,6 +1259,8 @@ func _process(delta: float) -> void:
 
 	else:
 		warning2_distortion_timer = 0.0
+		warning2_distortion_cooldown = 0.0
+		warning2_first_distortion_pending = false
 		warning2_shake_timer = 0.0
 
 		if scare_warning_stage < 1:
