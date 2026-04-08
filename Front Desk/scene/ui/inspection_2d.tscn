@@ -195,7 +195,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("78_wwi70")
 }],
-"loop": true,
+"loop": false,
 "name": &"hint",
 "speed": 5.0
 }, {
@@ -203,7 +203,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("76_lrkpu")
 }],
-"loop": true,
+"loop": false,
 "name": &"hover",
 "speed": 5.0
 }]
