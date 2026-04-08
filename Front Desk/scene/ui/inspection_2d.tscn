@@ -567,6 +567,7 @@ stream = ExtResource("62_pou0t")
 stream = ExtResource("63_r36fy")
 
 [node name="DialogueLayer" type="CanvasLayer" parent="."]
+layer = 19
 
 [node name="DialogueUI" type="Control" parent="DialogueLayer"]
 layout_mode = 3
@@ -576,7 +577,7 @@ offset_bottom = 40.0
 script = ExtResource("75_xr4y4")
 
 [node name="MicrophoneLayer" type="CanvasLayer" parent="."]
-layer = 11
+layer = 19
 
 [node name="Microphone" type="TextureButton" parent="MicrophoneLayer"]
 offset_left = 298.0
@@ -587,9 +588,10 @@ script = ExtResource("75_xr4y4")
 metadata/_edit_lock_ = true
 
 [node name="MicSprite" type="AnimatedSprite2D" parent="MicrophoneLayer/Microphone"]
-position = Vector2(55.000004, 59.000004)
-scale = Vector2(4.0769234, 3.8666666)
+position = Vector2(55.50002, 57)
+scale = Vector2(3.884615, 4)
 sprite_frames = SubResource("SpriteFrames_wf27c")
+metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="BG Layer/Table Layer/UILayer/HandbookIcon/TextureButton" to="JumpscareLayer/Handbook" method="_on_button_pressed"]
 [connection signal="pressed" from="Bloody UI/HandbookIcon/TextureButton" to="Bloody UI/HandbookIcon/Handbook" method="_on_button_pressed"]
