@@ -19,6 +19,7 @@ script = ExtResource("1_6s4hi")
 position = Vector2(577, 326.00003)
 scale = Vector2(0.6052083, 0.61111116)
 texture = ExtResource("2_t1v0g")
+metadata/_edit_lock_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -32,6 +33,7 @@ texture_pressed = ExtResource("4_5nw8o")
 texture_hover = ExtResource("5_rv8c0")
 ignore_texture_size = true
 stretch_mode = 0
+metadata/_edit_lock_ = true
 
 [node name="NextButton" type="TextureButton" parent="CanvasLayer"]
 offset_left = 1051.0
@@ -43,6 +45,7 @@ texture_pressed = ExtResource("7_1pm14")
 texture_hover = ExtResource("8_wbrb8")
 ignore_texture_size = true
 stretch_mode = 0
+metadata/_edit_lock_ = true
 
 [node name="HoverSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_5nw8o")

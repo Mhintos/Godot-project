@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://b401wr8esj01v" path="res://script/Main Menu/mainmenu.gd" id="1_hm8h1"]
 [ext_resource type="Texture2D" uid="uid://degb6n4wvgcm3" path="res://assets/mainmenu/Main Menu.png" id="2_xbe61"]
-[ext_resource type="Texture2D" uid="uid://vi8fsc6jp5jj" path="res://assets/mainmenu/start.png" id="3_xbe61"]
+[ext_resource type="Texture2D" uid="uid://vi8fsc6jp5jj" path="res://assets/mainmenu/Start.png" id="3_xbe61"]
 [ext_resource type="Texture2D" uid="uid://5bxpnvaju4qk" path="res://assets/mainmenu/start dark.png" id="4_o0tjd"]
 [ext_resource type="Texture2D" uid="uid://dl6gsrj6ywohu" path="res://assets/mainmenu/Start Hover.png" id="5_5rmyy"]
-[ext_resource type="Texture2D" uid="uid://btlbycxnw10eh" path="res://assets/mainmenu/quit.png" id="5_kjm3w"]
+[ext_resource type="Texture2D" uid="uid://btlbycxnw10eh" path="res://assets/mainmenu/Quit.png" id="5_kjm3w"]
 [ext_resource type="Texture2D" uid="uid://clevkenb5jyjy" path="res://assets/mainmenu/quitdark.png" id="6_5rmyy"]
 [ext_resource type="AudioStream" uid="uid://7c84qhb5566j" path="res://sfx/AllSfx/Main Menu Official BG Music.mp3" id="7_yrmxh"]
 [ext_resource type="Texture2D" uid="uid://dl7vp62ucodgc" path="res://assets/mainmenu/Quit Hover.png" id="8_4oy5i"]
@@ -24,6 +24,7 @@ script = ExtResource("1_hm8h1")
 position = Vector2(574, 326)
 scale = Vector2(0.6005208, 0.6064815)
 texture = ExtResource("2_xbe61")
+metadata/_edit_lock_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -37,6 +38,7 @@ texture_pressed = ExtResource("4_o0tjd")
 texture_hover = ExtResource("5_5rmyy")
 ignore_texture_size = true
 stretch_mode = 5
+metadata/_edit_lock_ = true
 
 [node name="QuitButton" type="TextureButton" parent="CanvasLayer"]
 offset_left = 495.0
@@ -48,6 +50,7 @@ texture_pressed = ExtResource("6_5rmyy")
 texture_hover = ExtResource("8_4oy5i")
 ignore_texture_size = true
 stretch_mode = 0
+metadata/_edit_lock_ = true
 
 [node name="SettingsButton" type="TextureButton" parent="CanvasLayer"]
 offset_left = 475.0
@@ -59,6 +62,7 @@ texture_pressed = ExtResource("10_4vphq")
 texture_hover = ExtResource("11_egw4e")
 ignore_texture_size = true
 stretch_mode = 0
+metadata/_edit_lock_ = true
 
 [node name="TipsButton" type="TextureButton" parent="CanvasLayer"]
 offset_left = 477.0
@@ -69,6 +73,7 @@ texture_normal = ExtResource("12_egw4e")
 texture_hover = ExtResource("13_w2pit")
 ignore_texture_size = true
 stretch_mode = 0
+metadata/_edit_lock_ = true
 
 [node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_yrmxh")

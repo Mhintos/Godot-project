@@ -1,40 +1,64 @@
 extends Node2D
 
-@export var main_menu_path: String = "res://scene/Main Menu/Mainmenu.tscn"
-@export var tips2_scene_path: String = "res://scene/tips/tips_2.tscn"
+@export_file("*.tscn") var main_menu_path: String = "res://scene/Main Menu/Mainmenu.tscn"
+@export_file("*.tscn") var tips2_scene_path: String = "res://scene/tips/tips_2.tscn"
 
 @onready var hover_sfx: AudioStreamPlayer = $HoverSFX
 @onready var click_sfx: AudioStreamPlayer = $ClickSFX
-@onready var main_menu_music: AudioStreamPlayer = $TipsMusic
+@onready var tips_music: AudioStreamPlayer = $TipsMusic
 
-@onready var back_button = $CanvasLayer/BackButton  # ✅ Added
-@onready var next_button = $CanvasLayer/NextButton  # ✅ Added
+@onready var back_button: TextureButton = $CanvasLayer/BackButton
+@onready var next_button: TextureButton = $CanvasLayer/NextButton
 
-# Called when the node enters the scene tree for the first time.
+var is_transitioning: bool = false
+
 func _ready() -> void:
-	# Connect hover signals
-	back_button.mouse_entered.connect(_on_button_hovered)
-	next_button.mouse_entered.connect(_on_button_hovered)
+	if back_button and not back_button.mouse_entered.is_connected(_on_button_hovered):
+		back_button.mouse_entered.connect(_on_button_hovered)
+	if next_button and not next_button.mouse_entered.is_connected(_on_button_hovered):
+		next_button.mouse_entered.connect(_on_button_hovered)
 
-# Called every frame. '_delta' is unused, so we prefix with underscore
-func _process(_delta: float) -> void:
-	pass
+	if back_button and not back_button.pressed.is_connected(_on_back_button_pressed):
+		back_button.pressed.connect(_on_back_button_pressed)
+	if next_button and not next_button.pressed.is_connected(_on_next_button_pressed):
+		next_button.pressed.connect(_on_next_button_pressed)
 
-# Hover SFX function
+	if tips_music and tips_music.stream and not tips_music.playing:
+		tips_music.play()
+
 func _on_button_hovered() -> void:
-	if hover_sfx.stream:
-		if hover_sfx.playing:
-			hover_sfx.stop()
+	if is_transitioning:
+		return
+	if hover_sfx and hover_sfx.stream:
+		hover_sfx.stop()
 		hover_sfx.play()
 
 func _on_back_button_pressed() -> void:
-	if click_sfx.stream:
+	if is_transitioning:
+		return
+	is_transitioning = true
+	_set_buttons_disabled(true)
+
+	if click_sfx and click_sfx.stream:
 		click_sfx.play()
 		await click_sfx.finished
+
 	get_tree().change_scene_to_file(main_menu_path)
 
 func _on_next_button_pressed() -> void:
-	if click_sfx.stream:
+	if is_transitioning:
+		return
+	is_transitioning = true
+	_set_buttons_disabled(true)
+
+	if click_sfx and click_sfx.stream:
 		click_sfx.play()
 		await click_sfx.finished
+
 	get_tree().change_scene_to_file(tips2_scene_path)
+
+func _set_buttons_disabled(value: bool) -> void:
+	if back_button:
+		back_button.disabled = value
+	if next_button:
+		next_button.disabled = value
