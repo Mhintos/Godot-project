@@ -30,6 +30,9 @@ extends Node2D
 
 @export var meredith_jumpscare_sprite_path: NodePath
 
+@export var microphone_button: TextureButton = null
+@onready var dialogue_ui = $DialogueLayer/DialogueUI
+
 @onready var bloodier_minitable: CanvasItem = get_node_or_null(bloodier_minitable_path)
 @onready var bloodier_organizer: CanvasItem = get_node_or_null(bloodier_organizer_path)
 @onready var meredith_jumpscare_sprite: AnimatedSprite2D = get_node_or_null(meredith_jumpscare_sprite_path)
@@ -43,6 +46,8 @@ extends Node2D
 @onready var documents_shake: Node = $"Documents"
 @onready var bloody_ui_shake: Node = $"Bloody UI"
 @onready var jumpscare_layer_shake: Node = $"JumpscareLayer"
+@onready var microphone_layer_shake: Node = $MicrophoneLayer
+@onready var dialogueui_layer_shake: Node = $DialogueLayer
 
 @onready var scare_meter: AnimatedSprite2D = get_node_or_null(scare_meter_path)
 @onready var scare_alarm_sfx: AudioStreamPlayer = get_node_or_null(scare_alarm_sfx_path)
@@ -111,7 +116,6 @@ const DEBUG_LOGS := false
 var warning2_elapsed_time: float = 0.0
 var warning2_burst_interval: float = 3.0
 
-
 var shift_queue: Array = []
 
 var warning2_overlay_motion_time: float = 0.0
@@ -159,6 +163,11 @@ var normal_scare_times := [30.0, 27.0, 24.0, 21.0]
 var document_manager: Node = null
 var current_shake_offset: Vector2 = Vector2.ZERO
 
+var current_approved_messages: Array = []
+var current_denied_messages: Array = []
+var character_dialogue_messages: Array = []
+var microphone_used := false
+
 func debug_log(msg) -> void:
 	if DEBUG_LOGS:
 		print(msg)
@@ -196,7 +205,9 @@ func _ready() -> void:
 		character_layer_shake,
 		documents_shake,
 		bloody_ui_shake,
-		jumpscare_layer_shake
+		jumpscare_layer_shake,
+		microphone_layer_shake,
+		dialogueui_layer_shake
 	]
 
 	for layer in shake_layers:
@@ -226,6 +237,9 @@ func _ready() -> void:
 
 	if in_game_music and in_game_music.stream and not in_game_music.playing:
 		in_game_music.play()
+
+	if microphone_button:
+		microphone_button.pressed.connect(_on_microphone_pressed)
 
 	reset_run_state()
 
@@ -351,6 +365,8 @@ func spawn_character() -> void:
 		push_error("Shift queue is empty. Generate the shift queue first.")
 		return
 
+	microphone_used = false
+
 	_lock_gameplay()
 
 	_cleanup_current_character()
@@ -399,6 +415,7 @@ func spawn_character() -> void:
 
 	if current_character.has_signal("reached_stop"):
 		current_character.reached_stop.connect(_on_character_reached_stop)
+	
 
 func _on_first_mini_doc_interacted() -> void:
 	if current_character == null:
@@ -415,8 +432,6 @@ func _on_first_mini_doc_interacted() -> void:
 func _on_character_reached_stop() -> void:
 	if current_character == null:
 		return
-
-	play_sliding_paper_sfx()
 
 	if footstep_sfx and footstep_sfx.playing:
 		footstep_sfx.stop()
@@ -439,6 +454,12 @@ func _on_character_reached_stop() -> void:
 		debug_log("True form reached stop. 4-second anomaly state started.")
 		return
 
+	if current_character.has_method("get_dialogue_messages"):
+		character_dialogue_messages = current_character.get_dialogue_messages()
+	else:
+		character_dialogue_messages = []
+	_lock_gameplay()
+
 	if _is_disguised_character(current_character):
 		true_form_active = true
 		current_scare_duration = 8.0
@@ -446,8 +467,14 @@ func _on_character_reached_stop() -> void:
 		approve_btn.disabled = true
 		deny_btn.disabled = true
 
-		if current_character.has_method("spawn_documents"):
-			current_character.spawn_documents()
+		if microphone_button:
+			microphone_button.visible = true
+			var mic_sprite = microphone_button.get_node("MicSprite")
+			if mic_sprite:
+				mic_sprite.play("hint")
+				await mic_sprite.animation_finished
+				if mic_sprite.is_visible_in_tree() and mic_sprite.animation == "hint":
+					mic_sprite.play("default")
 
 		scare_started = false
 		scare_alarm_triggered = false
@@ -455,9 +482,48 @@ func _on_character_reached_stop() -> void:
 		debug_log("Disguised reached stop. Waiting for first mini doc interaction.")
 		return
 
+	_unlock_gameplay()
+
+	if microphone_button and character_dialogue_messages.size() > 0:
+		microphone_button.visible = true
+		var mic_sprite = microphone_button.get_node("MicSprite")
+		if mic_sprite:
+			mic_sprite.play("hint")
+			await mic_sprite.animation_finished
+			if mic_sprite.is_visible_in_tree() and mic_sprite.animation == "hint":
+				mic_sprite.play("default")
+	else:
+		_unlock_gameplay()
+	microphone_used = false
+	if microphone_button and character_dialogue_messages.size() > 0:
+		microphone_button.visible = true
+
+func _on_microphone_pressed():
+	var mic_sprite = microphone_button.get_node("MicSprite")
+	if mic_sprite:
+		mic_sprite.stop()
+	if not dialogue_ui or not current_character:
+		return
+	if microphone_used:
+		return
+	microphone_used = true
+	play_sliding_paper_sfx()
 	if current_character.has_method("spawn_documents"):
 		current_character.spawn_documents()
+	if character_dialogue_messages.size() > 0:
+		if dialogue_ui.conversation_finished.is_connected(_on_dialogue_finished):
+			dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
+		dialogue_ui.conversation_finished.connect(_on_dialogue_finished)
+		dialogue_ui.visible = true
+		dialogue_ui.start_conversation(character_dialogue_messages)
+	else:
+		_on_dialogue_finished()
 
+func _on_dialogue_finished() -> void:
+	if dialogue_ui:
+		dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
+		dialogue_ui.visible = false
+	character_dialogue_messages = []
 	_unlock_gameplay()
 
 func _on_blinds_closed_success() -> void:
@@ -616,32 +682,48 @@ func _on_decision_pressed(decision: String) -> void:
 	if document_manager and document_manager.has_method("clear_opened_docs"):
 		document_manager.clear_opened_docs()
 
-	var exit_method := "exit_right"
-	if decision == "deny":
-		exit_method = "exit_left"
+	var dialogue_messages: Array = []
+	if decision == "approve":
+		if current_character.has_method("get_approve_messages"):
+			dialogue_messages = current_character.get_approve_messages()
+	else: # deny
+		if current_character.has_method("get_deny_messages"):
+			dialogue_messages = current_character.get_deny_messages()
 
-	if current_character.has_method(exit_method):
+	if dialogue_ui and dialogue_messages.size() > 0:
+	# Disconnect any previous connection
+		if dialogue_ui.conversation_finished.is_connected(_on_decision_dialogue_finished):
+				dialogue_ui.conversation_finished.disconnect(_on_decision_dialogue_finished)
+		dialogue_ui.conversation_finished.connect(_on_decision_dialogue_finished.bind(decision))
+		dialogue_ui.visible = true
+		dialogue_ui.start_conversation(dialogue_messages)
+	# Exit will happen after the signal
+	else:
+	# No decision dialogue – finish immediately
+		_finish_decision(decision)
+
+func _on_decision_dialogue_finished(decision: String) -> void:
+	if dialogue_ui:
+		dialogue_ui.conversation_finished.disconnect(_on_decision_dialogue_finished)
+		dialogue_ui.visible = false
+	_finish_decision(decision)
+
+func _finish_decision(decision: String) -> void:
+	var exit_method := "exit_right" if decision == "approve" else "exit_left"
+	if current_character and current_character.has_method(exit_method):
 		current_character.call(exit_method, func():
 			current_character = null
-
 			if blinds_system:
 				blinds_system.force_open()
-
-			if game_over:
-				return
-
-			_finish_character_and_continue()
+			if not game_over:
+				_finish_character_and_continue()
 		)
 	else:
 		current_character = null
-
 		if blinds_system:
 			blinds_system.force_open()
-
-		if game_over:
-			return
-
-		_finish_character_and_continue()
+		if not game_over:
+			_finish_character_and_continue()
 
 func _is_decision_correct(decision: String) -> bool:
 	if current_character == null:
@@ -776,6 +858,9 @@ func reset_run_state() -> void:
 		blinds_system.force_open()
 	else:
 		push_error("BlindsSystem not found. Check node path.")
+
+	microphone_used = false
+	character_dialogue_messages = []
 
 	generate_shift_queue()
 	spawn_character()
