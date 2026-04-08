@@ -33,7 +33,6 @@ func _ready():
 
 func start_dialogue(chapter_index: int):
 	if chapter_index >= dialogues.size():
-		print("No more dialogues")
 		return
 	current_bubbles = dialogues[chapter_index]
 	current_index = 0
@@ -47,7 +46,6 @@ func start_dialogue(chapter_index: int):
 
 func spawn_next_bubble():
 	if current_index >= current_bubbles.size():
-		print("All bubbles shown in this chapter")
 		conversation_finished.emit()
 		return
 
@@ -110,6 +108,8 @@ func spawn_next_bubble():
 	spawn_next_bubble()
 
 func _on_bubble_timer_expired(bubble):
+	if not is_instance_valid(bubble):
+		return
 	var index = -1
 	for i in range(active_bubbles.size()):
 		if active_bubbles[i].node == bubble:
@@ -122,24 +122,29 @@ func _on_bubble_timer_expired(bubble):
 	remove_child(timer)
 	timer.queue_free()
 
-	await move_bubble_up_and_remove(bubble)
 	active_bubbles.remove_at(index)
+	await move_bubble_up_and_remove(bubble)
 	reposition_stack()   # instead of shift_bubbles_below
 
 func move_bubble_up_and_remove(bubble):
+	if not is_instance_valid(bubble):
+		return
 	print("Moving and fading bubble: ", bubble.text)
 	var tween = create_tween()
 	var target_y = bubble.position.y - move_up_distance
 	tween.tween_property(bubble, "position:y", target_y, 0.3).set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property(bubble, "modulate:a", 0.0, 0.5)
 	await tween.finished
-	print("Fade finished, hiding bubble")
-	bubble.visible = false
+	if is_instance_valid(bubble):
+		bubble.visible = false
+	else:
+		print("Bubble already freed after tween")
 
 func reposition_stack():
 	var remaining = []
 	for entry in active_bubbles:
-		remaining.append(entry.node)
+		if is_instance_valid(entry.node):
+			remaining.append(entry.node)
 	remaining.sort_custom(func(a, b): return a.position.y < b.position.y)
 
 	var current_y = top_y
@@ -157,6 +162,10 @@ func reposition_stack():
 # Starts a conversation with a list of messages
 # messages: Array of dictionaries, each with "text" (String) and "side" (String, "left" or "right")
 func start_conversation(messages: Array) -> void:
+	for entry in active_bubbles:
+		var timer = entry.timer
+		if timer and is_instance_valid(timer):
+			timer.stop()
 	_clear_all_bubbles()
 # Build the dialogue chapters: one chapter with all messages
 	var chapter = []
@@ -184,6 +193,9 @@ func _create_bubble(text: String, side: String) -> RichTextLabel:
 func _clear_all_bubbles() -> void:
 	for child in get_children():
 		if child is RichTextLabel:
+			child.queue_free()
+		elif child is Timer:
+			child.stop()
 			child.queue_free()
 	active_bubbles.clear()
 	current_bubbles = []
