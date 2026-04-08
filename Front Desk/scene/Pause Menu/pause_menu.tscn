@@ -10,9 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://m2ddrxv1jxye" path="res://assets/Pause Menu/Settings pause hover.png" id="7_yl8cn"]
 [ext_resource type="Texture2D" uid="uid://dbksb1dj2mgd0" path="res://assets/Pause Menu/Quit Game pause normal.png" id="8_2gm6o"]
 [ext_resource type="Texture2D" uid="uid://dmhp105s42tyi" path="res://assets/Pause Menu/Quit Game pause hover.png" id="9_ryjim"]
-[ext_resource type="AudioStream" uid="uid://c7txs6ksd3pjw" path="res://sfx/AllSfx/Button Hover.mp3" id="11_c13or"]
-[ext_resource type="AudioStream" uid="uid://bponfxch0uuiy" path="res://sfx/AllSfx/ButtonClick.mp3" id="12_367qg"]
-[ext_resource type="AudioStream" uid="uid://7c84qhb5566j" path="res://sfx/AllSfx/Main Menu Official BG Music.mp3" id="13_yl8cn"]
+[ext_resource type="AudioStream" uid="uid://c7txs6ksd3pjw" path="res://sfx/General Sounds/Button Hover.mp3" id="11_c13or"]
+[ext_resource type="AudioStream" uid="uid://bponfxch0uuiy" path="res://sfx/General Sounds/ButtonClick.mp3" id="12_367qg"]
+[ext_resource type="AudioStream" uid="uid://7c84qhb5566j" path="res://sfx/General Sounds/Main Menu Official BG Music.mp3" id="13_yl8cn"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 2

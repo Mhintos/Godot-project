@@ -1,7 +1,7 @@
 extends Node2D
 
 @export_file("*.tscn") var main_menu_scene_path: String = "res://scene/Main Menu/Mainmenu.tscn"
-@export_file("*.tscn") var pause_scene_path: String = "res://scene/pause/pause_menu.tscn"
+@export_file("*.tscn") var pause_scene_path: String = "res://scene/Pause Menu/pause_menu.tscn"
 
 @onready var volume_slider: HSlider = $CanvasLayer/VolumeSlider
 @onready var back_button: TextureButton = $CanvasLayer/BackButton

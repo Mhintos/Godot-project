@@ -1,18 +1,19 @@
-[gd_scene load_steps=77 format=4 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=80 format=4 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
+[ext_resource type="PackedScene" uid="uid://boyocx7iyt7ds" path="res://scene/Pause Menu/pause_menu.tscn" id="2_pchdn"]
 [ext_resource type="PackedScene" uid="uid://lrbticr1ov8o" path="res://scene/Character/Normal Character/Ralph Romero Professor.tscn" id="3_yfmp5"]
 [ext_resource type="PackedScene" uid="uid://qaeqwprrrdxp" path="res://scene/Character/True Form Anomalies/Caleb Alonso Security Anomaly.tscn" id="5_2wxcv"]
 [ext_resource type="PackedScene" uid="uid://chisouworllid" path="res://scene/Character/Normal Character/Angelo Maderal Professor.tscn" id="5_s4fil"]
 [ext_resource type="PackedScene" uid="uid://dosvx2vykil81" path="res://scene/Character/Normal Character/Kyle Navarro Security Guard.tscn" id="6_4rdtj"]
 [ext_resource type="PackedScene" uid="uid://dgau330eg8kdh" path="res://scene/Character/Normal Character/Loopy Varns Canteen Staff.tscn" id="6_50h4t"]
 [ext_resource type="PackedScene" uid="uid://dmg7phcmhthfe" path="res://scene/Character/Normal Character/Trisha Mendoza Canteen Staff.tscn" id="7_lu1ec"]
-[ext_resource type="Texture2D" uid="uid://bfhkqbtlfkyhj" path="res://assets/ui/Table/Organizer.png" id="7_lwtii"]
+[ext_resource type="Texture2D" uid="uid://bfhkqbtlfkyhj" path="res://assets/ui/Table/organizer.png" id="7_lwtii"]
 [ext_resource type="PackedScene" uid="uid://dny8jq3otiebo" path="res://scene/Character/Normal Character/Alicia Roxas Professor.tscn" id="8_k8hxm"]
 [ext_resource type="Texture2D" uid="uid://bgdm30kdupwmd" path="res://assets/ui/Table/Mini Table.png" id="8_kspj7"]
 [ext_resource type="PackedScene" uid="uid://uveo67mqt2au" path="res://scene/Character/Disguised Character/Ralph Romero Professor Disguised.tscn" id="8_lwdaq"]
-[ext_resource type="Texture2D" uid="uid://bvd700yvkq2yn" path="res://assets/ui/Telephone/Telephone.png" id="9_lwtii"]
+[ext_resource type="Texture2D" uid="uid://bvd700yvkq2yn" path="res://assets/ui/Telephone/telephone.png" id="9_lwtii"]
 [ext_resource type="PackedScene" uid="uid://bhlefcwdnqgb7" path="res://scene/Character/Disguised Character/Trisha Mendoza Canteen Staff Disguised.tscn" id="9_qob17"]
 [ext_resource type="PackedScene" uid="uid://lsyjakldqsfr" path="res://scene/Character/True Form Anomalies/Meredith Grey Professor Anomaly.tscn" id="11_h4ua4"]
 [ext_resource type="Script" uid="uid://dyyiw6d3if0co" path="res://script/documents/document_manager.gd" id="15_50h4t"]
@@ -31,8 +32,10 @@
 [ext_resource type="Texture2D" uid="uid://c27i282aa7yy" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/1.png" id="23_tokp6"]
 [ext_resource type="Texture2D" uid="uid://b4jbdprn1fnnm" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/2.png" id="24_ex0io"]
 [ext_resource type="Texture2D" uid="uid://dempketnmw7jq" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/3.png" id="25_vhmf8"]
+[ext_resource type="Texture2D" uid="uid://b1lyvhjhsw10k" path="res://assets/Pause Menu/Button pause.png" id="26_cqrhs"]
 [ext_resource type="Texture2D" uid="uid://c0tripluupea2" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/4.png" id="26_sx8aa"]
 [ext_resource type="Texture2D" uid="uid://cwbntg2j5vyqv" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/5.png" id="27_cc2gp"]
+[ext_resource type="Texture2D" uid="uid://brfxmufrubm7f" path="res://assets/Pause Menu/Hover pause.png" id="27_pchdn"]
 [ext_resource type="Texture2D" uid="uid://bsednfd7qk5su" path="res://assets/Scare meter/1.png" id="28_5jpnk"]
 [ext_resource type="Texture2D" uid="uid://28nfsv3mpni6" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/6.png" id="28_r88fj"]
 [ext_resource type="Texture2D" uid="uid://db84xe4ulgp0d" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/7.png" id="29_1oqq2"]
@@ -177,6 +180,8 @@ data = PackedByteArray("//vQRAAAxQF+LADBNAKVjtWyDGmeVQH6xMMkfUKfPxfEYya4ACIOFptE
 
 [node name="Inspection2D" type="Node2D"]
 script = ExtResource("1_2wxcv")
+pause_scene = ExtResource("2_pchdn")
+pause_button_path = NodePath("BG Layer/Table Layer/UILayer/PauseButton")
 scare_meter_path = NodePath("ScareMeterLayer/ScareMeter")
 scare_alarm_sfx_path = NodePath("ScareMeterLayer/ScareAlarmSFX")
 mini_id_slot_path = NodePath("Documents/MiniSlot_ID")
@@ -195,6 +200,9 @@ warning2_overlay_path = NodePath("Warning2OverlayLayer/Screen Damage Overlay")
 bloodier_minitable_path = NodePath("BG Layer/Table Layer/BloodierMinitable")
 bloodier_organizer_path = NodePath("BG Layer/Table Layer/BloodierOrganizer")
 meredith_jumpscare_sprite_path = NodePath("JumpscareLayer/MeredithJumpscareSprite")
+
+[node name="PauseOverlayLayer" type="CanvasLayer" parent="."]
+layer = 100
 
 [node name="BG Layer" type="CanvasLayer" parent="."]
 layer = -1
@@ -308,6 +316,7 @@ texture_pressed = ExtResource("16_50h4t")
 texture_hover = ExtResource("15_mga6p")
 ignore_texture_size = true
 stretch_mode = 5
+metadata/_edit_lock_ = true
 
 [node name="DenyButton" type="TextureButton" parent="BG Layer/Table Layer/UILayer"]
 anchors_preset = 15
@@ -324,6 +333,18 @@ texture_pressed = ExtResource("19_7su7m")
 texture_hover = ExtResource("18_5er1a")
 ignore_texture_size = true
 stretch_mode = 5
+metadata/_edit_lock_ = true
+
+[node name="PauseButton" type="TextureButton" parent="BG Layer/Table Layer/UILayer"]
+offset_left = 1068.0
+offset_top = 4.0
+offset_right = 1154.0
+offset_bottom = 85.0
+texture_normal = ExtResource("26_cqrhs")
+texture_hover = ExtResource("27_pchdn")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_lock_ = true
 
 [node name="Blinds Layer" type="CanvasLayer" parent="."]
 layer = 10

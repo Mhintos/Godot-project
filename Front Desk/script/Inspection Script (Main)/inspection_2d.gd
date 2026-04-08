@@ -1,5 +1,9 @@
 extends Node2D
 
+@export var pause_scene: PackedScene
+@export var pause_button_path: NodePath
+@onready var pause_button: BaseButton = get_node_or_null(pause_button_path)
+
 @export var scare_meter_path: NodePath
 @export var scare_alarm_sfx_path: NodePath
 
@@ -228,6 +232,12 @@ func _ready() -> void:
 		in_game_music.play()
 
 	reset_run_state()
+	
+	if pause_button:
+		if not pause_button.pressed.is_connected(_on_pause_button_pressed):
+			pause_button.pressed.connect(_on_pause_button_pressed)
+	else:
+		push_error("PauseButton not found! Check pause_button_path in Inspector.")
 
 func generate_shift_queue() -> void:
 	shift_queue.clear()
@@ -1412,3 +1422,27 @@ func hide_bloody_ui2() -> void:
 
 	if bloodier_organizer:
 		bloodier_organizer.visible = false
+		
+func _on_pause_button_pressed() -> void:
+	if game_over:
+		return
+
+	if get_tree().paused:
+		return
+
+	if pause_scene == null:
+		push_error("Pause scene not assigned in Inspector.")
+		return
+
+	var pause_overlay_layer: CanvasLayer = get_node_or_null("PauseOverlayLayer")
+	if pause_overlay_layer == null:
+		push_error("PauseOverlayLayer not found in inspection_2d.tscn.")
+		return
+
+	for child in pause_overlay_layer.get_children():
+		child.queue_free()
+
+	var pause_instance = pause_scene.instantiate()
+	pause_overlay_layer.add_child(pause_instance)
+
+	get_tree().paused = true

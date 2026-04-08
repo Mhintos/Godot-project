@@ -1,7 +1,7 @@
 extends Node2D
 
 @export_file("*.tscn") var main_menu_path: String = "res://scene/Main Menu/Mainmenu.tscn"
-@export_file("*.tscn") var tips2_scene_path: String = "res://scene/tips/tips_2.tscn"
+@export_file("*.tscn") var tips2_scene_path: String = "res://scene/tips/tips_page_2.tscn"
 
 @onready var hover_sfx: AudioStreamPlayer = $HoverSFX
 @onready var click_sfx: AudioStreamPlayer = $ClickSFX

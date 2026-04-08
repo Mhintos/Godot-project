@@ -7,18 +7,21 @@
 [ext_resource type="Texture2D" uid="uid://dl6gsrj6ywohu" path="res://assets/Main Menu/Start Hover.png" id="5_5rmyy"]
 [ext_resource type="Texture2D" uid="uid://btlbycxnw10eh" path="res://assets/Main Menu/Quit.png" id="5_kjm3w"]
 [ext_resource type="Texture2D" uid="uid://clevkenb5jyjy" path="res://assets/Main Menu/quitdark.png" id="6_5rmyy"]
-[ext_resource type="AudioStream" uid="uid://7c84qhb5566j" path="res://sfx/AllSfx/Main Menu Official BG Music.mp3" id="7_yrmxh"]
+[ext_resource type="AudioStream" uid="uid://7c84qhb5566j" path="res://sfx/General Sounds/Main Menu Official BG Music.mp3" id="7_yrmxh"]
 [ext_resource type="Texture2D" uid="uid://dl7vp62ucodgc" path="res://assets/Main Menu/Quit Hover.png" id="8_4oy5i"]
-[ext_resource type="Texture2D" uid="uid://dlq06cwuv0hua" path="res://assets/Settings/Settings.png" id="9_eno1v"]
-[ext_resource type="AudioStream" uid="uid://bponfxch0uuiy" path="res://sfx/AllSfx/ButtonClick.mp3" id="9_o0tjd"]
-[ext_resource type="Texture2D" uid="uid://m1e7ger4jvyj" path="res://assets/Settings/Settings Dark.png" id="10_4vphq"]
-[ext_resource type="AudioStream" uid="uid://d3qo1uo0qh1yj" path="res://sfx/buttonhover/Button Hover.mp3" id="10_kjm3w"]
-[ext_resource type="Texture2D" uid="uid://d33noovwq7b5a" path="res://assets/Settings/Settings Hover.png" id="11_egw4e"]
+[ext_resource type="Texture2D" uid="uid://dlq06cwuv0hua" path="res://assets/settings/Settings.png" id="9_eno1v"]
+[ext_resource type="AudioStream" uid="uid://bponfxch0uuiy" path="res://sfx/General Sounds/ButtonClick.mp3" id="9_o0tjd"]
+[ext_resource type="Texture2D" uid="uid://m1e7ger4jvyj" path="res://assets/settings/Settings Dark.png" id="10_4vphq"]
+[ext_resource type="Texture2D" uid="uid://d33noovwq7b5a" path="res://assets/settings/Settings Hover.png" id="11_egw4e"]
 [ext_resource type="Texture2D" uid="uid://bwyo8ws5gjqvs" path="res://assets/Main Menu/Tips.png" id="12_egw4e"]
 [ext_resource type="Texture2D" uid="uid://dfvo1svpwmeu4" path="res://assets/Main Menu/Tips Hover.png" id="13_w2pit"]
+[ext_resource type="AudioStream" uid="uid://cuvp20rcb28yw" path="res://sfx/Main Menu Buttons/Button Hover.mp3" id="15_egw4e"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_hm8h1")
+game_scene_path = "uid://cjkqk8fhkjsme"
+settings_scene_path = "uid://dwird0lpg3mce"
+tips_scene_path = "uid://ci5lr6vg3fu7i"
 
 [node name="Background" type="TextureRect" parent="."]
 offset_right = 1920.0
@@ -118,7 +121,7 @@ stream = ExtResource("7_yrmxh")
 volume_db = -10.0
 
 [node name="HoverSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("10_kjm3w")
+stream = ExtResource("15_egw4e")
 volume_db = -10.0
 
 [node name="ClickSFX" type="AudioStreamPlayer" parent="."]

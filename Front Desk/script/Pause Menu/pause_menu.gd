@@ -1,7 +1,7 @@
 extends Control
 
 @export_file("*.tscn") var main_menu_scene_path: String = "res://scene/Main Menu/Mainmenu.tscn"
-@export_file("*.tscn") var settings_scene_path: String = "res://scene/Settings/Settings.tscn"
+@export_file("*.tscn") var settings_scene_path: String = "res://scene/Settings_Menu/Settings.tscn"
 
 @onready var resume_button: TextureButton = $PauseButtonLayer/ResumeButton
 @onready var main_menu_button: TextureButton = $PauseButtonLayer/MainMenuButton

@@ -1,8 +1,8 @@
 extends Node2D
 
 @export_file("*.tscn") var game_scene_path: String = "res://scene/ui/inspection_2d.tscn"
-@export_file("*.tscn") var settings_scene_path: String = "res://scene/Settings/Settings.tscn"
-@export_file("*.tscn") var tips_scene_path: String = "res://scene/tips/tips_1.tscn"
+@export_file("*.tscn") var settings_scene_path: String = "res://scene/Settings_Menu/Settings.tscn"
+@export_file("*.tscn") var tips_scene_path: String = "res://scene/tips/tips_page_1.tscn"
 
 @onready var start_button: TextureButton = $CanvasLayer/StartButton
 @onready var quit_button: TextureButton = $CanvasLayer/QuitButton
