@@ -22,8 +22,6 @@ extends Node2D
 @export var jumpscare_sprite_path: NodePath
 
 @export var max_characters_per_shift: int = 10
-@export var success_scene_path: String = "res://scene/Success/success.tscn"
-@export var game_over_scene_path: String = "res://scene/GameOver/game_over.tscn"
 
 @export var warning2_overlay_path: NodePath
 
@@ -114,6 +112,12 @@ var true_form_active := false
 var mistake_count := 0
 var game_over := false
 var processed_characters := 0
+
+var forged_got_in := false
+var disguised_failure_count := 0
+var true_form_failure_count := 0
+
+var ending_result_scene_path: String = "res://scene/Endings/ending_result.tscn"
 
 var screen_shake_time: float = 0.0
 var screen_shake_strength: float = 0.0
@@ -439,6 +443,11 @@ func _on_true_form_timer_timeout() -> void:
 		debug_log("Anomaly blocked in time.")
 		_reject_true_form()
 	else:
+		if _is_disguised_character(current_character):
+			disguised_failure_count += 1
+		elif _is_true_form_character(current_character):
+			true_form_failure_count += 1
+
 		true_form_active = false
 		debug_log("Time ran out - jumpscare")
 		trigger_jumpscare()
@@ -491,7 +500,9 @@ func _on_jumpscare_finished() -> void:
 		active_jumpscare_sprite.visible = false
 
 	debug_log("JUMPSCARE FINISHED")
-	get_tree().change_scene_to_file(game_over_scene_path)
+
+	GameResult.set_ending(GameResult.ENDING_GAME_OVER_CONSUMED)
+	get_tree().change_scene_to_file(ending_result_scene_path)
 
 func _on_decision_pressed(decision: String) -> void:
 	if _locked or game_over:
@@ -517,6 +528,8 @@ func _on_decision_pressed(decision: String) -> void:
 		_unlock_gameplay()
 		spawn_character()
 		return
+
+	_register_approved_forged_if_needed(decision)
 
 	var is_correct := _is_decision_correct(decision)
 
@@ -592,6 +605,23 @@ func _register_mistake() -> void:
 	play_mistake_sfx()
 	debug_log("Mistake count: " + str(mistake_count))
 	advance_warning_state_from_mistake()
+	
+func _register_approved_forged_if_needed(decision: String) -> void:
+	if decision != "approve":
+		return
+
+	if current_character == null:
+		return
+
+	if _is_disguised_character(current_character):
+		return
+
+	if _is_true_form_character(current_character):
+		return
+
+	var expected = current_character.get_expected_result()
+	if expected == current_character.ExpectedDecision.DENY:
+		forged_got_in = true
 
 func _show_bloody_ui() -> void:
 	if blood_minitable:
@@ -653,6 +683,12 @@ func reset_run_state() -> void:
 	_char_index = 0
 	shift_queue.clear()
 
+	forged_got_in = false
+	disguised_failure_count = 0
+	true_form_failure_count = 0
+
+	GameResult.clear_result()
+
 	true_form_timer.stop()
 	_disable_buttons(false)
 
@@ -681,7 +717,11 @@ func _finish_character_and_continue() -> void:
 
 	if processed_characters >= max_characters_per_shift:
 		stop_all_looping_sfx()
-		get_tree().change_scene_to_file(success_scene_path)
+
+		var ending_id := _determine_shift_ending_id()
+		GameResult.set_ending(ending_id)
+
+		get_tree().change_scene_to_file(ending_result_scene_path)
 		return
 
 	reset_scare_meter()
@@ -879,7 +919,13 @@ func process_scare_meter(delta: float) -> void:
 		start_screen_shake(0.22, 12.0)
 		play_mistake_sfx()
 
-		if _is_true_form_character(current_character) or _is_disguised_character(current_character):
+		if _is_disguised_character(current_character):
+			disguised_failure_count += 1
+			trigger_jumpscare()
+			return
+
+		if _is_true_form_character(current_character):
+			true_form_failure_count += 1
 			trigger_jumpscare()
 			return
 
@@ -1128,6 +1174,30 @@ func _hide_all_jumpscare_sprites() -> void:
 		meredith_jumpscare_sprite.stop()
 
 	active_jumpscare_sprite = null
+	
+func _determine_shift_ending_id() -> String:
+	var reached_warning1 := scare_warning_stage >= 1
+	var reached_warning2 := scare_warning_stage >= 2
+	var all_disguised_stopped := disguised_failure_count == 0
+	var all_true_forms_stopped := true_form_failure_count == 0
+
+	if mistake_count == 0 \
+	and scare_warning_stage == 0 \
+	and not forged_got_in \
+	and all_disguised_stopped \
+	and all_true_forms_stopped:
+		return GameResult.ENDING_YOU
+
+	if forged_got_in:
+		return GameResult.ENDING_THEY_GOT_IN
+
+	if reached_warning2 and all_disguised_stopped and all_true_forms_stopped:
+		return GameResult.ENDING_TRUTH_BELOW
+
+	if reached_warning1 and not reached_warning2:
+		return GameResult.ENDING_ROUTINE_SHIFT
+
+	return GameResult.ENDING_ROUTINE_SHIFT
 	
 func _get_active_jumpscare_sprite() -> AnimatedSprite2D:
 	if _is_meredith_true_form(current_character) and meredith_jumpscare_sprite:

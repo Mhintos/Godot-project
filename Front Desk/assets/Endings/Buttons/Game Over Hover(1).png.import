@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3omc0eir0fet"
-path="res://.godot/imported/Game Over Hover.png-94f58b0b3e3da77852aeeca450bd23f9.ctex"
+uid="uid://b84kmaqepuldk"
+path="res://.godot/imported/Game Over Hover(1).png-72f74665da5fca8649dc1f092deeb3e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gameover/Game Over Hover.png"
-dest_files=["res://.godot/imported/Game Over Hover.png-94f58b0b3e3da77852aeeca450bd23f9.ctex"]
+source_file="res://assets/Endings/Buttons/Game Over Hover(1).png"
+dest_files=["res://.godot/imported/Game Over Hover(1).png-72f74665da5fca8649dc1f092deeb3e4.ctex"]
 
 [params]
 

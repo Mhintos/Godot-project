@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuwydfxrbwmdk"
-path="res://.godot/imported/gamelight.png-bbe13820032da121e97a861490d2dc05.ctex"
+uid="uid://cptg0hduxsxcs"
+path="res://.godot/imported/Ending 1_ You.png-a32912e5b82845d824af6e88f787388a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gameover/gamelight.png"
-dest_files=["res://.godot/imported/gamelight.png-bbe13820032da121e97a861490d2dc05.ctex"]
+source_file="res://assets/Endings/Ending 1_ You.png"
+dest_files=["res://.godot/imported/Ending 1_ You.png-a32912e5b82845d824af6e88f787388a.ctex"]
 
 [params]
 

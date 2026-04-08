@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dab6l85rx5vxc"
-path="res://.godot/imported/sucessdark.png-2ef49966e1ca4714df27e67222109e14.ctex"
+uid="uid://b4tyhvk3gaxul"
+path="res://.godot/imported/Game Over(1).png-e72a49021b5982062e3274b4b448a941.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Success/sucessdark.png"
-dest_files=["res://.godot/imported/sucessdark.png-2ef49966e1ca4714df27e67222109e14.ctex"]
+source_file="res://assets/Endings/Buttons/Game Over(1).png"
+dest_files=["res://.godot/imported/Game Over(1).png-e72a49021b5982062e3274b4b448a941.ctex"]
 
 [params]
 

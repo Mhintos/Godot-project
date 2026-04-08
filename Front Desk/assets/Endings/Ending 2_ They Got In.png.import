@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyhu21l5y82su"
-path="res://.godot/imported/gamedark.png-564733517a3b4a812a39f6b42e9eef45.ctex"
+uid="uid://dd70yfp62r6e8"
+path="res://.godot/imported/Ending 2_ They Got In.png-f4b7136bdcf80baba21526b6e489d714.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gameover/gamedark.png"
-dest_files=["res://.godot/imported/gamedark.png-564733517a3b4a812a39f6b42e9eef45.ctex"]
+source_file="res://assets/Endings/Ending 2_ They Got In.png"
+dest_files=["res://.godot/imported/Ending 2_ They Got In.png-f4b7136bdcf80baba21526b6e489d714.ctex"]
 
 [params]
 

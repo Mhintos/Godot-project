@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu0lfmn61uhlb"
-path="res://.godot/imported/Success Hover.png-888298682ac83379091c4a113fc6df69.ctex"
+uid="uid://xyxxwmh4e7vp"
+path="res://.godot/imported/GAME OVER_ Consumed.png-50c79ecb4c7b332bc5c203784142e6c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Success/Success Hover.png"
-dest_files=["res://.godot/imported/Success Hover.png-888298682ac83379091c4a113fc6df69.ctex"]
+source_file="res://assets/Endings/GAME OVER_ Consumed.png"
+dest_files=["res://.godot/imported/GAME OVER_ Consumed.png-50c79ecb4c7b332bc5c203784142e6c5.ctex"]
 
 [params]
 

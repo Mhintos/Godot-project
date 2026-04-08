@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cd1ir0hsf2y2l"
-path="res://.godot/imported/Sucesslight.png-072572e742c7e02eaebef2e9f1760287.ctex"
+uid="uid://1sp441ub3i3m"
+path="res://.godot/imported/Ending 3_ Routine Shift.png-50a18b5ba614c9bffb9d2336e035f9e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Success/Sucesslight.png"
-dest_files=["res://.godot/imported/Sucesslight.png-072572e742c7e02eaebef2e9f1760287.ctex"]
+source_file="res://assets/Endings/Ending 3_ Routine Shift.png"
+dest_files=["res://.godot/imported/Ending 3_ Routine Shift.png-50a18b5ba614c9bffb9d2336e035f9e7.ctex"]
 
 [params]
 

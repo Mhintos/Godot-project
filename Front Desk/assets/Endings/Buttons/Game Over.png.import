@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu3cmsxchjxcj"
-path="res://.godot/imported/End of Shift (1).png-488bbc168d8422c5fc86a4e08ecaf447.ctex"
+uid="uid://byllchqtwl5ud"
+path="res://.godot/imported/Game Over.png-36a6657a8521b064cfa657b4d03c0768.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Success/End of Shift (1).png"
-dest_files=["res://.godot/imported/End of Shift (1).png-488bbc168d8422c5fc86a4e08ecaf447.ctex"]
+source_file="res://assets/Endings/Buttons/Game Over.png"
+dest_files=["res://.godot/imported/Game Over.png-36a6657a8521b064cfa657b4d03c0768.ctex"]
 
 [params]
 
