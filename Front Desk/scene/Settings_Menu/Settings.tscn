@@ -52,7 +52,7 @@ volume_db = -10.0
 
 [node name="HoverSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_klflc")
-volume_db = -10.0
+volume_db = -25.0
 
 [node name="ClickSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_5kajw")

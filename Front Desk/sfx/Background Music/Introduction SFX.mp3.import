@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://qcr1llw4uksu"
+path="res://.godot/imported/Introduction SFX.mp3-b7970f4574bb0334116e6fc6e27f4627.mp3str"
+
+[deps]
+
+source_file="res://sfx/Background Music/Introduction SFX.mp3"
+dest_files=["res://.godot/imported/Introduction SFX.mp3-b7970f4574bb0334116e6fc6e27f4627.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

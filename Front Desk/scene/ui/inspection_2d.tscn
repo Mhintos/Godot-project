@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=4 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=86 format=4 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
@@ -78,6 +78,7 @@
 [ext_resource type="Texture2D" uid="uid://dtq4adcbv61i5" path="res://assets/Microphone/MicIdle.png" id="75_spj4f"]
 [ext_resource type="Script" uid="uid://dhx6ox0okw3kq" path="res://script/DialogueSystem/dialogue_ui.gd" id="75_xr4y4"]
 [ext_resource type="Texture2D" uid="uid://d2amp2b0ffggx" path="res://assets/Microphone/MicHover.png" id="76_lrkpu"]
+[ext_resource type="AudioStream" uid="uid://cr8qa7ru7rbi0" path="res://sfx/Approve Deny Buttons/Deny_SFX.wav" id="76_wf27c"]
 [ext_resource type="Texture2D" uid="uid://dd6m63y3t0qm7" path="res://assets/Microphone/MicHint.png" id="78_wwi70"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y8ley"]
@@ -514,15 +515,15 @@ parameters/looping = true
 
 [node name="FootstepSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("48_lu1ec")
-volume_db = -5.0
+volume_db = -10.0
 
 [node name="SlidingPaperSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("49_lwdaq")
-volume_db = -4.0
+volume_db = -15.0
 
 [node name="PageTurnSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("50_qob17")
-volume_db = -4.0
+volume_db = -15.0
 
 [node name="MistakeSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("51_h4ua4")
@@ -534,7 +535,7 @@ volume_db = -3.0
 
 [node name="ScreenDistortSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("53_rxtuv")
-volume_db = -5.0
+volume_db = -15.0
 
 [node name="JumpscareSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("54_je71q")
@@ -560,18 +561,22 @@ stream = ExtResource("57_ydxcx")
 
 [node name="HoverSFX" type="AudioStreamPlayer" parent="Screen Damage Overlay"]
 stream = ExtResource("58_l4esu")
+volume_db = -25.0
 
 [node name="ClickSFX" type="AudioStreamPlayer" parent="Screen Damage Overlay"]
 stream = ExtResource("59_pgrei")
+volume_db = -10.0
 
 [node name="LeverSFX" type="AudioStreamPlayer" parent="Screen Damage Overlay"]
 stream = ExtResource("60_7nr21")
 
 [node name="BlindsUpSFX" type="AudioStreamPlayer" parent="Screen Damage Overlay"]
 stream = ExtResource("61_f8jsk")
+volume_db = -5.0
 
 [node name="BlindsDownSFX" type="AudioStreamPlayer" parent="Screen Damage Overlay"]
 stream = ExtResource("62_pou0t")
+volume_db = -5.0
 
 [node name="CharacterMumbleSFX" type="AudioStreamPlayer" parent="Screen Damage Overlay"]
 
@@ -579,6 +584,10 @@ stream = ExtResource("62_pou0t")
 
 [node name="ScareMeterSFX" type="AudioStreamPlayer" parent="Screen Damage Overlay"]
 stream = ExtResource("63_r36fy")
+
+[node name="Deny_SFX" type="AudioStreamPlayer" parent="Screen Damage Overlay"]
+stream = ExtResource("76_wf27c")
+volume_db = -15.0
 
 [node name="DialogueLayer" type="CanvasLayer" parent="."]
 layer = 19

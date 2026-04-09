@@ -59,8 +59,8 @@ extends Node2D
 @onready var true_form_timer: Timer = $TrueFormTimer
 @onready var blinds_system: Node = get_node_or_null("Blinds Layer/BlindsSystem")
 
-@onready var approve_btn: BaseButton = get_node(approve_button_path)
-@onready var deny_btn: BaseButton = get_node(deny_button_path)
+@onready var approve_btn: TextureButton = get_node(approve_button_path)
+@onready var deny_btn: TextureButton = get_node(deny_button_path)
 
 @onready var mini_table_layer: Node = get_node(mini_table_layer_path)
 @onready var document_layer: Node = get_node(document_layer_path)
@@ -83,6 +83,7 @@ extends Node2D
 @onready var blood_damage_sfx: AudioStreamPlayer = $"Screen Damage Overlay/BloodDamageSFX"
 @onready var approve_button_sfx: AudioStreamPlayer = $"Screen Damage Overlay/ApproveButtonSFX"
 @onready var deny_button_sfx: AudioStreamPlayer = $"Screen Damage Overlay/DenyButtonSFX"
+@onready var deny_extra_sfx: AudioStreamPlayer = $"Screen Damage Overlay/Deny_SFX"
 @onready var hover_sfx: AudioStreamPlayer = $"Screen Damage Overlay/HoverSFX"
 @onready var click_sfx: AudioStreamPlayer = $"Screen Damage Overlay/ClickSFX"
 @onready var lever_sfx: AudioStreamPlayer = $"Screen Damage Overlay/LeverSFX"
@@ -98,7 +99,7 @@ const TRUE_FORMS_PER_RUN := 2
 
 var distortion_fade_tween: Tween = null
 
-const DISTORTION_ACTIVE_DB := 0.0
+const DISTORTION_ACTIVE_DB := -10.0
 const DISTORTION_SILENT_DB := -40.0
 const DISTORTION_FADE_OUT_TIME := 0.35
 
@@ -596,6 +597,8 @@ func _on_blinds_closed_success() -> void:
 		_reject_true_form()
 
 func _reject_true_form() -> void:
+	play_deny_button_sfx()
+
 	true_form_timer.stop()
 	true_form_active = false
 	reset_scare_meter()
@@ -1014,6 +1017,9 @@ func play_approve_button_sfx() -> void:
 func play_deny_button_sfx() -> void:
 	if deny_button_sfx and deny_button_sfx.stream:
 		deny_button_sfx.play()
+
+	if deny_extra_sfx and deny_extra_sfx.stream:
+		deny_extra_sfx.play()
 
 func play_hover_sfx() -> void:
 	if hover_sfx and hover_sfx.stream:

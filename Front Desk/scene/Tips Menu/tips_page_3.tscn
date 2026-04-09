@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://e8a20cmkxfjp"]
+
+[ext_resource type="Script" uid="uid://dsjsvfs50r4lf" path="res://script/Tips Menu/tips_page_3.gd" id="1_15eje"]
+[ext_resource type="Texture2D" uid="uid://bpav5jxwkqd0n" path="res://assets/tips/Tips 3.png" id="2_m4sf4"]
+[ext_resource type="Texture2D" uid="uid://ba5tg0pj64pl8" path="res://assets/tips/Back.png" id="3_trov2"]
+[ext_resource type="Texture2D" uid="uid://y2tnbdxyw5lb" path="res://assets/tips/Back Darker.png" id="4_cfegd"]
+[ext_resource type="Texture2D" uid="uid://irvx2drnwl86" path="res://assets/tips/Back Hover.png" id="5_xhlgi"]
+[ext_resource type="AudioStream" uid="uid://c7txs6ksd3pjw" path="res://sfx/General Sounds/Button Hover.mp3" id="6_ch3t0"]
+[ext_resource type="AudioStream" uid="uid://bponfxch0uuiy" path="res://sfx/General Sounds/ButtonClick.mp3" id="7_rb1ju"]
+[ext_resource type="AudioStream" uid="uid://7c84qhb5566j" path="res://sfx/General Sounds/Main Menu Official BG Music.mp3" id="8_hd04w"]
+
+[node name="Tips3" type="Node2D"]
+script = ExtResource("1_15eje")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(577, 325)
+scale = Vector2(0.60625, 0.612963)
+texture = ExtResource("2_m4sf4")
+metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BackButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 38.0
+offset_top = 28.0
+offset_right = 104.0
+offset_bottom = 85.0
+texture_normal = ExtResource("3_trov2")
+texture_pressed = ExtResource("4_cfegd")
+texture_hover = ExtResource("5_xhlgi")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_lock_ = true
+
+[node name="HoverSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ch3t0")
+volume_db = -25.0
+
+[node name="ClickSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_rb1ju")
+volume_db = -10.0
+
+[node name="Tips3Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_hd04w")
+volume_db = -10.0
+
+[connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_back_button_pressed"]

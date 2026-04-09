@@ -1,6 +1,6 @@
 extends Node2D
 
-@export_file("*.tscn") var game_scene_path: String = "res://scene/ui/inspection_2d.tscn"
+@export_file("*.tscn") var game_scene_path: String = "res://scene/Introduction/Introduction.tscn"
 @export_file("*.tscn") var settings_scene_path: String = "res://scene/Settings_Menu/Settings.tscn"
 @export_file("*.tscn") var tips_scene_path: String = "res://scene/tips/tips_page_1.tscn"
 
@@ -14,7 +14,6 @@ extends Node2D
 @onready var click_sfx: AudioStreamPlayer = $ClickSFX
 
 var is_transitioning: bool = false
-const BUTTON_CLICK_DELAY := 0.12
 
 func _ready() -> void:
 	_connect_button(start_button, _on_start_button_pressed)
@@ -55,7 +54,6 @@ func _on_start_button_pressed() -> void:
 			click_sfx.stop()
 		click_sfx.play()
 
-	await get_tree().create_timer(BUTTON_CLICK_DELAY).timeout
 	MenuMusic.stop_music()
 	get_tree().change_scene_to_file(game_scene_path)
 
@@ -71,7 +69,6 @@ func _on_quit_button_pressed() -> void:
 			click_sfx.stop()
 		click_sfx.play()
 
-	await get_tree().create_timer(BUTTON_CLICK_DELAY).timeout
 	get_tree().quit()
 
 func _on_settings_button_pressed() -> void:
@@ -86,7 +83,6 @@ func _on_settings_button_pressed() -> void:
 			click_sfx.stop()
 		click_sfx.play()
 
-	await get_tree().create_timer(BUTTON_CLICK_DELAY).timeout
 	get_tree().change_scene_to_file(settings_scene_path)
 
 func _on_tips_button_pressed() -> void:
@@ -101,7 +97,6 @@ func _on_tips_button_pressed() -> void:
 			click_sfx.stop()
 		click_sfx.play()
 
-	await get_tree().create_timer(BUTTON_CLICK_DELAY).timeout
 	get_tree().change_scene_to_file(tips_scene_path)
 
 func _set_buttons_disabled(value: bool) -> void:
