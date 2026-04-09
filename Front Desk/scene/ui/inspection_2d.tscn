@@ -328,10 +328,10 @@ offset_bottom = 26.480408
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 80.0
-offset_top = 521.0
-offset_right = -1010.0
-offset_bottom = -51.0
+offset_left = 74.0
+offset_top = 532.0
+offset_right = -1023.0
+offset_bottom = -52.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("15_mga6p")
@@ -345,10 +345,10 @@ metadata/_edit_lock_ = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 79.0
-offset_top = 577.0
-offset_right = -1003.0
-offset_bottom = 20.0
+offset_left = 73.0
+offset_top = 573.0
+offset_right = -1017.0
+offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("18_5er1a")
@@ -359,10 +359,10 @@ stretch_mode = 5
 metadata/_edit_lock_ = true
 
 [node name="PauseButton" type="TextureButton" parent="BG Layer/Table Layer/UILayer"]
-offset_left = 1068.0
-offset_top = 4.0
-offset_right = 1154.0
-offset_bottom = 85.0
+offset_left = 1070.0
+offset_top = 6.0
+offset_right = 1156.0
+offset_bottom = 87.0
 texture_normal = ExtResource("26_cqrhs")
 texture_hover = ExtResource("27_pchdn")
 ignore_texture_size = true
@@ -581,15 +581,15 @@ layer = 19
 
 [node name="Microphone" type="TextureButton" parent="MicrophoneLayer"]
 offset_left = 298.0
-offset_top = 522.0
+offset_top = 532.0
 offset_right = 407.0
-offset_bottom = 636.0
+offset_bottom = 646.0
 script = ExtResource("75_xr4y4")
 metadata/_edit_lock_ = true
 
 [node name="MicSprite" type="AnimatedSprite2D" parent="MicrophoneLayer/Microphone"]
-position = Vector2(55.50002, 57)
-scale = Vector2(3.884615, 4)
+position = Vector2(51.5, 57.5)
+scale = Vector2(3.1923068, 3.3666666)
 sprite_frames = SubResource("SpriteFrames_wf27c")
 metadata/_edit_lock_ = true
 
