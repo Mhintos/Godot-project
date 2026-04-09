@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=4 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=85 format=4 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
@@ -74,6 +74,7 @@
 [ext_resource type="AudioStream" uid="uid://b2snhhepprsd5" path="res://sfx/Blinds Lever/Blinds Up.wav" id="61_f8jsk"]
 [ext_resource type="AudioStream" uid="uid://daf0wiehh70od" path="res://sfx/Blinds Lever/Blinds Down.wav" id="62_pou0t"]
 [ext_resource type="AudioStream" uid="uid://kg5v81kwx0db" path="res://sfx/Background Music/Scare Meter.mp3" id="63_r36fy"]
+[ext_resource type="AudioStream" uid="uid://bpsfymibnc524" path="res://sfx/Background Music/Eerie BGM.mp3" id="65_wwi70"]
 [ext_resource type="Texture2D" uid="uid://dtq4adcbv61i5" path="res://assets/Microphone/MicIdle.png" id="75_spj4f"]
 [ext_resource type="Script" uid="uid://dhx6ox0okw3kq" path="res://script/DialogueSystem/dialogue_ui.gd" id="75_xr4y4"]
 [ext_resource type="Texture2D" uid="uid://d2amp2b0ffggx" path="res://assets/Microphone/MicHover.png" id="76_lrkpu"]
@@ -537,6 +538,11 @@ volume_db = -5.0
 
 [node name="JumpscareSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("54_je71q")
+
+[node name="EerieBGM" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("65_wwi70")
+volume_db = -42.866
+parameters/looping = true
 
 [node name="Screen Damage Overlay" type="CanvasLayer" parent="."]
 

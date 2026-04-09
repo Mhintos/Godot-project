@@ -77,6 +77,7 @@ extends Node2D
 @onready var true_form_presence_sfx: AudioStreamPlayer = $SFX/TrueFormPresenceSFX
 @onready var screen_distort_sfx: AudioStreamPlayer = $SFX/ScreenDistortSFX
 @onready var jumpscare_sfx: AudioStreamPlayer = $SFX/JumpscareSFX
+@onready var eerie_bgm: AudioStreamPlayer = $SFX/EerieBGM
 
 @onready var alarm_sfx: AudioStreamPlayer = $"Screen Damage Overlay/AlarmSFX"
 @onready var blood_damage_sfx: AudioStreamPlayer = $"Screen Damage Overlay/BloodDamageSFX"
@@ -252,6 +253,10 @@ func _ready() -> void:
 
 	if in_game_music and in_game_music.stream and not in_game_music.playing:
 		in_game_music.play()
+
+	if eerie_bgm and eerie_bgm.stream and not eerie_bgm.playing:
+		eerie_bgm.volume_db = -42.866
+		eerie_bgm.play()
 
 	if microphone_button:
 		microphone_button.pressed.connect(_on_microphone_pressed)
@@ -515,13 +520,10 @@ func _on_character_reached_stop() -> void:
 
 	_unlock_gameplay()
 
-	if microphone_button and character_dialogue_messages.size() > 0:
-		microphone_button.visible = true
-		_play_microphone_hint()
-		
 	microphone_used = false
 	if microphone_button and character_dialogue_messages.size() > 0:
 		microphone_button.visible = true
+		_play_microphone_hint()
 
 func _on_microphone_pressed() -> void:
 	if microphone_button == null:
@@ -1042,6 +1044,12 @@ func stop_anomaly_sfx() -> void:
 func stop_all_looping_sfx() -> void:
 	if footstep_sfx and footstep_sfx.playing:
 		footstep_sfx.stop()
+		
+	if eerie_bgm and eerie_bgm.playing:
+		eerie_bgm.stop()
+	
+	if in_game_music and in_game_music.playing:
+		in_game_music.stop()
 
 	_stop_true_form_presence_sfx_immediate()
 
@@ -1168,6 +1176,10 @@ func reset_scare_meter() -> void:
 	if scare_warning_stage < 2:
 		if in_game_music and in_game_music.stream and not in_game_music.playing:
 			in_game_music.play()
+
+		if eerie_bgm and eerie_bgm.stream and not eerie_bgm.playing:
+			eerie_bgm.volume_db = -42.866
+			eerie_bgm.play()
 
 	if scare_warning_stage >= 2:
 		scare_fill_speed_multiplier = WARNING2_SPEED_MULTIPLIER
