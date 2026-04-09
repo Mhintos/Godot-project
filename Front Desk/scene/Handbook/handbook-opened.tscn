@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://dll78gnht4365"]
+[gd_scene load_steps=56 format=3 uid="uid://dll78gnht4365"]
 
 [ext_resource type="Script" uid="uid://bpu8xdx5llih1" path="res://script/Handbook/handbook_opened.gd" id="1_5lew5"]
 [ext_resource type="Texture2D" uid="uid://cfj0h881oq822" path="res://assets/Handbook-Opened/Hand Book - Openedv3.png" id="2_15ynw"]
@@ -45,17 +45,33 @@ region = Rect2(2080, 0, 160, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_trg8s"]
 atlas = ExtResource("2_15ynw")
-region = Rect2(160, 0, 160, 114)
+region = Rect2(2240, 0, 160, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rnjg5"]
 atlas = ExtResource("2_15ynw")
-region = Rect2(320, 0, 160, 114)
+region = Rect2(2400, 0, 160, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jl7l7"]
 atlas = ExtResource("2_15ynw")
-region = Rect2(480, 0, 160, 114)
+region = Rect2(2560, 0, 160, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g1y0j"]
+atlas = ExtResource("2_15ynw")
+region = Rect2(2720, 0, 160, 114)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2c67l"]
+atlas = ExtResource("2_15ynw")
+region = Rect2(160, 0, 160, 114)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0bmd"]
+atlas = ExtResource("2_15ynw")
+region = Rect2(320, 0, 160, 114)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6iisc"]
+atlas = ExtResource("2_15ynw")
+region = Rect2(480, 0, 160, 114)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftss8"]
 atlas = ExtResource("2_15ynw")
 region = Rect2(640, 0, 160, 114)
 
@@ -103,6 +119,18 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g1y0j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2c67l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0bmd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6iisc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ftss8")
 }],
 "loop": true,
 "name": &"flip",
@@ -110,7 +138,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lew5"]
-size = Vector2(155.56114, 110.509346)
+size = Vector2(159.00629, 113.15943)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5jgmi"]
 
@@ -184,6 +212,7 @@ script = ExtResource("1_5lew5")
 
 [node name="HandbookOpen" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
+z_index = 4096
 position = Vector2(-13.000015, -5.0000153)
 scale = Vector2(3.7734377, 3.7734377)
 sprite_frames = SubResource("SpriteFrames_5dgl7")
@@ -211,8 +240,8 @@ metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HandbookOpen/Area2D"]
-position = Vector2(-0.13252258, -0.13251495)
-scale = Vector2(0.9999998, 0.9999998)
+position = Vector2(0.26496887, 0.13249207)
+scale = Vector2(0.9999997, 0.9999997)
 shape = SubResource("RectangleShape2D_5lew5")
 metadata/_edit_lock_ = true
 
@@ -309,6 +338,15 @@ theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_43flw"
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_ackh3")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_njejy")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_kxsxi")
+metadata/_edit_lock_ = true
+
+[node name="ExitButton" type="TextureButton" parent="HandbookOpen/Area2D"]
+unique_name_in_owner = true
+z_index = 100
+offset_left = 68.90269
+offset_top = -56.18219
+offset_right = 78.973076
+offset_bottom = -45.846786
 metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="HandbookOpen/Area2D/FlipRight" to="." method="_on_flip_right_pressed"]

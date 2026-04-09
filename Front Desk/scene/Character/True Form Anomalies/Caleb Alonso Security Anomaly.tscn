@@ -38,6 +38,8 @@ is_true_form = true
 anomaly_uses_blinds = true
 custom_scare_duration = 3.0
 expected_decision = 2
+dialogue_texts = Array[String](["LET. ME. IN."])
+dialogue_sides = Array[String](["right"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(12, 152.56)

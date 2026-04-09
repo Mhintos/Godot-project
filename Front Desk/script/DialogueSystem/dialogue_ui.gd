@@ -129,7 +129,6 @@ func _on_bubble_timer_expired(bubble):
 func move_bubble_up_and_remove(bubble):
 	if not is_instance_valid(bubble):
 		return
-	print("Moving and fading bubble: ", bubble.text)
 	var tween = create_tween()
 	var target_y = bubble.position.y - move_up_distance
 	tween.tween_property(bubble, "position:y", target_y, 0.3).set_ease(Tween.EASE_OUT)
@@ -187,6 +186,7 @@ func _create_bubble(text: String, side: String) -> RichTextLabel:
 	bubble.text = text
 	bubble.grow_from_right = (side == "right")
 	add_child(bubble)
+
 	return bubble
 
 # Optional: clear all bubbles from the UI when starting a new conversation

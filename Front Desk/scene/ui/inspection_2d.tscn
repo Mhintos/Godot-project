@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=4 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=89 format=4 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
@@ -26,8 +26,11 @@
 [ext_resource type="Texture2D" uid="uid://8wjxnsdxk7im" path="res://assets/ui/Bloodier Table/Bloodier Minitable.png" id="19_tqu6d"]
 [ext_resource type="Texture2D" uid="uid://ftr6jxfiqtat" path="res://assets/ui/Bloody Version/Bloody Organizer.png" id="20_50h4t"]
 [ext_resource type="Texture2D" uid="uid://ndv1f7hu0mmv" path="res://assets/ui/Bloodier Table/Bloodier Organizer.png" id="20_cnux1"]
+[ext_resource type="Script" uid="uid://bp0xwe2jqaw4f" path="res://script/Handbook/handbook_icon.gd" id="21_d4eba"]
+[ext_resource type="Texture2D" uid="uid://c36841sdn10yr" path="res://assets/Handbook/Hand Book.png" id="22_2d655"]
 [ext_resource type="PackedScene" uid="uid://bc3fso0qb6sdi" path="res://scene/Blinds System/blinds_system.tscn" id="23_5er1a"]
 [ext_resource type="PackedScene" uid="uid://dll78gnht4365" path="res://scene/Handbook/handbook-opened.tscn" id="23_7su7m"]
+[ext_resource type="Texture2D" uid="uid://dfn7fju0qynrw" path="res://assets/Handbook/Hand Book - Hover.png" id="23_rnbbn"]
 [ext_resource type="Texture2D" uid="uid://c27i282aa7yy" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/1.png" id="23_tokp6"]
 [ext_resource type="Texture2D" uid="uid://b4jbdprn1fnnm" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/2.png" id="24_ex0io"]
 [ext_resource type="Texture2D" uid="uid://dempketnmw7jq" path="res://assets/Characters/True Form/Caleb Alonso Security/Jumpscare/3.png" id="25_vhmf8"]
@@ -74,10 +77,30 @@
 [ext_resource type="AudioStream" uid="uid://b2snhhepprsd5" path="res://sfx/Blinds Lever/Blinds Up.wav" id="61_f8jsk"]
 [ext_resource type="AudioStream" uid="uid://daf0wiehh70od" path="res://sfx/Blinds Lever/Blinds Down.wav" id="62_pou0t"]
 [ext_resource type="AudioStream" uid="uid://kg5v81kwx0db" path="res://sfx/Background Music/Scare Meter.mp3" id="63_r36fy"]
+[ext_resource type="AudioStream" uid="uid://c57hlotu27kkc" path="res://sfx/General Sounds/BookOpen&CloseSFX.mp3" id="65_wwi70"]
 [ext_resource type="Texture2D" uid="uid://dtq4adcbv61i5" path="res://assets/Microphone/MicIdle.png" id="75_spj4f"]
 [ext_resource type="Script" uid="uid://dhx6ox0okw3kq" path="res://script/DialogueSystem/dialogue_ui.gd" id="75_xr4y4"]
 [ext_resource type="Texture2D" uid="uid://d2amp2b0ffggx" path="res://assets/Microphone/MicHover.png" id="76_lrkpu"]
 [ext_resource type="Texture2D" uid="uid://dd6m63y3t0qm7" path="res://assets/Microphone/MicHint.png" id="78_wwi70"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d4eba"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_2d655")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_rnbbn")
+}],
+"loop": true,
+"name": &"hover",
+"speed": 5.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y8ley"]
 animations = [{
@@ -308,21 +331,26 @@ expand_mode = 1
 metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="BG Layer/Table Layer"]
-layer = 12
+layer = 14
 
-[node name="HandbookIcon" parent="BG Layer/Table Layer/UILayer" instance=ExtResource("17_vjnc3")]
-unique_name_in_owner = true
-light_mask = 513
-visibility_layer = 513
-z_index = 100
-position = Vector2(211.585, 557.98)
-scale = Vector2(2.04, 2.04)
+[node name="HandbookIcon" type="AnimatedSprite2D" parent="BG Layer/Table Layer/UILayer"]
+position = Vector2(207.5625, 553.55334)
+scale = Vector2(4.2148433, 4.303019)
+sprite_frames = SubResource("SpriteFrames_d4eba")
+
+[node name="Handbook" parent="BG Layer/Table Layer/UILayer/HandbookIcon" instance=ExtResource("23_7su7m")]
+visible = false
+position = Vector2(223.69856, -159.30392)
+scale = Vector2(0.2, 0.2)
+metadata/_edit_lock_ = true
 
 [node name="TextureButton" type="TextureButton" parent="BG Layer/Table Layer/UILayer/HandbookIcon"]
-offset_left = -18.914223
-offset_top = -24.990189
-offset_right = 20.301476
-offset_bottom = 26.480408
+offset_left = -8.437442
+offset_top = -12.910314
+offset_right = 9.3568125
+offset_bottom = 12.420733
+script = ExtResource("21_d4eba")
+metadata/_edit_lock_ = true
 
 [node name="ApproveButton" type="TextureButton" parent="BG Layer/Table Layer/UILayer"]
 anchors_preset = 15
@@ -421,18 +449,20 @@ position = Vector2(283, 443)
 light_mask = 513
 visibility_layer = 513
 z_index = 200
-position = Vector2(210.655, 557.98)
+position = Vector2(174.00002, 511.00006)
 scale = Vector2(2.04, 2.04)
 
 [node name="Handbook" parent="Bloody UI/HandbookIcon" instance=ExtResource("23_7su7m")]
 position = Vector2(223.69856, -159.30392)
 scale = Vector2(0.475, 0.475)
+metadata/_edit_lock_ = true
 
 [node name="TextureButton" type="TextureButton" parent="Bloody UI/HandbookIcon"]
-offset_left = -20.38481
-offset_top = -24.990189
-offset_right = 18.830881
-offset_bottom = 26.480408
+offset_left = -2.9411843
+offset_top = -6.8627815
+offset_right = 36.274506
+offset_bottom = 47.548992
+metadata/_edit_lock_ = true
 
 [node name="JumpscareLayer" type="CanvasLayer" parent="."]
 layer = 20
@@ -530,6 +560,11 @@ volume_db = -5.0
 [node name="JumpscareSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("54_je71q")
 
+[node name="BookOpen&CloseSFX" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("65_wwi70")
+volume_db = 12.272
+pitch_scale = 0.54
+
 [node name="Screen Damage Overlay" type="CanvasLayer" parent="."]
 
 [node name="AlarmSFX" type="AudioStreamPlayer" parent="Screen Damage Overlay"]
@@ -577,7 +612,7 @@ offset_bottom = 40.0
 script = ExtResource("75_xr4y4")
 
 [node name="MicrophoneLayer" type="CanvasLayer" parent="."]
-layer = 19
+layer = 11
 
 [node name="Microphone" type="TextureButton" parent="MicrophoneLayer"]
 offset_left = 298.0
@@ -591,8 +626,9 @@ metadata/_edit_lock_ = true
 position = Vector2(55.50002, 57)
 scale = Vector2(3.884615, 4)
 sprite_frames = SubResource("SpriteFrames_wf27c")
+animation = &"hint"
 metadata/_edit_lock_ = true
 
-[connection signal="pressed" from="BG Layer/Table Layer/UILayer/HandbookIcon/TextureButton" to="JumpscareLayer/Handbook" method="_on_button_pressed"]
+[connection signal="pressed" from="BG Layer/Table Layer/UILayer/HandbookIcon/TextureButton" to="BG Layer/Table Layer/UILayer/HandbookIcon/Handbook" method="_on_button_pressed"]
 [connection signal="pressed" from="Bloody UI/HandbookIcon/TextureButton" to="Bloody UI/HandbookIcon/Handbook" method="_on_button_pressed"]
 [connection signal="timeout" from="TrueFormTimer" to="." method="_on_true_form_timer_timeout"]

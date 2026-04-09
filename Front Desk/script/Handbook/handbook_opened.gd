@@ -7,6 +7,8 @@ var is_dragging := false
 var drag_offset := Vector2.ZERO
 var is_active := false
 
+@export var open_position: Vector2 = Vector2(800, 325)
+
 @onready var handbook = self
 @onready var handbook_opened_sprite = %HandbookOpen
 
@@ -14,20 +16,21 @@ var is_active := false
 # SFX
 # =============================
 @onready var page_turn_sfx: AudioStreamPlayer = get_tree().current_scene.get_node_or_null("SFX/PageTurnSFX")
+@onready var book_open_close_sfx: AudioStreamPlayer = get_tree().current_scene.get_node_or_null("SFX/BookOpen&CloseSFX")
 
 # =============================
 # Page Navigation
 # =============================
 var page_frames = {
 	"contents": 0,
-	"basic_rules": 1,
-	"basic_rules_hover": 10,
-	"professor1": 3,
-	"professor_hover": 11,
-	"canteen_staff": 6,
-	"canteen_staff_hover": 12,
-	"guard": 8,
-	"guard_hover": 13,
+	"basic_rules": 2,
+	"basic_rules_hover": 14,
+	"professor1": 5,
+	"professor_hover": 15,
+	"canteen_staff": 9,
+	"canteen_staff_hover": 16,
+	"guard": 12,
+	"guard_hover": 17,
 }
 
 @onready var basic_rules_button: Button = %BasicRules
@@ -40,8 +43,10 @@ var page_frames = {
 @onready var flip_right_button: Button = get_node_or_null("FlipRight")
 @onready var flip_left_button: Button = get_node_or_null("FlipLeft")
 
+@onready var exit_button: TextureButton = %ExitButton
+
 var current_frame := 0
-var total_frames := 10
+var total_frames := 14
 
 var document_manager: Node = null
 
@@ -53,6 +58,10 @@ func _ready():
 	document_manager = get_tree().get_first_node_in_group("document_manager")
 
 	handbook.visible = false
+
+	if exit_button:
+		exit_button.visible = false
+		exit_button.pressed.connect(_on_exit_button_pressed)
 
 	if handbook_opened_sprite:
 		handbook_opened_sprite.stop()
@@ -222,8 +231,11 @@ func contains_point(point: Vector2) -> bool:
 # =============================
 func _on_button_pressed() -> void:
 	handbook.visible = !handbook.visible
+	if exit_button:
+		exit_button.visible = handbook.visible
 
 	if handbook.visible:
+		global_position = open_position
 		z_index = _get_highest_z_index_among_documents() + 1
 
 		if handbook_opened_sprite:
@@ -234,9 +246,17 @@ func _on_button_pressed() -> void:
 		handbook_opened_sprite.frame = current_frame
 
 		update_button_visibility()
-		play_page_turn_sfx()
+		play_book_open_close_sfx()
 	else:
+		play_book_open_close_sfx()
 		_stop_drag()
+
+func _on_exit_button_pressed() -> void:
+	handbook.visible = false
+	_stop_drag()
+	if handbook_opened_sprite:
+		handbook_opened_sprite.frame = page_frames["contents"]
+	play_book_open_close_sfx()
 
 # =============================
 # SFX
@@ -247,6 +267,11 @@ func play_page_turn_sfx() -> void:
 			page_turn_sfx.stop()
 		page_turn_sfx.play()
 
+func play_book_open_close_sfx() -> void:
+	if book_open_close_sfx and book_open_close_sfx.stream:
+		if book_open_close_sfx.playing:
+			book_open_close_sfx.stop()
+		book_open_close_sfx.play()
 # =============================
 # Flip Right
 # =============================

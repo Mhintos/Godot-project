@@ -43,8 +43,8 @@ dialogue_texts = Array[String](["Present your documents.", "Angelo Maderal. CCS 
 dialogue_sides = Array[String](["left", "right"])
 approve_texts = Array[String](["Thank you.", "No one is supposed to go near the old building.", "Why not?", "You'll find out soon."])
 approve_sides = Array[String](["right", "right", "left", "right"])
-deny_texts = Array[String](["Your name is spelled wrong.", "It's a nickname."])
-deny_sides = Array[String](["left", "right"])
+deny_texts = Array[String](["Your name is spelled wrong.", "It's my nickname.", "You have to re-do your document.", "Unbelievable."])
+deny_sides = Array[String](["left", "right", "left", "right"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, 148)

@@ -43,8 +43,8 @@ dialogue_texts = Array[String](["Present your documents.", "Here, my ID and Perm
 dialogue_sides = Array[String](["left", "right"])
 approve_texts = Array[String](["Thank you.", "Be safe, and don't fall asleep.", "Okay, have a good day."])
 approve_sides = Array[String](["right", "right", "left"])
-deny_texts = Array[String](["This document is missing a stamp.", "Could you let me pass this time?"])
-deny_sides = Array[String](["left", "right"])
+deny_texts = Array[String](["I can't let you in.", "There is a mistake in your document.", "Just let me in, I'm already late for class.", "No ma'am. Rules are rules.", "I'm making an incident report."])
+deny_sides = Array[String](["left", "left", "right", "left", "right"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, 148)

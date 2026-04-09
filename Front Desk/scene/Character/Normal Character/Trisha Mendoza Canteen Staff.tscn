@@ -43,8 +43,8 @@ dialogue_texts = Array[String](["Present your documents.", "Trisha Mendoza, cant
 dialogue_sides = Array[String](["left", "right"])
 approve_texts = Array[String](["The old building should have stayed closed.", "Did something happen there?", "People who go in..", "..never come back the same."])
 approve_sides = Array[String](["right", "left", "right", "right"])
-deny_texts = Array[String](["This document is expired.", "I know nothing about that."])
-deny_sides = Array[String](["left", "right"])
+deny_texts = Array[String](["This document is expired.", "Uhh, no it's not.", "I double-checked it, I know it's right.", "Please re-do your documents.", "Loser."])
+deny_sides = Array[String](["left", "right", "right", "left", "left"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, 139)
