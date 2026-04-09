@@ -164,7 +164,7 @@ var scare_warning_stage := 0
 var scare_alarm_triggered := false
 
 var current_scare_duration := 30.0
-var normal_scare_times := [30.0, 27.0, 24.0, 21.0]
+var normal_scare_times := [36.0, 33.0, 30.0, 27.0]
 
 var document_manager: Node = null
 var current_shake_offset: Vector2 = Vector2.ZERO
@@ -373,17 +373,20 @@ func generate_shift_queue() -> void:
 	var forged_slot_pool: Array = normal_slots.duplicate()
 	forged_slot_pool.shuffle()
 
-	var forged_slots: Array = []
+	var forged_slot_types := {}
 	for i in range(forged_count):
-		forged_slots.append(forged_slot_pool[i])
+		var forged_slot: int = forged_slot_pool[i]
+		forged_slot_types[forged_slot] = "id" if rng.randf() < 0.5 else "permit"
 
 	for i in range(normal_slots.size()):
 		var slot: int = normal_slots[i]
 		var scene: PackedScene = remaining_normals[i]
+		var is_forged_slot: bool = forged_slot_types.has(slot)
 
 		shift_queue[slot] = {
 			"scene": scene,
-			"is_forged": forged_slots.has(slot),
+			"is_forged": is_forged_slot,
+			"forged_doc_type": forged_slot_types.get(slot, ""),
 			"type": "normal"
 		}
 
@@ -413,13 +416,16 @@ func spawn_character() -> void:
 	current_character = entry["scene"].instantiate()
 
 	if current_character.has_method("apply_run_variant"):
-		current_character.apply_run_variant(bool(entry.get("is_forged", false)))
+		current_character.apply_run_variant(
+			bool(entry.get("is_forged", false)),
+			str(entry.get("forged_doc_type", ""))
+		)
 
 	current_scare_duration = get_current_normal_scare_duration()
 	reset_scare_meter()
 
 	if _is_disguised_character(current_character):
-		current_scare_duration = 8.0
+		current_scare_duration = 10.0
 	elif _is_true_form_character(current_character):
 		current_scare_duration = 4.0
 
@@ -504,7 +510,7 @@ func _on_character_reached_stop() -> void:
 
 	if _is_disguised_character(current_character):
 		true_form_active = true
-		current_scare_duration = 8.0
+		current_scare_duration = 10.0
 
 		approve_btn.disabled = true
 		deny_btn.disabled = true

@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dosvx2vykil81"]
+[gd_scene load_steps=11 format=3 uid="uid://dosvx2vykil81"]
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_mryi3"]
 [ext_resource type="PackedScene" uid="uid://o32occfgsjsy" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Kyle.tscn" id="2_e6xm0"]
+[ext_resource type="PackedScene" uid="uid://hcikbp8s43t4" path="res://scene/Documents/Mini Documents Forged/Mini ID/Mini_ID_Kyle_Forged.tscn" id="2_yokek"]
 [ext_resource type="Texture2D" uid="uid://b5tpepbwqkuvg" path="res://assets/Characters/Normal/Kyle Navarro Security Guard/1.png" id="4_mryi3"]
 [ext_resource type="PackedScene" uid="uid://rmaxgoy2l31q" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Kyle.tscn" id="4_qrcpg"]
 [ext_resource type="PackedScene" uid="uid://d2p1sf0rk5v38" path="res://scene/Documents/Mini Documents Forged/Mini Permit/Mini_Permit_Kyle_Forged.tscn" id="4_yokek"]
@@ -33,7 +34,7 @@ animations = [{
 z_index = 2
 script = ExtResource("1_mryi3")
 forged_enabled = true
-forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_e6xm0"), ExtResource("4_yokek")])
+forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_yokek"), ExtResource("4_yokek")])
 enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")

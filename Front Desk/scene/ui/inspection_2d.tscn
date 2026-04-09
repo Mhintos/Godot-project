@@ -177,7 +177,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 11.0
+"speed": 40.0
 }]
 
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_iv7yt"]
@@ -483,6 +483,8 @@ layer = 19
 position = Vector2(125.399994, 28.899998)
 scale = Vector2(0.38530347, 0.37924525)
 sprite_frames = SubResource("SpriteFrames_h4ua4")
+frame = 10
+frame_progress = 1.0
 metadata/_edit_lock_ = true
 
 [node name="ScareAlarmSFX" type="AudioStreamPlayer" parent="ScareMeterLayer"]

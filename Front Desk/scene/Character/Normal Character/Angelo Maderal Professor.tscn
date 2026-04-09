@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://chisouworllid"]
+[gd_scene load_steps=11 format=3 uid="uid://chisouworllid"]
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_frpdb"]
 [ext_resource type="PackedScene" uid="uid://bupjq7d8643dc" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Maderal.tscn" id="2_bptp4"]
+[ext_resource type="PackedScene" uid="uid://cediu8jhn3nb1" path="res://scene/Documents/Mini Documents Forged/Mini ID/Mini_ID_Maderal_Forged.tscn" id="2_ou5vl"]
 [ext_resource type="PackedScene" uid="uid://bxm7j65scrf2g" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Maderal.tscn" id="4_arebf"]
 [ext_resource type="Texture2D" uid="uid://c58u6ibjaa8ol" path="res://assets/Characters/Normal/Angelo Maderal Professor/1.png" id="4_frpdb"]
 [ext_resource type="PackedScene" uid="uid://bis01kbi7fhup" path="res://scene/Documents/Mini Documents Forged/Mini Permit/Mini_Permit_Maderal_Forged.tscn" id="4_ou5vl"]
@@ -33,7 +34,7 @@ animations = [{
 z_index = 2
 script = ExtResource("1_frpdb")
 forged_enabled = true
-forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_bptp4"), ExtResource("4_ou5vl")])
+forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_ou5vl"), ExtResource("4_ou5vl")])
 enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")

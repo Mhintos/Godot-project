@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://lrbticr1ov8o"]
+[gd_scene load_steps=11 format=3 uid="uid://lrbticr1ov8o"]
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_omfsv"]
+[ext_resource type="PackedScene" uid="uid://byofkddljsd5m" path="res://scene/Documents/Mini Documents Forged/Mini Permit/Mini_Permit_Ralph_Forged.tscn" id="3_8kdmh"]
 [ext_resource type="PackedScene" uid="uid://cduf5i7bf0ys0" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Ralph.tscn" id="3_ygp7y"]
 [ext_resource type="Texture2D" uid="uid://dh1d4p85q28ht" path="res://assets/Characters/Normal/Ralph Romero Professor/1.png" id="4_4unvf"]
 [ext_resource type="PackedScene" uid="uid://bw6xyaamnkp4i" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Ralph.tscn" id="4_8kdmh"]
@@ -33,7 +34,7 @@ animations = [{
 z_index = 2
 script = ExtResource("1_omfsv")
 forged_enabled = true
-forged_mini_doc_scenes = Array[PackedScene]([ExtResource("4_r8igc"), ExtResource("3_ygp7y")])
+forged_mini_doc_scenes = Array[PackedScene]([ExtResource("4_r8igc"), ExtResource("3_8kdmh")])
 enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")

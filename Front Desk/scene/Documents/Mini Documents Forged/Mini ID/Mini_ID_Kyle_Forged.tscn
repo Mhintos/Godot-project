@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://hcikbp8s43t4"]
+
+[ext_resource type="Script" uid="uid://bu4t0jhhtdc3m" path="res://script/Character/character_mini_doc.gd" id="1_2epev"]
+[ext_resource type="PackedScene" uid="uid://beyn17rg3y4in" path="res://scene/Documents/Full Documents Forged/Document ID Forged/Document_ID_Kyle_Forged.tscn" id="2_2epev"]
+[ext_resource type="Texture2D" uid="uid://dgt4hvlg8i6o7" path="res://assets/documents/Kyle Navarro Security Guard/Forged Documents/ID.png" id="3_384nx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_afpkd"]
+size = Vector2(118, 58)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_2epev")
+doc_id = "kyle_id_forged"
+full_document_scene = ExtResource("2_2epev")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.472, 0.472)
+texture = ExtResource("3_384nx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_afpkd")
