@@ -172,6 +172,13 @@ var current_denied_messages: Array = []
 var character_dialogue_messages: Array = []
 var microphone_used := false
 
+const DISABLED_BUTTON_SFX_STREAM := preload("res://sfx/General Sounds/Error.wav")
+
+var disabled_button_sfx_player: AudioStreamPlayer = null
+
+const DISABLED_BUTTON_SFX_COOLDOWN := 0.8
+var disabled_button_sfx_cooldown: float = 0.0
+
 func debug_log(msg) -> void:
 	if DEBUG_LOGS:
 		print(msg)
@@ -238,13 +245,17 @@ func _ready() -> void:
 	screen_shake_strength = 0.0
 	warning2_distortion_timer = 0.0
 	_apply_layer_shake_offset(Vector2.ZERO)
+	
+	disabled_button_sfx_player = AudioStreamPlayer.new()
+	disabled_button_sfx_player.stream = DISABLED_BUTTON_SFX_STREAM
+	add_child(disabled_button_sfx_player)
 
 	if in_game_music and in_game_music.stream and not in_game_music.playing:
 		in_game_music.play()
 
 	if microphone_button:
 		microphone_button.pressed.connect(_on_microphone_pressed)
-
+		
 	reset_run_state()
 	
 	if pause_button:
@@ -434,7 +445,13 @@ func _play_microphone_hint() -> void:
 	if mic_sprite == null:
 		return
 
-	mic_sprite.play("hint")
+	microphone_used = false
+
+	microphone_button.visible = true
+	microphone_button.disabled = false
+
+	if mic_sprite.sprite_frames and mic_sprite.sprite_frames.has_animation("hint"):
+		mic_sprite.play("hint")
 
 func _on_first_mini_doc_interacted() -> void:
 	if current_character == null:
@@ -501,28 +518,38 @@ func _on_character_reached_stop() -> void:
 	if microphone_button and character_dialogue_messages.size() > 0:
 		microphone_button.visible = true
 		_play_microphone_hint()
-	else:
-		_unlock_gameplay()
-
+		
 	microphone_used = false
 	if microphone_button and character_dialogue_messages.size() > 0:
 		microphone_button.visible = true
 
-func _on_microphone_pressed():
-	var mic_sprite: AnimatedSprite2D = microphone_button.get_node_or_null("MicSprite")
-	if mic_sprite:
-		mic_sprite.play("default")
+func _on_microphone_pressed() -> void:
+	if microphone_button == null:
+		return
+
 	if not dialogue_ui or not current_character:
 		return
+
 	if microphone_used:
 		return
+
 	microphone_used = true
+
+	microphone_button.disabled = true
+
+	var mic_sprite: AnimatedSprite2D = microphone_button.get_node_or_null("MicSprite")
+	if mic_sprite and mic_sprite.sprite_frames and mic_sprite.sprite_frames.has_animation("default"):
+		mic_sprite.play("default")
+
 	play_sliding_paper_sfx()
+
 	if current_character.has_method("spawn_documents"):
 		current_character.spawn_documents()
+
 	if character_dialogue_messages.size() > 0:
 		if dialogue_ui.conversation_finished.is_connected(_on_dialogue_finished):
 			dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
+
 		dialogue_ui.conversation_finished.connect(_on_dialogue_finished)
 		dialogue_ui.visible = true
 		dialogue_ui.start_conversation(character_dialogue_messages)
@@ -534,6 +561,13 @@ func _on_dialogue_finished() -> void:
 		if dialogue_ui.conversation_finished.is_connected(_on_dialogue_finished):
 			dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
 		dialogue_ui.visible = false
+
+	if microphone_button:
+		microphone_button.disabled = true
+
+		var mic_sprite: AnimatedSprite2D = microphone_button.get_node_or_null("MicSprite")
+		if mic_sprite and mic_sprite.sprite_frames and mic_sprite.sprite_frames.has_animation("default"):
+			mic_sprite.play("default")
 
 	character_dialogue_messages = []
 	_unlock_gameplay()
@@ -548,6 +582,15 @@ func _on_blinds_closed_success() -> void:
 	if _is_true_form_character(current_character) or _is_disguised_character(current_character):
 		true_form_timer.stop()
 		debug_log("Anomaly blocked successfully with blinds.")
+
+		await get_tree().create_timer(0.35).timeout
+
+		if game_over:
+			return
+
+		if current_character == null or not is_instance_valid(current_character):
+			return
+
 		_reject_true_form()
 
 func _reject_true_form() -> void:
@@ -1206,6 +1249,7 @@ func advance_warning_state_from_meter() -> void:
 
 	if scare_warning_stage == 1:
 		_show_bloody_ui()
+		show_warning2_overlay()
 
 	elif scare_warning_stage == 2:
 		scare_fill_speed_multiplier = WARNING2_SPEED_MULTIPLIER
@@ -1227,6 +1271,7 @@ func advance_warning_state_from_mistake() -> void:
 
 	if scare_warning_stage == 1:
 		_show_bloody_ui()
+		show_warning2_overlay()
 
 	elif scare_warning_stage == 2:
 		scare_fill_speed_multiplier = WARNING2_SPEED_MULTIPLIER
@@ -1242,6 +1287,8 @@ func advance_warning_state_from_mistake() -> void:
 		trigger_jumpscare()
 
 func _process(delta: float) -> void:
+	if disabled_button_sfx_cooldown > 0.0:
+		disabled_button_sfx_cooldown -= delta
 	process_scare_meter(delta)
 
 	var warning1_or_higher: bool = scare_warning_stage >= 1 and not game_over
@@ -1365,7 +1412,7 @@ func _process(delta: float) -> void:
 		if scare_warning_stage < 1:
 			warning2_elapsed_time = 0.0
 
-		if warning2_overlay and warning2_overlay.visible:
+		if scare_warning_stage < 1 and warning2_overlay and warning2_overlay.visible:
 			hide_warning2_overlay()
 		
 func _apply_layer_shake_offset(offset: Vector2) -> void:
@@ -1535,3 +1582,44 @@ func _on_pause_button_pressed() -> void:
 	pause_overlay_layer.add_child(pause_instance)
 
 	get_tree().paused = true
+	
+func play_disabled_button_sfx() -> void:
+	if disabled_button_sfx_cooldown > 0.0:
+		return
+
+	if disabled_button_sfx_player == null or disabled_button_sfx_player.stream == null:
+		return
+
+	disabled_button_sfx_cooldown = DISABLED_BUTTON_SFX_COOLDOWN
+
+	if disabled_button_sfx_player.playing:
+		disabled_button_sfx_player.stop()
+
+	disabled_button_sfx_player.play()
+
+func _is_mouse_over_button(button: BaseButton, mouse_pos: Vector2) -> bool:
+	if button == null or not is_instance_valid(button):
+		return false
+
+	if not button.visible:
+		return false
+
+	return button.get_global_rect().has_point(mouse_pos)
+	
+func _input(event: InputEvent) -> void:
+	if game_over:
+		return
+
+	if event is InputEventMouseButton \
+	and event.pressed \
+	and event.button_index == MOUSE_BUTTON_LEFT:
+
+		var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+
+		if approve_btn and approve_btn.disabled and _is_mouse_over_button(approve_btn, mouse_pos):
+			play_disabled_button_sfx()
+			return
+
+		if deny_btn and deny_btn.disabled and _is_mouse_over_button(deny_btn, mouse_pos):
+			play_disabled_button_sfx()
+			return

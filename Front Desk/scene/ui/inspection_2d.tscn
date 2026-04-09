@@ -192,12 +192,15 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("78_wwi70")
+}, {
+"duration": 2.0,
+"texture": ExtResource("75_spj4f")
 }],
-"loop": false,
+"loop": true,
 "name": &"hint",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -211,7 +214,7 @@ animations = [{
 [node name="Inspection2D" type="Node2D" node_paths=PackedStringArray("microphone_button")]
 script = ExtResource("1_2wxcv")
 pause_scene = ExtResource("2_pchdn")
-pause_button_path = NodePath("BG Layer/Table Layer/UILayer/PauseButton")
+pause_button_path = NodePath("JumpscareLayer/PauseButton")
 scare_meter_path = NodePath("ScareMeterLayer/ScareMeter")
 scare_alarm_sfx_path = NodePath("ScareMeterLayer/ScareAlarmSFX")
 mini_id_slot_path = NodePath("Documents/MiniSlot_ID")
@@ -317,28 +320,30 @@ visibility_layer = 513
 z_index = 100
 position = Vector2(211.585, 557.98)
 scale = Vector2(2.04, 2.04)
+metadata/_edit_lock_ = true
 
 [node name="TextureButton" type="TextureButton" parent="BG Layer/Table Layer/UILayer/HandbookIcon"]
 offset_left = -18.914223
 offset_top = -24.990189
 offset_right = 20.301476
 offset_bottom = 26.480408
+metadata/_edit_lock_ = true
 
 [node name="ApproveButton" type="TextureButton" parent="BG Layer/Table Layer/UILayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 74.0
-offset_top = 532.0
+offset_top = 535.0
 offset_right = -1023.0
-offset_bottom = -52.0
+offset_bottom = -57.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("15_mga6p")
 texture_pressed = ExtResource("16_50h4t")
 texture_hover = ExtResource("15_mga6p")
 ignore_texture_size = true
-stretch_mode = 5
+stretch_mode = 0
 metadata/_edit_lock_ = true
 
 [node name="DenyButton" type="TextureButton" parent="BG Layer/Table Layer/UILayer"]
@@ -346,9 +351,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 73.0
-offset_top = 573.0
+offset_top = 588.0
 offset_right = -1017.0
-offset_bottom = 13.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("18_5er1a")
@@ -356,17 +361,6 @@ texture_pressed = ExtResource("19_7su7m")
 texture_hover = ExtResource("18_5er1a")
 ignore_texture_size = true
 stretch_mode = 5
-metadata/_edit_lock_ = true
-
-[node name="PauseButton" type="TextureButton" parent="BG Layer/Table Layer/UILayer"]
-offset_left = 1070.0
-offset_top = 6.0
-offset_right = 1156.0
-offset_bottom = 87.0
-texture_normal = ExtResource("26_cqrhs")
-texture_hover = ExtResource("27_pchdn")
-ignore_texture_size = true
-stretch_mode = 0
 metadata/_edit_lock_ = true
 
 [node name="Blinds Layer" type="CanvasLayer" parent="."]
@@ -446,6 +440,7 @@ metadata/_edit_lock_ = true
 
 [node name="JumpscareSprite" type="AnimatedSprite2D" parent="JumpscareLayer"]
 visible = false
+z_index = 200
 position = Vector2(578, 327.50006)
 scale = Vector2(1.0069444, 1.013889)
 sprite_frames = SubResource("SpriteFrames_y8ley")
@@ -456,10 +451,23 @@ metadata/_edit_lock_ = true
 
 [node name="MeredithJumpscareSprite" type="AnimatedSprite2D" parent="JumpscareLayer"]
 visible = false
+z_index = 200
 position = Vector2(578, 327.5)
 scale = Vector2(1.007, 1.014)
 sprite_frames = SubResource("SpriteFrames_clh6u")
 animation = &"play"
+metadata/_edit_lock_ = true
+
+[node name="PauseButton" type="TextureButton" parent="JumpscareLayer"]
+z_index = 100
+offset_left = 1070.0
+offset_top = 6.0
+offset_right = 1156.0
+offset_bottom = 87.0
+texture_normal = ExtResource("26_cqrhs")
+texture_hover = ExtResource("27_pchdn")
+ignore_texture_size = true
+stretch_mode = 0
 metadata/_edit_lock_ = true
 
 [node name="TrueFormTimer" type="Timer" parent="."]
@@ -591,6 +599,9 @@ metadata/_edit_lock_ = true
 position = Vector2(51.5, 57.5)
 scale = Vector2(3.1923068, 3.3666666)
 sprite_frames = SubResource("SpriteFrames_wf27c")
+animation = &"hint"
+frame = 1
+frame_progress = 0.41054183
 metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="BG Layer/Table Layer/UILayer/HandbookIcon/TextureButton" to="JumpscareLayer/Handbook" method="_on_button_pressed"]

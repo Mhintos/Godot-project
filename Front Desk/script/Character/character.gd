@@ -25,6 +25,7 @@ var runtime_mini_doc_scenes: Array[PackedScene] = []
 
 @export var enter_time: float = 0.6
 @export var exit_time: float = 0.6
+@export var true_form_enter_time: float = 0.25
 
 @export var mini_doc_anchor_path: NodePath
 @export var mini_doc_anchor2_path: NodePath
@@ -124,8 +125,10 @@ func enter() -> void:
 	_stop_all_tweens()
 	emit_signal("play_footstep")
 
+	var actual_enter_time: float = true_form_enter_time if is_true_form else enter_time
+
 	_move_tween = create_tween()
-	_move_tween.tween_property(self, "global_position", stop_marker.global_position, enter_time)\
+	_move_tween.tween_property(self, "global_position", stop_marker.global_position, actual_enter_time)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_OUT)
 

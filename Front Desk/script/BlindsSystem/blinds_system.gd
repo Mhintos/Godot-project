@@ -60,12 +60,14 @@ func toggle_blinds() -> void:
 			inspection.play_blinds_up_sfx()
 
 		lever.play("pull_up")
+		blinds.frame = 0
 		blinds.play("opening")
 	else:
 		if inspection and inspection.has_method("play_blinds_down_sfx"):
 			inspection.play_blinds_down_sfx()
 
 		lever.play("pull_down")
+		blinds.frame = 0
 		blinds.play("closing")
 
 func _on_blinds_animation_finished() -> void:
