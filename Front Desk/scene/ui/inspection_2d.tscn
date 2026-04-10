@@ -413,6 +413,7 @@ position = Vector2(149, 447)
 position = Vector2(283, 443)
 
 [node name="Bloody UI" type="CanvasLayer" parent="."]
+layer = 19
 
 [node name="HandbookIcon" parent="Bloody UI" instance=ExtResource("17_vjnc3")]
 light_mask = 513
@@ -422,7 +423,8 @@ position = Vector2(210.655, 557.98)
 scale = Vector2(2.04, 2.04)
 
 [node name="Handbook" parent="Bloody UI/HandbookIcon" instance=ExtResource("23_7su7m")]
-position = Vector2(236.44366, -146.5588)
+visible = false
+position = Vector2(255.56131, -120.088234)
 scale = Vector2(0.475, 0.475)
 
 [node name="TextureButton" type="TextureButton" parent="Bloody UI/HandbookIcon"]
@@ -431,15 +433,16 @@ offset_top = -24.990189
 offset_right = 18.830881
 offset_bottom = 26.480408
 
-[node name="JumpscareLayer" type="CanvasLayer" parent="."]
-layer = 20
-
-[node name="Handbook" parent="JumpscareLayer" instance=ExtResource("23_7su7m")]
+[node name="Handbook" parent="Bloody UI" instance=ExtResource("23_7su7m")]
 unique_name_in_owner = true
 visible = false
+z_index = -100
 position = Vector2(721, 476)
 scale = Vector2(0.969, 0.969)
 metadata/_edit_lock_ = true
+
+[node name="JumpscareLayer" type="CanvasLayer" parent="."]
+layer = 20
 
 [node name="JumpscareSprite" type="AnimatedSprite2D" parent="JumpscareLayer"]
 visible = false
@@ -606,7 +609,7 @@ offset_bottom = 40.0
 script = ExtResource("75_xr4y4")
 
 [node name="MicrophoneLayer" type="CanvasLayer" parent="."]
-layer = 19
+layer = 17
 
 [node name="Microphone" type="TextureButton" parent="MicrophoneLayer"]
 offset_left = 298.0
@@ -625,6 +628,6 @@ frame = 1
 frame_progress = 0.41054183
 metadata/_edit_lock_ = true
 
-[connection signal="pressed" from="BG Layer/Table Layer/UILayer/HandbookIcon/TextureButton" to="JumpscareLayer/Handbook" method="_on_button_pressed"]
+[connection signal="pressed" from="BG Layer/Table Layer/UILayer/HandbookIcon/TextureButton" to="Bloody UI/Handbook" method="_on_button_pressed"]
 [connection signal="pressed" from="Bloody UI/HandbookIcon/TextureButton" to="Bloody UI/HandbookIcon/Handbook" method="_on_button_pressed"]
 [connection signal="timeout" from="TrueFormTimer" to="." method="_on_true_form_timer_timeout"]
