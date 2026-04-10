@@ -499,6 +499,18 @@ func _on_character_reached_stop() -> void:
 		if true_form_timer:
 			true_form_timer.start(current_scare_duration)
 
+		if current_character.has_method("get_dialogue_messages"):
+			character_dialogue_messages = current_character.get_dialogue_messages()
+		else:
+			character_dialogue_messages = []
+
+		if dialogue_ui and character_dialogue_messages.size() > 0:
+			if dialogue_ui.conversation_finished.is_connected(_on_true_form_dialogue_finished):
+				dialogue_ui.conversation_finished.disconnect(_on_true_form_dialogue_finished)
+			dialogue_ui.conversation_finished.connect(_on_true_form_dialogue_finished)
+			dialogue_ui.visible = true
+			dialogue_ui.start_conversation(character_dialogue_messages)
+
 		debug_log("True form reached stop. 4-second anomaly state started.")
 		return
 
@@ -506,6 +518,7 @@ func _on_character_reached_stop() -> void:
 		character_dialogue_messages = current_character.get_dialogue_messages()
 	else:
 		character_dialogue_messages = []
+
 	_lock_gameplay()
 
 	if _is_disguised_character(current_character):
@@ -531,6 +544,15 @@ func _on_character_reached_stop() -> void:
 	if microphone_button and character_dialogue_messages.size() > 0:
 		microphone_button.visible = true
 		_play_microphone_hint()
+		
+func _on_true_form_dialogue_finished() -> void:
+	if dialogue_ui:
+		if dialogue_ui.conversation_finished.is_connected(_on_true_form_dialogue_finished):
+			dialogue_ui.conversation_finished.disconnect(_on_true_form_dialogue_finished)
+		dialogue_ui.visible = false
+
+	character_dialogue_messages = []
+	debug_log("True form dialogue finished, anomaly continues.")
 
 func _on_microphone_pressed() -> void:
 	if microphone_button == null:
