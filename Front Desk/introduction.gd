@@ -10,8 +10,6 @@ extends Node2D
 @onready var next_button: TextureButton = $CanvasLayer/NextButton
 
 @onready var intro_sfx: AudioStreamPlayer = $IntroSFX
-@onready var hover_sfx: AudioStreamPlayer = $HoverSFX
-@onready var click_sfx: AudioStreamPlayer = $ClickSFX
 
 var current_page: int = 0
 var is_transitioning: bool = false
@@ -38,21 +36,14 @@ func _ready() -> void:
 	_show_page()
 
 func _on_button_hovered() -> void:
-	if hover_sfx and hover_sfx.stream:
-		hover_sfx.stop()
-		hover_sfx.play()
+	UISFXManager.play_hover()
 
 func _on_skip_button_pressed() -> void:
 	if is_transitioning:
 		return
 
 	is_transitioning = true
-
-	if click_sfx and click_sfx.stream:
-		if click_sfx.playing:
-			click_sfx.stop()
-		click_sfx.play()
-
+	UISFXManager.play_click()
 	_go_to_inspection()
 
 func _on_back_button_pressed() -> void:
@@ -62,11 +53,7 @@ func _on_back_button_pressed() -> void:
 	if current_page <= 0:
 		return
 
-	if click_sfx and click_sfx.stream:
-		if click_sfx.playing:
-			click_sfx.stop()
-		click_sfx.play()
-
+	UISFXManager.play_click()
 	current_page -= 1
 	_show_page()
 
@@ -74,10 +61,7 @@ func _on_next_button_pressed() -> void:
 	if is_transitioning:
 		return
 
-	if click_sfx and click_sfx.stream:
-		if click_sfx.playing:
-			click_sfx.stop()
-		click_sfx.play()
+	UISFXManager.play_click()
 
 	if current_page < intro_textures.size() - 1:
 		current_page += 1

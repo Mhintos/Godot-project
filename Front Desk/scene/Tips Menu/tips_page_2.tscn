@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://byjk4ogysplk7"]
+[gd_scene load_steps=9 format=3 uid="uid://byjk4ogysplk7"]
 
 [ext_resource type="Script" uid="uid://c5agkiujcebku" path="res://script/Tips Menu/tips_page_2.gd" id="1_qgvwm"]
 [ext_resource type="Texture2D" uid="uid://b43rjaq2uqlhc" path="res://assets/tips/Tips 2.png" id="2_ucjlk"]
@@ -6,10 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://y2tnbdxyw5lb" path="res://assets/tips/Back Darker.png" id="4_ba5i0"]
 [ext_resource type="Texture2D" uid="uid://irvx2drnwl86" path="res://assets/tips/Back Hover.png" id="5_eg0ce"]
 [ext_resource type="Texture2D" uid="uid://qt24hj4ipxlb" path="res://assets/tips/Next.png" id="6_ba5i0"]
-[ext_resource type="AudioStream" uid="uid://c7txs6ksd3pjw" path="res://sfx/General Sounds/Button Hover.mp3" id="6_q1pyc"]
-[ext_resource type="AudioStream" uid="uid://bponfxch0uuiy" path="res://sfx/General Sounds/ButtonClick.mp3" id="7_2k8r1"]
 [ext_resource type="Texture2D" uid="uid://ds6ajjx6rvrtb" path="res://assets/tips/Next Darker.png" id="7_eg0ce"]
-[ext_resource type="AudioStream" uid="uid://7c84qhb5566j" path="res://sfx/General Sounds/Main Menu Official BG Music.mp3" id="8_3sgs6"]
 [ext_resource type="Texture2D" uid="uid://kfcs85355vbl" path="res://assets/tips/Next Hover.png" id="8_q1pyc"]
 
 [node name="Tips2" type="Node2D"]
@@ -46,17 +43,5 @@ texture_hover = ExtResource("8_q1pyc")
 ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_lock_ = true
-
-[node name="HoverSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_q1pyc")
-volume_db = -25.0
-
-[node name="ClickSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_2k8r1")
-volume_db = -10.0
-
-[node name="Tips2Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_3sgs6")
-volume_db = -10.0
 
 [connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_back_button_pressed"]

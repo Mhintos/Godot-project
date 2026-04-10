@@ -21,6 +21,7 @@ config/icon="uid://caua4wf67rwhm"
 
 GameResult="*res://script/Endings/game_result.gd"
 MenuMusic="*res://script/Main Menu/menu_music.gd"
+UISFXManager="*res://script/SFX/ui_sfx_manager.gd"
 
 [display]
 
