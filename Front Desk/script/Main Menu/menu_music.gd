@@ -6,6 +6,9 @@ var current_stream: AudioStream = null
 const MAIN_MENU_STREAM := preload("res://sfx/Background Music/Main Menu Official BG Music.mp3")
 const MAIN_MENU_VOLUME_DB := -11.0
 
+const ENDING_FLOW_STREAM := preload("res://sfx/Ending sfx/Endings Stats Page.mp3")
+const ENDING_FLOW_VOLUME_DB := -11.0
+
 func _ready() -> void:
 	player = AudioStreamPlayer.new()
 	player.name = "MenuMusicPlayer"
@@ -35,6 +38,9 @@ func play_music(stream: AudioStream, volume_db: float = 0.0) -> void:
 func play_main_menu_music() -> void:
 	play_music(MAIN_MENU_STREAM, MAIN_MENU_VOLUME_DB)
 
+func play_ending_flow_music() -> void:
+	play_music(ENDING_FLOW_STREAM, ENDING_FLOW_VOLUME_DB)
+
 func stop_music() -> void:
 	if player and player.playing:
 		player.stop()
@@ -43,3 +49,6 @@ func stop_music() -> void:
 
 func is_playing_stream(stream: AudioStream) -> bool:
 	return player != null and player.playing and current_stream == stream
+
+func is_playing_ending_flow_music() -> bool:
+	return is_playing_stream(ENDING_FLOW_STREAM)

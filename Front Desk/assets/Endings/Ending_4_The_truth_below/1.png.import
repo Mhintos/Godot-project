@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dd70yfp62r6e8"
-path="res://.godot/imported/Ending 2_ They Got In.png-f4b7136bdcf80baba21526b6e489d714.ctex"
+uid="uid://dhft16b4ivjcx"
+path="res://.godot/imported/1.png-3bdcf7d1f574dcd2e8245e994c50a6fe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Endings/Ending 2_ They Got In.png"
-dest_files=["res://.godot/imported/Ending 2_ They Got In.png-f4b7136bdcf80baba21526b6e489d714.ctex"]
+source_file="res://assets/Endings/Ending_4_The_truth_below/1.png"
+dest_files=["res://.godot/imported/1.png-3bdcf7d1f574dcd2e8245e994c50a6fe.ctex"]
 
 [params]
 

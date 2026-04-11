@@ -36,6 +36,7 @@ folder_colors={
 "res://assets/Characters/": "teal",
 "res://assets/Endings/": "yellow",
 "res://assets/Introduction/": "red",
+"res://assets/Stats Page/": "teal",
 "res://assets/documents/": "blue",
 "res://assets/ui/": "red",
 "res://scene/": "orange",

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c154jwk32qmvl"
-path="res://.godot/imported/Ending 4_ The Truth Below.png-71c1e3585af4cbe1640a2a579ef78ea1.ctex"
+uid="uid://dl1l6gp5w75s8"
+path="res://.godot/imported/1.png-bd80cd0e82680e23fee650b68604d519.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Endings/Ending 4_ The Truth Below.png"
-dest_files=["res://.godot/imported/Ending 4_ The Truth Below.png-71c1e3585af4cbe1640a2a579ef78ea1.ctex"]
+source_file="res://assets/Endings/GameOver_consumed/1.png"
+dest_files=["res://.godot/imported/1.png-bd80cd0e82680e23fee650b68604d519.ctex"]
 
 [params]
 

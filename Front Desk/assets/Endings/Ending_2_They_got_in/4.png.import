@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xyxxwmh4e7vp"
-path="res://.godot/imported/GAME OVER_ Consumed.png-50c79ecb4c7b332bc5c203784142e6c5.ctex"
+uid="uid://di4s0ti76gxrl"
+path="res://.godot/imported/4.png-56c4fb106e28afcb5d5a9d5df3c3741e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Endings/GAME OVER_ Consumed.png"
-dest_files=["res://.godot/imported/GAME OVER_ Consumed.png-50c79ecb4c7b332bc5c203784142e6c5.ctex"]
+source_file="res://assets/Endings/Ending_2_They_got_in/4.png"
+dest_files=["res://.godot/imported/4.png-56c4fb106e28afcb5d5a9d5df3c3741e.ctex"]
 
 [params]
 

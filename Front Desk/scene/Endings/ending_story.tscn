@@ -1,0 +1,87 @@
+[gd_scene load_steps=27 format=3 uid="uid://ckty7qb4wbrji"]
+
+[ext_resource type="Script" uid="uid://dxdbj4a5xip2i" path="res://scene/Endings/ending_story.gd" id="1_yasld"]
+[ext_resource type="Texture2D" uid="uid://b1heoqyixu8yk" path="res://assets/Endings/Ending_1_you/1.png" id="2_2yiyr"]
+[ext_resource type="Texture2D" uid="uid://c6hg47am0jq8c" path="res://assets/Endings/Ending_1_you/2.png" id="3_m1hmt"]
+[ext_resource type="Texture2D" uid="uid://cwt81ie18uyeb" path="res://assets/Endings/Ending_1_you/3.png" id="4_crhcp"]
+[ext_resource type="Texture2D" uid="uid://dcuafm1s5022a" path="res://assets/Endings/Ending_1_you/4.png" id="5_p6c1q"]
+[ext_resource type="Texture2D" uid="uid://b1vlkef6w4ygi" path="res://assets/Endings/Ending_2_They_got_in/1.png" id="6_16mcm"]
+[ext_resource type="Texture2D" uid="uid://b3stg0xfl2r5n" path="res://assets/Endings/Ending_2_They_got_in/2.png" id="7_b5uia"]
+[ext_resource type="Texture2D" uid="uid://d3166bck6t16v" path="res://assets/Endings/Ending_2_They_got_in/3.png" id="8_e8w38"]
+[ext_resource type="Texture2D" uid="uid://di4s0ti76gxrl" path="res://assets/Endings/Ending_2_They_got_in/4.png" id="9_qtjkn"]
+[ext_resource type="Texture2D" uid="uid://cltdway8oxj0o" path="res://assets/Endings/Ending_3_routine_shift/1.png" id="10_0lp1t"]
+[ext_resource type="Texture2D" uid="uid://d5rlbcdiwv5b" path="res://assets/Endings/Ending_3_routine_shift/2.png" id="11_sym7g"]
+[ext_resource type="Texture2D" uid="uid://bfbd5go3ehej0" path="res://assets/Endings/Ending_3_routine_shift/3.png" id="12_3ig00"]
+[ext_resource type="Texture2D" uid="uid://35k25x0vd5da" path="res://assets/Endings/Ending_3_routine_shift/4.png" id="13_nugjk"]
+[ext_resource type="Texture2D" uid="uid://dhft16b4ivjcx" path="res://assets/Endings/Ending_4_The_truth_below/1.png" id="14_8oov0"]
+[ext_resource type="Texture2D" uid="uid://bflk4cbbxqtim" path="res://assets/Endings/Ending_4_The_truth_below/2.png" id="15_j3vw7"]
+[ext_resource type="Texture2D" uid="uid://cfr25j0xvp1qa" path="res://assets/Endings/Ending_4_The_truth_below/3.png" id="16_5rrac"]
+[ext_resource type="Texture2D" uid="uid://dyhlvt7cs6i27" path="res://assets/Endings/Ending_4_The_truth_below/4.png" id="17_wsfud"]
+[ext_resource type="Texture2D" uid="uid://dl1l6gp5w75s8" path="res://assets/Endings/GameOver_consumed/1.png" id="18_228yd"]
+[ext_resource type="Texture2D" uid="uid://cwv7fmkmua6ie" path="res://assets/Endings/GameOver_consumed/2.png" id="19_082xi"]
+[ext_resource type="Texture2D" uid="uid://bdcdkbovuk4cl" path="res://assets/Endings/GameOver_consumed/3.png" id="20_smgp6"]
+[ext_resource type="Texture2D" uid="uid://dvajgxcchyoye" path="res://assets/Endings/GameOver_consumed/4.png" id="21_d7f71"]
+[ext_resource type="Texture2D" uid="uid://b4atqfouxkplc" path="res://assets/Introduction/Next Button/Next.png" id="25_e4fqm"]
+[ext_resource type="Texture2D" uid="uid://cowtkn7jg1gf3" path="res://assets/Introduction/Next Button/Next Darker.png" id="26_heb63"]
+[ext_resource type="Texture2D" uid="uid://it1qqb5t08a2" path="res://assets/Introduction/Next Button/Next Hover.png" id="27_h34d2"]
+[ext_resource type="Texture2D" uid="uid://byllchqtwl5ud" path="res://assets/Endings/Buttons/Game Over.png" id="28_35nw5"]
+[ext_resource type="Texture2D" uid="uid://bbt36kfikqkeg" path="res://assets/Endings/Buttons/Game Over Hover.png" id="29_tdlms"]
+
+[node name="EndingStory" type="Node2D"]
+script = ExtResource("1_yasld")
+ending_you_textures = Array[Texture2D]([ExtResource("2_2yiyr"), ExtResource("3_m1hmt"), ExtResource("4_crhcp"), ExtResource("5_p6c1q")])
+ending_they_got_in_textures = Array[Texture2D]([ExtResource("6_16mcm"), ExtResource("7_b5uia"), ExtResource("8_e8w38"), ExtResource("9_qtjkn")])
+ending_routine_shift_textures = Array[Texture2D]([ExtResource("10_0lp1t"), ExtResource("11_sym7g"), ExtResource("12_3ig00"), ExtResource("13_nugjk")])
+ending_truth_below_textures = Array[Texture2D]([ExtResource("14_8oov0"), ExtResource("15_j3vw7"), ExtResource("16_5rrac"), ExtResource("17_wsfud")])
+game_over_consumed_textures = Array[Texture2D]([ExtResource("18_228yd"), ExtResource("19_082xi"), ExtResource("20_smgp6"), ExtResource("21_d7f71")])
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("2_2yiyr")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="NextButton" type="TextureButton" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -33.984375
+offset_top = -122.0
+offset_right = 6.015625
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("25_e4fqm")
+texture_pressed = ExtResource("26_heb63")
+texture_hover = ExtResource("27_h34d2")
+ignore_texture_size = true
+stretch_mode = 5
+metadata/_edit_lock_ = true
+
+[node name="MainMenuButton" type="TextureButton" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 475.0
+offset_top = -611.0
+offset_right = 545.0
+offset_bottom = -548.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("28_35nw5")
+texture_hover = ExtResource("29_tdlms")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="EndingTexture" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+expand_mode = 1
+metadata/_edit_lock_ = true

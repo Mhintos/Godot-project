@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cptg0hduxsxcs"
-path="res://.godot/imported/Ending 1_ You.png-a32912e5b82845d824af6e88f787388a.ctex"
+uid="uid://cfr25j0xvp1qa"
+path="res://.godot/imported/3.png-1363a271f124d871d6fe2ba170e54be9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Endings/Ending 1_ You.png"
-dest_files=["res://.godot/imported/Ending 1_ You.png-a32912e5b82845d824af6e88f787388a.ctex"]
+source_file="res://assets/Endings/Ending_4_The_truth_below/3.png"
+dest_files=["res://.godot/imported/3.png-1363a271f124d871d6fe2ba170e54be9.ctex"]
 
 [params]
 

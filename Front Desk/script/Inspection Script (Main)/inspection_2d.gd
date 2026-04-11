@@ -181,6 +181,12 @@ var disabled_button_sfx_player: AudioStreamPlayer = null
 const DISABLED_BUTTON_SFX_COOLDOWN := 0.8
 var disabled_button_sfx_cooldown: float = 0.0
 
+var forged_documents_missed := 0
+var disguised_anomalies_stopped := 0
+var true_forms_stopped := 0
+
+var stats_page_scene_path: String = "res://scene/Stats/stats_page.tscn"
+
 func debug_log(msg) -> void:
 	if DEBUG_LOGS:
 		print(msg)
@@ -631,6 +637,14 @@ func _reject_true_form() -> void:
 	true_form_active = false
 	reset_scare_meter()
 	stop_anomaly_sfx()
+	
+	var was_disguised := _is_disguised_character(current_character)
+	var was_true_form := _is_true_form_character(current_character)
+
+	if was_disguised:
+		disguised_anomalies_stopped += 1
+	elif was_true_form:
+		true_forms_stopped += 1
 
 	approve_btn.disabled = false
 	deny_btn.disabled = false
@@ -724,8 +738,19 @@ func _on_jumpscare_finished() -> void:
 
 	debug_log("JUMPSCARE FINISHED")
 
-	GameResult.set_ending(GameResult.ENDING_GAME_OVER_CONSUMED)
-	get_tree().change_scene_to_file(ending_result_scene_path)
+	if disguised_failure_count > 0:
+		GameResult.set_ending(GameResult.ENDING_THEY_GOT_IN)
+	else:
+		GameResult.set_ending(GameResult.ENDING_GAME_OVER_CONSUMED)
+		
+	GameResult.set_stats(
+		processed_characters,
+		mistake_count,
+		forged_documents_missed,
+		disguised_anomalies_stopped,
+		true_forms_stopped
+	)
+	get_tree().change_scene_to_file(stats_page_scene_path)
 
 func _on_decision_pressed(decision: String) -> void:
 	if _locked or game_over:
@@ -863,6 +888,7 @@ func _register_approved_forged_if_needed(decision: String) -> void:
 	var expected = current_character.get_expected_result()
 	if expected == current_character.ExpectedDecision.DENY:
 		forged_got_in = true
+		forged_documents_missed += 1
 
 func _show_bloody_ui() -> void:
 	if blood_minitable:
@@ -930,6 +956,10 @@ func reset_run_state() -> void:
 	disguised_failure_count = 0
 	true_form_failure_count = 0
 
+	forged_documents_missed = 0
+	disguised_anomalies_stopped = 0
+	true_forms_stopped = 0
+
 	GameResult.clear_result()
 
 	true_form_timer.stop()
@@ -968,8 +998,15 @@ func _finish_character_and_continue() -> void:
 
 		var ending_id := _determine_shift_ending_id()
 		GameResult.set_ending(ending_id)
+		GameResult.set_stats(
+			processed_characters,
+			mistake_count,
+			forged_documents_missed,
+			disguised_anomalies_stopped,
+			true_forms_stopped
+		)
 
-		get_tree().change_scene_to_file(ending_result_scene_path)
+		get_tree().change_scene_to_file(stats_page_scene_path)
 		return
 
 	reset_scare_meter()
@@ -1562,26 +1599,19 @@ func _hide_all_jumpscare_sprites() -> void:
 	active_jumpscare_sprite = null
 	
 func _determine_shift_ending_id() -> String:
-	var reached_warning1 := scare_warning_stage >= 1
 	var reached_warning2 := scare_warning_stage >= 2
 	var all_disguised_stopped := disguised_failure_count == 0
 	var all_true_forms_stopped := true_form_failure_count == 0
 
 	if mistake_count == 0 \
 	and scare_warning_stage == 0 \
-	and not forged_got_in \
+	and forged_documents_missed == 0 \
 	and all_disguised_stopped \
 	and all_true_forms_stopped:
 		return GameResult.ENDING_YOU
 
-	if forged_got_in:
-		return GameResult.ENDING_THEY_GOT_IN
-
 	if reached_warning2 and all_disguised_stopped and all_true_forms_stopped:
 		return GameResult.ENDING_TRUTH_BELOW
-
-	if reached_warning1 and not reached_warning2:
-		return GameResult.ENDING_ROUTINE_SHIFT
 
 	return GameResult.ENDING_ROUTINE_SHIFT
 	
