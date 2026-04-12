@@ -49,6 +49,11 @@ var runtime_mini_doc_scenes: Array[PackedScene] = []
 @export var deny_texts: Array[String] = []
 @export var deny_sides: Array[String] = []
 
+@export var forged_approve_texts: Array[String] = []
+@export var forged_approve_sides: Array[String] = []
+@export var forged_deny_texts: Array[String] = []
+@export var forged_deny_sides: Array[String] = []
+
 @onready var spawn_marker: Marker2D = get_node_or_null(spawn_marker_path)
 @onready var stop_marker: Marker2D = get_node_or_null(stop_marker_path)
 @onready var exit_left_marker: Marker2D = get_node_or_null(exit_left_marker_path)
@@ -194,6 +199,24 @@ func get_deny_messages() -> Array:
 		messages.append({"text": deny_texts[i], "side": side})
 	return messages
 
+func get_forged_approve_messages() -> Array:
+	var messages = []
+	for i in range(forged_approve_texts.size()):
+		var side = "left"
+		if i < forged_approve_sides.size() and forged_approve_sides[i] == "right":
+			side = "right"
+		messages.append({"text": forged_approve_texts[i], "side": side})
+	return messages
+
+func get_forged_deny_messages() -> Array:
+	var messages = []
+	for i in range(forged_deny_texts.size()):
+		var side = "left"
+		if i < forged_deny_sides.size() and forged_deny_sides[i] == "right":
+			side = "right"
+		messages.append({"text": forged_deny_texts[i], "side": side})
+	return messages
+
 func exit_right(on_done: Callable = Callable()) -> void:
 	_exit_to_marker(
 		exit_right_marker,
@@ -305,6 +328,6 @@ func get_expected_result() -> int:
 		return ExpectedDecision.TRUE_FORM
 
 	return expected_decision
-	
+
 func get_character_id() -> String:
 	return identity_key
