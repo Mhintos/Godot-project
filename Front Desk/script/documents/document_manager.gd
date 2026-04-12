@@ -90,6 +90,11 @@ func open_document(doc_id: String, scene: PackedScene) -> void:
 	_bring_doc_to_front(doc_instance)
 	set_active_document(doc_instance)
 
+func set_all_opened_docs_interactable(interactable: bool) -> void:
+	for doc in opened_docs.values():
+			if doc.has_method("set_interactable"):
+				doc.set_interactable(interactable)
+
 func _bring_doc_to_front(doc: CanvasItem) -> void:
 	var document_layer := get_node(document_layer_path)
 	var docs: Array[CanvasItem] = []

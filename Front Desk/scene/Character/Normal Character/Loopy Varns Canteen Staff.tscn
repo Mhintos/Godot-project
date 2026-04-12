@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dgau330eg8kdh"]
+[gd_scene load_steps=11 format=3 uid="uid://dgau330eg8kdh"]
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_21ycw"]
 [ext_resource type="PackedScene" uid="uid://df1pstsf8b7vh" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Loopy.tscn" id="2_21ycw"]
+[ext_resource type="PackedScene" uid="uid://ccumpqadufdgu" path="res://scene/Documents/Mini Documents Forged/Mini ID/Mini_ID_Loopy_Forged.tscn" id="2_d00fx"]
 [ext_resource type="PackedScene" uid="uid://4y5l6nlondda" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Loopy.tscn" id="4_d00fx"]
 [ext_resource type="PackedScene" uid="uid://dvkeemjqhun4f" path="res://scene/Documents/Mini Documents Forged/Mini Permit/Mini_Permit_Loopy_Forged.tscn" id="4_jptfe"]
 [ext_resource type="Texture2D" uid="uid://bpsm5d5273dko" path="res://assets/Characters/Normal/Loopy Varnes Canteen Staff/1.png" id="4_wm4ev"]
@@ -33,7 +34,7 @@ animations = [{
 z_index = 2
 script = ExtResource("1_21ycw")
 forged_enabled = true
-forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_21ycw"), ExtResource("4_jptfe")])
+forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_d00fx"), ExtResource("4_jptfe")])
 enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")
@@ -43,8 +44,12 @@ dialogue_texts = Array[String](["Present your documents.", "Loopy Varnes, cantee
 dialogue_sides = Array[String](["left", "right"])
 approve_texts = Array[String](["Have you noticed something lately?", "What is it?", "Too many students have gone missing.", "I've heard.", "The administration will cover it up.", "Just like they always do."])
 approve_sides = Array[String](["right", "left", "right", "left", "right", "right"])
-deny_texts = Array[String](["You campus permit should have a stamp.", "The stamp was there this morning."])
-deny_sides = Array[String](["left", "right"])
+deny_texts = Array[String](["Something is wrong with your documents.", "What do you mean?", "Those are just newly printed.", "Sorry, I can't let you in.", "Who even hired you?"])
+deny_sides = Array[String](["left", "right", "right", "left", "right"])
+forged_approve_texts = Array[String](["Wow, that actually worked?", "What do you mean?", "Nevermind sir.", "Have a great day."])
+forged_approve_sides = Array[String](["right", "left", "right", "right"])
+forged_deny_texts = Array[String](["Something is missing with your documents.", "Wait, really?", "Can we set this aside for now?", "I really need to get to work.", "Sorry, but I can't let you in.", "My boss is going to kill me."])
+forged_deny_sides = Array[String](["left", "right", "right", "right", "left", "right"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(5, 150)

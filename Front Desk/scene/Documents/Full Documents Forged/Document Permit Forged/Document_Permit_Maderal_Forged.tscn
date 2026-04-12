@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_h6xy1"]
 [ext_resource type="Texture2D" uid="uid://c3hpvuw0esq6h" path="res://assets/documents/Angelo Maderal Professor/Forged Documents/mads.png" id="2_dr6dq"]
 
-[node name="Document_Permit_Maderal" type="Node2D"]
+[node name="Node2D" type="Node2D"]
 script = ExtResource("1_h6xy1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

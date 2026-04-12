@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://chisouworllid"]
+[gd_scene load_steps=11 format=3 uid="uid://chisouworllid"]
 
 [ext_resource type="Script" uid="uid://c1di51brpvla5" path="res://script/Character/character.gd" id="1_frpdb"]
 [ext_resource type="PackedScene" uid="uid://bupjq7d8643dc" path="res://scene/Documents/Mini Documents/Mini ID/Mini_ID_Maderal.tscn" id="2_bptp4"]
+[ext_resource type="PackedScene" uid="uid://cediu8jhn3nb1" path="res://scene/Documents/Mini Documents Forged/Mini ID/Mini_ID_Maderal_Forged.tscn" id="2_ou5vl"]
 [ext_resource type="PackedScene" uid="uid://bxm7j65scrf2g" path="res://scene/Documents/Mini Documents/Mini Permit/Mini_Permit_Maderal.tscn" id="4_arebf"]
 [ext_resource type="Texture2D" uid="uid://c58u6ibjaa8ol" path="res://assets/Characters/Normal/Angelo Maderal Professor/1.png" id="4_frpdb"]
 [ext_resource type="PackedScene" uid="uid://bis01kbi7fhup" path="res://scene/Documents/Mini Documents Forged/Mini Permit/Mini_Permit_Maderal_Forged.tscn" id="4_ou5vl"]
@@ -33,7 +34,7 @@ animations = [{
 z_index = 2
 script = ExtResource("1_frpdb")
 forged_enabled = true
-forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_bptp4"), ExtResource("4_ou5vl")])
+forged_mini_doc_scenes = Array[PackedScene]([ExtResource("2_ou5vl"), ExtResource("4_ou5vl")])
 enter_time = 2.0
 exit_time = 2.0
 mini_doc_anchor_path = NodePath("MiniDocAnchor")
@@ -43,8 +44,12 @@ dialogue_texts = Array[String](["Present your documents.", "Angelo Maderal. CCS 
 dialogue_sides = Array[String](["left", "right"])
 approve_texts = Array[String](["Thank you.", "No one is supposed to go near the old building.", "Why not?", "You'll find out soon."])
 approve_sides = Array[String](["right", "right", "left", "right"])
-deny_texts = Array[String](["Your name is spelled wrong.", "It's a nickname."])
-deny_sides = Array[String](["left", "right"])
+deny_texts = Array[String](["There's something wrong with your documents.", "No, there isn't.", "I am always sure with the details of my documents.", "Sorry, but I can't let you in.", "Unbelievable."])
+deny_sides = Array[String](["left", "right", "right", "left", "right"])
+forged_approve_texts = Array[String](["Have a good day, sir Angel.", "Hehehe.", "See you around."])
+forged_approve_sides = Array[String](["left", "right", "right"])
+forged_deny_texts = Array[String](["Something is deformed in one of your documents.", "Oops, I forgot to fix that.", "My apologies, I will get it fixed."])
+forged_deny_sides = Array[String](["left", "right", "right"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, 148)

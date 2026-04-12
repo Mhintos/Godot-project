@@ -17,6 +17,12 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/image="uid://cjns48nxpcljx"
 config/icon="uid://caua4wf67rwhm"
 
+[autoload]
+
+GameResult="*res://script/Endings/game_result.gd"
+MenuMusic="*res://script/Main Menu/menu_music.gd"
+UISFXManager="*res://script/SFX/ui_sfx_manager.gd"
+
 [display]
 
 window/size/mode=3
@@ -28,15 +34,19 @@ mouse_cursor/custom_image="uid://bel0qcahglanw"
 folder_colors={
 "res://assets/": "pink",
 "res://assets/Characters/": "teal",
-"res://assets/documents/": "pink",
+"res://assets/Endings/": "yellow",
+"res://assets/Introduction/": "red",
+"res://assets/documents/": "blue",
 "res://assets/ui/": "red",
 "res://scene/": "orange",
 "res://scene/Character/": "teal",
+"res://scene/DialogueSystem/": "red",
 "res://scene/Documents/": "green",
 "res://scene/Documents/Full Documents Forged/": "purple",
 "res://scene/Documents/Full Documents/": "purple",
 "res://scene/Documents/Mini Documents Forged/": "yellow",
 "res://scene/Documents/Mini Documents/": "yellow",
+"res://scene/Endings/": "yellow",
 "res://script/": "red",
 "res://sfx/": "gray"
 }

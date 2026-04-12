@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://tty6islologw"]
+
+[ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_4awes"]
+[ext_resource type="Texture2D" uid="uid://btqw5perkvjej" path="res://assets/documents/Ralph Romero Professor/Forged Documents/Campus Access Permit.png" id="2_4awes"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_4awes")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(852, 226)
+scale = Vector2(0.046, 0.046)
+texture = ExtResource("2_4awes")

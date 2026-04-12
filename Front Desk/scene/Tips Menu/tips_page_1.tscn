@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://ci5lr6vg3fu7i"]
+
+[ext_resource type="Script" uid="uid://caunvl8oxx85" path="res://script/Tips Menu/tips_page_1.gd" id="1_3f2rw"]
+[ext_resource type="Texture2D" uid="uid://burvxylhqyrp6" path="res://assets/tips/Tips 1.png" id="2_cv4h4"]
+[ext_resource type="Texture2D" uid="uid://ba5tg0pj64pl8" path="res://assets/tips/Back.png" id="3_6wa78"]
+[ext_resource type="Texture2D" uid="uid://y2tnbdxyw5lb" path="res://assets/tips/Back Darker.png" id="4_0oadc"]
+[ext_resource type="Texture2D" uid="uid://irvx2drnwl86" path="res://assets/tips/Back Hover.png" id="5_3ngjw"]
+[ext_resource type="Texture2D" uid="uid://qt24hj4ipxlb" path="res://assets/tips/Next.png" id="6_w0mpt"]
+[ext_resource type="Texture2D" uid="uid://ds6ajjx6rvrtb" path="res://assets/tips/Next Darker.png" id="7_3t3ur"]
+[ext_resource type="Texture2D" uid="uid://kfcs85355vbl" path="res://assets/tips/Next Hover.png" id="8_pa1tp"]
+
+[node name="Tips1" type="Node2D"]
+script = ExtResource("1_3f2rw")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(577, 326.00003)
+scale = Vector2(0.6052083, 0.61111116)
+texture = ExtResource("2_cv4h4")
+metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BackButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 41.0
+offset_top = 32.0
+offset_right = 105.0
+offset_bottom = 84.0
+texture_normal = ExtResource("3_6wa78")
+texture_pressed = ExtResource("4_0oadc")
+texture_hover = ExtResource("5_3ngjw")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_lock_ = true
+
+[node name="NextButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 1051.0
+offset_top = 29.0
+offset_right = 1123.0
+offset_bottom = 80.0
+texture_normal = ExtResource("6_w0mpt")
+texture_pressed = ExtResource("7_3t3ur")
+texture_hover = ExtResource("8_pa1tp")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/NextButton" to="." method="_on_next_button_pressed"]

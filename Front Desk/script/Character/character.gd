@@ -25,6 +25,7 @@ var runtime_mini_doc_scenes: Array[PackedScene] = []
 
 @export var enter_time: float = 0.6
 @export var exit_time: float = 0.6
+@export var true_form_enter_time: float = 0.25
 
 @export var mini_doc_anchor_path: NodePath
 @export var mini_doc_anchor2_path: NodePath
@@ -48,6 +49,11 @@ var runtime_mini_doc_scenes: Array[PackedScene] = []
 @export var deny_texts: Array[String] = []
 @export var deny_sides: Array[String] = []
 
+@export var forged_approve_texts: Array[String] = []
+@export var forged_approve_sides: Array[String] = []
+@export var forged_deny_texts: Array[String] = []
+@export var forged_deny_sides: Array[String] = []
+
 @onready var spawn_marker: Marker2D = get_node_or_null(spawn_marker_path)
 @onready var stop_marker: Marker2D = get_node_or_null(stop_marker_path)
 @onready var exit_left_marker: Marker2D = get_node_or_null(exit_left_marker_path)
@@ -64,36 +70,56 @@ var _move_tween: Tween = null
 var _idle_tween: Tween = null
 var _documents_spawned := false
 
-func apply_run_variant(is_forged_run: bool) -> void:
+func apply_run_variant(is_forged_run: bool, forged_doc_type: String = "") -> void:
 	if _normal_mini_doc_scenes_cache.is_empty():
 		_normal_mini_doc_scenes_cache = mini_doc_scenes.duplicate()
 		_normal_expected_decision_cache = expected_decision
 
 	run_is_forged = is_forged_run
 
-	# Always start from the normal set
 	runtime_mini_doc_scenes = _normal_mini_doc_scenes_cache.duplicate()
+	expected_decision = _normal_expected_decision_cache
 
-	if run_is_forged:
-		if not forged_enabled:
-			push_warning("Character '%s' was marked forged, but forged_enabled is false." % name)
-			expected_decision = _normal_expected_decision_cache
+	if not run_is_forged:
+		return
+
+	if not forged_enabled:
+		push_warning("Character '%s' was marked forged, but forged_enabled is false." % name)
+		run_is_forged = false
+		return
+
+	if forged_mini_doc_scenes.size() < 2:
+		push_warning("Character '%s' forged_mini_doc_scenes has less than 2 entries. Missing forged ID or Permit slot." % name)
+
+	var forged_index := -1
+
+	match forged_doc_type.to_lower():
+		"id":
+			forged_index = 0
+		"permit":
+			forged_index = 1
+		_:
+			push_warning("Character '%s' got forged run without valid forged_doc_type. Expected 'id' or 'permit'." % name)
 			run_is_forged = false
 			return
 
-		if forged_mini_doc_scenes.size() != 2:
-			push_error("Character '%s' forged_mini_doc_scenes must contain exactly 2 entries: ID and Permit." % name)
-			expected_decision = _normal_expected_decision_cache
-			run_is_forged = false
-			return
+	if forged_index >= runtime_mini_doc_scenes.size():
+		push_warning("Character '%s' runtime_mini_doc_scenes is missing slot %d." % [name, forged_index])
+		run_is_forged = false
+		return
 
-		for i in range(min(runtime_mini_doc_scenes.size(), forged_mini_doc_scenes.size())):
-			if forged_mini_doc_scenes[i] != null:
-				runtime_mini_doc_scenes[i] = forged_mini_doc_scenes[i]
+	if forged_index >= forged_mini_doc_scenes.size():
+		push_warning("Character '%s' forged %s slot is not created yet. Falling back to valid document." % [name, forged_doc_type])
+		run_is_forged = false
+		return
 
-		expected_decision = ExpectedDecision.DENY
-	else:
-		expected_decision = _normal_expected_decision_cache
+	if forged_mini_doc_scenes[forged_index] == null:
+		push_warning("Character '%s' forged %s mini doc scene is not assigned yet. Falling back to valid document." % [name, forged_doc_type])
+		run_is_forged = false
+		return
+
+	runtime_mini_doc_scenes[forged_index] = forged_mini_doc_scenes[forged_index]
+	expected_decision = ExpectedDecision.DENY
 
 func _ready() -> void:
 	modulate.a = 1.0
@@ -124,8 +150,10 @@ func enter() -> void:
 	_stop_all_tweens()
 	emit_signal("play_footstep")
 
+	var actual_enter_time: float = true_form_enter_time if is_true_form else enter_time
+
 	_move_tween = create_tween()
-	_move_tween.tween_property(self, "global_position", stop_marker.global_position, enter_time)\
+	_move_tween.tween_property(self, "global_position", stop_marker.global_position, actual_enter_time)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_OUT)
 
@@ -163,12 +191,32 @@ func get_approve_messages() -> Array:
 	return messages
 
 func get_deny_messages() -> Array:
+	print("get_deny_messages called. deny_texts size: ", deny_texts.size())
 	var messages = []
 	for i in range(deny_texts.size()):
 		var side = "left"
 		if i < deny_sides.size() and deny_sides[i] == "right":
 			side = "right"
 		messages.append({"text": deny_texts[i], "side": side})
+	print("Returning messages: ", messages)
+	return messages
+
+func get_forged_approve_messages() -> Array:
+	var messages = []
+	for i in range(forged_approve_texts.size()):
+		var side = "left"
+		if i < forged_approve_sides.size() and forged_approve_sides[i] == "right":
+			side = "right"
+		messages.append({"text": forged_approve_texts[i], "side": side})
+	return messages
+
+func get_forged_deny_messages() -> Array:
+	var messages = []
+	for i in range(forged_deny_texts.size()):
+		var side = "left"
+		if i < forged_deny_sides.size() and forged_deny_sides[i] == "right":
+			side = "right"
+		messages.append({"text": forged_deny_texts[i], "side": side})
 	return messages
 
 func exit_right(on_done: Callable = Callable()) -> void:
@@ -193,7 +241,7 @@ func _exit_to_marker(marker: Marker2D, empty_error: String, missing_error: Strin
 	_exiting = true
 
 	_stop_all_tweens()
-	_clear_mini_docs()
+	clear_mini_docs()
 
 	if marker == null:
 		if empty_error.contains("exit_right") and exit_right_marker_path.is_empty():
@@ -242,7 +290,7 @@ func _spawn_mini_docs() -> void:
 		push_error("Character.gd: mini_table_layer_path not found.")
 		return
 
-	_clear_mini_docs()
+	clear_mini_docs()
 
 	if runtime_mini_doc_scenes.size() >= 1 and runtime_mini_doc_scenes[0] != null:
 		var mini_1 = runtime_mini_doc_scenes[0].instantiate()
@@ -258,7 +306,13 @@ func _spawn_mini_docs() -> void:
 		mini_2.table_layer = mini_table_layer
 		mini_2.table_slot = mini_permit_slot
 
-func _clear_mini_docs() -> void:
+func set_mini_docs_interactable(interactable: bool) -> void:
+	for child in mini_doc_anchor_1.get_children():
+		child.set_interactable(interactable)
+	for child in mini_doc_anchor_2.get_children():
+		child.set_interactable(interactable)
+
+func clear_mini_docs() -> void:
 	if mini_doc_anchor_1:
 		for child in mini_doc_anchor_1.get_children():
 			child.queue_free()
@@ -266,6 +320,12 @@ func _clear_mini_docs() -> void:
 	if mini_doc_anchor_2:
 		for child in mini_doc_anchor_2.get_children():
 			child.queue_free()
+
+func hide_mini_docs() -> void:
+	for child in mini_doc_anchor_1.get_children():
+		child.visible = false
+	for child in mini_doc_anchor_2.get_children():
+		child.visible = false
 
 func _stop_all_tweens() -> void:
 	if _move_tween and _move_tween.is_running():

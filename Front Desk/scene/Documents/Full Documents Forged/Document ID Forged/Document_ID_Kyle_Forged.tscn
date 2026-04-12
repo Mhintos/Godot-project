@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://beyn17rg3y4in"]
+
+[ext_resource type="Script" uid="uid://u7whirrlj4pd" path="res://script/documents/document.gd" id="1_2ylni"]
+[ext_resource type="Texture2D" uid="uid://dgt4hvlg8i6o7" path="res://assets/documents/Kyle Navarro Security Guard/Forged Documents/ID.png" id="2_2ylni"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_2ylni")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(900, 480)
+scale = Vector2(1.39, 1.407)
+texture = ExtResource("2_2ylni")

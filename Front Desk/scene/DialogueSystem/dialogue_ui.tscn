@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://vrdhq60sm56o"]
+[gd_scene load_steps=6 format=3 uid="uid://vrdhq60sm56o"]
 
 [ext_resource type="Script" uid="uid://dhx6ox0okw3kq" path="res://script/DialogueSystem/dialogue_ui.gd" id="1_6q285"]
 [ext_resource type="PackedScene" uid="uid://cm2mlsgtojbwy" path="res://scene/DialogueSystem/message_bubble.tscn" id="1_dwk8m"]
+[ext_resource type="AudioStream" uid="uid://chlcvywsroqjm" path="res://sfx/Characters Dialogue/Character_Player Response.wav" id="2_grs77"]
+[ext_resource type="AudioStream" uid="uid://bw5kjcepc04jl" path="res://sfx/Characters Dialogue/Character Response.wav" id="3_7li3k"]
+[ext_resource type="AudioStream" uid="uid://buecl15ke6hfm" path="res://sfx/Characters Dialogue/True Form.wav" id="4_ui8x8"]
 
 [node name="dialogue_ui" type="Control"]
 layout_mode = 3
@@ -11,6 +14,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6q285")
+left_sound = ExtResource("2_grs77")
+right_sound = ExtResource("3_7li3k")
+true_form_sound = ExtResource("4_ui8x8")
 
 [node name="Bubble2" parent="." instance=ExtResource("1_dwk8m")]
 layout_mode = 1

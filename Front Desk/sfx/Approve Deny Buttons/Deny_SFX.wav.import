@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cr8qa7ru7rbi0"
+path="res://.godot/imported/Deny_SFX.wav-939d5a18f6916277082a44f6d9c99f5c.sample"
+
+[deps]
+
+source_file="res://sfx/Approve Deny Buttons/Deny_SFX.wav"
+dest_files=["res://.godot/imported/Deny_SFX.wav-939d5a18f6916277082a44f6d9c99f5c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

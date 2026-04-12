@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwird0lpg3mce"]
+
+[ext_resource type="Script" uid="uid://ku8mdga1l36m" path="res://script/Settings Menu/settings.gd" id="1_klflc"]
+[ext_resource type="Texture2D" uid="uid://duq24qtj3hx34" path="res://assets/settings/Background setting.png" id="2_5iuj0"]
+[ext_resource type="Texture2D" uid="uid://dilc1jo5ke2cx" path="res://assets/settings/Back.png" id="3_xvw6u"]
+[ext_resource type="Texture2D" uid="uid://dmgjrgq34bjjp" path="res://assets/settings/Back Darker.png" id="4_3m1xg"]
+[ext_resource type="Texture2D" uid="uid://irvx2drnwl86" path="res://assets/tips/Back Hover.png" id="5_0miru"]
+
+[node name="Settings" type="Node2D"]
+script = ExtResource("1_klflc")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(578, 324)
+scale = Vector2(0.6046876, 0.6185186)
+texture = ExtResource("2_5iuj0")
+metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="VolumeSlider" type="HSlider" parent="CanvasLayer"]
+layout_mode = 0
+offset_left = 410.0
+offset_top = 341.0
+offset_right = 747.0
+offset_bottom = 404.0
+max_value = 1.0
+step = 0.01
+value = 0.5
+metadata/_edit_lock_ = true
+
+[node name="BackButton" type="TextureButton" parent="CanvasLayer"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 31.0
+offset_right = 100.0
+offset_bottom = 82.0
+texture_normal = ExtResource("3_xvw6u")
+texture_pressed = ExtResource("4_3m1xg")
+texture_hover = ExtResource("5_0miru")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_lock_ = true
+
+[connection signal="value_changed" from="CanvasLayer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_back_button_pressed"]
