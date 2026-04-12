@@ -92,9 +92,6 @@ extends Node2D
 @onready var scare_meter_sfx: AudioStreamPlayer = $"Screen Damage Overlay/ScareMeterSFX"
 
 @onready var mic_press_sfx: AudioStreamPlayer = $SFX/MicPressSFX
-@onready var player_dialogue_sfx: AudioStreamPlayer = $SFX/PlayerDialogueSFX
-@onready var character_dialogue_sfx: AudioStreamPlayer = $SFX/CharacterDialogueSFX
-@onready var true_form_dialogue_sfx: AudioStreamPlayer = $SFX/TrueFormDialogueSFX
 
 var active_jumpscare_sprite: AnimatedSprite2D = null
 
@@ -151,8 +148,6 @@ var forged_got_in := false
 var disguised_failure_count := 0
 var true_form_failure_count := 0
 
-var ending_result_scene_path: String = "res://scene/Endings/ending_result.tscn"
-
 var screen_shake_time: float = 0.0
 var screen_shake_strength: float = 0.0
 var warning2_distortion_timer: float = 0.0
@@ -174,8 +169,6 @@ var normal_scare_times := [36.0, 33.0, 30.0, 27.0]
 var document_manager: Node = null
 var current_shake_offset: Vector2 = Vector2.ZERO
 
-var current_approved_messages: Array = []
-var current_denied_messages: Array = []
 var character_dialogue_messages: Array = []
 var microphone_used := false
 
@@ -195,6 +188,8 @@ var disguised_anomalies_stopped := 0
 var true_forms_stopped := 0
 
 var stats_page_scene_path: String = "res://scene/Stats/stats_page.tscn"
+
+var _decision_dialogue_callable: Callable = Callable()
 
 func debug_log(msg) -> void:
 	if DEBUG_LOGS:
@@ -416,6 +411,14 @@ func spawn_character() -> void:
 		return
 
 	microphone_used = false
+	character_dialogue_messages = []
+
+	if dialogue_ui and dialogue_ui.has_method("stop_conversation"):
+		dialogue_ui.stop_conversation(true)
+
+	if microphone_button:
+		microphone_button.visible = true
+		microphone_button.disabled = true
 
 	_lock_gameplay()
 
@@ -477,8 +480,6 @@ func _play_microphone_hint() -> void:
 	if mic_sprite == null:
 		return
 
-	microphone_used = false
-
 	microphone_button.visible = true
 	microphone_button.disabled = false
 
@@ -503,6 +504,20 @@ func _on_character_reached_stop() -> void:
 
 	if footstep_sfx and footstep_sfx.playing:
 		footstep_sfx.stop()
+
+	if dialogue_ui and dialogue_ui.has_method("stop_conversation"):
+		dialogue_ui.stop_conversation(true)
+
+	character_dialogue_messages = []
+	microphone_used = false
+
+	if microphone_button:
+		microphone_button.visible = true
+		microphone_button.disabled = true
+
+		var mic_sprite: AnimatedSprite2D = microphone_button.get_node_or_null("MicSprite")
+		if mic_sprite and mic_sprite.sprite_frames and mic_sprite.sprite_frames.has_animation("default"):
+			mic_sprite.play("default")
 
 	if _is_true_form_character(current_character):
 		true_form_active = true
@@ -552,9 +567,8 @@ func _on_character_reached_stop() -> void:
 		approve_btn.disabled = true
 		deny_btn.disabled = true
 
-		if microphone_button:
-			microphone_button.visible = true
-			_play_microphone_hint()
+		
+		_play_microphone_hint()
 
 		scare_started = false
 		scare_alarm_triggered = false
@@ -562,12 +576,14 @@ func _on_character_reached_stop() -> void:
 		debug_log("Disguised reached stop. Waiting for first mini doc interaction.")
 		return
 
-	_unlock_gameplay()
-
 	microphone_used = false
-	if microphone_button and character_dialogue_messages.size() > 0:
-		microphone_button.visible = true
+
+	if character_dialogue_messages.size() > 0:
 		_play_microphone_hint()
+	else:
+		_unlock_gameplay()
+		if current_character.has_method("spawn_documents"):
+			current_character.spawn_documents()
 		
 func _on_true_form_dialogue_finished() -> void:
 	if dialogue_ui:
@@ -576,6 +592,9 @@ func _on_true_form_dialogue_finished() -> void:
 
 		if dialogue_ui.conversation_finished.is_connected(_on_true_form_dialogue_finished):
 			dialogue_ui.conversation_finished.disconnect(_on_true_form_dialogue_finished)
+
+		if dialogue_ui.has_method("stop_conversation"):
+			dialogue_ui.stop_conversation(false)
 
 		dialogue_ui.visible = false
 
@@ -596,32 +615,40 @@ func _on_microphone_pressed() -> void:
 		mic_press_sfx.play()
 
 	microphone_used = true
-
 	microphone_button.disabled = true
 
 	var mic_sprite: AnimatedSprite2D = microphone_button.get_node_or_null("MicSprite")
 	if mic_sprite and mic_sprite.sprite_frames and mic_sprite.sprite_frames.has_animation("default"):
 		mic_sprite.play("default")
 
-	play_sliding_paper_sfx()
-
 	if current_character.has_method("spawn_documents"):
 		current_character.spawn_documents()
+
+	var is_normal_character := not _is_disguised_character(current_character) and not _is_true_form_character(current_character)
+
+	if is_normal_character:
+		_unlock_gameplay()
 
 	if character_dialogue_messages.size() > 0:
 		if dialogue_ui.conversation_finished.is_connected(_on_dialogue_finished):
 			dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
 
-		dialogue_ui.conversation_finished.connect(_on_dialogue_finished)
 		dialogue_ui.visible = true
+		dialogue_ui.conversation_finished.connect(_on_dialogue_finished)
 		dialogue_ui.start_conversation(character_dialogue_messages)
 	else:
+		if is_normal_character:
+			return
 		_on_dialogue_finished()
 
 func _on_dialogue_finished() -> void:
 	if dialogue_ui:
 		if dialogue_ui.conversation_finished.is_connected(_on_dialogue_finished):
 			dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
+
+		if dialogue_ui.has_method("stop_conversation"):
+			dialogue_ui.stop_conversation(false)
+
 		dialogue_ui.visible = false
 
 	if microphone_button:
@@ -632,7 +659,20 @@ func _on_dialogue_finished() -> void:
 			mic_sprite.play("default")
 
 	character_dialogue_messages = []
-	_unlock_gameplay()
+
+	var is_normal_character := current_character != null and not _is_disguised_character(current_character) and not _is_true_form_character(current_character)
+	if not is_normal_character:
+		_unlock_gameplay()
+
+func _on_decision_dialogue_finished(decision: String) -> void:
+	if dialogue_ui:
+		if _decision_dialogue_callable.is_valid() and dialogue_ui.conversation_finished.is_connected(_decision_dialogue_callable):
+			dialogue_ui.conversation_finished.disconnect(_decision_dialogue_callable)
+
+		_decision_dialogue_callable = Callable()
+		dialogue_ui.visible = false
+
+	_finish_decision(decision)
 
 func _on_blinds_closed_success() -> void:
 	if not true_form_active:
@@ -821,34 +861,55 @@ func _on_decision_pressed(decision: String) -> void:
 		document_manager.clear_opened_docs()
 
 	var dialogue_messages: Array = []
+	var is_forged_normal := (
+		current_character != null
+		and not _is_disguised_character(current_character)
+		and not _is_true_form_character(current_character)
+		and bool(current_character.get("run_is_forged"))
+	)
+
 	if decision == "approve":
-		if current_character.has_method("get_approve_messages"):
+		if is_forged_normal and current_character.has_method("get_forged_approve_messages"):
+			dialogue_messages = current_character.get_forged_approve_messages()
+
+			if dialogue_messages.is_empty() and current_character.has_method("get_approve_messages"):
+				dialogue_messages = current_character.get_approve_messages()
+		elif current_character.has_method("get_approve_messages"):
 			dialogue_messages = current_character.get_approve_messages()
 	else: # deny
-		if current_character.has_method("get_deny_messages"):
+		if is_forged_normal and current_character.has_method("get_forged_deny_messages"):
+			dialogue_messages = current_character.get_forged_deny_messages()
+
+			if dialogue_messages.is_empty() and current_character.has_method("get_deny_messages"):
+				dialogue_messages = current_character.get_deny_messages()
+		elif current_character.has_method("get_deny_messages"):
 			dialogue_messages = current_character.get_deny_messages()
 
 	if dialogue_ui and dialogue_messages.size() > 0:
-	# Disconnect any previous connection
-		if dialogue_ui.conversation_finished.is_connected(_on_decision_dialogue_finished):
-				dialogue_ui.conversation_finished.disconnect(_on_decision_dialogue_finished)
-		dialogue_ui.conversation_finished.connect(_on_decision_dialogue_finished.bind(decision))
+		if _decision_dialogue_callable.is_valid() and dialogue_ui.conversation_finished.is_connected(_decision_dialogue_callable):
+			dialogue_ui.conversation_finished.disconnect(_decision_dialogue_callable)
+
+		_decision_dialogue_callable = Callable(self, "_on_decision_dialogue_finished").bind(decision)
+		dialogue_ui.conversation_finished.connect(_decision_dialogue_callable)
 		dialogue_ui.visible = true
 		dialogue_ui.start_conversation(dialogue_messages)
-	# Exit will happen after the signal
 	else:
-	# No decision dialogue – finish immediately
 		_finish_decision(decision)
 
-func _on_decision_dialogue_finished(decision: String) -> void:
-	if dialogue_ui:
-		if dialogue_ui.conversation_finished.is_connected(_on_decision_dialogue_finished):
-			dialogue_ui.conversation_finished.disconnect(_on_decision_dialogue_finished)
-		dialogue_ui.visible = false
-
-	_finish_decision(decision)
-
 func _finish_decision(decision: String) -> void:
+	if dialogue_ui and dialogue_ui.has_method("stop_conversation"):
+		dialogue_ui.stop_conversation(true)
+
+	character_dialogue_messages = []
+
+	if microphone_button:
+		microphone_button.visible = true
+		microphone_button.disabled = true
+
+		var mic_sprite: AnimatedSprite2D = microphone_button.get_node_or_null("MicSprite")
+		if mic_sprite and mic_sprite.sprite_frames and mic_sprite.sprite_frames.has_animation("default"):
+			mic_sprite.play("default")
+
 	var exit_method := "exit_right" if decision == "approve" else "exit_left"
 	if current_character and current_character.has_method(exit_method):
 		current_character.call(exit_method, func():

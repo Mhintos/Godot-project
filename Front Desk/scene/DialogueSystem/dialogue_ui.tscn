@@ -11,6 +11,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6q285")
+lever_block_x = 760.0
+lever_block_y = 315.0
+lever_block_width = 360.0
+lever_block_height = 320.0
+lever_avoid_margin = 28.0
+vertical_avoid_step = 52.0
+max_upward_avoid_steps = 8
+first_bubble_y = 120.0
 
 [node name="Bubble2" parent="." instance=ExtResource("1_dwk8m")]
 layout_mode = 1
@@ -77,12 +85,3 @@ offset_bottom = -177.0
 text = "Come on handsome, let me in, will ya?"
 horizontal_alignment = 2
 grow_from_right = true
-
-[node name="Microphone" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = 294.0
-offset_top = 532.0
-offset_right = 412.0
-offset_bottom = 627.0
-
-[connection signal="pressed" from="Microphone" to="." method="_on_microphone_pressed"]

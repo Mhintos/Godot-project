@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=4 uid="uid://cjkqk8fhkjsme"]
+[gd_scene load_steps=88 format=4 uid="uid://cjkqk8fhkjsme"]
 
 [ext_resource type="Script" uid="uid://b0vhft4qxic4x" path="res://script/Inspection Script (Main)/inspection_2d.gd" id="1_2wxcv"]
 [ext_resource type="Texture2D" uid="uid://d1wcy3m5tgix3" path="res://assets/ui/Background/background.png" id="1_eqw22"]
@@ -77,9 +77,6 @@
 [ext_resource type="AudioStream" uid="uid://bpsfymibnc524" path="res://sfx/Background Music/Eerie BGM.mp3" id="65_wwi70"]
 [ext_resource type="AudioStream" uid="uid://c57hlotu27kkc" path="res://sfx/General Sounds/BookOpen&CloseSFX.mp3" id="66_clh6u"]
 [ext_resource type="AudioStream" uid="uid://b5wwnw46puifw" path="res://sfx/Characters Dialogue/Player First Line.wav" id="67_ubi2j"]
-[ext_resource type="AudioStream" uid="uid://chlcvywsroqjm" path="res://sfx/Characters Dialogue/Character_Player Response.wav" id="68_q5b1f"]
-[ext_resource type="AudioStream" uid="uid://bw5kjcepc04jl" path="res://sfx/Characters Dialogue/Character Response.wav" id="69_bquck"]
-[ext_resource type="AudioStream" uid="uid://buecl15ke6hfm" path="res://sfx/Characters Dialogue/True Form.wav" id="70_vmp8f"]
 [ext_resource type="Texture2D" uid="uid://dtq4adcbv61i5" path="res://assets/Microphone/MicIdle.png" id="75_spj4f"]
 [ext_resource type="Script" uid="uid://dhx6ox0okw3kq" path="res://script/DialogueSystem/dialogue_ui.gd" id="75_xr4y4"]
 [ext_resource type="Texture2D" uid="uid://d2amp2b0ffggx" path="res://assets/Microphone/MicHover.png" id="76_lrkpu"]
@@ -236,7 +233,6 @@ true_form_character_scenes = Array[PackedScene]([ExtResource("5_2wxcv"), ExtReso
 blood_minitable_path = NodePath("BG Layer/Table Layer/BloodMiniTable")
 blood_organizer_path = NodePath("BG Layer/Table Layer/BloodOrganizer")
 jumpscare_sprite_path = NodePath("JumpscareLayer/JumpscareSprite")
-max_characters_per_shift = null
 warning2_overlay_path = NodePath("Warning2OverlayLayer/Screen Damage Overlay")
 bloodier_minitable_path = NodePath("BG Layer/Table Layer/BloodierMinitable")
 bloodier_organizer_path = NodePath("BG Layer/Table Layer/BloodierOrganizer")
@@ -561,15 +557,7 @@ stream = ExtResource("66_clh6u")
 
 [node name="MicPressSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("67_ubi2j")
-
-[node name="PlayerDialogueSFX" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource("68_q5b1f")
-
-[node name="CharacterDialogueSFX" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource("69_bquck")
-
-[node name="TrueFormDialogueSFX" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource("70_vmp8f")
+volume_db = -10.0
 
 [node name="Screen Damage Overlay" type="CanvasLayer" parent="."]
 
