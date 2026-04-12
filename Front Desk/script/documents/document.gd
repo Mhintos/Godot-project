@@ -11,8 +11,6 @@ var is_active: bool = false
 var document_manager: Node = null
 var inspection_controller: Node = null
 
-var can_interact := true
-
 func _ready() -> void:
 	add_to_group("draggable_documents")
 	document_manager = get_tree().get_first_node_in_group("document_manager")
@@ -26,9 +24,6 @@ func _get_manager() -> Node:
 	return document_manager
 
 func _input(event) -> void:
-	if not can_interact:
-		return
-
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			if contains_point(get_global_mouse_position()) and _is_topmost_document_under_mouse():
@@ -36,9 +31,6 @@ func _input(event) -> void:
 				_try_start_drag()
 		else:
 			_stop_drag()
-
-func set_interactable(value: bool) -> void:
-	can_interact = value
 
 func _try_start_drag():
 

@@ -43,17 +43,8 @@ dialogue_texts = Array[String](["Present your documents.", "Loopy Varnes, cantee
 dialogue_sides = Array[String](["left", "right"])
 approve_texts = Array[String](["Have you noticed something lately?", "What is it?", "Too many students have gone missing.", "I've heard.", "The administration will cover it up.", "Just like they always do."])
 approve_sides = Array[String](["right", "left", "right", "left", "right", "right"])
-<<<<<<< Updated upstream
 deny_texts = Array[String](["You campus permit should have a stamp.", "The stamp was there this morning."])
 deny_sides = Array[String](["left", "right"])
-=======
-deny_texts = Array[String](["Something is wrong with your documents.", "What do you mean?", "Those are just newly printed.", "Sorry, I can't let you in.", "Who even hired you?"])
-deny_sides = Array[String](["left", "right", "right", "left", "right"])
-forged_approve_texts = Array[String](["Wow, that actually worked?", "What do you mean?", "Nevermind sir.", "Have a great day."])
-forged_approve_sides = Array[String](["right", "left", "right", "right"])
-forged_deny_texts = Array[String](["Something is missing with your documents.", "Wait, really?", "Can we set this aside for now?", "I really need to get to work.", "Sorry, but I can't let you in.", "My boss is going to kill me."])
-forged_deny_sides = Array[String](["left", "right", "right", "right", "left", "right"])
->>>>>>> Stashed changes
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(5, 150)

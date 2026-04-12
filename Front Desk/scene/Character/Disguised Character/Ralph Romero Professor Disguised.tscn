@@ -40,13 +40,8 @@ mini_doc_scenes = Array[PackedScene]([ExtResource("2_wcypm"), ExtResource("3_x4m
 is_disguised = true
 custom_scare_duration = 5.0
 expected_decision = 1
-<<<<<<< Updated upstream
 dialogue_texts = Array[String](["Ralph..?", "Professor Ralph Romero."])
 dialogue_sides = Array[String](["left", "right"])
-=======
-dialogue_texts = Array[String](["Ralph..?", "Y3S, 1t'S mE! R@lf r0MeRo!", "L3t mE 1n BuDDy!"])
-dialogue_sides = Array[String](["left", "right", "right"])
->>>>>>> Stashed changes
 deny_texts = Array[String](["M@4x!Q8#bL2$uP9"])
 deny_sides = Array[String](["right"])
 
