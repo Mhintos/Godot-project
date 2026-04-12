@@ -86,6 +86,11 @@ extends Node2D
 @onready var blinds_up_sfx: AudioStreamPlayer = $"Screen Damage Overlay/BlindsUpSFX"
 @onready var blinds_down_sfx: AudioStreamPlayer = $"Screen Damage Overlay/BlindsDownSFX"
 @onready var scare_meter_sfx: AudioStreamPlayer = $"Screen Damage Overlay/ScareMeterSFX"
+@onready var mic_press_sfx: AudioStreamPlayer = $SFX/MicPressSFX
+@onready var player_dialogue_sfx: AudioStreamPlayer = $SFX/PlayerDialogueSFX
+@onready var character_dialogue_sfx: AudioStreamPlayer = $SFX/CharacterDialogueSFX
+@onready var true_form_dialogue_sfx: AudioStreamPlayer = $SFX/TrueFormDialogueSFX
+
 
 var active_jumpscare_sprite: AnimatedSprite2D = null
 
@@ -140,16 +145,39 @@ var normal_scare_times := [30.0, 27.0, 24.0, 21.0]
 var document_manager: Node = null
 var current_shake_offset: Vector2 = Vector2.ZERO
 
+var dialogue_finished_for_character := false
+
 var current_approved_messages: Array = []
 var current_denied_messages: Array = []
 var character_dialogue_messages: Array = []
 var microphone_used := false
 
+<<<<<<< Updated upstream
+=======
+
+
+const DISABLED_BUTTON_SFX_STREAM := preload("res://sfx/General Sounds/Error.wav")
+
+var disabled_button_sfx_player: AudioStreamPlayer = null
+
+const DISABLED_BUTTON_SFX_COOLDOWN := 0.8
+var disabled_button_sfx_cooldown: float = 0.0
+
+const LEFT_DIALOGUE_SOUND = preload("res://sfx/Characters Dialogue/Character_Player Response.wav")
+const RIGHT_DIALOGUE_SOUND = preload("res://sfx/Characters Dialogue/Character Response.wav")
+const TRUE_FORM_DIALOGUE_SOUND = preload("res://sfx/Characters Dialogue/True Form.wav")
+
+>>>>>>> Stashed changes
 func debug_log(msg) -> void:
 	if DEBUG_LOGS:
 		print(msg)
 
 func _ready() -> void:
+	if dialogue_ui:
+		dialogue_ui.left_sound = LEFT_DIALOGUE_SOUND
+		dialogue_ui.right_sound = RIGHT_DIALOGUE_SOUND
+		dialogue_ui.true_form_sound = TRUE_FORM_DIALOGUE_SOUND
+
 	add_to_group("inspection_controller")
 
 	approve_btn.pressed.connect(func(): _on_decision_pressed("approve"))
@@ -356,7 +384,8 @@ func _on_first_mini_doc_interacted() -> void:
 	if _is_true_form_character(current_character):
 		return
 
-	start_scare_meter()
+	if not scare_started:
+		start_scare_meter()
 
 func _on_character_reached_stop() -> void:
 	if current_character == null:
@@ -380,6 +409,22 @@ func _on_character_reached_stop() -> void:
 		if true_form_timer:
 			true_form_timer.start(current_scare_duration)
 
+<<<<<<< Updated upstream
+=======
+		if current_character.has_method("get_dialogue_messages"):
+			character_dialogue_messages = current_character.get_dialogue_messages()
+		else:
+			character_dialogue_messages = []
+
+		if dialogue_ui and character_dialogue_messages.size() > 0:
+			dialogue_ui.set_true_form_mode(true)
+			if dialogue_ui.conversation_finished.is_connected(_on_true_form_dialogue_finished):
+				dialogue_ui.conversation_finished.disconnect(_on_true_form_dialogue_finished)
+			dialogue_ui.conversation_finished.connect(_on_true_form_dialogue_finished)
+			dialogue_ui.visible = true
+			dialogue_ui.start_conversation(character_dialogue_messages)
+
+>>>>>>> Stashed changes
 		debug_log("True form reached stop. 4-second anomaly state started.")
 		return
 
@@ -411,6 +456,7 @@ func _on_character_reached_stop() -> void:
 		debug_log("Disguised reached stop. Waiting for first mini doc interaction.")
 		return
 
+<<<<<<< Updated upstream
 	_unlock_gameplay()
 
 	if microphone_button and character_dialogue_messages.size() > 0:
@@ -439,6 +485,39 @@ func _on_microphone_pressed():
 	play_sliding_paper_sfx()
 	if current_character.has_method("spawn_documents"):
 		current_character.spawn_documents()
+=======
+	microphone_used = false
+	if microphone_button and character_dialogue_messages.size() > 0:
+		microphone_button.visible = true
+		_play_microphone_hint()
+		pass
+
+func _on_true_form_dialogue_finished() -> void:
+	if dialogue_ui:
+		dialogue_ui.set_true_form_mode(false)
+		if dialogue_ui.conversation_finished.is_connected(_on_true_form_dialogue_finished):
+			dialogue_ui.conversation_finished.disconnect(_on_true_form_dialogue_finished)
+		dialogue_ui.visible = false
+
+	character_dialogue_messages = []
+	debug_log("True form dialogue finished, anomaly continues.")
+
+func _on_microphone_pressed() -> void:
+	if microphone_button == null or not dialogue_ui or not current_character or microphone_used:
+		return
+
+	if mic_press_sfx and mic_press_sfx.stream:
+		mic_press_sfx.play()
+
+	microphone_used = true
+
+	microphone_button.disabled = true
+
+	var mic_sprite: AnimatedSprite2D = microphone_button.get_node_or_null("MicSprite")
+	if mic_sprite and mic_sprite.sprite_frames and mic_sprite.sprite_frames.has_animation("default"):
+		mic_sprite.play("default")
+
+>>>>>>> Stashed changes
 	if character_dialogue_messages.size() > 0:
 		if dialogue_ui.conversation_finished.is_connected(_on_dialogue_finished):
 			dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
@@ -446,15 +525,35 @@ func _on_microphone_pressed():
 		dialogue_ui.visible = true
 		dialogue_ui.start_conversation(character_dialogue_messages)
 	else:
-		_on_dialogue_finished()
+		dialogue_finished_for_character = true
+		_unlock_gameplay()
+
+	await get_tree().create_timer(1.0).timeout
+	play_sliding_paper_sfx()
+	if current_character.has_method("spawn_documents"):
+		current_character.spawn_documents()
 
 func _on_dialogue_finished() -> void:
 	if dialogue_ui:
 		dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
 		dialogue_ui.visible = false
 	character_dialogue_messages = []
+<<<<<<< Updated upstream
 	_unlock_gameplay()
 
+=======
+	print("_on_dialogue_finished called")
+	dialogue_finished_for_character = true
+	_unlock_gameplay()
+
+	if microphone_button:
+		microphone_button.disabled = true
+
+		var mic_sprite: AnimatedSprite2D = microphone_button.get_node_or_null("MicSprite")
+		if mic_sprite and mic_sprite.sprite_frames and mic_sprite.sprite_frames.has_animation("default"):
+			mic_sprite.play("default")
+
+>>>>>>> Stashed changes
 func _on_blinds_closed_success() -> void:
 	if not true_form_active:
 		return
@@ -560,6 +659,8 @@ func _on_jumpscare_finished() -> void:
 	get_tree().change_scene_to_file(game_over_scene_path)
 
 func _on_decision_pressed(decision: String) -> void:
+	if current_character and current_character.has_method("set_mini_docs_interactable"):
+		current_character.set_mini_docs_interactable(false)
 	if _locked or game_over:
 		return
 
@@ -575,6 +676,16 @@ func _on_decision_pressed(decision: String) -> void:
 	true_form_timer.stop()
 	reset_scare_meter()
 	stop_anomaly_sfx()
+
+	if mini_table_layer:
+		for child in mini_table_layer.get_children():
+			if child.has_method("set_interactable"):
+				child.set_interactable(false)
+
+	if document_layer:
+		for child in document_layer.get_children():
+			if child.has_method("set_interactable"):
+				child.set_interactable(false)
 
 	if current_character == null:
 		true_form_active = false
@@ -594,18 +705,21 @@ func _on_decision_pressed(decision: String) -> void:
 
 	true_form_active = false
 
-	_clear_layer(mini_table_layer)
-	_clear_layer(document_layer)
-
-	if document_manager and document_manager.has_method("clear_opened_docs"):
-		document_manager.clear_opened_docs()
+	if document_manager and document_manager.has_method("set_all_opened_docs_interactable"):
+		document_manager.set_all_opened_docs_interactable(false)
 
 	var dialogue_messages: Array = []
+	var is_forged = current_character.run_is_forged   # true if forged
+
 	if decision == "approve":
-		if current_character.has_method("get_approve_messages"):
+		if is_forged and current_character.has_method("get_forged_approve_messages"):
+			dialogue_messages = current_character.get_forged_approve_messages()
+		elif current_character.has_method("get_approve_messages"):
 			dialogue_messages = current_character.get_approve_messages()
 	else: # deny
-		if current_character.has_method("get_deny_messages"):
+		if is_forged and current_character.has_method("get_forged_deny_messages"):
+			dialogue_messages = current_character.get_forged_deny_messages()
+		elif current_character.has_method("get_deny_messages"):
 			dialogue_messages = current_character.get_deny_messages()
 
 	if dialogue_ui and dialogue_messages.size() > 0:
@@ -617,13 +731,19 @@ func _on_decision_pressed(decision: String) -> void:
 		dialogue_ui.start_conversation(dialogue_messages)
 	# Exit will happen after the signal
 	else:
-	# No decision dialogue – finish immediately
 		_finish_decision(decision)
 
 func _on_decision_dialogue_finished(decision: String) -> void:
 	if dialogue_ui:
 		dialogue_ui.conversation_finished.disconnect(_on_decision_dialogue_finished)
 		dialogue_ui.visible = false
+<<<<<<< Updated upstream
+=======
+
+	_clear_layer(mini_table_layer)
+	_clear_layer(document_layer)
+
+>>>>>>> Stashed changes
 	_finish_decision(decision)
 
 func _finish_decision(decision: String) -> void:

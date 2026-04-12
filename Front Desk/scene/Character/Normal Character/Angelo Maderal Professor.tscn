@@ -43,8 +43,17 @@ dialogue_texts = Array[String](["Present your documents.", "Angelo Maderal. CCS 
 dialogue_sides = Array[String](["left", "right"])
 approve_texts = Array[String](["Thank you.", "No one is supposed to go near the old building.", "Why not?", "You'll find out soon."])
 approve_sides = Array[String](["right", "right", "left", "right"])
+<<<<<<< Updated upstream
 deny_texts = Array[String](["Your name is spelled wrong.", "It's a nickname."])
 deny_sides = Array[String](["left", "right"])
+=======
+deny_texts = Array[String](["There's something wrong with your documents.", "No, there isn't.", "I am always sure with the details of my documents.", "Sorry, but I can't let you in.", "Unbelievable."])
+deny_sides = Array[String](["left", "right", "right", "left", "right"])
+forged_approve_texts = Array[String](["Have a good day, sir Angel.", "Hehehe.", "See you around."])
+forged_approve_sides = Array[String](["left", "right", "right"])
+forged_deny_texts = Array[String](["Something is deformed in one of your documents.", "Oops, I forgot to fix that.", "My apologies, I will get it fixed."])
+forged_deny_sides = Array[String](["left", "right", "right"])
+>>>>>>> Stashed changes
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, 148)

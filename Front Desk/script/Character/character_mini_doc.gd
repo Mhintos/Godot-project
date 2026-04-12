@@ -24,7 +24,12 @@ var _move_tween: Tween = null
 var inspection_controller: Node = null
 var document_manager: Node = null
 
+var can_interact := true
+
 func _ready() -> void:
+	add_to_group("mini_docs")
+	if not can_interact:
+		return
 	inspection_controller = get_tree().get_first_node_in_group("inspection_controller")
 	document_manager = get_tree().get_first_node_in_group("document_manager")
 
@@ -79,7 +84,14 @@ func _finish_to_table() -> void:
 	_moving = false
 	_move_tween = null
 
+func set_interactable(value: bool) -> void: 
+	can_interact = value
+	input_pickable = value
+
 func _input_event(_viewport, event, _shape_idx) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		get_tree().call_group("inspection_controller", "_on_first_mini_doc_interacted")
+
 	if not (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
 		return
 

@@ -17,6 +17,9 @@ signal conversation_finished
 @export var left_gap: float = 10                 # Gap between left-side bubbles
 @export var right_gap: float = 10                # Gap between right-side bubbles
 @export var first_bubble_y: float = 70
+@export var left_sound: AudioStream  # assign in Inspector
+@export var right_sound: AudioStream
+@export var true_form_sound: AudioStream
 
 # --------------------------------------------------------------------
 # INTERNAL VARIABLES
@@ -25,11 +28,12 @@ var active_bubbles = []          # Each entry: { "node": bubble, "timer": timer,
 var current_index = 0
 var dialogues = []               # List of chapters (each chapter is an Array of RichTextLabel nodes)
 var current_dialogue_index = 0
-var current_bubbles = []         # Will hold an Array of RichTextLabel for the active chapter
+var current_bubbles = []      # Will hold an Array of RichTextLabel for the active chapter
+var is_true_form_conversation := false
 
 func _ready():
-	# Hide the button at start (will show when dialogue ends)
 	return
+
 
 func start_dialogue(chapter_index: int):
 	if chapter_index >= dialogues.size():
@@ -85,6 +89,22 @@ func spawn_next_bubble():
 
 	# Start animation
 	bubble.start()
+
+	var side = bubble.get_meta("side", "")
+	var stream: AudioStream = null
+	if is_true_form_conversation and true_form_sound:
+		stream = true_form_sound
+	elif side == "left":
+		stream = left_sound
+	elif side == "right":
+		stream = right_sound
+
+	if stream:
+		var player = AudioStreamPlayer.new()
+		player.stream = stream
+		add_child(player)
+		player.play()
+		player.finished.connect(player.queue_free)
 
 	# Timer for staying duration
 	var timer = Timer.new()
@@ -159,6 +179,9 @@ func reposition_stack():
 				break
 		current_y = target_y + bubble.size.y + gap
 
+func set_true_form_mode(enabled: bool) -> void:
+	is_true_form_conversation = enabled
+
 # Starts a conversation with a list of messages
 # messages: Array of dictionaries, each with "text" (String) and "side" (String, "left" or "right")
 func start_conversation(messages: Array) -> void:
@@ -170,8 +193,7 @@ func start_conversation(messages: Array) -> void:
 # Build the dialogue chapters: one chapter with all messages
 	var chapter = []
 	for msg in messages:
-		# Find or create a bubble node with the right text and side
-		var bubble = _create_bubble(msg["text"], msg["side"])
+		var bubble =  _create_bubble(msg["text"], msg["side"])
 		if bubble:
 			chapter.append(bubble)
 # Replace the dialogues array with this single chapter
@@ -186,10 +208,38 @@ func _create_bubble(text: String, side: String) -> RichTextLabel:
 	var bubble = preload("res://scene/DialogueSystem/message_bubble.tscn").instantiate()
 	bubble.text = text
 	bubble.grow_from_right = (side == "right")
+	bubble.set_meta("side", side)
 	add_child(bubble)
+<<<<<<< Updated upstream
+=======
+
+	var stream: AudioStream = null
+	if is_true_form_conversation and true_form_sound:
+		stream = true_form_sound
+	if side == "left":
+		stream = left_sound
+	elif side == "right":
+		stream = right_sound
+
+	if stream:
+		var player = AudioStreamPlayer.new()
+		player.stream = stream
+		player.volume_db = 0.0  # ensure full volume
+		add_child(player)
+		player.play()
+		player.finished.connect(func(): print("Sound finished for ", side))
+		# Do NOT queue_free immediately; keep it for 2 seconds then free
+		player.queue_free()
+	else:
+		print("No stream for side ", side)
+
+>>>>>>> Stashed changes
 	return bubble
 
-# Optional: clear all bubbles from the UI when starting a new conversation
+func _play_sound(player: AudioStreamPlayer):
+	if player and player.stream:
+		player.play()
+
 func _clear_all_bubbles() -> void:
 	for child in get_children():
 		if child is RichTextLabel:

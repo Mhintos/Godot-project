@@ -43,8 +43,17 @@ dialogue_texts = Array[String](["Present your documents.", "Kyle Navarro, securi
 dialogue_sides = Array[String](["left", "right"])
 approve_texts = Array[String](["Thanks.", "I was patrolling the old building last night.", "I was assigned there.", "Did anything happen?", "I saw things I wasn't supposed to."])
 approve_sides = Array[String](["right", "right", "right", "left", "right"])
+<<<<<<< Updated upstream
 deny_texts = Array[String](["These documents do not match.", "I know nothing about that."])
 deny_sides = Array[String](["left", "right"])
+=======
+deny_texts = Array[String](["These documents do not match.", "What?", "They were made just recently.", "I cannot let you in. Sorry.", "I hope you get fired."])
+deny_sides = Array[String](["left", "right", "right", "left", "right"])
+forged_approve_texts = Array[String]([" I can't believe it.", "Believe what?", "That there is someone in this world..", "..who is too dumb to miss that.", "See ya!"])
+forged_approve_sides = Array[String](["right", "left", "right", "right", "right"])
+forged_deny_texts = Array[String](["Your documents are deformed.", "Seriously?", "Just let it slide for now man, I'm already late here.", "I can't let you in. I'm sorry.", "Another cut to my salary, I guess."])
+forged_deny_sides = Array[String](["left", "right", "right", "left", "right"])
+>>>>>>> Stashed changes
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, 139)
@@ -52,7 +61,7 @@ scale = Vector2(3, 3.1)
 sprite_frames = SubResource("SpriteFrames_c7ua8")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.90889895
+frame_progress = 0.15538925
 
 [node name="MiniDocAnchor" type="Node2D" parent="."]
 z_index = 50
