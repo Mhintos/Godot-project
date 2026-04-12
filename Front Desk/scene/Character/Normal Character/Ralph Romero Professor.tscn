@@ -44,8 +44,12 @@ dialogue_texts = Array[String](["Present your documents.", "Ralph Romero. Nursin
 dialogue_sides = Array[String](["left", "right"])
 approve_texts = Array[String](["Thank you.", "By the way, have you seen one of my students?", "They suddenly disappeared last week.", "One after another, huh?", "Yes.", "But the administration doesn't care."])
 approve_sides = Array[String](["right", "right", "right", "left", "right", "right"])
-deny_texts = Array[String](["Is this a joke?", "What?", "Do I look like a clown to you?", "Your entry is denied.", "Re-do your documents.", "You should wear glasses next time.", "Because I've never someone as blind as you."])
-deny_sides = Array[String](["left", "right", "right", "left", "left", "right", "right"])
+deny_texts = Array[String](["There's something wrong with your documents.", "Whats wrong with it?", "It look's suspicious sir.", "I can't let you in.", "What a disgrace.", "I swear, this school should look for another inspector."])
+deny_sides = Array[String](["left", "right", "left", "left", "rigth", "right"])
+forged_approve_texts = Array[String](["Wow, you're actually so dumb", "Good luck in keeping your jab pal."])
+forged_approve_sides = Array[String](["right", "right"])
+forged_deny_texts = Array[String](["Is this a joke?", "What", "Do I look like a clown to you?", "I can't let you in sir.", "You should correct your documents.", "and you should correct your eye sight", "Because iv'e never seen someone as blind as you"])
+forged_deny_sides = Array[String](["left", "right", "right", "left", "left", "right", "right"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(9, 156)
