@@ -91,6 +91,11 @@ extends Node2D
 @onready var blinds_down_sfx: AudioStreamPlayer = $"Screen Damage Overlay/BlindsDownSFX"
 @onready var scare_meter_sfx: AudioStreamPlayer = $"Screen Damage Overlay/ScareMeterSFX"
 
+@onready var mic_press_sfx: AudioStreamPlayer = $SFX/MicPressSFX
+@onready var player_dialogue_sfx: AudioStreamPlayer = $SFX/PlayerDialogueSFX
+@onready var character_dialogue_sfx: AudioStreamPlayer = $SFX/CharacterDialogueSFX
+@onready var true_form_dialogue_sfx: AudioStreamPlayer = $SFX/TrueFormDialogueSFX
+
 var active_jumpscare_sprite: AnimatedSprite2D = null
 
 const NORMALS_PER_RUN := 6
@@ -181,6 +186,10 @@ var disabled_button_sfx_player: AudioStreamPlayer = null
 const DISABLED_BUTTON_SFX_COOLDOWN := 0.8
 var disabled_button_sfx_cooldown: float = 0.0
 
+const LEFT_DIALOGUE_SOUND = preload("res://sfx/Characters Dialogue/Character_Player Response.wav")
+const RIGHT_DIALOGUE_SOUND = preload("res://sfx/Characters Dialogue/Character Response.wav")
+const TRUE_FORM_DIALOGUE_SOUND = preload("res://sfx/Characters Dialogue/True Form.wav")
+
 var forged_documents_missed := 0
 var disguised_anomalies_stopped := 0
 var true_forms_stopped := 0
@@ -192,6 +201,11 @@ func debug_log(msg) -> void:
 		print(msg)
 
 func _ready() -> void:
+	if dialogue_ui:
+		dialogue_ui.left_sound = LEFT_DIALOGUE_SOUND
+		dialogue_ui.right_sound = RIGHT_DIALOGUE_SOUND
+		dialogue_ui.true_form_sound = TRUE_FORM_DIALOGUE_SOUND
+		
 	add_to_group("inspection_controller")
 
 	approve_btn.pressed.connect(func(): _on_decision_pressed("approve"))
@@ -511,8 +525,12 @@ func _on_character_reached_stop() -> void:
 			character_dialogue_messages = []
 
 		if dialogue_ui and character_dialogue_messages.size() > 0:
+			if dialogue_ui.has_method("set_true_form_mode"):
+				dialogue_ui.set_true_form_mode(true)
+
 			if dialogue_ui.conversation_finished.is_connected(_on_true_form_dialogue_finished):
 				dialogue_ui.conversation_finished.disconnect(_on_true_form_dialogue_finished)
+
 			dialogue_ui.conversation_finished.connect(_on_true_form_dialogue_finished)
 			dialogue_ui.visible = true
 			dialogue_ui.start_conversation(character_dialogue_messages)
@@ -553,8 +571,12 @@ func _on_character_reached_stop() -> void:
 		
 func _on_true_form_dialogue_finished() -> void:
 	if dialogue_ui:
+		if dialogue_ui.has_method("set_true_form_mode"):
+			dialogue_ui.set_true_form_mode(false)
+
 		if dialogue_ui.conversation_finished.is_connected(_on_true_form_dialogue_finished):
 			dialogue_ui.conversation_finished.disconnect(_on_true_form_dialogue_finished)
+
 		dialogue_ui.visible = false
 
 	character_dialogue_messages = []
@@ -569,6 +591,9 @@ func _on_microphone_pressed() -> void:
 
 	if microphone_used:
 		return
+
+	if mic_press_sfx and mic_press_sfx.stream:
+		mic_press_sfx.play()
 
 	microphone_used = true
 
