@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://e8a20cmkxfjp"]
+[gd_scene load_steps=9 format=3 uid="uid://e8a20cmkxfjp"]
 
 [ext_resource type="Script" uid="uid://dsjsvfs50r4lf" path="res://script/Tips Menu/tips_page_3.gd" id="1_15eje"]
 [ext_resource type="Texture2D" uid="uid://bpav5jxwkqd0n" path="res://assets/tips/Tips 3.png" id="2_m4sf4"]
 [ext_resource type="Texture2D" uid="uid://ba5tg0pj64pl8" path="res://assets/tips/Back.png" id="3_trov2"]
 [ext_resource type="Texture2D" uid="uid://y2tnbdxyw5lb" path="res://assets/tips/Back Darker.png" id="4_cfegd"]
 [ext_resource type="Texture2D" uid="uid://irvx2drnwl86" path="res://assets/tips/Back Hover.png" id="5_xhlgi"]
+[ext_resource type="Texture2D" uid="uid://qt24hj4ipxlb" path="res://assets/tips/Next.png" id="6_15eje"]
+[ext_resource type="Texture2D" uid="uid://ds6ajjx6rvrtb" path="res://assets/tips/Next Darker.png" id="7_m4sf4"]
+[ext_resource type="Texture2D" uid="uid://kfcs85355vbl" path="res://assets/tips/Next Hover.png" id="8_trov2"]
 
 [node name="Tips3" type="Node2D"]
 script = ExtResource("1_15eje")
@@ -28,5 +31,16 @@ texture_hover = ExtResource("5_xhlgi")
 ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_lock_ = true
+
+[node name="NextButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 1051.0
+offset_top = 28.0
+offset_right = 1117.0
+offset_bottom = 85.0
+texture_normal = ExtResource("6_15eje")
+texture_pressed = ExtResource("7_m4sf4")
+texture_hover = ExtResource("8_trov2")
+ignore_texture_size = true
+stretch_mode = 0
 
 [connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_back_button_pressed"]

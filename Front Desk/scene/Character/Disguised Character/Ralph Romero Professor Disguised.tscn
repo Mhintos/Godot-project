@@ -41,7 +41,7 @@ is_disguised = true
 custom_scare_duration = 8.0
 expected_decision = 1
 dialogue_texts = Array[String](["Ralph..?", "Y3S, 1t'S mE! R@lf r0MeRo!", "L3t mE 1n BuDDy!"])
-dialogue_sides = Array[String](["left", "right"])
+dialogue_sides = Array[String](["left", "right", "right"])
 deny_texts = Array[String](["M@4x!Q8#bL2$uP9"])
 deny_sides = Array[String](["right"])
 
