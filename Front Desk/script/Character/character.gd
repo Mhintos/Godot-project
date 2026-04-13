@@ -304,6 +304,12 @@ func _spawn_mini_docs() -> void:
 		mini_2.table_layer = mini_table_layer
 		mini_2.table_slot = mini_permit_slot
 
+func set_mini_docs_interactable(interactable: bool) -> void:
+	for child in mini_doc_anchor_1.get_children():
+		child.set_interactable(interactable)
+	for child in mini_doc_anchor_2.get_children():
+		child.set_interactable(interactable)
+
 func _clear_mini_docs() -> void:
 	if mini_doc_anchor_1:
 		for child in mini_doc_anchor_1.get_children():

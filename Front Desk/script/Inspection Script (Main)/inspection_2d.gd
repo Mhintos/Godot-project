@@ -621,14 +621,6 @@ func _on_microphone_pressed() -> void:
 	if mic_sprite and mic_sprite.sprite_frames and mic_sprite.sprite_frames.has_animation("default"):
 		mic_sprite.play("default")
 
-	if current_character.has_method("spawn_documents"):
-		current_character.spawn_documents()
-
-	var is_normal_character := not _is_disguised_character(current_character) and not _is_true_form_character(current_character)
-
-	if is_normal_character:
-		_unlock_gameplay()
-
 	if character_dialogue_messages.size() > 0:
 		if dialogue_ui.conversation_finished.is_connected(_on_dialogue_finished):
 			dialogue_ui.conversation_finished.disconnect(_on_dialogue_finished)
@@ -637,9 +629,13 @@ func _on_microphone_pressed() -> void:
 		dialogue_ui.conversation_finished.connect(_on_dialogue_finished)
 		dialogue_ui.start_conversation(character_dialogue_messages)
 	else:
-		if is_normal_character:
-			return
+		_unlock_gameplay()
 		_on_dialogue_finished()
+
+	await get_tree().create_timer(1.0).timeout
+	play_sliding_paper_sfx()
+	if current_character.has_method("spawn_documents"):
+		current_character.spawn_documents()
 
 func _on_dialogue_finished() -> void:
 	if dialogue_ui:
@@ -661,7 +657,7 @@ func _on_dialogue_finished() -> void:
 	character_dialogue_messages = []
 
 	var is_normal_character := current_character != null and not _is_disguised_character(current_character) and not _is_true_form_character(current_character)
-	if not is_normal_character:
+	if is_normal_character:
 		_unlock_gameplay()
 
 func _on_decision_dialogue_finished(decision: String) -> void:
@@ -671,6 +667,9 @@ func _on_decision_dialogue_finished(decision: String) -> void:
 
 		_decision_dialogue_callable = Callable()
 		dialogue_ui.visible = false
+
+	_clear_layer(mini_table_layer)
+	_clear_layer(document_layer)
 
 	_finish_decision(decision)
 
@@ -818,6 +817,9 @@ func _on_jumpscare_finished() -> void:
 	get_tree().change_scene_to_file(stats_page_scene_path)
 
 func _on_decision_pressed(decision: String) -> void:
+	if current_character and current_character.has_method("set_mini_docs_interactable"):
+		current_character.set_mini_docs_interactable(false)
+
 	if _locked or game_over:
 		return
 
@@ -833,6 +835,16 @@ func _on_decision_pressed(decision: String) -> void:
 	true_form_timer.stop()
 	reset_scare_meter()
 	stop_anomaly_sfx()
+
+	if mini_table_layer:
+		for child in mini_table_layer.get_children():
+			if child.has_method("set_interactable"):
+				child.set_interactable(false)
+
+	if document_layer:
+		for child in document_layer.get_children():
+			if child.has_method("set_interactable"):
+				child.set_interactable(false)
 
 	if current_character == null:
 		true_form_active = false
@@ -854,11 +866,8 @@ func _on_decision_pressed(decision: String) -> void:
 
 	true_form_active = false
 
-	_clear_layer(mini_table_layer)
-	_clear_layer(document_layer)
-
-	if document_manager and document_manager.has_method("clear_opened_docs"):
-		document_manager.clear_opened_docs()
+	if document_manager and document_manager.has_method("set_all_opened_docs_interactable"):
+		document_manager.set_all_opened_docs_interactable(false)
 
 	var dialogue_messages: Array = []
 	var is_forged_normal := (
