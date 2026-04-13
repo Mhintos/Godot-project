@@ -321,7 +321,8 @@ layer = 12
 unique_name_in_owner = true
 light_mask = 513
 visibility_layer = 513
-z_index = 100
+z_index = 12
+z_as_relative = false
 position = Vector2(211.585, 557.98)
 scale = Vector2(2.04, 2.04)
 metadata/_edit_lock_ = true
@@ -390,7 +391,7 @@ position = Vector2(1341, 62)
 position = Vector2(-239, 62)
 
 [node name="Documents" type="CanvasLayer" parent="."]
-layer = 13
+layer = 14
 
 [node name="MiniTableLayer" type="Node2D" parent="Documents"]
 z_index = -50
@@ -417,14 +418,13 @@ position = Vector2(283, 443)
 layer = 19
 
 [node name="HandbookIcon" parent="Bloody UI" instance=ExtResource("17_vjnc3")]
+visible = false
 light_mask = 513
 visibility_layer = 513
-z_index = 200
 position = Vector2(210.655, 557.98)
 scale = Vector2(2.04, 2.04)
 
 [node name="Handbook" parent="Bloody UI/HandbookIcon" instance=ExtResource("23_7su7m")]
-visible = false
 position = Vector2(255.56131, -120.088234)
 scale = Vector2(0.475, 0.475)
 
@@ -554,6 +554,8 @@ parameters/looping = true
 
 [node name="BookOpen&CloseSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("66_clh6u")
+volume_db = 7.0
+pitch_scale = 0.7
 
 [node name="MicPressSFX" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("67_ubi2j")
@@ -604,7 +606,7 @@ stream = ExtResource("76_wf27c")
 volume_db = -15.0
 
 [node name="DialogueLayer" type="CanvasLayer" parent="."]
-layer = 19
+layer = 12
 
 [node name="DialogueUI" type="Control" parent="DialogueLayer"]
 layout_mode = 3
@@ -614,7 +616,7 @@ offset_bottom = 40.0
 script = ExtResource("75_xr4y4")
 
 [node name="MicrophoneLayer" type="CanvasLayer" parent="."]
-layer = 17
+layer = 12
 
 [node name="Microphone" type="TextureButton" parent="MicrophoneLayer"]
 offset_left = 298.0

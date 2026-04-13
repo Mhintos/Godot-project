@@ -17,7 +17,6 @@ var is_active := false
 # =============================
 @onready var page_turn_sfx: AudioStreamPlayer = get_tree().current_scene.get_node_or_null("SFX/PageTurnSFX")
 @onready var book_open_close_sfx: AudioStreamPlayer = get_tree().current_scene.get_node_or_null("SFX/BookOpen&CloseSFX")
-
 # =============================
 # Page Navigation
 # =============================
